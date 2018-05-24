@@ -1,0 +1,67 @@
+{
+	"entities.pyrite.hurt": {
+        "sounds": [
+            { "name": "amalgam:entities/pyrite/hurt1" },
+            { "name": "amalgam:entities/pyrite/hurt2" },
+            { "name": "amalgam:entities/pyrite/hurt3" },
+            { "name": "amalgam:entities/pyrite/hurt4" }
+        ]
+    },
+    "entities.pyrite.obey": {
+        "sounds": [
+            { "name": "amalgam:entities/pyrite/obey1" },
+			{ "name": "amalgam:entities/pyrite/obey2" },
+			{ "name": "amalgam:entities/pyrite/obey3" }
+        ]
+    },
+	"entities.pyrite.death": {
+        "sounds": [
+            { "name": "amalgam:entities/pyrite/death1" },
+            { "name": "amalgam:entities/pyrite/death2" }
+        ]
+    },
+    "entities.ender_pearl.hurt": {
+        "sounds": [
+            { "name": "amalgam:entities/ender_pearl/hurt1" },
+			{ "name": "amalgam:entities/ender_pearl/hurt2" },
+			{ "name": "amalgam:entities/ender_pearl/hurt3" },
+			{ "name": "amalgam:entities/ender_pearl/hurt4" },
+			{ "name": "amalgam:entities/ender_pearl/hurt5" }
+        ]
+    },
+    "entities.ender_pearl.obey": {
+        "sounds": [
+            { "name": "amalgam:entities/ender_pearl/obey1" },
+			{ "name": "amalgam:entities/ender_pearl/obey2" },
+			{ "name": "amalgam:entities/ender_pearl/obey3" },
+			{ "name": "amalgam:entities/ender_pearl/obey4" }
+        ]
+    },
+	"entities.ender_pearl.death": {
+        "sounds": [
+            { "name": "amalgam:entities/ender_pearl/death1" },
+			{ "name": "amalgam:entities/ender_pearl/death2" },
+			{ "name": "amalgam:entities/ender_pearl/death3" },
+			{ "name": "amalgam:entities/ender_pearl/death4" },
+			{ "name": "amalgam:entities/ender_pearl/death5" }
+        ]
+    },
+    "entities.ender_pearl.sing": {
+    	"sounds": [
+            { "name": "amalgam:entities/ender_pearl/note1" }
+        ]
+    },
+	"entities.ender_pearl.weird": {
+        "sounds": [
+            { "name": "amalgam:entities/ender_pearl/weird1" },
+			{ "name": "amalgam:entities/ender_pearl/weird2" },
+			{ "name": "amalgam:entities/ender_pearl/weird3" },
+			{ "name": "amalgam:entities/ender_pearl/weird4" },
+			{ "name": "amalgam:entities/ender_pearl/weird5" },
+			{ "name": "amalgam:entities/ender_pearl/weird6" },
+			{ "name": "amalgam:entities/ender_pearl/weird7" },
+			{ "name": "amalgam:entities/ender_pearl/weird8" },
+			{ "name": "amalgam:entities/ender_pearl/weird9" }
+        ]
+    }
+}
