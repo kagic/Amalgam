@@ -6,9 +6,9 @@ import mod.akrivus.amalgam.gem.ai.EntityAIFollowSteven;
 import mod.akrivus.amalgam.gem.ai.EntityAIPickUpItemsIndiscriminately;
 import mod.akrivus.amalgam.gem.ai.EntityAIProtectSteven;
 import mod.akrivus.amalgam.gem.ai.EntityAIProtectVillagers;
+import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowGem;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowPlayer;
-import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.init.ModSounds;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -370,7 +370,7 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
     }
 	public void onDeath(DamageSource cause) {
 		if (!this.world.isRemote) {
-			this.dropItem(ModItems.CONNIE_BRACELET, 1);
+			this.dropItem(AmItems.CONNIE_BRACELET, 1);
 			for (int i = 0; i < this.backpack.getSizeInventory(); ++i) {
 				this.entityDropItem(this.backpack.getStackInSlot(i), 0.0F);
 			}

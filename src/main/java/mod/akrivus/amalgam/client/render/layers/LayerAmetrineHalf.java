@@ -1,4 +1,4 @@
-package mod.akrivus.amalgam.client.render.layer;
+package mod.akrivus.amalgam.client.render.layers;
 
 import mod.akrivus.amalgam.client.render.RenderCitrine;
 import mod.akrivus.amalgam.gem.EntityCitrine;

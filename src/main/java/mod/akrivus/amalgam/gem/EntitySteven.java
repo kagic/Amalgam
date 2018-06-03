@@ -6,9 +6,9 @@ import mod.akrivus.amalgam.gem.ai.EntityAIProtectConnie;
 import mod.akrivus.amalgam.gem.ai.EntityAIProtectVillagers;
 import mod.akrivus.amalgam.gem.ai.EntityAISingJamBuds;
 import mod.akrivus.amalgam.gem.ai.EntityAISpawnConnie;
+import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowGem;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowPlayer;
-import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.init.ModSounds;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -150,7 +150,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 				this.sayHello();
 				return true;
 			}
-			else if (player.getHeldItem(hand).getItem() == ModItems.CONNIE_BRACELET) {
+			else if (player.getHeldItem(hand).getItem() == AmItems.CONNIE_BRACELET) {
 				this.playProtectSound(0);
 				if (!this.hasWristband()) {
 					this.setWristband(true);
@@ -260,7 +260,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 	public void onDeath(DamageSource cause) {
 		this.world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, this.posX, this.posY + this.height / 2, this.posZ, 1.0D, 1.0D, 1.0D);
 		if (!this.world.isRemote) {
-			this.dropItem(ModItems.STEVEN_GEM, 1);
+			this.dropItem(AmItems.STEVEN_GEM, 1);
 			for (int i = 0; i < this.backpack.getSizeInventory(); ++i) {
 				this.entityDropItem(this.backpack.getStackInSlot(i), 0.0F);
 			}

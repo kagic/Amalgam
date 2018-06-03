@@ -4,6 +4,8 @@ entity.kagic.citrine_1.name=Ametrine
 entity.kagic.pyrite.name=Pyrite
 entity.kagic.ender_pearl.name=Ender Pearl
 entity.kagic.nacre.name=Mother Of Pearl
+entity.kagic.steven.name=Steven
+entity.kagic.connie.name=Connie
 
 entity.citrine.name=Citrine
 entity.citrine.name.plural=Citrines
@@ -11,15 +13,27 @@ entity.citrine_1.name=Ametrine
 entity.pyrite.name=Pyrite
 entity.ender_pearl.name=Ender Pearl
 entity.nacre.name=Mother Of Pearl
+entity.steven.name=Steven
+entity.connie.name=Connie
 
 item.citrine_gem.name=Citrine Gem
 item.citrine_1_gem.name=Ametrine Gem
 item.pyrite_gem.name=Pyrite Gem
 item.ender_pearl_gem.name=Ender Pearl Gem
 item.nacre_gem.name=Mother Of Pearl Gem
+item.steven_stone.name=Steven's Gem
+item.connie_bracelet.name=Connie's Glow Bracelet
 
 item.cracked_citrine_gem.name=Cracked Citrine Gem
 item.cracked_citrine_1_gem.name=Cracked Ametrine Gem
 item.cracked_pyrite_gem.name=Cracked Pyrite Gem
 item.cracked_ender_pearl_gem.name=Cracked Ender Pearl Gem
 item.cracked_nacre_gem.name=Cracked Mother Of Pearl Gem
+
+item.record.connie_bracelet.desc=Aivi & Surasshu - Love Like You
+
+command.kagic.steven_doesnt_spawn=If only it was that easy for him to return.
+command.kagic.connie_doesnt_spawn=At least someone besides her parents cared.
+
+command.kagic.cheeseburger_backpack.name=Cheeseburger Backpack
+command.kagic.connie_backpack.name=Connie's Backpack

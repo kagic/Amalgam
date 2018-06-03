@@ -1,4 +1,4 @@
-package mod.akrivus.kagic.blocks;
+package mod.akrivus.amalgam.blocks;
 
 import java.util.Random;
 

@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "kagic:items/connie_bracelet"
+        "layer0": "amalgam:items/connie_bracelet"
     }
 }

@@ -1,12 +1,12 @@
 package mod.akrivus.amalgam.client.render;
 
 import mod.akrivus.amalgam.client.model.ModelNacre;
-import mod.akrivus.amalgam.client.render.layer.LayerNacreColor1;
-import mod.akrivus.amalgam.client.render.layer.LayerNacreColor2;
-import mod.akrivus.amalgam.client.render.layer.LayerNacreColor3;
-import mod.akrivus.amalgam.client.render.layer.LayerNacreColor4;
-import mod.akrivus.amalgam.client.render.layer.LayerNacreItem;
-import mod.akrivus.amalgam.client.render.layer.LayerNacreShell;
+import mod.akrivus.amalgam.client.render.layers.LayerNacreColor1;
+import mod.akrivus.amalgam.client.render.layers.LayerNacreColor2;
+import mod.akrivus.amalgam.client.render.layers.LayerNacreColor3;
+import mod.akrivus.amalgam.client.render.layers.LayerNacreColor4;
+import mod.akrivus.amalgam.client.render.layers.LayerNacreItem;
+import mod.akrivus.amalgam.client.render.layers.LayerNacreShell;
 import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.kagic.client.render.RenderGemBase;
 import mod.akrivus.kagic.client.render.layers.LayerBirthdayHat;

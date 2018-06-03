@@ -1,4 +1,4 @@
-package mod.akrivus.amalgam.client.render.layer;
+package mod.akrivus.amalgam.client.render.layers;
 
 import mod.akrivus.amalgam.client.render.RenderNacre;
 import mod.akrivus.amalgam.gem.EntityNacre;
@@ -7,21 +7,21 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 
-public class LayerNacreColor4 implements LayerRenderer<EntityNacre> {
+public class LayerNacreColor1 implements LayerRenderer<EntityNacre> {
 	private final RenderNacre gemRenderer;
 	private final ModelBase gemModel;
 	private float offset;
 	private String name;
 	
-	public LayerNacreColor4(RenderNacre gemRenderer) {
+	public LayerNacreColor1(RenderNacre gemRenderer) {
 		this(gemRenderer, 0F);
 	}
 
-	public LayerNacreColor4(RenderNacre gemRenderer, float offset) {
+	public LayerNacreColor1(RenderNacre gemRenderer, float offset) {
 		this(gemRenderer, offset, null);
 	}
 	
-	public LayerNacreColor4(RenderNacre gemRenderer, float offset, String name) {
+	public LayerNacreColor1(RenderNacre gemRenderer, float offset, String name) {
 		this.gemRenderer = gemRenderer;
 		this.gemModel = gemRenderer.getMainModel();
 		this.offset = offset;
@@ -31,7 +31,7 @@ public class LayerNacreColor4 implements LayerRenderer<EntityNacre> {
 	@Override
 	public void doRenderLayer(EntityNacre gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.gemRenderer.bindTexture(this.getTexture(gem));
-		int skin = gem.getLayerColor(gem.getColor4());
+		int skin = gem.getLayerColor(gem.getColor1());
 		float r = (float) ((skin & 16711680) >> 16) / 255f;
 		float g = (float) ((skin & 65280) >> 8) / 255f;
 		float b = (float) ((skin & 255) >> 0) / 255f;
@@ -45,7 +45,7 @@ public class LayerNacreColor4 implements LayerRenderer<EntityNacre> {
 	}
 
 	public ResourceLocation getTexture(EntityNacre gem) {
-		return new ResourceLocation("amalgam:textures/entities/nacre/color_4.png");
+		return new ResourceLocation("amalgam:textures/entities/nacre/color_1.png");
 	}
 	
 	@Override

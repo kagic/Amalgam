@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "kagic:blocks/drain_lily"
+        "layer0": "amalgam:blocks/drain_lily"
     }
 }

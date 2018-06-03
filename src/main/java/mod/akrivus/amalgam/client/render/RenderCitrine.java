@@ -1,6 +1,6 @@
 package mod.akrivus.amalgam.client.render;
 
-import mod.akrivus.amalgam.client.render.layer.LayerAmetrineHalf;
+import mod.akrivus.amalgam.client.render.layers.LayerAmetrineHalf;
 import mod.akrivus.amalgam.gem.EntityCitrine;
 import mod.akrivus.kagic.client.model.ModelQuartz;
 import mod.akrivus.kagic.client.render.RenderGemBase;
