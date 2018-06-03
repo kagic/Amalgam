@@ -3,8 +3,10 @@ package mod.akrivus.amalgam.init;
 import org.apache.logging.log4j.Logger;
 
 import mod.akrivus.amalgam.skills.EnderPearlWarp;
+import mod.akrivus.kagic.event.DrainBlockEvent;
 import mod.akrivus.kagic.init.KAGIC;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFlower;
 import net.minecraft.item.Item;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -43,12 +45,24 @@ public class Amalgam {
 		public static void registerItems(RegistryEvent.Register<Item> event) {
 			AmItems.register(event);
 		}
+    	@SubscribeEvent
+		public static void registerBlocks(RegistryEvent.Register<Block> event) {
+			AmBlocks.register(event);
+		}
 		@SubscribeEvent
 		public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
 			AmSounds.register(event);
 		}
 	}
 	public static class Events {
+		@SubscribeEvent
+		public boolean onDrainBlock(DrainBlockEvent e) {
+			if (e.block instanceof BlockFlower) {
+				e.world.setBlockState(e.ore, AmBlocks.DRAIN_LILY.getDefaultState());
+				return true;
+			}
+			return false;
+		}
 		@SubscribeEvent
 		public void onEntitySpawn(EntityJoinWorldEvent e) {
 			
