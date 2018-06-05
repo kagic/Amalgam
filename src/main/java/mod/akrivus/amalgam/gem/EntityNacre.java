@@ -5,7 +5,11 @@ import java.util.HashMap;
 
 import mod.akrivus.amalgam.gem.ai.EntityAIEatBlocks;
 import mod.akrivus.amalgam.init.AmItems;
+import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
+import mod.akrivus.kagic.init.ModItems;
+import mod.akrivus.kagic.init.ModSounds;
+import mod.akrivus.kagic.util.ShatterDamage;
 import mod.heimrarnadalr.kagic.util.Colors;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.IEntityLivingData;
@@ -13,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -20,6 +25,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.DyeUtils;
@@ -43,7 +49,6 @@ public class EntityNacre extends EntityPearl {
 	private static final int NUM_HAIRSTYLES = 4;
 	
 	public int ticksUntilSneeze;
-	public int ticksUntilCough;
 	public int totalExpected;
 	public double stressLevel;
 	public double foodLevel;
@@ -57,6 +62,7 @@ public class EntityNacre extends EntityPearl {
 		this.droppedCrackedGemItem = AmItems.CRACKED_NACRE_GEM;
 		this.nativeColor = 9;
 		this.tasks.addTask(2, new EntityAIEatBlocks(this, 0.9D));
+		this.dataManager.register(CRACKED, false);
 		this.dataManager.register(COLOR_1, this.rand.nextInt(16));
 		this.dataManager.register(COLOR_2, this.rand.nextInt(16));
 		this.dataManager.register(COLOR_3, this.rand.nextInt(16));
@@ -137,6 +143,9 @@ public class EntityNacre extends EntityPearl {
 	public int getColor3() {
 		return this.dataManager.get(COLOR_3);
 	}
+	public boolean isCracked() {
+		return this.dataManager.get(CRACKED);
+	}
 	public void setColor3(int color) {
 		this.dataManager.set(COLOR_3, color);
 	}
@@ -145,6 +154,9 @@ public class EntityNacre extends EntityPearl {
 	}
 	public void setColor4(int color) {
 		this.dataManager.set(COLOR_4, color);
+	}
+	public void setCracked(boolean cracked) {
+		this.dataManager.set(CRACKED, cracked);
 	}
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
@@ -162,7 +174,6 @@ public class EntityNacre extends EntityPearl {
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setInteger("ticksUntilSneeze", this.ticksUntilSneeze);
-		compound.setInteger("ticksUntilCough", this.ticksUntilCough);
 		compound.setInteger("totalExpected", this.totalExpected);
 		compound.setDouble("stressLevel", this.stressLevel);
 		compound.setDouble("foodLevel", this.foodLevel);
@@ -170,11 +181,11 @@ public class EntityNacre extends EntityPearl {
         compound.setInteger("color_2", this.getColor2());
         compound.setInteger("color_3", this.getColor3());
         compound.setInteger("color_4", this.getColor4());
+        compound.setBoolean("cracked", this.isCracked());
 	}
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
 		this.ticksUntilSneeze = compound.getInteger("ticksUntilSneeze");
-		this.ticksUntilCough = compound.getInteger("ticksUntilCough");
 		this.totalExpected = compound.getInteger("totalExpected");
 		this.stressLevel = compound.getDouble("stressLevel");
 		this.foodLevel = compound.getDouble("foodLevel");
@@ -182,9 +193,11 @@ public class EntityNacre extends EntityPearl {
 		this.setColor2(compound.getInteger("color_2"));
 		this.setColor3(compound.getInteger("color_3"));
 		this.setColor4(compound.getInteger("color_4"));
+		this.setCracked(compound.getBoolean("cracked"));
 	}
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
+			System.out.println(this.foodLevel);
 			if (hand == EnumHand.MAIN_HAND) {
 				ItemStack stack = player.getHeldItemMainhand();
 				if (this.isTamed()) {
@@ -205,9 +218,12 @@ public class EntityNacre extends EntityPearl {
 		    			}
 		        	}
 				}
+				if (this.isCoreItem(stack)) {
+					return super.processInteract(player, hand);
+				}
 			}
 		}
-		return super.processInteract(player, hand);
+		return false;
     }
 	public boolean canPickUpItem(Item itemIn) {
 		return false;
@@ -217,6 +233,104 @@ public class EntityNacre extends EntityPearl {
 	}
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
+		if (!this.world.isRemote) {
+			if (this.world.getCurrentMoonPhaseFactor() == 0.0) {
+				if (this.totalExpected == 0 && this.stressLevel == 0) {
+					if (this.foodLevel > 864.0) {
+						this.totalExpected = 1;
+						if (this.foodLevel > 1152.0 || this.rand.nextInt(20) == 0) {
+							this.totalExpected = 2;
+							if (this.foodLevel > 1728.0 || this.rand.nextInt(120) == 0) {
+								this.totalExpected = 3;
+							}
+						}
+					}
+				}
+				if (this.world.getWorldTime() % (80 + this.rand.nextInt(80)) == 0) {
+					this.playSound(AmSounds.NACRE_SNEEZE, 5.0F, this.getSoundPitch());
+					if (this.totalExpected > 0) {
+						this.attackEntityFrom(new ShatterDamage(), 2.0F);
+						this.stressLevel += 3;
+						if (this.rand.nextInt((int)(this.getHealth() + 1)) == 0) {
+							this.playSound(ModSounds.PEARL_WEIRD, 5.0F, this.getSoundPitch());
+							this.playSound(ModSounds.GEM_SHATTER, 5.0F, 1.0F);
+							this.setCracked(true);
+							for (int i = 0; i < this.totalExpected; ++i) {
+								EntityPearl pearl = new EntityPearl(this.world);
+								pearl.setPosition(this.posX, this.posY, this.posZ);
+								pearl.onInitialSpawn(null, null);
+								switch (this.rand.nextInt(4)) {
+								case 0:
+									pearl.itemDataToGemData(this.getColor1());
+									break;
+								case 1:
+									pearl.itemDataToGemData(this.getColor2());
+									break;
+								case 2:
+									pearl.itemDataToGemData(this.getColor3());
+									break;
+								case 3:
+									pearl.itemDataToGemData(this.getColor4());
+									break;
+								}
+								pearl.setServitude(this.getServitude());
+								pearl.setOwnerId(this.getOwnerId());
+								pearl.world.spawnEntity(pearl);
+							}
+							this.totalExpected = 0;
+						}
+					}
+					else {
+						this.dropItem(ModItems.ACTIVATED_GEM_SHARD, 1);
+					}
+				}
+			}
+			else if (this.stressLevel > 0) {
+				this.stressLevel -= 1;
+				if (this.stressLevel < 1) {
+					this.setCracked(false);
+					this.stressLevel = 0;
+				}
+			}
+		}
+	}
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+		if (this.world.getCurrentMoonPhaseFactor() == 0.0  && this.stressLevel > 0 && this.totalExpected > 0 && !this.isCracked()) {
+			if (source.getTrueSource() instanceof EntityPlayer) {
+				EntityPlayer player = (EntityPlayer)(source.getTrueSource());
+				if (this.isOwnedBy(player)) {
+					if (player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemPickaxe) {
+						this.playSound(ModSounds.PEARL_WEIRD, 5.0F, this.getSoundPitch());
+						this.playSound(ModSounds.GEM_SHATTER, 5.0F, 1.0F);
+						this.setCracked(true);
+						for (int i = 0; i < this.totalExpected; ++i) {
+							EntityPearl pearl = new EntityPearl(this.world);
+							pearl.setPosition(this.posX, this.posY, this.posZ);
+							pearl.onInitialSpawn(null, null);
+							switch (this.rand.nextInt(4)) {
+							case 0:
+								pearl.itemDataToGemData(this.getColor1());
+								break;
+							case 1:
+								pearl.itemDataToGemData(this.getColor2());
+								break;
+							case 2:
+								pearl.itemDataToGemData(this.getColor3());
+								break;
+							case 3:
+								pearl.itemDataToGemData(this.getColor4());
+								break;
+							}
+							pearl.setServitude(this.getServitude());
+							pearl.setOwnerId(this.getOwnerId());
+							pearl.world.spawnEntity(pearl);
+						}
+						this.totalExpected = 0;
+					}
+				}
+			}
+		}
+		return super.attackEntityFrom(source, amount);
 	}
 	public void onDeath(DamageSource cause) {
 		super.onDeath(cause);
@@ -231,5 +345,17 @@ public class EntityNacre extends EntityPearl {
 		if (color > EntityNacre.HAIR_COLOR_BEGIN && color < EntityNacre.HAIR_COLOR_END) {
 			super.setHairColor(color);
 		}
+	}
+	protected SoundEvent getHurtSound(DamageSource source) {
+		return AmSounds.NACRE_HURT;
+	}
+	protected SoundEvent getObeySound() {
+		return AmSounds.NACRE_OBEY;
+	}
+	protected SoundEvent getDeathSound() {
+		return AmSounds.NACRE_DEATH;
+	}
+	protected SoundEvent getWeirdSound() {
+		return AmSounds.NACRE_SNEEZE;
 	}
 }

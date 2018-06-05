@@ -34,6 +34,9 @@ public class LayerNacreShell implements LayerRenderer<EntityNacre> {
 	}
 
 	public ResourceLocation getTexture(EntityNacre gem) {
+		if (gem.isCracked()) {
+			return new ResourceLocation("amalgam:textures/entities/nacre/shell_cracked.png");
+		}
 		return new ResourceLocation("amalgam:textures/entities/nacre/shell_normal.png");
 	}
 	

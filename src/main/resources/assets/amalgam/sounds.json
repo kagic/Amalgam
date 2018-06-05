@@ -69,6 +69,37 @@
 			{ "name": "amalgam:entities/ender_pearl/weird9" }
         ]
     },
+    "entities.nacre.sneeze": {
+        "sounds": [
+            { "name": "amalgam:entities/nacre/sneeze1" },
+            { "name": "amalgam:entities/nacre/sneeze2" },
+            { "name": "amalgam:entities/nacre/sneeze3" }
+        ]
+    },
+    "entities.nacre.hurt": {
+        "sounds": [
+            { "name": "amalgam:entities/nacre/hurt1" },
+            { "name": "amalgam:entities/nacre/hurt2" },
+            { "name": "amalgam:entities/nacre/hurt3" }
+        ]
+    },
+    "entities.nacre.obey": {
+        "sounds": [
+            { "name": "amalgam:entities/nacre/obey1" },
+			{ "name": "amalgam:entities/nacre/obey2" }
+        ]
+    },
+	"entities.nacre.death": {
+        "sounds": [
+            { "name": "amalgam:entities/nacre/death1" }
+        ]
+    },
+    "entities.baby_pearl.oh": {
+        "sounds": [
+            { "name": "amalgam:entities/baby_pearl/oh1" },
+			{ "name": "amalgam:entities/baby_pearl/oh2" }
+        ]
+    },
 	"entities.steven.hello": {
 		"sounds": [
 			{ "name": "amalgam:entities/steven/hello1" }

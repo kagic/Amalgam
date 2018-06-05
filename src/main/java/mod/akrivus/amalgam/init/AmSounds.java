@@ -17,6 +17,13 @@ public class AmSounds {
 	public static final SoundEvent ENDER_PEARL_SING = new SoundEvent(new ResourceLocation("amalgam:entities.ender_pearl.sing"));
 	public static final SoundEvent ENDER_PEARL_WEIRD = new SoundEvent(new ResourceLocation("amalgam:entities.ender_pearl.weird"));
 	
+	public static final SoundEvent NACRE_SNEEZE = new SoundEvent(new ResourceLocation("amalgam:entities.nacre.sneeze"));
+	public static final SoundEvent NACRE_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.nacre.hurt"));
+	public static final SoundEvent NACRE_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.nacre.obey"));
+	public static final SoundEvent NACRE_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.nacre.death"));
+	
+	public static final SoundEvent BABY_PEARL_OH = new SoundEvent(new ResourceLocation("amalgam:entities.baby_pearl.oh"));
+	
 	public static final SoundEvent STEVEN_HELLO = new SoundEvent(new ResourceLocation("amalgam:entities.steven.hello"));
 	public static final SoundEvent STEVEN_LIVING = new SoundEvent(new ResourceLocation("amalgam:entities.steven.living"));
 	public static final SoundEvent STEVEN_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.steven.hurt"));
@@ -36,12 +43,20 @@ public class AmSounds {
 		registerSound(PYRITE_HURT, new ResourceLocation("amalgam:entities.pyrite.hurt"), event);
 		registerSound(PYRITE_OBEY, new ResourceLocation("amalgam:entities.pyrite.obey"), event);
 		registerSound(PYRITE_DEATH, new ResourceLocation("amalgam:entities.pyrite.death"), event);
+		
 		registerSound(ENDER_PEARL_HURT, new ResourceLocation("amalgam:entities.ender_pearl.hurt"), event);
 		registerSound(ENDER_PEARL_OBEY, new ResourceLocation("amalgam:entities.ender_pearl.obey"), event);
 		registerSound(ENDER_PEARL_DEATH, new ResourceLocation("amalgam:entities.ender_pearl.death"), event);
 		registerSound(ENDER_PEARL_SING, new ResourceLocation("amalgam:entities.ender_pearl.sing"), event);
 		registerSound(ENDER_PEARL_WEIRD, new ResourceLocation("amalgam:entities.ender_pearl.weird"), event);
 	
+		registerSound(NACRE_SNEEZE, new ResourceLocation("amalgam:entities.nacre.sneeze"), event);
+		registerSound(NACRE_HURT, new ResourceLocation("amalgam:entities.nacre.hurt"), event);
+		registerSound(NACRE_OBEY, new ResourceLocation("amalgam:entities.nacre.obey"), event);
+		registerSound(NACRE_DEATH, new ResourceLocation("amalgam:entities.nacre.death"), event);
+		
+		registerSound(BABY_PEARL_OH, new ResourceLocation("amalgam:entities.baby_pearl.oh"), event);
+		
 		registerSound(STEVEN_HELLO, new ResourceLocation("amalgam:entities.steven.hello"), event);
 		registerSound(STEVEN_LIVING, new ResourceLocation("amalgam:entities.steven.living"), event);
 		registerSound(STEVEN_HURT, new ResourceLocation("amalgam:entities.steven.hurt"), event);
