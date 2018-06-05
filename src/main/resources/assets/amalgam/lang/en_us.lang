@@ -16,6 +16,8 @@ entity.nacre.name=Mother Of Pearl
 entity.steven.name=Steven
 entity.connie.name=Connie
 
+tile.drain_lily.name=Drain Lily
+
 item.citrine_gem.name=Citrine Gem
 item.citrine_1_gem.name=Ametrine Gem
 item.pyrite_gem.name=Pyrite Gem

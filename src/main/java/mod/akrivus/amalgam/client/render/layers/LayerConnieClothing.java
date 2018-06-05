@@ -29,9 +29,9 @@ public class LayerConnieClothing implements LayerRenderer<EntityConnie> {
 	
 	public ResourceLocation getTexture(EntityConnie gem) {
 		if (gem.isWearingCoat()) {
-			return new ResourceLocation("kagic:textures/entities/connie/coat.png");
+			return new ResourceLocation("amalgam:textures/entities/connie/coat.png");
 		}
-		return new ResourceLocation("kagic:textures/entities/connie/clothes_" + gem.getClothing() + ".png");
+		return new ResourceLocation("amalgam:textures/entities/connie/clothes_" + gem.getClothing() + ".png");
 	}
 	
 	@Override

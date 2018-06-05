@@ -42,8 +42,6 @@ public class EntityNacre extends EntityPearl {
 	private static final int HAIR_COLOR_END = 0xFFC6EF; 
 	private static final int NUM_HAIRSTYLES = 4;
 	
-	public boolean moonPhaseChanged;
-	public long menseCycleTicks;
 	public int ticksUntilSneeze;
 	public int ticksUntilCough;
 	public int totalExpected;
@@ -55,7 +53,8 @@ public class EntityNacre extends EntityPearl {
 		this.setSize(0.6F, 2.5F);
 		this.droppedGemItem = AmItems.NACRE_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_NACRE_GEM;
-		this.menseCycleTicks = worldIn.getTotalWorldTime();
+		this.droppedGemItem = AmItems.NACRE_GEM;
+		this.droppedCrackedGemItem = AmItems.CRACKED_NACRE_GEM;
 		this.nativeColor = 9;
 		this.tasks.addTask(2, new EntityAIEatBlocks(this, 0.9D));
 		this.dataManager.register(COLOR_1, this.rand.nextInt(16));
@@ -120,6 +119,9 @@ public class EntityNacre extends EntityPearl {
     	}
 		return 0xFFFFFF;
 	}
+	public int getColor() {
+		return -1;
+	}
 	public int getColor1() {
 		return this.dataManager.get(COLOR_1);
 	}
@@ -159,8 +161,6 @@ public class EntityNacre extends EntityPearl {
 	}
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
-		compound.setBoolean("moonPhaseChanged", this.moonPhaseChanged);
-		compound.setLong("menseCycleTicks", this.menseCycleTicks);
 		compound.setInteger("ticksUntilSneeze", this.ticksUntilSneeze);
 		compound.setInteger("ticksUntilCough", this.ticksUntilCough);
 		compound.setInteger("totalExpected", this.totalExpected);
@@ -173,8 +173,6 @@ public class EntityNacre extends EntityPearl {
 	}
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
-		this.moonPhaseChanged = compound.getBoolean("moonPhaseChanged");
-		this.menseCycleTicks = compound.getLong("menseCycleTicks");
 		this.ticksUntilSneeze = compound.getInteger("ticksUntilSneeze");
 		this.ticksUntilCough = compound.getInteger("ticksUntilCough");
 		this.totalExpected = compound.getInteger("totalExpected");
@@ -219,18 +217,6 @@ public class EntityNacre extends EntityPearl {
 	}
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		if (this.world.getCurrentMoonPhaseFactor() == 1.0F) {
-			if (!this.moonPhaseChanged) {
-				this.moonPhaseChanged = true;
-				this.menseCycleTicks += 1;
-			}
-		}
-		else {
-			this.moonPhaseChanged = false;
-		}
-		if (this.menseCycleTicks > 3) {
-			this.menseCycleTicks = 0;
-		}
 	}
 	public void onDeath(DamageSource cause) {
 		super.onDeath(cause);

@@ -28,7 +28,7 @@ public class LayerConnieHair implements LayerRenderer<EntityConnie> {
 	}
 	
 	public ResourceLocation getTexture(EntityConnie gem) {
-		return new ResourceLocation("kagic:textures/entities/connie/hair_" + gem.getHairstyle() + ".png");
+		return new ResourceLocation("amalgam:textures/entities/connie/hair_" + gem.getHairstyle() + ".png");
 	}
 	
 	@Override

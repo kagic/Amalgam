@@ -7,9 +7,9 @@ import mod.akrivus.amalgam.gem.ai.EntityAIPickUpItemsIndiscriminately;
 import mod.akrivus.amalgam.gem.ai.EntityAIProtectSteven;
 import mod.akrivus.amalgam.gem.ai.EntityAIProtectVillagers;
 import mod.akrivus.amalgam.init.AmItems;
+import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowGem;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowPlayer;
-import mod.akrivus.kagic.init.ModSounds;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
@@ -378,26 +378,29 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
 		super.onDeath(cause);
 	}
 	public void playProtectSound(float health) {
-		this.playSound(ModSounds.CONNIE_PROTECT, this.getSoundVolume() * ((20 - health) / 20) + 1, this.getSoundPitch());
+		this.playSound(AmSounds.CONNIE_PROTECT, this.getSoundVolume() * ((20 - health) / 20) + 1, this.getSoundPitch());
 	}
 	public void sayHello() {
-		this.playSound(ModSounds.CONNIE_HELLO, this.getSoundVolume(), this.getSoundPitch());
+		this.playSound(AmSounds.CONNIE_HELLO, this.getSoundVolume(), this.getSoundPitch());
 	}
 	protected SoundEvent getAmbientSound() {
 		if (!this.silent) {
-			return ModSounds.CONNIE_LIVING;
+			return AmSounds.CONNIE_LIVING;
 		}
 		else {
 			return null;
 		}
 	}
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return ModSounds.CONNIE_HURT;
+		return AmSounds.CONNIE_HURT;
 	}
 	protected SoundEvent getDeathSound() {
-		return ModSounds.CONNIE_DEATH;
+		return AmSounds.CONNIE_DEATH;
 	}
 	protected float getSoundPitch() {
 		return 1.0F;
+	}
+	public int getTalkInterval() {
+		return 200;
 	}
 }

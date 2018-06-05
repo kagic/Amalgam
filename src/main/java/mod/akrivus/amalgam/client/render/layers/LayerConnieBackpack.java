@@ -28,7 +28,7 @@ public class LayerConnieBackpack implements LayerRenderer<EntityConnie> {
 	}
 	
 	public ResourceLocation getTexture(EntityConnie gem) {
-		return new ResourceLocation("kagic:textures/entities/connie/backpack.png");
+		return new ResourceLocation("amalgam:textures/entities/connie/backpack.png");
 	}
 	
 	@Override

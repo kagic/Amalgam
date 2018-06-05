@@ -4,12 +4,11 @@ import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.gem.ai.EntityAIProtectConnie;
 import mod.akrivus.amalgam.gem.ai.EntityAIProtectVillagers;
-import mod.akrivus.amalgam.gem.ai.EntityAISingJamBuds;
 import mod.akrivus.amalgam.gem.ai.EntityAISpawnConnie;
 import mod.akrivus.amalgam.init.AmItems;
+import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowGem;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowPlayer;
-import mod.akrivus.kagic.init.ModSounds;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
@@ -81,28 +80,27 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 				return input.getCreeperState() == 1;
 			}
         }, 6.0F, 1.0D, 1.2D));
-		this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, true));
-        this.tasks.addTask(3, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
-        this.tasks.addTask(3, new EntityAIMoveThroughVillage(this, 0.6D, true));
+		this.tasks.addTask(1, new EntityAIAttackMelee(this, 1.0D, true));
+		this.tasks.addTask(1, new EntityAIOpenDoor(this, true));
+        this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
+        this.tasks.addTask(2, new EntityAIMoveTowardsRestriction(this, 1.0D));
+        this.tasks.addTask(2, new EntityAIMoveThroughVillage(this, 0.6D, true));
         this.tasks.addTask(3, new EntityAIFollowGem(this, 0.9D));
         this.tasks.addTask(3, new EntityAIFollowPlayer(this, 0.9D));
-        this.tasks.addTask(4, new EntityAIOpenDoor(this, true));
-        this.tasks.addTask(5, new EntityAISpawnConnie(this));
-        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
-        this.tasks.addTask(6, new EntityAISingJamBuds(this));
-        this.tasks.addTask(7, new EntityAIWander(this, 0.6D));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
-        this.tasks.addTask(9, new EntityAILookIdle(this));
+        this.tasks.addTask(3, new EntityAISpawnConnie(this));
+        this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
+        this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
+        this.tasks.addTask(5, new EntityAIWander(this, 0.6D));
+        this.tasks.addTask(6, new EntityAILookIdle(this));
         
         // Apply targetting.
         this.targetTasks.addTask(1, new EntityAIProtectConnie(this));
         this.targetTasks.addTask(1, new EntityAIProtectVillagers(this));
-        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false, new Class[0]));
         
         // Apply entity attributes.
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 	}
 	public void writeEntityToNBT(NBTTagCompound compound) {
@@ -268,29 +266,32 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 		super.onDeath(cause);
 	}
 	public void playProtectSound(float health) {
-		this.playSound(ModSounds.STEVEN_PROTECT, this.getSoundVolume() * ((20 - health) / 20) + 1, this.getSoundPitch());
+		this.playSound(AmSounds.STEVEN_PROTECT, this.getSoundVolume() * ((20 - health) / 20) + 1, this.getSoundPitch());
 	}
 	public void sayHello() {
-		this.playSound(ModSounds.STEVEN_HELLO, this.getSoundVolume(), this.getSoundPitch());
+		this.playSound(AmSounds.STEVEN_HELLO, this.getSoundVolume(), this.getSoundPitch());
 	}
 	protected SoundEvent getAmbientSound() {
 		if (!this.silent) {
 			if (BiomeDictionary.hasType(this.world.getBiome(this.getPosition()), Type.MAGICAL)) {
-				return ModSounds.STEVEN_SNEEZE;
+				return AmSounds.STEVEN_SNEEZE;
 			}
-			return ModSounds.STEVEN_LIVING;
+			return AmSounds.STEVEN_LIVING;
 		}
 		else {
 			return null;
 		}
 	}
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return ModSounds.STEVEN_HURT;
+		return AmSounds.STEVEN_HURT;
 	}
 	protected SoundEvent getDeathSound() {
-		return ModSounds.STEVEN_DEATH;
+		return AmSounds.STEVEN_DEATH;
 	}
 	protected float getSoundPitch() {
 		return 1.0F;
+	}
+	public int getTalkInterval() {
+		return 200;
 	}
 }

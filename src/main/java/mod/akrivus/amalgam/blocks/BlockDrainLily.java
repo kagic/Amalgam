@@ -21,13 +21,18 @@ public class BlockDrainLily extends BlockBush {
 		this.setTickRandomly(true);
 	}
 	protected boolean canSustainBush(IBlockState state) {
-        return state.isTopSolid();
+        return true;
     }
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
 		return worldIn.isSideSolid(pos.down(), EnumFacing.UP);
     }
 	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
-        super.randomTick(worldIn, pos, state, random);
-        InjectorResult.drainBlock(worldIn, pos.down());
+		if (worldIn.getBlockState(pos.down()).isTopSolid()) {
+			super.randomTick(worldIn, pos, state, random);
+			InjectorResult.drainBlock(worldIn, pos.down());
+		}
+		else {
+			worldIn.destroyBlock(pos, true);
+		}
 	}
 }

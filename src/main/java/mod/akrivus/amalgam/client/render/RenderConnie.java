@@ -21,6 +21,6 @@ public class RenderConnie extends RenderLivingBase<EntityConnie> {
         this.addLayer(new LayerArrow(this));
     }
 	protected ResourceLocation getEntityTexture(EntityConnie entity) {
-		return new ResourceLocation("kagic:textures/entities/connie/connie.png");
+		return new ResourceLocation("amalgam:textures/entities/connie/connie.png");
 	}
 }

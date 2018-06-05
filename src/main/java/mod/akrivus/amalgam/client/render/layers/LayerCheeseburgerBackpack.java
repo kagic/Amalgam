@@ -28,7 +28,7 @@ public class LayerCheeseburgerBackpack implements LayerRenderer<EntitySteven> {
 	}
 	
 	public ResourceLocation getTexture(EntitySteven gem) {
-		return new ResourceLocation("kagic:textures/entities/steven/backpack.png");
+		return new ResourceLocation("amalgam:textures/entities/steven/backpack.png");
 	}
 	
 	@Override

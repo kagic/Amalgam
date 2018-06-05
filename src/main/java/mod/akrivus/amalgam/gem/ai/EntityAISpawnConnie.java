@@ -12,7 +12,7 @@ public class EntityAISpawnConnie extends EntityAIBase {
 
 	public EntityAISpawnConnie(EntitySteven steven) {
 		this.steven = steven;
-		this.setMutexBits(0);
+		this.setMutexBits(7);
 	}
 
 	@Override

@@ -2,13 +2,21 @@ package mod.akrivus.amalgam.init;
 
 import org.apache.logging.log4j.Logger;
 
+import mod.akrivus.amalgam.gem.EntitySteven;
+import mod.akrivus.amalgam.gem.ai.EntityAICallForBackup;
+import mod.akrivus.amalgam.gem.ai.EntityAIFollowLeaderGem;
 import mod.akrivus.amalgam.skills.EnderPearlWarp;
+import mod.akrivus.kagic.entity.gem.EntityJasper;
+import mod.akrivus.kagic.entity.gem.EntityRuby;
+import mod.akrivus.kagic.entity.gem.GemPlacements;
 import mod.akrivus.kagic.event.DrainBlockEvent;
+import mod.akrivus.kagic.event.TimeGlassEvent;
 import mod.akrivus.kagic.init.KAGIC;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFlower;
+import net.minecraft.block.BlockBush;
 import net.minecraft.item.Item;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -31,6 +39,7 @@ public class Amalgam {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+    	AmEvents.register();
     	AmGems.register();
     	AmCruxes.register();
     }
@@ -54,10 +63,23 @@ public class Amalgam {
 			AmSounds.register(event);
 		}
 	}
-	public static class Events {
+	public static class AmEvents {
+		public static void register() {
+			MinecraftForge.EVENT_BUS.register(new AmEvents());
+		}
+		@SubscribeEvent
+		public boolean onTimeGlass(TimeGlassEvent e) {
+			if (e.player.world.rand.nextInt(40) == 0 && !e.player.world.isRemote) {
+				EntitySteven steven = new EntitySteven(e.player.world);
+				steven.setPosition(e.player.posX, e.player.posY, e.player.posZ);
+				steven.world.spawnEntity(steven);
+				return true;
+			}
+			return false;
+		}
 		@SubscribeEvent
 		public boolean onDrainBlock(DrainBlockEvent e) {
-			if (e.block instanceof BlockFlower) {
+			if (e.block instanceof BlockBush) {
 				e.world.setBlockState(e.ore, AmBlocks.DRAIN_LILY.getDefaultState());
 				return true;
 			}
@@ -65,7 +87,12 @@ public class Amalgam {
 		}
 		@SubscribeEvent
 		public void onEntitySpawn(EntityJoinWorldEvent e) {
-			
+			if (e.getEntity() instanceof EntityRuby) {
+				EntityRuby ruby = (EntityRuby)(e.getEntity());
+				ruby.tasks.addTask(4, new EntityAIFollowLeaderGem(ruby, 0.8D, GemPlacements.NOSE, EntityJasper.class));
+				ruby.tasks.addTask(4, new EntityAIFollowLeaderGem(ruby, 0.8D, GemPlacements.CHEST, EntityRuby.class));
+				ruby.targetTasks.addTask(2, new EntityAICallForBackup(ruby, EntityRuby.class));
+			}
 		}
 	}
 }
