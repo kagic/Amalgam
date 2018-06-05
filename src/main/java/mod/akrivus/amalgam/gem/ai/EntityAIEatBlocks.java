@@ -51,7 +51,12 @@ public class EntityAIEatBlocks extends EntityAIMoveToBlock {
             this.world.playSound(null, this.gem.getPosition(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.NEUTRAL, 1.0F, this.gem.getSoundPitch());
             boolean eaten = this.world.destroyBlock(this.destinationBlock, false);
             if (eaten) {
-            	this.gem.foodLevel += 1;
+            	if (this.world.getBlockState(this.destinationBlock) == Blocks.COAL_BLOCK) {
+            		this.gem.addFood(128);
+            	}
+            	else {
+            		this.gem.addFood(1);
+            	}
             }
 		}
 		else {

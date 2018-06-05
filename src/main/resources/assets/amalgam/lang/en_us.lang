@@ -4,6 +4,7 @@ entity.kagic.citrine_1.name=Ametrine
 entity.kagic.pyrite.name=Pyrite
 entity.kagic.ender_pearl.name=Ender Pearl
 entity.kagic.nacre.name=Mother Of Pearl
+entity.kagic.baby_pearl.name=Baby Pearl
 entity.kagic.steven.name=Steven
 entity.kagic.connie.name=Connie
 
@@ -13,6 +14,7 @@ entity.citrine_1.name=Ametrine
 entity.pyrite.name=Pyrite
 entity.ender_pearl.name=Ender Pearl
 entity.nacre.name=Mother Of Pearl
+entity.baby_pearl.name=Baby Pearl
 entity.steven.name=Steven
 entity.connie.name=Connie
 

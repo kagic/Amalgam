@@ -25,6 +25,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -36,6 +37,8 @@ public class EntityNacre extends EntityPearl {
 	private static final DataParameter<Integer> COLOR_2 = EntityDataManager.<Integer>createKey(EntityNacre.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> COLOR_3 = EntityDataManager.<Integer>createKey(EntityNacre.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> COLOR_4 = EntityDataManager.<Integer>createKey(EntityNacre.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> STRESS = EntityDataManager.<Integer>createKey(EntityNacre.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> FOOD = EntityDataManager.<Integer>createKey(EntityNacre.class, DataSerializers.VARINT);
 	
 	public static final HashMap<IBlockState, Double> NACRE_YIELDS = new HashMap<IBlockState, Double>();
 	public static final double NACRE_DEFECTIVITY_MULTIPLIER = 1;
@@ -50,8 +53,6 @@ public class EntityNacre extends EntityPearl {
 	
 	public int ticksUntilSneeze;
 	public int totalExpected;
-	public double stressLevel;
-	public double foodLevel;
 	
 	public EntityNacre(World worldIn) {
 		super(worldIn);
@@ -67,6 +68,8 @@ public class EntityNacre extends EntityPearl {
 		this.dataManager.register(COLOR_2, this.rand.nextInt(16));
 		this.dataManager.register(COLOR_3, this.rand.nextInt(16));
 		this.dataManager.register(COLOR_4, this.rand.nextInt(16));
+		this.dataManager.register(STRESS, 0);
+		this.dataManager.register(FOOD, 0);
 		this.setHairColor(this.generateHairColor());
 	}
 	public int generateSkinColor() {
@@ -175,8 +178,8 @@ public class EntityNacre extends EntityPearl {
 		super.writeEntityToNBT(compound);
 		compound.setInteger("ticksUntilSneeze", this.ticksUntilSneeze);
 		compound.setInteger("totalExpected", this.totalExpected);
-		compound.setDouble("stressLevel", this.stressLevel);
-		compound.setDouble("foodLevel", this.foodLevel);
+		compound.setDouble("stressLevel", this.getStressLevel());
+		compound.setDouble("foodLevel", this.getFoodLevel());
         compound.setInteger("color_1", this.getColor1());
         compound.setInteger("color_2", this.getColor2());
         compound.setInteger("color_3", this.getColor3());
@@ -187,8 +190,8 @@ public class EntityNacre extends EntityPearl {
 		super.readEntityFromNBT(compound);
 		this.ticksUntilSneeze = compound.getInteger("ticksUntilSneeze");
 		this.totalExpected = compound.getInteger("totalExpected");
-		this.stressLevel = compound.getDouble("stressLevel");
-		this.foodLevel = compound.getDouble("foodLevel");
+		this.setStressLevel(compound.getInteger("stressLevel"));
+		this.setFoodLevel(compound.getInteger("foodLevel"));
 		this.setColor1(compound.getInteger("color_1"));
 		this.setColor2(compound.getInteger("color_2"));
 		this.setColor3(compound.getInteger("color_3"));
@@ -197,7 +200,6 @@ public class EntityNacre extends EntityPearl {
 	}
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
-			System.out.println(this.foodLevel);
 			if (hand == EnumHand.MAIN_HAND) {
 				ItemStack stack = player.getHeldItemMainhand();
 				if (this.isTamed()) {
@@ -235,28 +237,20 @@ public class EntityNacre extends EntityPearl {
 		super.onLivingUpdate();
 		if (!this.world.isRemote) {
 			if (this.world.getCurrentMoonPhaseFactor() == 0.0) {
-				if (this.totalExpected == 0 && this.stressLevel == 0) {
-					if (this.foodLevel > 864.0) {
-						this.totalExpected = 1;
-						if (this.foodLevel > 1152.0 || this.rand.nextInt(20) == 0) {
-							this.totalExpected = 2;
-							if (this.foodLevel > 1728.0 || this.rand.nextInt(120) == 0) {
-								this.totalExpected = 3;
-							}
-						}
-					}
+				if (this.totalExpected == 0 && this.getStressLevel() == 0) {
+					this.totalExpected = this.getFoodLevel() / 864;
 				}
 				if (this.world.getWorldTime() % (80 + this.rand.nextInt(80)) == 0) {
 					this.playSound(AmSounds.NACRE_SNEEZE, 5.0F, this.getSoundPitch());
 					if (this.totalExpected > 0) {
 						this.attackEntityFrom(new ShatterDamage(), 2.0F);
-						this.stressLevel += 3;
+						this.addStress(3);
 						if (this.rand.nextInt((int)(this.getHealth() + 1)) == 0) {
-							this.playSound(ModSounds.PEARL_WEIRD, 5.0F, this.getSoundPitch());
+							this.playSound(ModSounds.PEARL_WEIRD, 10.0F, this.getSoundPitch());
 							this.playSound(ModSounds.GEM_SHATTER, 5.0F, 1.0F);
 							this.setCracked(true);
 							for (int i = 0; i < this.totalExpected; ++i) {
-								EntityPearl pearl = new EntityPearl(this.world);
+								EntityBabyPearl pearl = new EntityBabyPearl(this.world);
 								pearl.setPosition(this.posX, this.posY, this.posZ);
 								pearl.onInitialSpawn(null, null);
 								switch (this.rand.nextInt(4)) {
@@ -275,27 +269,44 @@ public class EntityNacre extends EntityPearl {
 								}
 								pearl.setServitude(this.getServitude());
 								pearl.setOwnerId(this.getOwnerId());
+								pearl.setSitting(this.getLeaderEntity(), this.isSitting);
+								pearl.setSpecificName("Child of " + this.getCut());
 								pearl.world.spawnEntity(pearl);
 							}
 							this.totalExpected = 0;
 						}
 					}
 					else {
-						this.dropItem(ModItems.ACTIVATED_GEM_SHARD, 1);
+						if (this.rand.nextInt(9) == 0) {
+							this.dropItem(ModItems.ACTIVATED_GEM_SHARD, 1);
+						}
 					}
+					this.setFoodLevel(0);
 				}
 			}
-			else if (this.stressLevel > 0) {
-				this.stressLevel -= 1;
-				if (this.stressLevel < 1) {
+			else if (this.getStressLevel() > 0) {
+				this.addStress(-1);
+				if (this.getStressLevel() < 1) {
 					this.setCracked(false);
-					this.stressLevel = 0;
+					this.setStressLevel(0);
 				}
+			}
+		}
+		else {
+			if (this.getStressLevel() > 0.0) {
+				for (int i = 0; i < 1; ++i) {
+	                this.world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, this.posX + this.rand.nextFloat() * this.width * 2.0F - this.width, this.posY + 0.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0F - this.width, this.rand.nextGaussian() * 0.02D,  this.rand.nextGaussian() * 0.02D, this.rand.nextGaussian() * 0.02D);
+	            }
+			}
+			else if (this.getFoodLevel() > 864.0) {
+				for (int i = 0; i < 1; ++i) {
+	                this.world.spawnParticle(EnumParticleTypes.HEART, this.posX + this.rand.nextFloat() * this.width * 2.0F - this.width, this.posY + 0.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0F - this.width, this.rand.nextGaussian() * 0.02D,  this.rand.nextGaussian() * 0.02D, this.rand.nextGaussian() * 0.02D);
+	            }
 			}
 		}
 	}
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (this.world.getCurrentMoonPhaseFactor() == 0.0  && this.stressLevel > 0 && this.totalExpected > 0 && !this.isCracked()) {
+		if (this.world.getCurrentMoonPhaseFactor() == 0.0  && this.getStressLevel() > 0 && this.totalExpected > 0 && !this.isCracked()) {
 			if (source.getTrueSource() instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer)(source.getTrueSource());
 				if (this.isOwnedBy(player)) {
@@ -304,7 +315,7 @@ public class EntityNacre extends EntityPearl {
 						this.playSound(ModSounds.GEM_SHATTER, 5.0F, 1.0F);
 						this.setCracked(true);
 						for (int i = 0; i < this.totalExpected; ++i) {
-							EntityPearl pearl = new EntityPearl(this.world);
+							EntityBabyPearl pearl = new EntityBabyPearl(this.world);
 							pearl.setPosition(this.posX, this.posY, this.posZ);
 							pearl.onInitialSpawn(null, null);
 							switch (this.rand.nextInt(4)) {
@@ -345,6 +356,24 @@ public class EntityNacre extends EntityPearl {
 		if (color > EntityNacre.HAIR_COLOR_BEGIN && color < EntityNacre.HAIR_COLOR_END) {
 			super.setHairColor(color);
 		}
+	}
+	public void setStressLevel(int stressLevel) {
+		this.dataManager.set(STRESS, stressLevel);
+	}
+	public void addStress(int offset) {
+		this.dataManager.set(STRESS, this.getStressLevel() + offset);
+	}
+	public int getStressLevel() {
+		return this.dataManager.get(STRESS);
+	}
+	public void setFoodLevel(int foodLevel) {
+		this.dataManager.set(FOOD, foodLevel);
+	}
+	public void addFood(int offset) {
+		this.dataManager.set(FOOD, this.getFoodLevel() + offset);
+	}
+	public int getFoodLevel() {
+		return this.dataManager.get(FOOD);
 	}
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return AmSounds.NACRE_HURT;

@@ -100,6 +100,11 @@
 			{ "name": "amalgam:entities/baby_pearl/oh2" }
         ]
     },
+    "entities.baby_pearl.obey": {
+        "sounds": [
+            { "name": "amalgam:entities/baby_pearl/obey1" }
+        ]
+    },
 	"entities.steven.hello": {
 		"sounds": [
 			{ "name": "amalgam:entities/steven/hello1" }

@@ -23,6 +23,7 @@ public class AmSounds {
 	public static final SoundEvent NACRE_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.nacre.death"));
 	
 	public static final SoundEvent BABY_PEARL_OH = new SoundEvent(new ResourceLocation("amalgam:entities.baby_pearl.oh"));
+	public static final SoundEvent BABY_PEARL_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.baby_pearl.obey"));
 	
 	public static final SoundEvent STEVEN_HELLO = new SoundEvent(new ResourceLocation("amalgam:entities.steven.hello"));
 	public static final SoundEvent STEVEN_LIVING = new SoundEvent(new ResourceLocation("amalgam:entities.steven.living"));
@@ -56,6 +57,7 @@ public class AmSounds {
 		registerSound(NACRE_DEATH, new ResourceLocation("amalgam:entities.nacre.death"), event);
 		
 		registerSound(BABY_PEARL_OH, new ResourceLocation("amalgam:entities.baby_pearl.oh"), event);
+		registerSound(BABY_PEARL_OBEY, new ResourceLocation("amalgam:entities.baby_pearl.obey"), event);
 		
 		registerSound(STEVEN_HELLO, new ResourceLocation("amalgam:entities.steven.hello"), event);
 		registerSound(STEVEN_LIVING, new ResourceLocation("amalgam:entities.steven.living"), event);

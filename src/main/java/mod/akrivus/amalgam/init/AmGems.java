@@ -1,5 +1,6 @@
 package mod.akrivus.amalgam.init;
 
+import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.amalgam.gem.EntityCitrine;
 import mod.akrivus.amalgam.gem.EntityConnie;
 import mod.akrivus.amalgam.gem.EntityEnderPearl;
@@ -22,7 +23,8 @@ public class AmGems {
 		ModEntities.registerExternalGem("amalgam", "pyrite", EntityPyrite.class, "mod/akrivus/amalgam/client/render/RenderPyrite", 0xEADC73, 0x71512B, false);
 		ModEntities.registerExternalGem("amalgam", "ender_pearl", EntityEnderPearl.class, "mod/akrivus/amalgam/client/render/RenderEnderPearl", 0x000000, 0xFF00FF, false);
 		ModEntities.registerExternalGem("amalgam", "nacre", EntityNacre.class, "mod/akrivus/amalgam/client/render/RenderNacre", 0xEDEFF4, 0xFFCF96, false);
-		
+		ModEntities.registerExternalGem("amalgam", "baby_pearl", EntityBabyPearl.class, "mod/akrivus/amalgam/client/render/RenderBabyPearl", 0xFCCCB1, 0x92EAD9, false);
+
 		registerMob("steven", EntitySteven.class, 0xFD6270, 0xFFD248);
 		registerMob("connie", EntityConnie.class, 0x99D3CD, 0xAF4E3D);
 	}
