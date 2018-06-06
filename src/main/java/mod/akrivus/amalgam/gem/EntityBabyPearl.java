@@ -29,7 +29,7 @@ public class EntityBabyPearl extends EntityPearl {
 		this.setSize(0.3F, 0.95F);
 		this.stepHeight = 0.5F;
 		this.tasks.addTask(3, new EntityAIFollowOtherGem(this, 0.9D, EntityNacre.class));
-		this.tasks.addTask(3, new EntityAITempt(this, 0.9D, Items.SUGAR, true));
+		this.tasks.addTask(3, new EntityAITempt(this, 0.9D, Items.SUGAR, false));
 		this.tasks.addTask(4, new EntityAIPanic(this, 0.9D));
 	}
 	public void onDeath(DamageSource cause) {
