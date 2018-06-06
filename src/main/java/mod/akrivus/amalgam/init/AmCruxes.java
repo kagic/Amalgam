@@ -45,6 +45,14 @@ public class AmCruxes {
 		EntityNacre.NACRE_YIELDS.put(Blocks.MAGENTA_GLAZED_TERRACOTTA.getDefaultState(), 5.99);
 		EntityNacre.NACRE_YIELDS.put(Blocks.PINK_GLAZED_TERRACOTTA.getDefaultState(), 5.99);
 		EntityNacre.NACRE_YIELDS.put(Blocks.PURPLE_GLAZED_TERRACOTTA.getDefaultState(), 5.99);
+		EntityNacre.NACRE_YIELDS.put(Blocks.WATER.getDefaultState(), 0.99);
+		EntityNacre.NACRE_YIELDS.put(Blocks.GRAVEL.getDefaultState(), 0.33);
+		EntityNacre.NACRE_YIELDS.put(Blocks.CLAY.getDefaultState(), 0.55);
+		EntityNacre.NACRE_YIELDS.put(Blocks.LOG.getDefaultState(), 1.99);
+		EntityNacre.NACRE_YIELDS.put(Blocks.LOG2.getDefaultState(), 1.99);
+		ModEntities.registerOreDictValue(EntityNacre.NACRE_YIELDS, 0.99, "stoneLimestone");
+		ModEntities.registerOreDictValue(EntityNacre.NACRE_YIELDS, 1.99, "stoneLimestonePolished");
 		ModEntities.registerOreDictValue(EntityNacre.NACRE_YIELDS, 2.99, "blockPrismarine");
+		ModEntities.registerWithOreDictionary(EntityNacre.NACRE_YIELDS, "Calcite", "Aragonite");
 	}
 }

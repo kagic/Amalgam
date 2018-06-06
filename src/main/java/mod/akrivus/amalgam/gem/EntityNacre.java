@@ -6,6 +6,7 @@ import java.util.HashMap;
 import mod.akrivus.amalgam.gem.ai.EntityAIEatBlocks;
 import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.amalgam.init.AmSounds;
+import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
 import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.init.ModSounds;
@@ -27,6 +28,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.DyeUtils;
@@ -89,7 +91,7 @@ public class EntityNacre extends EntityPearl {
 		return Colors.arbiLerp(hairColors);
 	}
 	public int generateGemColor() {
-		return 0xAE98F2;
+		return 0xE9F4F1;
 	}
 	public int getLayerColor(int layer) {
 		switch (layer) {
@@ -240,6 +242,9 @@ public class EntityNacre extends EntityPearl {
 				if (this.totalExpected == 0 && this.getStressLevel() == 0) {
 					this.totalExpected = this.getFoodLevel() / 864;
 				}
+				if (this.isDefective()) {
+					this.totalExpected = 0;
+				}
 				if (this.world.getWorldTime() % (80 + this.rand.nextInt(80)) == 0) {
 					this.playSound(AmSounds.NACRE_SNEEZE, 5.0F, this.getSoundPitch());
 					if (this.totalExpected > 0) {
@@ -304,9 +309,16 @@ public class EntityNacre extends EntityPearl {
 	            }
 			}
 		}
+		for (EntityPearl gem : this.world.getEntitiesWithinAABB(EntityPearl.class, (new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D)).grow(8.0D, 4.0D, 8.0D))) {
+            if (this.isOwnedBySamePeople(gem)) {
+            	if (this.isPrimary() || gem instanceof EntityBabyPearl) {
+            		gem.heal(2.0F);
+            	}
+            }
+        }
 	}
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (this.world.getCurrentMoonPhaseFactor() == 0.0  && this.getStressLevel() > 0 && this.totalExpected > 0 && !this.isCracked()) {
+		if (this.world.getCurrentMoonPhaseFactor() == 0.0 && this.getStressLevel() > 0 && this.totalExpected > 0 && !this.isCracked()) {
 			if (source.getTrueSource() instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer)(source.getTrueSource());
 				if (this.isOwnedBy(player)) {

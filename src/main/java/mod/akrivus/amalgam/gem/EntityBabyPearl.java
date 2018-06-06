@@ -1,9 +1,11 @@
 package mod.akrivus.amalgam.gem;
 
+import mod.akrivus.amalgam.gem.ai.EntityAICallForBackup;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
 import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
+import mod.akrivus.kagic.entity.gem.EntityRuby;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIPanic;
@@ -31,6 +33,7 @@ public class EntityBabyPearl extends EntityPearl {
 		this.tasks.addTask(3, new EntityAIFollowOtherGem(this, 0.9D, EntityNacre.class));
 		this.tasks.addTask(3, new EntityAITempt(this, 0.9D, Items.SUGAR, false));
 		this.tasks.addTask(4, new EntityAIPanic(this, 0.9D));
+		this.targetTasks.addTask(2, new EntityAICallForBackup(this, EntityGem.class));
 	}
 	public void onDeath(DamageSource cause) {
 		if (this.isDefective()) {

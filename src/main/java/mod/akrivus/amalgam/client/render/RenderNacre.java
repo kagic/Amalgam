@@ -13,6 +13,7 @@ import mod.akrivus.kagic.client.render.layers.LayerBirthdayHat;
 import mod.akrivus.kagic.client.render.layers.LayerGemPlacement;
 import mod.akrivus.kagic.client.render.layers.LayerHair;
 import mod.akrivus.kagic.client.render.layers.LayerInsignia;
+import mod.akrivus.kagic.client.render.layers.LayerNoDyeOverlay;
 import mod.akrivus.kagic.client.render.layers.LayerSantaHat;
 import mod.akrivus.kagic.client.render.layers.LayerSkin;
 import mod.akrivus.kagic.client.render.layers.LayerUniform;
@@ -32,6 +33,7 @@ public class RenderNacre extends RenderGemBase<EntityNacre> {
         this.addLayer(new LayerNacreColor3(this));
         this.addLayer(new LayerNacreColor4(this));
         this.addLayer(new LayerNacreShell(this));
+        this.addLayer(new LayerNoDyeOverlay(this));
         this.addLayer(new LayerUniform(this));
         this.addLayer(new LayerInsignia(this));
         this.addLayer(new LayerHair(this));

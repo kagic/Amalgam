@@ -2,9 +2,11 @@ package mod.akrivus.amalgam.init;
 
 import org.apache.logging.log4j.Logger;
 
+import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.amalgam.gem.EntitySteven;
 import mod.akrivus.amalgam.gem.ai.EntityAICallForBackup;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowLeaderGem;
+import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
 import mod.akrivus.amalgam.skills.EnderPearlWarp;
 import mod.akrivus.kagic.entity.gem.EntityJasper;
 import mod.akrivus.kagic.entity.gem.EntityRuby;
@@ -91,6 +93,7 @@ public class Amalgam {
 				EntityRuby ruby = (EntityRuby)(e.getEntity());
 				ruby.tasks.addTask(4, new EntityAIFollowLeaderGem(ruby, 0.8D, GemPlacements.NOSE, EntityJasper.class));
 				ruby.tasks.addTask(4, new EntityAIFollowLeaderGem(ruby, 0.8D, GemPlacements.CHEST, EntityRuby.class));
+				ruby.tasks.addTask(4, new EntityAIFollowOtherGem(ruby, 0.8D, EntityBabyPearl.class));
 				ruby.targetTasks.addTask(2, new EntityAICallForBackup(ruby, EntityRuby.class));
 			}
 		}
