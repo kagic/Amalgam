@@ -1,20 +1,19 @@
 package mod.akrivus.amalgam.gem.ai;
 
+import mod.akrivus.amalgam.entity.EntitySpitball;
 import mod.akrivus.kagic.entity.EntityGem;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.projectile.EntityLargeFireball;
-import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 
-public class EntityAIFireballAttack extends EntityAIBase {
+public class EntityAISpitballAttack extends EntityAIBase {
     private final EntityGem gem;
     private int attackStep;
     private int attackTime;
     
-    public EntityAIFireballAttack(EntityGem gem) {
+    public EntityAISpitballAttack(EntityGem gem) {
         this.gem = gem;
         this.setMutexBits(3);
     }
@@ -54,25 +53,18 @@ public class EntityAIFireballAttack extends EntityAIBase {
 	                    this.gem.createFireworks();
                     }
                     else {
-	                    this.gem.world.playSound(null, this.gem.getPosition(), SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+	                    this.gem.world.playSound(null, this.gem.getPosition(), SoundEvents.ENTITY_LLAMA_SPIT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 	                    for (int i = 0; i < 1; ++i) {
-	                    	if (this.gem.isFusion()) {
-	                    		EntityLargeFireball fireball = new EntityLargeFireball(this.gem.world, this.gem, dX, dY, dZ);
-	                    		fireball.posY = this.gem.posY + (double)(this.gem.height / 2.0F) + 0.5D;
-		                        this.gem.world.spawnEntity(fireball);
-	                    	}
-	                    	else {
-		                    	EntitySmallFireball fireball = new EntitySmallFireball(this.gem.world, this.gem, dX + this.gem.getRNG().nextGaussian() * dS, dY, dZ + this.gem.getRNG().nextGaussian() * dS);
-		                        fireball.posY = this.gem.posY + (double)(this.gem.height / 2.0F) + 0.5D;
-		                        this.gem.world.spawnEntity(fireball);
-	                    	}
+	                    	EntitySpitball spitball = new EntitySpitball(this.gem.world, this.gem, dX, dY, dZ);
+	                    	spitball.posY = this.gem.posY + (double)(this.gem.height / 2.0F) + 0.5D;
+	                        this.gem.world.spawnEntity(spitball);
 	                    }
                     }
                 }
             }
             this.gem.getLookHelper().setLookPositionWithEntity(entity, 10.0F, 10.0F);
         }
-        this.gem.getMoveHelper().setMoveTo(entity.posX, entity.posY, entity.posZ, Math.min(this.gem.getDistance(entity) / 48, 1.0D));
+        this.gem.getMoveHelper().setMoveTo(entity.posX, entity.posY, entity.posZ, Math.min(this.gem.getDistance(entity) / 64, 1.0D));
         --this.attackTime;
         super.updateTask();
     }

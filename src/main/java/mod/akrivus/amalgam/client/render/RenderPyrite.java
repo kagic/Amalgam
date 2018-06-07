@@ -1,9 +1,9 @@
 package mod.akrivus.amalgam.client.render;
 
+import mod.akrivus.amalgam.client.render.layers.LayerPyritePlacement;
 import mod.akrivus.amalgam.gem.EntityPyrite;
 import mod.akrivus.kagic.client.model.ModelRuby;
 import mod.akrivus.kagic.client.render.RenderGemBase;
-import mod.akrivus.kagic.client.render.layers.LayerFusionPlacement;
 import mod.akrivus.kagic.client.render.layers.LayerGemPlacement;
 import mod.akrivus.kagic.client.render.layers.LayerHair;
 import mod.akrivus.kagic.client.render.layers.LayerInsignia;
@@ -23,7 +23,7 @@ public class RenderPyrite extends RenderGemBase<EntityPyrite> {
         this.addLayer(new LayerHair(this));
         this.addLayer(new LayerVisor(this));
         this.addLayer(new LayerGemPlacement(this));
-        this.addLayer(new LayerFusionPlacement(this));
+        this.addLayer(new LayerPyritePlacement(this));
     }
 	protected void preRenderCallback(EntityPyrite gem, float partialTickTime) {
 		if (gem.isFusion()) {

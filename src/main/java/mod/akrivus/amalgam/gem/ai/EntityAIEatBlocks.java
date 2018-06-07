@@ -1,6 +1,7 @@
 package mod.akrivus.amalgam.gem.ai;
 
 import mod.akrivus.amalgam.gem.EntityNacre;
+import mod.akrivus.kagic.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -69,11 +70,11 @@ public class EntityAIEatBlocks extends EntityAIMoveToBlock {
 	protected boolean shouldMoveTo(World world, BlockPos pos) {
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		if (block == Blocks.COAL_BLOCK || block == Blocks.COAL_ORE) {
+		if (block == Blocks.COAL_BLOCK || block == Blocks.COAL_ORE || block == Blocks.END_STONE || block == Blocks.NETHERRACK) {
 			return this.hasAir(pos);
 		}
 		else if (state.getMaterial() == Material.WOOD || state.getMaterial() == Material.CACTUS
-				|| state.getMaterial() == Material.CAKE) {
+				|| state.getMaterial() == Material.CAKE || state.getMaterial() == ModBlocks.DRAINED) {
 			return this.hasAir(pos);
 		}
 		else if (state.getMaterial() == Material.CLAY || state.getMaterial() == Material.GLASS

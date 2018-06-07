@@ -3,6 +3,7 @@ package mod.akrivus.amalgam.init;
 import mod.akrivus.amalgam.gem.EntityCitrine;
 import mod.akrivus.amalgam.gem.EntityEnderPearl;
 import mod.akrivus.amalgam.gem.EntityNacre;
+import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.amalgam.gem.EntityPyrite;
 import mod.akrivus.kagic.entity.gem.EntityAquamarine;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
@@ -46,7 +47,7 @@ public class AmCruxes {
 		EntityNacre.NACRE_YIELDS.put(Blocks.PINK_GLAZED_TERRACOTTA.getDefaultState(), 5.99);
 		EntityNacre.NACRE_YIELDS.put(Blocks.PURPLE_GLAZED_TERRACOTTA.getDefaultState(), 5.99);
 		EntityNacre.NACRE_YIELDS.put(Blocks.WATER.getDefaultState(), 0.99);
-		EntityNacre.NACRE_YIELDS.put(Blocks.GRAVEL.getDefaultState(), 0.33);
+		EntityNacre.NACRE_YIELDS.put(Blocks.GRAVEL.getDefaultState(), 0.01);
 		EntityNacre.NACRE_YIELDS.put(Blocks.CLAY.getDefaultState(), 0.55);
 		EntityNacre.NACRE_YIELDS.put(Blocks.LOG.getDefaultState(), 1.99);
 		EntityNacre.NACRE_YIELDS.put(Blocks.LOG2.getDefaultState(), 1.99);
@@ -54,5 +55,9 @@ public class AmCruxes {
 		ModEntities.registerOreDictValue(EntityNacre.NACRE_YIELDS, 1.99, "stoneLimestonePolished");
 		ModEntities.registerOreDictValue(EntityNacre.NACRE_YIELDS, 2.99, "blockPrismarine");
 		ModEntities.registerWithOreDictionary(EntityNacre.NACRE_YIELDS, "Calcite", "Aragonite");
+		EntityNephrite.NEPHRITE_YIELDS.put(Blocks.BEDROCK.getDefaultState(), 2.99);
+		EntityNephrite.NEPHRITE_YIELDS.put(Blocks.GRASS.getDefaultState(), 0.01);
+		ModEntities.registerOreDictValue(EntityNephrite.NEPHRITE_YIELDS, 0.44, "stoneDiorite");
+		ModEntities.registerOreDictValue(EntityNephrite.NEPHRITE_YIELDS, 0.99, "stoneDioritePolished");
 	}
 }

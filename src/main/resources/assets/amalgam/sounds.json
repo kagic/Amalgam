@@ -105,6 +105,28 @@
             { "name": "amalgam:entities/baby_pearl/obey1" }
         ]
     },
+    "entities.nephrite.injure": {
+        "sounds": [
+            { "name": "amalgam:entities/nephrite/injure1" },
+            { "name": "amalgam:entities/nephrite/injure2" },
+            { "name": "amalgam:entities/nephrite/injure3" },
+            { "name": "amalgam:entities/nephrite/injure4" }
+        ]
+    },
+    "entities.nephrite.obey": {
+        "sounds": [
+            { "name": "amalgam:entities/nephrite/obey1" }
+        ]
+    },
+	"entities.nephrite.living": {
+        "sounds": [
+            { "name": "amalgam:entities/nephrite/living1" },
+            { "name": "amalgam:entities/nephrite/living2" },
+            { "name": "amalgam:entities/nephrite/living3" },
+            { "name": "amalgam:entities/nephrite/living4" },
+            { "name": "amalgam:entities/nephrite/living5" }
+        ]
+    },
 	"entities.steven.hello": {
 		"sounds": [
 			{ "name": "amalgam:entities/steven/hello1" }

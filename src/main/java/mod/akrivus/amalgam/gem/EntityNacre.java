@@ -14,6 +14,7 @@ import mod.akrivus.kagic.util.ShatterDamage;
 import mod.heimrarnadalr.kagic.util.Colors;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -65,6 +66,7 @@ public class EntityNacre extends EntityPearl {
 		this.droppedCrackedGemItem = AmItems.CRACKED_NACRE_GEM;
 		this.nativeColor = 9;
 		this.tasks.addTask(2, new EntityAIEatBlocks(this, 0.9D));
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
 		this.dataManager.register(CRACKED, false);
 		this.dataManager.register(COLOR_1, this.rand.nextInt(16));
 		this.dataManager.register(COLOR_2, this.rand.nextInt(16));
@@ -354,9 +356,6 @@ public class EntityNacre extends EntityPearl {
 			}
 		}
 		return super.attackEntityFrom(source, amount);
-	}
-	public void onDeath(DamageSource cause) {
-		super.onDeath(cause);
 	}
 	public boolean canChangeInsigniaColorByDefault() {
 		return true;

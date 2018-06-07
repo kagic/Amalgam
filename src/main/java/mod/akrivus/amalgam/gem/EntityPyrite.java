@@ -10,6 +10,7 @@ import mod.akrivus.amalgam.gem.ai.EntityAIFuseWithPyrites;
 import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.EntityGem;
+import mod.akrivus.kagic.entity.ai.EntityAICommandGems;
 import mod.akrivus.kagic.entity.ai.EntityAIDiamondHurtByTarget;
 import mod.akrivus.kagic.entity.ai.EntityAIDiamondHurtTarget;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowDiamond;
@@ -42,7 +43,7 @@ import net.minecraft.world.World;
 public class EntityPyrite extends EntityGem {
 	public static final HashMap<IBlockState, Double> PYRITE_YIELDS = new HashMap<IBlockState, Double>();
 	public static final double PYRITE_DEFECTIVITY_MULTIPLIER = 1;
-	public static final double PYRITE_DEPTH_THRESHOLD = 255;
+	public static final double PYRITE_DEPTH_THRESHOLD = 0;
 	private static final int SKIN_COLOR_BEGIN = 0xFFEE7F; 
 	private static final int SKIN_COLOR_MID = 0xE3D571; 
 	private static final int SKIN_COLOR_END = 0xC6BE63; 
@@ -93,6 +94,7 @@ public class EntityPyrite extends EntityGem {
 		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
 		this.tasks.addTask(1, new EntityAIFireballAttack(this));
+        this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
 		this.tasks.addTask(2, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
 			public boolean apply(EntityCreeper input) {
 				return ((EntityCreeper)input).getCreeperState() == 1;

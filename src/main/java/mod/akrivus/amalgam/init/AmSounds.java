@@ -25,6 +25,10 @@ public class AmSounds {
 	public static final SoundEvent BABY_PEARL_OH = new SoundEvent(new ResourceLocation("amalgam:entities.baby_pearl.oh"));
 	public static final SoundEvent BABY_PEARL_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.baby_pearl.obey"));
 	
+	public static final SoundEvent NEPHRITE_INJURE = new SoundEvent(new ResourceLocation("amalgam:entities.nephrite.injure"));
+	public static final SoundEvent NEPHRITE_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.nephrite.obey"));
+	public static final SoundEvent NEPHRITE_LIVING = new SoundEvent(new ResourceLocation("amalgam:entities.nephrite.living"));
+	
 	public static final SoundEvent STEVEN_HELLO = new SoundEvent(new ResourceLocation("amalgam:entities.steven.hello"));
 	public static final SoundEvent STEVEN_LIVING = new SoundEvent(new ResourceLocation("amalgam:entities.steven.living"));
 	public static final SoundEvent STEVEN_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.steven.hurt"));
@@ -58,6 +62,10 @@ public class AmSounds {
 		
 		registerSound(BABY_PEARL_OH, new ResourceLocation("amalgam:entities.baby_pearl.oh"), event);
 		registerSound(BABY_PEARL_OBEY, new ResourceLocation("amalgam:entities.baby_pearl.obey"), event);
+		
+		registerSound(NEPHRITE_INJURE, new ResourceLocation("amalgam:entities.nephrite.injure"), event);
+		registerSound(NEPHRITE_OBEY, new ResourceLocation("amalgam:entities.nephrite.obey"), event);
+		registerSound(NEPHRITE_LIVING, new ResourceLocation("amalgam:entities.nephrite.living"), event);
 		
 		registerSound(STEVEN_HELLO, new ResourceLocation("amalgam:entities.steven.hello"), event);
 		registerSound(STEVEN_LIVING, new ResourceLocation("amalgam:entities.steven.living"), event);
