@@ -10,11 +10,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -122,8 +124,11 @@ public class EntitySpitball extends Entity {
                     		IBlockState block = this.world.getBlockState(newp);
                     		Material mat = block.getMaterial();
                     		if (this.world.isAirBlock(newp.up())) {
-	                    		if (block.getBlock() == Blocks.LAVA) {
+	                    		if (mat == Material.LAVA) {
 	                    			this.world.setBlockState(newp, Blocks.OBSIDIAN.getDefaultState());
+	                    		}
+	                    		else if (block == Blocks.MAGMA) {
+	                    			this.world.setBlockState(newp, Blocks.GLOWSTONE.getDefaultState());
 	                    		}
 	                    		else if (mat == Material.CACTUS || mat == Material.CAKE || mat == Material.CARPET
 	                    				|| mat == Material.CLOTH || mat == Material.CORAL || mat == Material.FIRE
@@ -138,6 +143,7 @@ public class EntitySpitball extends Entity {
             	}
             	this.makeAreaOfEffectCloud(new BlockPos(result.hitVec));
             }
+           	this.world.playSound(null, this.getPosition(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 			this.setDead();
         }
     }
@@ -182,9 +188,9 @@ public class EntitySpitball extends Entity {
         EntityAreaEffectCloud cloud = new EntityAreaEffectCloud(this.world, pos.getX(), pos.getY(), pos.getZ());
         cloud.setOwner(this.shootingEntity);
         cloud.setRadius(3.0F);
-        cloud.setRadiusOnUse(-0.5F);
+        cloud.setRadiusOnUse(-0.25F);
+        cloud.setDuration(200);
         cloud.setWaitTime(10);
-        cloud.setDuration(100);
         cloud.setRadiusPerTick(-cloud.getRadius() / cloud.getDuration());
         cloud.addEffect(new PotionEffect(MobEffects.WITHER));
         cloud.setColor(0x80F67A);

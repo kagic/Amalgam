@@ -12,7 +12,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityAIEatBlocks extends EntityAIMoveToBlock {
+public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 	private final EntityNacre gem;
 	private final World world;
 	private int blockTime = 0;
@@ -21,7 +21,6 @@ public class EntityAIEatBlocks extends EntityAIMoveToBlock {
 		super(gem, speed, 16);
 		this.gem = gem;
 		this.world = gem.world;
-		this.setMutexBits(1);
 	}
 	public boolean shouldExecute() {
 		if (this.gem.world.getCurrentMoonPhaseFactor() == 1.0) {
@@ -59,12 +58,6 @@ public class EntityAIEatBlocks extends EntityAIMoveToBlock {
             		this.gem.addFood(1);
             	}
             }
-		}
-		else {
-			++this.blockTime;
-			if (this.blockTime > 40) {
-				this.resetTask();
-			}
 		}
 	}
 	protected boolean shouldMoveTo(World world, BlockPos pos) {

@@ -48,17 +48,11 @@ public class EntityAISpitballAttack extends EntityAIBase {
                     this.attackStep = 0;
                 }
                 if (this.attackStep > 1) {
-                    float dS = MathHelper.sqrt(MathHelper.sqrt(distance)) * 0.5F;
-                    if (this.gem.isDefective()) {
-	                    this.gem.createFireworks();
-                    }
-                    else {
-	                    this.gem.world.playSound(null, this.gem.getPosition(), SoundEvents.ENTITY_LLAMA_SPIT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-	                    for (int i = 0; i < 1; ++i) {
-	                    	EntitySpitball spitball = new EntitySpitball(this.gem.world, this.gem, dX, dY, dZ);
-	                    	spitball.posY = this.gem.posY + (double)(this.gem.height / 2.0F) + 0.5D;
-	                        this.gem.world.spawnEntity(spitball);
-	                    }
+                    this.gem.world.playSound(null, this.gem.getPosition(), SoundEvents.ENTITY_LLAMA_SPIT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                    for (int i = 0; i < 1; ++i) {
+                    	EntitySpitball spitball = new EntitySpitball(this.gem.world, this.gem, dX, dY, dZ);
+                    	spitball.posY = this.gem.posY + (double)(this.gem.height / 2.0F) + 0.5D;
+                        this.gem.world.spawnEntity(spitball);
                     }
                 }
             }
