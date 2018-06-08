@@ -101,11 +101,7 @@ public class EntitySpitball extends Entity {
            			EntityNephrite neph = (EntityNephrite) this.shootingEntity;
            			if (result.entityHit instanceof EntityLivingBase) {
             			EntityLivingBase entity = (EntityLivingBase)(result.entityHit);
-            			shoot = !neph.isOwnedBy(entity);
-            			if (entity instanceof EntityGem) {
-            				EntityGem gem = (EntityGem)(entity);
-            				shoot = !neph.isOwnedBySamePeople(gem);
-            			}
+            			shoot = !neph.isOnSameTeam(entity);
            			}
            		}
            		if (shoot) {

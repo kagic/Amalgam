@@ -278,7 +278,7 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
     }
 	public void openGUI(EntityPlayer playerEntity) {
         if (!this.world.isRemote && this.isBackpacked()) {
-            this.backpack.setCustomName(new TextComponentTranslation("command.kagic.connie_backpack.name").getUnformattedComponentText());
+            this.backpack.setCustomName(new TextComponentTranslation("command.amalgam.connie_backpack.name").getUnformattedComponentText());
             playerEntity.displayGUIChest(this.backpack);
         }
     }

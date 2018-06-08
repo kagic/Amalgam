@@ -22,7 +22,7 @@ public class ItemStevenStone extends Item {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote) {
-			ITextComponent message = new TextComponentTranslation(String.format("command.kagic.steven_doesnt_spawn"));
+			ITextComponent message = new TextComponentTranslation(String.format("command.amalgam.steven_doesnt_spawn"));
 			message.getStyle().setColor(TextFormatting.GRAY);
 			playerIn.sendMessage(message);
 	       	return EnumActionResult.SUCCESS;

@@ -11,6 +11,8 @@
   "credits": "§7\n\"Moonstone\" is based on the amazing work of Lenhi with their written permission.\n\"Steven Universe\" and all related characters and elements are trademarks of Cartoon Network.§f",
   "logoFile": "",
   "screenshots": [],
-  "dependencies": []
+  "dependencies": [
+  	"kagic"
+  ]
 }
 ]

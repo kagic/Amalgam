@@ -32,7 +32,7 @@ public class ItemConnieBracelet extends ModRecord {
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		EnumActionResult result = super.onItemUse(playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
 		if (result == EnumActionResult.PASS && !worldIn.isRemote) {
-			ITextComponent message = new TextComponentTranslation(String.format("command.kagic.connie_doesnt_spawn"));
+			ITextComponent message = new TextComponentTranslation(String.format("command.amalgam.connie_doesnt_spawn"));
 			message.getStyle().setColor(TextFormatting.GRAY);
 			playerIn.sendMessage(message);
 	       	return EnumActionResult.SUCCESS;

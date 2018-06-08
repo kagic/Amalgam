@@ -183,7 +183,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
     }
 	public void openGUI(EntityPlayer playerEntity) {
         if (!this.world.isRemote && this.isBackpacked()) {
-            this.backpack.setCustomName(new TextComponentTranslation("command.kagic.cheeseburger_backpack.name").getUnformattedComponentText());
+            this.backpack.setCustomName(new TextComponentTranslation("command.amalgam.cheeseburger_backpack.name").getUnformattedComponentText());
             playerEntity.displayGUIChest(this.backpack);
         }
     }
