@@ -2,6 +2,7 @@ package mod.akrivus.amalgam.entity;
 
 import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.kagic.entity.EntityGem;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -94,8 +95,8 @@ public class EntitySpitball extends Entity {
     }
     protected void onImpact(RayTraceResult result) {
         if (!this.world.isRemote) {
+        	boolean shoot = true;
            	if (result.entityHit != null) {
-           		boolean shoot = true;
            		if (this.shootingEntity instanceof EntityNephrite) {
            			EntityNephrite neph = (EntityNephrite) this.shootingEntity;
            			if (result.entityHit instanceof EntityLivingBase) {
@@ -108,41 +109,47 @@ public class EntitySpitball extends Entity {
            			}
            		}
            		if (shoot) {
-	        		result.entityHit.attackEntityFrom(DamageSource.WITHER, 10.0F);
+	        		result.entityHit.attackEntityFrom(DamageSource.GENERIC, 10.0F);
 	        		if (result.entityHit instanceof EntityLivingBase) {
 	        			EntityLivingBase entity = (EntityLivingBase)(result.entityHit);
-	        			entity.addPotionEffect(new PotionEffect(MobEffects.WITHER, 20));
+	        			entity.addPotionEffect(new PotionEffect(MobEffects.WITHER, 600));
 	            	}
-	        		this.makeAreaOfEffectCloud(new BlockPos(result.hitVec));
            		}
             }
-            else {
-            	for (int x = -2; x < 2; ++x) {
-            		for (int y = -3; y < 3; ++y) {
-            			for (int z = -2; z < 2; ++z) {
-            				BlockPos newp = new BlockPos(new BlockPos(result.hitVec).add(x, y, z));
-                    		IBlockState block = this.world.getBlockState(newp);
-                    		Material mat = block.getMaterial();
-                    		if (this.world.isAirBlock(newp.up())) {
-	                    		if (mat == Material.LAVA) {
-	                    			this.world.setBlockState(newp, Blocks.OBSIDIAN.getDefaultState());
-	                    		}
-	                    		else if (block == Blocks.MAGMA) {
-	                    			this.world.setBlockState(newp, Blocks.GLOWSTONE.getDefaultState());
-	                    		}
-	                    		else if (mat == Material.CACTUS || mat == Material.CAKE || mat == Material.CARPET
-	                    				|| mat == Material.CLOTH || mat == Material.CORAL || mat == Material.FIRE
-	                    				|| mat == Material.GOURD || mat == Material.GRASS || mat == Material.GROUND
-	                    				|| mat == Material.LAVA || mat == Material.LEAVES || mat == Material.PLANTS
-	                    				|| mat == Material.VINE || mat == Material.WOOD) {
-	                    			this.world.setBlockToAir(newp);
-	                    		}
-                    		}
-                    	}
-                	}
-            	}
-            	this.makeAreaOfEffectCloud(new BlockPos(result.hitVec));
-            }
+           	if ((this.world.getGameRules().getBoolean("mobGriefing") || !shoot) && result != null) {
+	        	for (int x = -3; x < 3; ++x) {
+	        		for (int y = -3; y < 3; ++y) {
+	        			for (int z = -3; z < 3; ++z) {
+	        				if (this.rand.nextBoolean()) {
+		        				BlockPos newp = new BlockPos(result.hitVec).add(x, y, z);
+		        				if (result.typeOfHit == RayTraceResult.Type.ENTITY) {
+		        					newp = newp.down((int)(result.entityHit.height));
+		        				}
+		                		IBlockState state = this.world.getBlockState(newp);
+		                		Block block = state.getBlock();
+		                		Material mat = state.getMaterial();
+		                		if (mat == Material.LAVA && this.world.isAirBlock(newp.up())) {
+		                			this.world.setBlockState(newp, Blocks.OBSIDIAN.getDefaultState());
+		                		}
+		                		else if (block == Blocks.MAGMA) {
+		                			this.world.setBlockState(newp, Blocks.GLOWSTONE.getDefaultState());
+		                		}
+		                		else if (block == Blocks.WEB) {
+		                			this.world.destroyBlock(newp, true);
+		                		}
+		                		else if (mat == Material.CACTUS || mat == Material.CAKE || mat == Material.CARPET
+		                				|| mat == Material.CLOTH || mat == Material.CORAL || mat == Material.FIRE
+		                				|| mat == Material.GOURD || mat == Material.GRASS || mat == Material.GROUND
+		                				|| mat == Material.LAVA || mat == Material.LEAVES || mat == Material.PLANTS
+		                				|| mat == Material.VINE || mat == Material.WOOD) {
+		                			this.world.setBlockToAir(newp);
+		                		}
+	        				}
+	                	}
+	            	}
+	        	}
+           	}
+        	this.makeAreaOfEffectCloud(new BlockPos(result.hitVec));
            	this.world.playSound(null, this.getPosition(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 			this.setDead();
         }
@@ -192,7 +199,7 @@ public class EntitySpitball extends Entity {
         cloud.setDuration(200);
         cloud.setWaitTime(10);
         cloud.setRadiusPerTick(-cloud.getRadius() / cloud.getDuration());
-        cloud.addEffect(new PotionEffect(MobEffects.WITHER));
+        cloud.addEffect(new PotionEffect(MobEffects.POISON, 200));
         cloud.setColor(0x80F67A);
         this.world.spawnEntity(cloud);
     }

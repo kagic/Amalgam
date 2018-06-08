@@ -12,6 +12,7 @@ public abstract class EntityAIMoveGemToBlock extends EntityAIBase
     protected int runDelay;
     private int timeoutCounter;
     private int maxStayTicks;
+    private double mindist = Double.MAX_VALUE;
     protected BlockPos destinationBlock = BlockPos.ORIGIN;
     private boolean isAboveDestination;
     private final int searchLength;
@@ -57,19 +58,25 @@ public abstract class EntityAIMoveGemToBlock extends EntityAIBase
         return this.isAboveDestination;
     }
     protected boolean searchForDestination() {
+    	this.destinationBlock = null;
+    	this.mindist = Double.MAX_VALUE;
     	int i = this.searchLength;
         BlockPos blockpos = new BlockPos(this.creature);
         for (int x = -i; x < i; ++x) {
-        	for (int y = -i / 2; y < i / 2; ++y) {
+        	for (int y = -(int)(this.creature.height); y < (int)(this.creature.height); ++y) {
         		for (int z = -i; z < i; ++z) {
         			BlockPos pos = blockpos.add(x, y, z);
                     if (this.creature.isWithinHomeDistanceFromPosition(pos) && this.shouldMoveTo(this.creature.world, pos)) {
-                    	return this.shouldMoveTo(this.creature.world, pos);
+                    	double deez = blockpos.distanceSq(pos);
+                    	if (this.mindist >= deez) {
+                    		this.destinationBlock = pos;
+                    		this.mindist = deez;
+                    	}
                     }
                 }
             }
         }
-        return false;
+        return this.destinationBlock != null;
     }
     protected abstract boolean shouldMoveTo(World worldIn, BlockPos pos);
 }

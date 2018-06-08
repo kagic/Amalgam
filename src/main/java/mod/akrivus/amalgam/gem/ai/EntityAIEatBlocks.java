@@ -48,9 +48,9 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 		super.updateTask();
 		this.gem.getLookHelper().setLookPosition((double) this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), (double) this.destinationBlock.getZ() + 0.5D, 10.0F, (float) this.gem.getVerticalFaceSpeed());
 		if (this.gem.getDistanceSq(this.destinationBlock) < 4) {
-            this.world.playSound(null, this.gem.getPosition(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.NEUTRAL, 1.0F, this.gem.getSoundPitch());
             boolean eaten = this.world.destroyBlock(this.destinationBlock, false);
             if (eaten) {
+            	this.world.playSound(null, this.gem.getPosition(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.NEUTRAL, 1.0F, this.gem.getSoundPitch());
             	if (this.world.getBlockState(this.destinationBlock) == Blocks.COAL_BLOCK) {
             		this.gem.addFood(128);
             	}
@@ -61,20 +61,25 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 		}
 	}
 	protected boolean shouldMoveTo(World world, BlockPos pos) {
-		IBlockState state = world.getBlockState(pos);
-		Block block = state.getBlock();
-		if (block == Blocks.COAL_BLOCK || block == Blocks.COAL_ORE || block == Blocks.END_STONE || block == Blocks.NETHERRACK) {
-			return this.hasAir(pos);
-		}
-		else if (state.getMaterial() == Material.WOOD || state.getMaterial() == Material.CACTUS
-				|| state.getMaterial() == Material.CAKE || state.getMaterial() == ModBlocks.DRAINED) {
-			return this.hasAir(pos);
-		}
-		else if (state.getMaterial() == Material.CLAY || state.getMaterial() == Material.GLASS
-				|| state.getMaterial() == Material.GRASS || state.getMaterial() == Material.SNOW
-				|| state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.PLANTS || state.getMaterial() == Material.SAND
-				|| state.getMaterial() == Material.VINE) {
-			return this.hasAir(pos);
+		if (!world.isAirBlock(pos)) {
+			IBlockState state = world.getBlockState(pos);
+			Block block = state.getBlock();
+			if (block == Blocks.COAL_BLOCK || block == Blocks.COAL_ORE
+					|| block == Blocks.END_STONE || block == Blocks.NETHERRACK) {
+				return this.hasAir(pos);
+			}
+			else if (state.getMaterial() == Material.WOOD || state.getMaterial() == Material.CACTUS
+					|| state.getMaterial() == Material.CAKE || state.getMaterial() == ModBlocks.DRAINED) {
+				return this.hasAir(pos);
+			}
+			else if (state.getMaterial() == Material.CLAY || state.getMaterial() == Material.GLASS
+					|| state.getMaterial() == Material.GRASS || state.getMaterial() == Material.SNOW) {
+				return this.hasAir(pos);
+			}
+			else if (state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.PLANTS
+					|| state.getMaterial() == Material.SAND || state.getMaterial() == Material.VINE) {
+				return this.hasAir(pos);
+			}
 		}
 		return false;
 	}
