@@ -318,6 +318,9 @@ public class EntityNacre extends EntityPearl {
             	}
             }
         }
+		if (this.ticksExisted % 40 == 0) {
+			this.heal(1.0F);
+		}
 	}
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (this.world.getCurrentMoonPhaseFactor() == 0.0 && this.getStressLevel() > 0 && this.totalExpected > 0 && !this.isCracked()) {

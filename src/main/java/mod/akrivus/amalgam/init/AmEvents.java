@@ -10,7 +10,6 @@ import mod.akrivus.kagic.entity.gem.EntityRuby;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
 import mod.akrivus.kagic.event.DrainBlockEvent;
 import mod.akrivus.kagic.event.TimeGlassEvent;
-import mod.akrivus.kagic.init.KAGIC;
 import net.minecraft.block.BlockBush;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.MinecraftForge;
