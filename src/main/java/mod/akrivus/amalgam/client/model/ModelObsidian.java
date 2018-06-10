@@ -29,7 +29,7 @@ public class ModelObsidian extends ModelGem {
 	    this.bipedBody.addBox(-3F, 6F, -2F, 6, 8, 4);
 	    this.bipedBody.setRotationPoint(0F, 0F, 0F);
 	    // Skirt.
-	    this.bipedSkirt = new ModelRenderer(this, 24, 28);
+	    this.bipedSkirt = new ModelRenderer(this, 0, 28);
 	    this.bipedSkirt.addBox(-5F, 13F, -5F, 10, 8, 10);
 	    this.bipedSkirt.setRotationPoint(0F, 0F, 0F);
 	    // Right arm.
@@ -37,7 +37,7 @@ public class ModelObsidian extends ModelGem {
 	    this.bipedRightArm.addBox(0F, -2F, -1F, 2, 10, 2);
 	    this.bipedRightArm.setRotationPoint(0F, 8F, 0F);
 	    // Left arm.
-	    this.bipedLeftArm = new ModelRenderer(this, 36, 16);
+	    this.bipedLeftArm = new ModelRenderer(this, 28, 16);
 	    this.bipedLeftArm.addBox(-2F, -2F, -1F, 2, 10, 2);
 	    this.bipedLeftArm.setRotationPoint(0F, 8F, 0F);
 	    // Right leg.

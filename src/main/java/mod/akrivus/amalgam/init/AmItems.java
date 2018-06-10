@@ -16,6 +16,8 @@ public class AmItems {
 	public static final ItemGem NACRE_GEM = new ItemGem("nacre");
 	public static final ItemGem NEPHRITE_GEM = new ItemGem("nephrite");
 	public static final ItemGem NEPHRITE_1_GEM = new ItemGem("nephrite_1");
+	public static final ItemGem CRYING_OBSIDIAN_GEM = new ItemGem("crying_obsidian");
+	public static final ItemGem SNOWFLAKE_OBSIDIAN_GEM = new ItemGem("snowflake_obsidian");
 	
 	public static final ItemGem CRACKED_CITRINE_GEM = new ItemGem("citrine", true);
 	public static final ItemGem CRACKED_AMETRINE_GEM = new ItemGem("citrine_1", true);
@@ -24,6 +26,8 @@ public class AmItems {
 	public static final ItemGem CRACKED_NACRE_GEM = new ItemGem("nacre", true);
 	public static final ItemGem CRACKED_NEPHRITE_GEM = new ItemGem("nephrite", true);
 	public static final ItemGem CRACKED_NEPHRITE_1_GEM = new ItemGem("nephrite_1", true);
+	public static final ItemGem CRACKED_CRYING_OBSIDIAN_GEM = new ItemGem("crying_obsidian", true);
+	public static final ItemGem CRACKED_SNOWFLAKE_OBSIDIAN_GEM = new ItemGem("snowflake_obsidian", true);
 	
 	public static final ItemStevenStone STEVEN_GEM = new ItemStevenStone();
 	public static final ItemConnieBracelet CONNIE_BRACELET = new ItemConnieBracelet();
@@ -38,6 +42,8 @@ public class AmItems {
 		ModItems.registerExternalGem(NACRE_GEM, CRACKED_NACRE_GEM, "amalgam", event);
 		ModItems.registerExternalGem(NEPHRITE_GEM, CRACKED_NEPHRITE_GEM, "amalgam", event);
 		ModItems.registerExternalGem(NEPHRITE_1_GEM, CRACKED_NEPHRITE_1_GEM, "amalgam", event);
+		ModItems.registerExternalGem(CRYING_OBSIDIAN_GEM, CRACKED_CRYING_OBSIDIAN_GEM, "amalgam", event);
+		ModItems.registerExternalGem(SNOWFLAKE_OBSIDIAN_GEM, CRACKED_SNOWFLAKE_OBSIDIAN_GEM, "amalgam", event);
 		
 		ModItems.registerExternalItem(STEVEN_GEM, "amalgam", event);
 		ModItems.registerExternalItem(CONNIE_BRACELET, "amalgam", event);

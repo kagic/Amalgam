@@ -60,6 +60,7 @@ public class EntityNacre extends EntityPearl {
 	public EntityNacre(World worldIn) {
 		super(worldIn);
 		this.setSize(0.6F, 2.5F);
+		this.seePastDoors();
 		this.droppedGemItem = AmItems.NACRE_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_NACRE_GEM;
 		this.droppedGemItem = AmItems.NACRE_GEM;
