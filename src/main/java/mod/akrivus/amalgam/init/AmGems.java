@@ -4,12 +4,10 @@ import mod.akrivus.amalgam.entity.EntitySpitball;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.amalgam.gem.EntityCitrine;
 import mod.akrivus.amalgam.gem.EntityConnie;
-import mod.akrivus.amalgam.gem.EntityCryingObsidian;
 import mod.akrivus.amalgam.gem.EntityEnderPearl;
 import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.amalgam.gem.EntityPyrite;
-import mod.akrivus.amalgam.gem.EntitySnowflakeObsidian;
 import mod.akrivus.amalgam.gem.EntitySteven;
 import mod.akrivus.kagic.init.ModEntities;
 import net.minecraft.client.renderer.entity.Render;
@@ -29,9 +27,7 @@ public class AmGems {
 		ModEntities.registerExternalGem("amalgam", "nacre", EntityNacre.class, "mod/akrivus/amalgam/client/render/RenderNacre", 0xEDEFF4, 0xFFCF96, false);
 		ModEntities.registerExternalGem("amalgam", "baby_pearl", EntityBabyPearl.class, "mod/akrivus/amalgam/client/render/RenderBabyPearl", 0xFCCCB1, 0x92EAD9, false);
 		ModEntities.registerExternalGem("amalgam", "nephrite", EntityNephrite.class, "mod/akrivus/amalgam/client/render/RenderNephrite", 0x428F33, 0x0E0D09, false);
-		ModEntities.registerExternalGem("amalgam", "crying_obsidian", EntityCryingObsidian.class, "mod/akrivus/amalgam/client/render/RenderCryingObsidian", 0x242424, 0x345FDA, false);
-		ModEntities.registerExternalGem("amalgam", "snowflake_obsidian", EntitySnowflakeObsidian.class, "mod/akrivus/amalgam/client/render/RenderSnowflakeObsidian", 0x242424, 0xFFFFFF, false);
-		
+
 		registerMob("steven", EntitySteven.class, 0xFD6270, 0xFFD248);
 		registerMob("connie", EntityConnie.class, 0x99D3CD, 0xAF4E3D);
 		registerEntity("spitball", EntitySpitball.class);

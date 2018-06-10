@@ -14,5 +14,4 @@ public class AmConfigs {
 	public static boolean enablePyrite = true;
 	public static boolean enableNacre = true;
 	public static boolean enableNephrite = true;
-	public static boolean enableObsidian = true;
 }
