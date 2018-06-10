@@ -112,7 +112,7 @@ public class EntitySpitball extends Entity {
 	            	}
            		}
             }
-           	if ((this.world.getGameRules().getBoolean("mobGriefing") || !shoot) && result != null) {
+           	if (this.world.getGameRules().getBoolean("mobGriefing") && result != null) {
 	        	for (int x = -3; x < 3; ++x) {
 	        		for (int y = -3; y < 3; ++y) {
 	        			for (int z = -3; z < 3; ++z) {
