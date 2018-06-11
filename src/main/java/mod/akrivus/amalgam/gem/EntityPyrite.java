@@ -226,13 +226,13 @@ public class EntityPyrite extends EntityGem {
 		pyrite.setSkinColor(this.generateSkinColor());
 		pyrite.setHairColor(this.generateHairColor());
 		pyrite.setHairStyle(this.generateHairStyle());
+		pyrite.setGemColor(this.generateGemColor());
 		pyrite.setHasVisor(this.hasVisor());
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D * pyrite.getFusionCount());
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D * pyrite.getFusionCount());
     	pyrite.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0F);
     	pyrite.stepHeight = pyrite.getFusionCount();
     	pyrite.setHealth(pyrite.getMaxHealth());
-    	
     	
     	ItemStack weapon = this.getHeldItem(EnumHand.MAIN_HAND);
     	if (weapon.isEmpty()) {
