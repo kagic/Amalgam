@@ -21,10 +21,6 @@ public class LayerNephriteItem implements LayerRenderer<EntityLivingBase> {
 	public LayerNephriteItem(RenderGemBase renderPearl) {
 		this.livingEntityRenderer = renderPearl;
 	}
-	
-	public LayerNephriteItem(RenderHoloPearl renderPearl) {
-		this.livingEntityRenderer = renderPearl;
-	}
 
 	@Override
 	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {

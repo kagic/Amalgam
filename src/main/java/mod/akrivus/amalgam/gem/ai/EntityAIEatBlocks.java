@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 	private final EntityNacre gem;
 	private final World world;
-	private int blockTime = 0;
 	private int delay = 0;
 	public EntityAIEatBlocks(EntityNacre gem, double speed) {
 		super(gem, speed, 16);
@@ -41,7 +40,6 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 		super.startExecuting();
 	}
 	public void resetTask() {
-		this.blockTime = 0;
 		super.resetTask();
 	}
 	public void updateTask() {
@@ -68,11 +66,11 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 					|| block == Blocks.END_STONE || block == Blocks.NETHERRACK) {
 				return this.hasAir(pos);
 			}
-			else if (state.getMaterial() == Material.WOOD || state.getMaterial() == Material.CACTUS
+			else if (state.getMaterial() == Material.WOOD || state.getMaterial() == Material.CACTUS || state.getMaterial() == Material.GOURD
 					|| state.getMaterial() == Material.CAKE || state.getMaterial() == ModBlocks.DRAINED) {
 				return this.hasAir(pos);
 			}
-			else if (state.getMaterial() == Material.CLAY || state.getMaterial() == Material.GLASS
+			else if (state.getMaterial() == Material.CLAY || state.getMaterial() == Material.GLASS || state.getMaterial() == Material.GROUND
 					|| state.getMaterial() == Material.GRASS || state.getMaterial() == Material.SNOW) {
 				return this.hasAir(pos);
 			}

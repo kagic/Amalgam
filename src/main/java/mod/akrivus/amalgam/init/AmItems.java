@@ -23,8 +23,7 @@ public class AmItems {
 	public static final ItemGem CRACKED_ENDER_PEARL_GEM = new ItemGem("ender_pearl", true);
 	public static final ItemGem CRACKED_NACRE_GEM = new ItemGem("nacre", true);
 	public static final ItemGem CRACKED_NEPHRITE_GEM = new ItemGem("nephrite", true);
-	public static final ItemGem CRACKED_NEPHRITE_1_GEM = new ItemGem("nephrite_1", true);
-	
+	public static final ItemGem CRACKED_NEPHRITE_1_GEM = new ItemGem("nephrite_1", true);	
 	public static final ItemStevenStone STEVEN_GEM = new ItemStevenStone();
 	public static final ItemConnieBracelet CONNIE_BRACELET = new ItemConnieBracelet();
 	

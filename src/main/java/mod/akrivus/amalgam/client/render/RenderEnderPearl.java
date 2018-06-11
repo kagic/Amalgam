@@ -24,7 +24,6 @@ public class RenderEnderPearl extends RenderGemBase<EntityEnderPearl> {
         this.addLayer(new LayerPearlItem(this));
         this.addLayer(new LayerPearlHair(this));
         this.addLayer(new LayerPearlDress(this));
-        this.addLayer(new LayerPearlVisor(this));
         this.addLayer(new LayerGemPlacement(this));
         this.addLayer(new LayerDiamondGlow(this));
 		if (KAGIC.isBirthday()) {
