@@ -1,5 +1,6 @@
 package mod.akrivus.amalgam.init;
 
+import mod.akrivus.amalgam.entity.EntityGemShard;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.amalgam.gem.EntitySteven;
 import mod.akrivus.amalgam.gem.ai.EntityAICallForBackup;
@@ -11,9 +12,13 @@ import mod.akrivus.kagic.entity.gem.GemPlacements;
 import mod.akrivus.kagic.event.DrainBlockEvent;
 import mod.akrivus.kagic.event.TimeGlassEvent;
 import net.minecraft.block.BlockBush;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
@@ -38,6 +43,24 @@ public class AmEvents {
 			return true;
 		}
 		return false;
+	}
+	@SubscribeEvent
+	public void onItemExpire(ItemExpireEvent e) {
+		ItemStack stack = e.getEntityItem().getItem();
+		if (stack.isItemEnchanted()) {
+			NBTTagList enchantments = stack.getEnchantmentTagList();
+			for (int i = 0; i < enchantments.tagCount(); i++) {
+				if (enchantments.getCompoundTagAt(i).getInteger("id") == Enchantment.getEnchantmentID(MobMash.CURSED_ENCHANT)) {
+					if (!e.getEntityItem().world.isRemote) {
+						EntityGemShard shard = new EntityGemShard(e.getEntityItem().world);
+						shard.setPositionAndRotation(e.getEntityItem().posX, e.getEntityItem().posY, e.getEntityItem().posZ, e.getEntityItem().rotationYaw, e.getEntityItem().rotationPitch);
+						shard.setItem(stack);
+						e.getEntityItem().world.spawnEntity(shard);
+						e.getEntityItem().setDead();
+					}
+				}
+			}
+		}
 	}
 	@SubscribeEvent
 	public void onEntitySpawn(EntityJoinWorldEvent e) {

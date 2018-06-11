@@ -39,6 +39,3 @@ processResources {
         exclude 'mcmod.info'
     }
 }
-dependencies {
-	compile fileTree(dir: 'libs', includes: ['*.jar'])
-}
