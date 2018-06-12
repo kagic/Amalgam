@@ -2,11 +2,10 @@ package mod.akrivus.amalgam.init;
 
 import org.apache.logging.log4j.Logger;
 
-import mod.akrivus.amalgam.crafting.InfuseShardsRecipes;
+import mod.akrivus.kagic.init.KAGIC;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -18,8 +17,6 @@ import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod(modid = Amalgam.MODID, version = Amalgam.VERSION, acceptedMinecraftVersions = Amalgam.MCVERSION, dependencies="after:kagic")
 public class Amalgam {
@@ -60,11 +57,6 @@ public class Amalgam {
 		@SubscribeEvent
 		public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
 			AmSounds.register(event);
-		}
-		@SubscribeEvent
-		public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-			final IForgeRegistry<IRecipe> registry = ForgeRegistries.RECIPES;
-			registry.register(new InfuseShardsRecipes());
 		}
 		@SubscribeEvent
 		public static void changeConfigs(ConfigChangedEvent.OnConfigChangedEvent event) {

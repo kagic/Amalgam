@@ -1,6 +1,9 @@
 package mod.akrivus.amalgam.init;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 
 import mod.akrivus.amalgam.enchant.EnchantShard;
 import mod.akrivus.amalgam.entity.EntityGemShard;
@@ -15,17 +18,23 @@ import mod.akrivus.kagic.entity.gem.EntityRuby;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
 import mod.akrivus.kagic.event.DrainBlockEvent;
 import mod.akrivus.kagic.event.TimeGlassEvent;
+import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.items.ItemGem;
 import net.minecraft.block.BlockBush;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
+import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
@@ -84,6 +93,100 @@ public class AmEvents {
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
 		e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"§cAmalgam " + Amalgam.VERSION + "§f\"}]"));
+	}
+	@SubscribeEvent
+	public void onAnvilRepair(AnvilRepairEvent e) {
+		if (e.getItemInput().getItem() instanceof ItemGem) {
+			ItemGem gem = (ItemGem)(e.getItemInput().getItem());
+			if (gem.isCracked) {
+				if (e.getIngredientInput().getItem() instanceof ItemPickaxe) {
+					ItemStack stack = e.getIngredientInput().copy();
+					stack.damageItem(1, e.getEntityPlayer());
+					e.getEntityPlayer().addItemStackToInventory(stack);
+				}
+			}
+		}
+	}
+	@SubscribeEvent
+	public void onAnvilUpdate(AnvilUpdateEvent e) {
+		Random rand = new Random(e.getRight().hashCode());
+		if (e.getRight().getItem() instanceof ItemGemShard) {
+			ItemGemShard gem = (ItemGemShard)(e.getRight().getItem());
+			if (e.getLeft().getItem() instanceof ItemGemShard) {
+				ItemGem[] SHARDS = new ItemGem[] {
+					ModItems.HANDBODY_GEM,
+					ModItems.FOOTARM_GEM,
+					ModItems.MOUTHTORSO_GEM
+				};
+				e.setOutput(new ItemStack(SHARDS[rand.nextInt(SHARDS.length)]));
+			}
+			else {
+				boolean enchantItem = true;
+				NBTTagList enchantments = e.getLeft().getEnchantmentTagList();
+				for (int i = 0; i < enchantments.tagCount(); i++) {
+					if (Enchantment.getEnchantmentByID(enchantments.getCompoundTagAt(i).getInteger("id")) instanceof EnchantShard) {
+						enchantItem = true;
+					}
+				}
+				if (enchantItem) {
+					ItemStack stack = e.getLeft().copy();
+					stack.addEnchantment(EnchantShard.ENCHANTS.get(gem.getUnlocalizedName().replaceAll("item\\.", "")), 1);
+					e.setOutput(stack);
+				}
+			}
+			if (!e.getOutput().isEmpty()) {
+				e.setResult(Result.ALLOW);
+				e.setCost(1);
+			}
+		}
+		if (e.getLeft().getItem() instanceof ItemGem) {
+			boolean canBreak = false;
+			if (e.getRight().getItem() instanceof ItemPickaxe) {
+				ItemPickaxe tool = (ItemPickaxe)(e.getRight().getItem());
+				ToolMaterial mat = ToolMaterial.valueOf(tool.getToolMaterialName());
+				canBreak = mat.getHarvestLevel() > 1;
+			}
+			if (canBreak) {
+				ItemGem gem = (ItemGem)(e.getLeft().getItem());
+				if (gem.isCracked) {
+				    ArrayList<Double> diffs = new ArrayList<Double>();
+				    int gemColor = rand.nextInt(16777215);
+				    if (e.getLeft().hasTagCompound()) {
+				    	NBTTagCompound nbt = e.getLeft().getTagCompound();
+				    	if (nbt.hasKey("gemColor")) {
+				    		gemColor = nbt.getInteger("gemColor");
+				    	}
+				    }
+				    float r = (float) ((gemColor & 16711680) >> 16);
+			        float g = (float) ((gemColor & 65280) >> 8);
+			        float b = (float) ((gemColor & 255) >> 0);
+				    for (int i = 0; i < EntityGemShard.PARTICLE_COLORS.length; ++i) {
+				    	int color = EntityGemShard.PARTICLE_COLORS[i];
+						float r1 = (float) ((color & 16711680) >> 16);
+				        float g1 = (float) ((color & 65280) >> 8);
+				        float b1 = (float) ((color & 255) >> 0);
+						double dist = Math.sqrt(Math.pow(r1-r, 2)+Math.pow(g1-g, 2)+Math.pow(b1-b, 2));
+						diffs.add(dist);
+				    }
+				    double[] lowestKeys = new double[4];
+				    Arrays.fill(lowestKeys, Double.MAX_VALUE);
+				    int[] lowestValues = new int[4];
+				    for (int i = 0; i < diffs.size(); ++i) {
+				        if (diffs.get(i) < lowestKeys[1]) {
+				        	lowestKeys[1] = diffs.get(i);
+				           	lowestValues[1] = i;
+				           	Arrays.sort(lowestValues);
+				            Arrays.sort(lowestKeys);
+				        }
+				    }
+				    e.setOutput(new ItemStack(ItemGemShard.SHARD_COLORS.get(lowestValues[rand.nextInt(3) + 1]), 9));
+				    if (!e.getOutput().isEmpty()) {
+						e.setResult(Result.ALLOW);
+						e.setCost(1);
+					}
+				}
+			}
+		}
 	}
 	@SubscribeEvent
 	public void onPlayerInteract(PlayerInteractEvent e) {

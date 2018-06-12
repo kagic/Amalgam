@@ -7,6 +7,7 @@ import java.util.List;
 import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.init.AmItems;
+import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.entity.ai.EntityAIStandGuard;
 import mod.akrivus.kagic.entity.gem.EntityAmethyst;
@@ -276,13 +277,13 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 	 * Methods related to sound.                             *
 	 *********************************************************/
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return ModSounds.JASPER_HURT;
+		return AmSounds.PYRITE_HURT;
 	}
 	protected SoundEvent getObeySound() {
-		return ModSounds.JASPER_OBEY;
+		return AmSounds.PYRITE_OBEY;
 	}
 	protected SoundEvent getDeathSound() {
-		return ModSounds.JASPER_DEATH;
+		return AmSounds.PYRITE_DEATH;
 	}
 	
 	/*********************************************************
