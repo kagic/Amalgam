@@ -21,8 +21,43 @@ entity.nephrite.name=Nephrite
 entity.nephrite_1.name=Nephrite
 entity.steven.name=Steven
 entity.connie.name=Connie
+entity.gem_shard.name=Gem Shard
 
 tile.drain_lily.name=Drain Lily
+
+item.gem_shard_0.name=White Gem Shard
+item.gem_shard_1.name=Orange Gem Shard
+item.gem_shard_2.name=Magenta Gem Shard
+item.gem_shard_3.name=Light Blue Gem Shard
+item.gem_shard_4.name=Yellow Gem Shard
+item.gem_shard_5.name=Lime Gem Shard
+item.gem_shard_6.name=Pink Gem Shard
+item.gem_shard_7.name=Gray Gem Shard
+item.gem_shard_8.name=Light Gray Gem Shard
+item.gem_shard_9.name=Cyan Gem Shard
+item.gem_shard_10.name=Purple Gem Shard
+item.gem_shard_11.name=Blue Gem Shard
+item.gem_shard_12.name=Brown Gem Shard
+item.gem_shard_13.name=Green Gem Shard
+item.gem_shard_14.name=Red Gem Shard
+item.gem_shard_15.name=Black Gem Shard
+
+enchantment.gem_shard_0.name=White Gem Shard
+enchantment.gem_shard_1.name=Orange Gem Shard
+enchantment.gem_shard_2.name=Magenta Gem Shard
+enchantment.gem_shard_3.name=Light Blue Gem Shard
+enchantment.gem_shard_4.name=Yellow Gem Shard
+enchantment.gem_shard_5.name=Lime Gem Shard
+enchantment.gem_shard_6.name=Pink Gem Shard
+enchantment.gem_shard_7.name=Gray Gem Shard
+enchantment.gem_shard_8.name=Light Gray Gem Shard
+enchantment.gem_shard_9.name=Cyan Gem Shard
+enchantment.gem_shard_10.name=Purple Gem Shard
+enchantment.gem_shard_11.name=Blue Gem Shard
+enchantment.gem_shard_12.name=Brown Gem Shard
+enchantment.gem_shard_13.name=Green Gem Shard
+enchantment.gem_shard_14.name=Red Gem Shard
+enchantment.gem_shard_15.name=Black Gem Shard
 
 item.citrine_gem.name=Citrine Gem
 item.citrine_1_gem.name=Ametrine Gem
