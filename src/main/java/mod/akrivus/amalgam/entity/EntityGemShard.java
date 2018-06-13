@@ -1,8 +1,11 @@
 package mod.akrivus.amalgam.entity;
 
+import com.google.common.base.Predicate;
+
 import mod.akrivus.amalgam.client.particle.ParticleShard;
 import mod.akrivus.amalgam.init.AmItems;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -10,11 +13,14 @@ import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -31,6 +37,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
@@ -86,6 +93,7 @@ public class EntityGemShard extends EntityMob {
         this.tasks.addTask(5, new EntityAIWander(this, 0.2D));
         this.tasks.addTask(6, new EntityAILookIdle(this));
 		this.targetTasks.addTask(0, new EntityAIHurtByTarget(this, true, new Class[0]));
+		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget<EntityLivingBase>(this, EntityLivingBase.class, true, false));
 		((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
 		((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
 		this.dataManager.register(COLOR, this.rand.nextInt(16));
@@ -106,6 +114,19 @@ public class EntityGemShard extends EntityMob {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		this.setHealth(this.getMaxHealth());
 		return super.onInitialSpawn(difficulty, livingdata);
+	}
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+		if (!this.world.isRemote && !this.dead) {
+			ItemStack stack = this.getItem().copy();
+			boolean added = player.addItemStackToInventory(stack);
+			if (!added) {
+				player.dropItem(stack, true);
+			}
+			this.dead = true;
+			this.setDead();
+			return true;
+		}
+		return super.processInteract(player, hand);
 	}
 	public void onLivingUpdate() {
         if (this.world.isRemote) {
@@ -142,7 +163,6 @@ public class EntityGemShard extends EntityMob {
 	}
 	public void setColor(int color) {
 		this.dataManager.set(COLOR, color);
-		this.setStatsBasedOnColor();
 	}
 	public int getColor() {
 		return this.dataManager.get(COLOR);
@@ -151,7 +171,7 @@ public class EntityGemShard extends EntityMob {
 		ToolMaterial material = null;
 		Item item = this.getItem().getItem();
 		if (item instanceof ItemArmor) {
-			material = ToolMaterial.valueOf(((ItemArmor) item).getArmorMaterial().getName());
+			material = ToolMaterial.valueOf(((ItemArmor) item).getArmorMaterial().getName().toUpperCase());
 		}
 		else if (item instanceof ItemSword) {
 			material = ToolMaterial.valueOf(((ItemSword) item).getToolMaterialName());
@@ -170,10 +190,7 @@ public class EntityGemShard extends EntityMob {
 		}
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(material.getAttackDamage() + 3.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(material.getHarvestLevel() * 6 + 2);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
         this.experienceValue = material.getEnchantability();
-	}
-	public void setStatsBasedOnColor() {
-		
 	}
 }

@@ -5,10 +5,11 @@ import net.minecraftforge.common.config.Config;
 @Config(modid = Amalgam.MODID)
 @Config.LangKey("amalgam.config.title")
 public class AmConfigs {
-	public static boolean spawnGemBuds = true;
 	public static boolean removePearlCruxes = true;
 	public static boolean socializeRubies = true;
+	public static boolean spawnGemBuds = true;
 	public static boolean spawnDrainLilies = true;
+	public static boolean enableGemShards = true;
 	public static boolean enableCitrine = true;
 	public static boolean enableEnderPearl = true;
 	public static boolean enablePyrite = true;

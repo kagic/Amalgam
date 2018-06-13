@@ -87,10 +87,11 @@ command.amalgam.cheeseburger_backpack.name=Cheeseburger Backpack
 command.amalgam.connie_backpack.name=Connie's Backpack
 
 amalgam.config.title=Welcome to Amalgam!
-amalgam.general.spawngembuds=Spawn Steven & Connie?
 amalgam.general.removepearlcruxes=Remove Pearl cruxes?
 amalgam.general.socializerubies=Socialize Rubies?
+amalgam.general.spawngembuds=Spawn Steven & Connie?
 amalgam.general.spawndrainlilies=Spawn Drain Lilies?
+amalgam.general.enablegemshards=Enable Gem Shards?
 amalgam.general.enablecitrine=Enable Citrine?
 amalgam.general.enableenderpearl=Enable Ender Pearl?
 amalgam.general.enablepyrite=Enable Pyrite?
