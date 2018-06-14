@@ -31,6 +31,7 @@ public class Amalgam {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+    	AmGui.register();
     	AmEvents.register();
     	AmGems.register();
     }

@@ -1,6 +1,7 @@
 package mod.akrivus.amalgam.init;
 
 import mod.akrivus.amalgam.items.ItemConnieBracelet;
+import mod.akrivus.amalgam.items.ItemDictionary;
 import mod.akrivus.amalgam.items.ItemGemShard;
 import mod.akrivus.amalgam.items.ItemStevenStone;
 import mod.akrivus.kagic.init.ModItems;
@@ -46,6 +47,8 @@ public class AmItems {
 	public static final ItemGemShard RED_GEM_SHARD = new ItemGemShard(14);
 	public static final ItemGemShard BLACK_GEM_SHARD = new ItemGemShard(15);
 	
+	public static final ItemDictionary DICTIONARY = new ItemDictionary();
+	
 	public static final ItemBlock _DLB1 = new ItemBlock(AmBlocks.DRAIN_LILY);
 	
 	public static void register(RegistryEvent.Register<Item> event) {
@@ -76,6 +79,8 @@ public class AmItems {
 		ModItems.registerExternalItem(GREEN_GEM_SHARD, "amalgam", event);
 		ModItems.registerExternalItem(RED_GEM_SHARD, "amalgam", event);
 		ModItems.registerExternalItem(BLACK_GEM_SHARD, "amalgam", event);
+		
+		ModItems.registerExternalItem(DICTIONARY, "amalgam", event);
 		
 		ModItems.registerExternalItem(_DLB1, "amalgam", event);
 	}

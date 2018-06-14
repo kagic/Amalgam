@@ -59,6 +59,8 @@ enchantment.gem_shard_13.name=Green Gem Shard
 enchantment.gem_shard_14.name=Red Gem Shard
 enchantment.gem_shard_15.name=Black Gem Shard
 
+item.dictionary.name=Kindergartener's Dictionary
+
 item.citrine_gem.name=Citrine Gem
 item.citrine_1_gem.name=Ametrine Gem
 item.pyrite_gem.name=Pyrite Gem
