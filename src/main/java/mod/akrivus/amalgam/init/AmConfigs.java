@@ -5,6 +5,8 @@ import net.minecraftforge.common.config.Config;
 @Config(modid = Amalgam.MODID)
 @Config.LangKey("amalgam.config.title")
 public class AmConfigs {
+	public static boolean addNewCruxes = true;
+	public static boolean addEmptyCruxes = true;
 	public static boolean removePearlCruxes = true;
 	public static boolean socializeRubies = true;
 	public static boolean spawnGemBuds = true;

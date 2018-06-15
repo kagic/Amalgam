@@ -1,0 +1,6 @@
+{
+    "parent": "block/all",
+    "textures": {
+        "all": "amalgam:blocks/uraninite"
+    }
+}

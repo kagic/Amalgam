@@ -1,7 +1,6 @@
 package mod.akrivus.amalgam.init;
 
 import mod.akrivus.amalgam.items.ItemConnieBracelet;
-import mod.akrivus.amalgam.items.ItemDictionary;
 import mod.akrivus.amalgam.items.ItemGemShard;
 import mod.akrivus.amalgam.items.ItemStevenStone;
 import mod.akrivus.kagic.init.ModItems;
@@ -47,8 +46,6 @@ public class AmItems {
 	public static final ItemGemShard RED_GEM_SHARD = new ItemGemShard(14);
 	public static final ItemGemShard BLACK_GEM_SHARD = new ItemGemShard(15);
 	
-	public static final ItemBlock _DLB1 = new ItemBlock(AmBlocks.DRAIN_LILY);
-	
 	public static void register(RegistryEvent.Register<Item> event) {
 		ModItems.registerExternalGem(CITRINE_GEM, CRACKED_CITRINE_GEM, "amalgam", event);
 		ModItems.registerExternalGem(AMETRINE_GEM, CRACKED_AMETRINE_GEM, "amalgam", event);
@@ -57,9 +54,6 @@ public class AmItems {
 		ModItems.registerExternalGem(NACRE_GEM, CRACKED_NACRE_GEM, "amalgam", event);
 		ModItems.registerExternalGem(NEPHRITE_GEM, CRACKED_NEPHRITE_GEM, "amalgam", event);
 		ModItems.registerExternalGem(NEPHRITE_1_GEM, CRACKED_NEPHRITE_1_GEM, "amalgam", event);
-		
-		ModItems.registerExternalItem(STEVEN_GEM, "amalgam", event);
-		ModItems.registerExternalItem(CONNIE_BRACELET, "amalgam", event);
 		
 		ModItems.registerExternalItem(WHITE_GEM_SHARD, "amalgam", event);
 		ModItems.registerExternalItem(ORANGE_GEM_SHARD, "amalgam", event);
@@ -78,6 +72,11 @@ public class AmItems {
 		ModItems.registerExternalItem(RED_GEM_SHARD, "amalgam", event);
 		ModItems.registerExternalItem(BLACK_GEM_SHARD, "amalgam", event);
 		
-		ModItems.registerExternalItem(_DLB1, "amalgam", event);
+		ModItems.registerExternalItem(STEVEN_GEM, "amalgam", event);
+		ModItems.registerExternalItem(CONNIE_BRACELET, "amalgam", event);
+		
+		for (ItemBlock item : AmBlocks.ITEMS) {
+			ModItems.registerExternalItem(item, "amalgam", event);
+		}
 	}
 }

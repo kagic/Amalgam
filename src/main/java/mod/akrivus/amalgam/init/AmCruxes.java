@@ -1,5 +1,7 @@
 package mod.akrivus.amalgam.init;
 
+import java.util.Iterator;
+
 import mod.akrivus.amalgam.gem.EntityCitrine;
 import mod.akrivus.amalgam.gem.EntityEnderPearl;
 import mod.akrivus.amalgam.gem.EntityNacre;
@@ -10,9 +12,22 @@ import mod.akrivus.kagic.init.ModEntities;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class AmCruxes {
 	public static void register() {
+		Iterator<String> ores = AmBlocks.DICTS.keySet().iterator();
+		while (ores.hasNext() && AmConfigs.addNewCruxes) {
+			String ore = ores.next();
+			if (AmConfigs.addEmptyCruxes) {
+				if (OreDictionary.getOres(ore, true).isEmpty()) {
+					OreDictionary.registerOre(ore, AmBlocks.DICTS.get(ore));
+				}
+			}
+			else {
+				OreDictionary.registerOre(ore, AmBlocks.DICTS.get(ore));
+			}
+		}
 		if (AmConfigs.removePearlCruxes) {
 			ModEntities.MINERALS.remove(EntityPearl.class);
 			EntityPearl.PEARL_YIELDS.clear();

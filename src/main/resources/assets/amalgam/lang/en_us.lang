@@ -24,6 +24,22 @@ entity.connie.name=Connie
 entity.gem_shard.name=Gem Shard
 
 tile.drain_lily.name=Drain Lily
+tile.crux_0.name=Limestone
+tile.crux_1.name=Galena
+tile.crux_2.name=Chalk
+tile.crux_3.name=Basalt
+tile.crux_4.name=Peridotite
+tile.crux_5.name=Bauxite
+tile.crux_6.name=Marble
+tile.crux_7.name=Sodalite
+tile.crux_8.name=Uraninite
+tile.crux_9.name=Bismite
+tile.crux_10.name=Apatite
+tile.crux_11.name=Halite
+tile.crux_12.name=Malachite
+tile.crux_13.name=Pyrite
+tile.crux_14.name=Serpentinite
+tile.crux_15.name=Basanite
 
 item.gem_shard_0.name=White Gem Shard
 item.gem_shard_1.name=Orange Gem Shard
@@ -89,6 +105,8 @@ command.amalgam.cheeseburger_backpack.name=Cheeseburger Backpack
 command.amalgam.connie_backpack.name=Connie's Backpack
 
 amalgam.config.title=Welcome to Amalgam!
+amalgam.general.addnewcruxes=Add crux blocks?
+amalgam.general.addemptycruxes=Add unused crux blocks?
 amalgam.general.removepearlcruxes=Remove Pearl cruxes?
 amalgam.general.socializerubies=Socialize Rubies?
 amalgam.general.spawngembuds=Spawn Steven & Connie?
