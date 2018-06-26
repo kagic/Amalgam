@@ -25,15 +25,17 @@ public class EntityAISpitOnBlocks extends EntityAIMoveGemToBlock {
 		this.world = gem.world;
 	}
 	public boolean shouldExecute() {
-		if (this.world.getGameRules().getBoolean("mobGriefing")) {
-			if (delay > 20 + this.gem.getRNG().nextInt(20)) {
-				this.runDelay = 0;
-				return super.shouldExecute();
+		if (this.gem.isTamed()) {
+			if (this.world.getGameRules().getBoolean("mobGriefing")) {
+				if (delay > 20 + this.gem.getRNG().nextInt(20)) {
+					this.runDelay = 0;
+					return super.shouldExecute();
+				}
+				else {
+					++this.delay;
+				}
+				return false;
 			}
-			else {
-				++this.delay;
-			}
-			return false;
 		}
 		return false;
 	}

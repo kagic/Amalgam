@@ -1,5 +1,6 @@
 package mod.akrivus.amalgam.init;
 
+import mod.akrivus.amalgam.command.CommandGetCrux;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod(modid = Amalgam.MODID, version = Amalgam.VERSION, acceptedMinecraftVersions = Amalgam.MCVERSION, dependencies="after:kagic")
@@ -38,6 +40,10 @@ public class Amalgam {
     public void postInit(FMLPostInitializationEvent event) {
     	AmSkills.register();
     	AmCruxes.register();
+    }
+    @EventHandler
+    public void serverStarting(FMLServerStartingEvent e) {
+    	e.registerServerCommand(new CommandGetCrux());
     }
     
     @Mod.EventBusSubscriber(modid = Amalgam.MODID)
