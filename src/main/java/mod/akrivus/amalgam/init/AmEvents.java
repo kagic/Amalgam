@@ -3,6 +3,7 @@ package mod.akrivus.amalgam.init;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 
 import mod.akrivus.amalgam.enchant.EnchantShard;
@@ -10,18 +11,36 @@ import mod.akrivus.amalgam.entity.EntityGemShard;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.amalgam.gem.EntitySteven;
 import mod.akrivus.amalgam.gem.ai.EntityAICallForBackup;
+import mod.akrivus.amalgam.gem.ai.EntityAICrossFuse;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowLeaderGem;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
 import mod.akrivus.amalgam.items.ItemGemShard;
+import mod.akrivus.kagic.entity.EntityGem;
+import mod.akrivus.kagic.entity.ai.EntityAIProtectionFuse;
+import mod.akrivus.kagic.entity.ai.EntityAIRubyFuse;
+import mod.akrivus.kagic.entity.ai.EntityAITopazFuse;
+import mod.akrivus.kagic.entity.gem.EntityAmethyst;
 import mod.akrivus.kagic.entity.gem.EntityJasper;
+import mod.akrivus.kagic.entity.gem.EntityLapisLazuli;
+import mod.akrivus.kagic.entity.gem.EntityPearl;
+import mod.akrivus.kagic.entity.gem.EntityRoseQuartz;
 import mod.akrivus.kagic.entity.gem.EntityRuby;
+import mod.akrivus.kagic.entity.gem.EntitySapphire;
+import mod.akrivus.kagic.entity.gem.EntityTopaz;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
+import mod.akrivus.kagic.entity.gem.fusion.EntityGarnet;
+import mod.akrivus.kagic.entity.gem.fusion.EntityMalachite;
+import mod.akrivus.kagic.entity.gem.fusion.EntityOpal;
+import mod.akrivus.kagic.entity.gem.fusion.EntityRainbowQuartz;
+import mod.akrivus.kagic.entity.gem.fusion.EntityRhodonite;
 import mod.akrivus.kagic.event.DrainBlockEvent;
 import mod.akrivus.kagic.event.TimeGlassEvent;
 import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.items.ItemGem;
 import net.minecraft.block.BlockBush;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item.ToolMaterial;
@@ -157,6 +176,29 @@ public class AmEvents {
 			ruby.tasks.addTask(4, new EntityAIFollowLeaderGem(ruby, 0.8D, GemPlacements.CHEST, EntityRuby.class));
 			ruby.tasks.addTask(4, new EntityAIFollowOtherGem(ruby, 0.8D, EntityBabyPearl.class));
 			ruby.targetTasks.addTask(2, new EntityAICallForBackup(ruby, EntityRuby.class));
+		}
+		if (e.getEntity() instanceof EntityGem) {
+			EntityGem gem = (EntityGem)(e.getEntity());
+			Iterator<EntityAITaskEntry> tasks = gem.tasks.taskEntries.iterator();
+			while (tasks.hasNext()) {
+				EntityAIBase ai = tasks.next().action;
+				if (ai instanceof EntityAIProtectionFuse/* || ai instanceof EntityAITopazFuse || ai instanceof EntityAIRubyFuse*/) {
+					tasks.remove();
+				}
+			}
+			if (gem instanceof EntityAmethyst) {
+				gem.tasks.addTask(3, new EntityAICrossFuse<EntityPearl, EntityOpal>(gem, EntityPearl.class, EntityOpal.class, 16));
+			}
+			else if (gem instanceof EntityJasper) {
+				gem.tasks.addTask(3, new EntityAICrossFuse<EntityLapisLazuli, EntityMalachite>(gem, EntityLapisLazuli.class, EntityMalachite.class, 16));
+			}
+			else if (gem instanceof EntityRoseQuartz) {
+				gem.tasks.addTask(3, new EntityAICrossFuse<EntityPearl, EntityRainbowQuartz>(gem, EntityPearl.class, EntityRainbowQuartz.class, 16));
+			}
+			else if (gem instanceof EntityRuby) {
+				gem.tasks.addTask(3, new EntityAICrossFuse<EntityPearl, EntityRhodonite>(gem, EntityPearl.class, EntityRhodonite.class, 16));
+				gem.tasks.addTask(3, new EntityAICrossFuse<EntitySapphire, EntityGarnet>(gem, EntitySapphire.class, EntityGarnet.class, 16));
+			}
 		}
 	}
 	@SubscribeEvent

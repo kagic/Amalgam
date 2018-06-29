@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.gem.ai.EntityAIFireballAttack;
+import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
 import mod.akrivus.amalgam.gem.ai.EntityAIFuseWithPyrites;
 import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.amalgam.init.AmSounds;
@@ -15,6 +16,7 @@ import mod.akrivus.kagic.entity.ai.EntityAIDiamondHurtByTarget;
 import mod.akrivus.kagic.entity.ai.EntityAIDiamondHurtTarget;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowDiamond;
 import mod.akrivus.kagic.entity.ai.EntityAIStay;
+import mod.akrivus.kagic.entity.gem.EntityLapisLazuli;
 import mod.akrivus.kagic.entity.gem.GemCuts;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
 import mod.heimrarnadalr.kagic.util.Colors;
@@ -104,6 +106,7 @@ public class EntityPyrite extends EntityGem {
         // Other entity AIs.
         this.tasks.addTask(3, new EntityAIFuseWithPyrites(this, 1.0D));
         this.tasks.addTask(4, new EntityAIFollowDiamond(this, 1.0D));
+		this.tasks.addTask(3, new EntityAIFollowOtherGem(this, 0.8D, EntityLapisLazuli.class));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(6, new EntityAIWander(this, 0.6D));
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));

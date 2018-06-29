@@ -62,8 +62,8 @@ public abstract class EntityAIMoveGemToBlock extends EntityAIBase
     	this.mindist = Double.MAX_VALUE;
     	int i = this.searchLength;
         BlockPos blockpos = new BlockPos(this.creature);
-        for (int x = -i; x < i; ++x) {
-        	for (int y = -(int)(this.creature.height); y < (int)(this.creature.height); ++y) {
+        for (int y = -(int)(this.creature.height + 1); y < (int)(this.creature.height + 1); ++y) {
+        	for (int x = -i; x < i; ++x) {
         		for (int z = -i; z < i; ++z) {
         			BlockPos pos = blockpos.add(x, y, z);
                     if (this.creature.isWithinHomeDistanceFromPosition(pos) && this.shouldMoveTo(this.creature.world, pos)) {

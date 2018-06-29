@@ -28,7 +28,7 @@ public class AmCruxes {
 				OreDictionary.registerOre(ore, AmBlocks.DICTS.get(ore));
 			}
 		}
-		if (AmConfigs.removePearlCruxes) {
+		if (AmConfigs.removePearlCruxes && AmConfigs.enableNacre) {
 			ModEntities.MINERALS.remove(EntityPearl.class);
 			EntityPearl.PEARL_YIELDS.clear();
 		}

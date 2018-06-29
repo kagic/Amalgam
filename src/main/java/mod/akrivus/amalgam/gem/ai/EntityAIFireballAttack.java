@@ -58,12 +58,12 @@ public class EntityAIFireballAttack extends EntityAIBase {
 	                    for (int i = 0; i < 1; ++i) {
 	                    	if (this.gem.isFusion()) {
 	                    		EntityLargeFireball fireball = new EntityLargeFireball(this.gem.world, this.gem, dX, dY, dZ);
-	                    		fireball.posY = this.gem.posY + (double)(this.gem.height / 2.0F) + 0.5D;
+	                    		fireball.posY = this.gem.posY + (double)(this.gem.height / 2.0F);
 		                        this.gem.world.spawnEntity(fireball);
 	                    	}
 	                    	else {
 		                    	EntitySmallFireball fireball = new EntitySmallFireball(this.gem.world, this.gem, dX + this.gem.getRNG().nextGaussian() * dS, dY, dZ + this.gem.getRNG().nextGaussian() * dS);
-		                        fireball.posY = this.gem.posY + (double)(this.gem.height / 2.0F) + 0.5D;
+		                        fireball.posY = this.gem.posY + (double)(this.gem.height / 2.0F);
 		                        this.gem.world.spawnEntity(fireball);
 	                    	}
 	                    }

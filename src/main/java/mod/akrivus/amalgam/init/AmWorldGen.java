@@ -23,12 +23,12 @@ public class AmWorldGen implements IWorldGenerator {
 		this.type = type;
 	}
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-		BlockPos pos = new BlockPos(chunkX * 16, 0, chunkZ * 16);
+		BlockPos base = new BlockPos(chunkX * 16, 0, chunkZ * 16);
 		switch (world.provider.getDimensionType()) {
 		case NETHER:
 			for (int i = 0; i < 40; i++) {
 				if (this.type == Type.ORES) {
-
+				
 				}
 			}
 			break;
