@@ -1,11 +1,9 @@
 package mod.akrivus.amalgam.client.render;
 
-import mod.akrivus.amalgam.client.render.layers.LayerPyritePlacement;
-import mod.akrivus.amalgam.client.render.layers.LayerTopazGems;
 import mod.akrivus.amalgam.gem.EntityFusedTopaz;
 import mod.akrivus.kagic.client.model.ModelTopaz;
 import mod.akrivus.kagic.client.render.RenderGemBase;
-import mod.akrivus.kagic.client.render.layers.LayerGemPlacement;
+import mod.akrivus.kagic.client.render.layers.LayerCrossFusionGemPlacement;
 import mod.akrivus.kagic.client.render.layers.LayerHair;
 import mod.akrivus.kagic.client.render.layers.LayerInsignia;
 import mod.akrivus.kagic.client.render.layers.LayerSkin;
@@ -23,10 +21,11 @@ public class RenderFusedTopaz extends RenderGemBase<EntityFusedTopaz> {
         this.addLayer(new LayerInsignia(this));
         this.addLayer(new LayerHair(this));
         this.addLayer(new LayerVisor(this));
-        this.addLayer(new LayerTopazGems(this));
+		this.addLayer(new LayerCrossFusionGemPlacement(this));
     }
 	protected void preRenderCallback(EntityFusedTopaz gem, float partialTickTime) {
 		GlStateManager.scale(2.0F, 2.0F, 2.0F);
+		this.shadowSize = 1.25F;
 	}
 	protected ResourceLocation getEntityTexture(EntityFusedTopaz entity) {
 		return new ResourceLocation("amalgam:textures/entities/fused_topaz/topaz.png");
