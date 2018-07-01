@@ -12,8 +12,6 @@ import mod.akrivus.kagic.entity.ai.EntityAIDiamondHurtTarget;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowDiamond;
 import mod.akrivus.kagic.entity.ai.EntityAISitStill;
 import mod.akrivus.kagic.entity.ai.EntityAIStay;
-import mod.akrivus.kagic.entity.gem.EntityAmethyst;
-import mod.akrivus.kagic.entity.gem.EntityTopaz;
 import mod.akrivus.kagic.entity.gem.GemCuts;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
 import mod.akrivus.kagic.init.ModItems;
@@ -103,6 +101,8 @@ public class EntityFusedTopaz extends EntityFusionGem {
 	public boolean addGem(EntityGem gem) {
 		if (this.getSpecial() == 0) {
 			this.setSpecial(gem.getSpecial());
+			this.setInsigniaColor(gem.getInsigniaColor());
+			this.setUniformColor(gem.getUniformColor());
 		}
 		else {
 			if (this.getSpecial() + gem.getSpecial() == 0) {

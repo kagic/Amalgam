@@ -9,6 +9,7 @@ import java.util.Random;
 import mod.akrivus.amalgam.enchant.EnchantShard;
 import mod.akrivus.amalgam.entity.EntityGemShard;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
+import mod.akrivus.amalgam.gem.EntityFusedRuby;
 import mod.akrivus.amalgam.gem.EntityFusedTopaz;
 import mod.akrivus.amalgam.gem.EntitySteven;
 import mod.akrivus.amalgam.gem.ai.EntityAICallForBackup;
@@ -19,6 +20,8 @@ import mod.akrivus.amalgam.items.ItemGemShard;
 import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowTopaz;
 import mod.akrivus.kagic.entity.ai.EntityAIProtectionFuse;
+import mod.akrivus.kagic.entity.ai.EntityAIRubyFuse;
+import mod.akrivus.kagic.entity.ai.EntityAITopazFuse;
 import mod.akrivus.kagic.entity.gem.EntityAmethyst;
 import mod.akrivus.kagic.entity.gem.EntityJasper;
 import mod.akrivus.kagic.entity.gem.EntityLapisLazuli;
@@ -183,7 +186,7 @@ public class AmEvents {
 			Iterator<EntityAITaskEntry> tasks = gem.tasks.taskEntries.iterator();
 			while (tasks.hasNext()) {
 				EntityAIBase ai = tasks.next().action;
-				if (ai instanceof EntityAIProtectionFuse/* || ai instanceof EntityAITopazFuse || ai instanceof EntityAIRubyFuse*/) {
+				if (ai instanceof EntityAIProtectionFuse || ai instanceof EntityAITopazFuse || ai instanceof EntityAIRubyFuse) {
 					tasks.remove();
 				}
 			}
@@ -199,6 +202,7 @@ public class AmEvents {
 			else if (gem instanceof EntityRuby) {
 				gem.tasks.addTask(3, new EntityAICrossFuse<EntityPearl, EntityRhodonite>(gem, EntityPearl.class, EntityRhodonite.class, 16));
 				gem.tasks.addTask(3, new EntityAICrossFuse<EntitySapphire, EntityGarnet>(gem, EntitySapphire.class, EntityGarnet.class, 16));
+				gem.tasks.addTask(3, new EntityAICrossFuse<EntityRuby, EntityFusedRuby>(gem, EntityRuby.class, EntityFusedRuby.class, 16));
 			}
 			else if (gem instanceof EntityTopaz) {
 				gem.tasks.addTask(3, new EntityAICrossFuse<EntityTopaz, EntityFusedTopaz>(gem, EntityTopaz.class, EntityFusedTopaz.class, 16));

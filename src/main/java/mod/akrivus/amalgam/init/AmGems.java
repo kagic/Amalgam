@@ -6,6 +6,8 @@ import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.amalgam.gem.EntityCitrine;
 import mod.akrivus.amalgam.gem.EntityConnie;
 import mod.akrivus.amalgam.gem.EntityEnderPearl;
+import mod.akrivus.amalgam.gem.EntityFusedPyrite;
+import mod.akrivus.amalgam.gem.EntityFusedRuby;
 import mod.akrivus.amalgam.gem.EntityFusedTopaz;
 import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.amalgam.gem.EntityNephrite;
@@ -30,7 +32,9 @@ public class AmGems {
 		ModEntities.registerExternalGem("amalgam", "baby_pearl", EntityBabyPearl.class, "mod/akrivus/amalgam/client/render/RenderBabyPearl", 0xFCCCB1, 0x92EAD9, false);
 		ModEntities.registerExternalGem("amalgam", "nephrite", EntityNephrite.class, "mod/akrivus/amalgam/client/render/RenderNephrite", 0x428F33, 0x0E0D09, false);
 		ModEntities.registerExternalGem("amalgam", "fused_topaz", EntityFusedTopaz.class, "mod/akrivus/amalgam/client/render/RenderFusedTopaz", 0x000000, 0x000000, false);
-
+		ModEntities.registerExternalGem("amalgam", "fused_ruby", EntityFusedRuby.class, "mod/akrivus/amalgam/client/render/RenderFusedRuby", 0x000000, 0x000000, false);
+		ModEntities.registerExternalGem("amalgam", "fused_pyrite", EntityFusedPyrite.class, "mod/akrivus/amalgam/client/render/RenderFusedPyrite", 0x000000, 0x000000, false);
+		
 		registerMob("gem_shard", EntityGemShard.class, 0x9AA4AF, 0xDDDDDD);
 		registerMob("steven", EntitySteven.class, 0xFD6270, 0xFFD248);
 		registerMob("connie", EntityConnie.class, 0x99D3CD, 0xAF4E3D);

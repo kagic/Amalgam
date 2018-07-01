@@ -23,6 +23,10 @@ entity.steven.name=Steven
 entity.connie.name=Connie
 entity.gem_shard.name=Gem Shard
 
+entity.fused_topaz.name=Topaz
+entity.fused_ruby.name=Ruby
+entity.fused_pyrite.name=Pyrite
+
 tile.drain_lily.name=Drain Lily
 tile.crux_0.name=Limestone
 tile.crux_1.name=Galena
