@@ -169,7 +169,6 @@ public class EntityFusedTopaz extends EntityFusionGem {
 	public void setColor(int color) {
 		this.setSpecial(color);
 	}
-	@Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
 			if (hand == EnumHand.MAIN_HAND) {

@@ -12,6 +12,7 @@ import mod.akrivus.amalgam.gem.EntityFusedTopaz;
 import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.amalgam.gem.EntityPyrite;
+import mod.akrivus.amalgam.gem.EntitySardonyx;
 import mod.akrivus.amalgam.gem.EntitySteven;
 import mod.akrivus.kagic.init.ModEntities;
 import net.minecraft.client.renderer.entity.Render;
@@ -34,6 +35,7 @@ public class AmGems {
 		ModEntities.registerExternalGem("amalgam", "fused_topaz", EntityFusedTopaz.class, "mod/akrivus/amalgam/client/render/RenderFusedTopaz", 0x000000, 0x000000, false);
 		ModEntities.registerExternalGem("amalgam", "fused_ruby", EntityFusedRuby.class, "mod/akrivus/amalgam/client/render/RenderFusedRuby", 0x000000, 0x000000, false);
 		ModEntities.registerExternalGem("amalgam", "fused_pyrite", EntityFusedPyrite.class, "mod/akrivus/amalgam/client/render/RenderFusedPyrite", 0x000000, 0x000000, false);
+		ModEntities.registerExternalGem("amalgam", "sardonyx", EntitySardonyx.class, "mod/akrivus/amalgam/client/render/RenderSardonyx", 0x000000, 0x000000, false);
 		
 		registerMob("gem_shard", EntityGemShard.class, 0x9AA4AF, 0xDDDDDD);
 		registerMob("steven", EntitySteven.class, 0xFD6270, 0xFFD248);
