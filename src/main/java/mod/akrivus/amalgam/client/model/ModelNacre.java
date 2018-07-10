@@ -46,6 +46,7 @@ public class ModelNacre extends ModelGem {
 		this.bipedLeftLeg.addBox(-3F, 0F, -1F, 2, 12, 2);
 		this.bipedLeftLeg.setRotationPoint(0F, 12F, 0F);
 	}
+    @Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		this.bipedHead.render(scale);
@@ -61,6 +62,7 @@ public class ModelNacre extends ModelGem {
 		this.bipedRightLeg.render(scale);
 		this.bipedLeftLeg.render(scale);
 	}
+    @Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		super.copyModelAngles(this.bipedHead, this.bipedShell);

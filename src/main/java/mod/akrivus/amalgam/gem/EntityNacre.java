@@ -60,11 +60,6 @@ public class EntityNacre extends EntityPearl {
 	public EntityNacre(World worldIn) {
 		super(worldIn);
 		this.setSize(0.6F, 2.5F);
-		this.seePastDoors();
-		this.droppedGemItem = AmItems.NACRE_GEM;
-		this.droppedCrackedGemItem = AmItems.CRACKED_NACRE_GEM;
-		this.droppedGemItem = AmItems.NACRE_GEM;
-		this.droppedCrackedGemItem = AmItems.CRACKED_NACRE_GEM;
 		this.nativeColor = 9;
 		this.tasks.addTask(2, new EntityAIEatBlocks(this, 0.9D));
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
@@ -76,6 +71,8 @@ public class EntityNacre extends EntityPearl {
 		this.dataManager.register(STRESS, 0);
 		this.dataManager.register(FOOD, 0);
 		this.setHairColor(this.generateHairColor());
+		this.droppedGemItem = AmItems.NACRE_GEM;
+		this.droppedCrackedGemItem = AmItems.CRACKED_NACRE_GEM;
 	}
 	public int generateSkinColor() {
 		ArrayList<Integer> skinColors = new ArrayList<Integer>();

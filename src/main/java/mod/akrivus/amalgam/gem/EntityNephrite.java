@@ -97,11 +97,14 @@ public class EntityNephrite extends EntityGem {
             	return false;
             }
         }));
+        
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(120.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.6D);
+        
         this.droppedGemItem = AmItems.NEPHRITE_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_NEPHRITE_GEM;
+		
 		this.setDefective(this.rand.nextInt(20) == 0);
 	}
 	public boolean attackEntityFrom(DamageSource cause, float amount) {

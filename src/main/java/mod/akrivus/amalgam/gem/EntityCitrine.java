@@ -14,8 +14,6 @@ import mod.akrivus.kagic.entity.gem.EntityAmethyst;
 import mod.akrivus.kagic.entity.gem.EntityQuartzSoldier;
 import mod.akrivus.kagic.entity.gem.GemCuts;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
-import mod.akrivus.kagic.init.ModItems;
-import mod.akrivus.kagic.init.ModSounds;
 import mod.heimrarnadalr.kagic.util.Colors;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -102,8 +100,8 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
         // Apply entity attributes.
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12.0D);
         
-        this.droppedGemItem = ModItems.AMETHYST_GEM;
-		this.droppedCrackedGemItem = ModItems.CRACKED_AMETHYST_GEM;
+        this.droppedGemItem = AmItems.CITRINE_GEM;
+		this.droppedCrackedGemItem = AmItems.CITRINE_GEM;
         
         // Register entity data.
         this.dataManager.register(CHARGED, false);

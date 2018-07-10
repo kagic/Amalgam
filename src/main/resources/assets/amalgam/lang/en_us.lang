@@ -7,6 +7,7 @@ entity.kagic.nacre.name=Mother of Pearl
 entity.kagic.baby_pearl.name=Baby Pearl
 entity.kagic.nephrite.name=Nephrite
 entity.kagic.nephrite_1.name=Nephrite
+entity.kagic.emerald.name=Emerald
 entity.kagic.steven.name=Steven
 entity.kagic.connie.name=Connie
 
@@ -19,6 +20,7 @@ entity.nacre.name=Mother of Pearl
 entity.baby_pearl.name=Baby Pearl
 entity.nephrite.name=Nephrite
 entity.nephrite_1.name=Nephrite
+entity.emerald.name=Emerald
 entity.steven.name=Steven
 entity.connie.name=Connie
 entity.gem_shard.name=Gem Shard
@@ -28,22 +30,6 @@ entity.fused_ruby.name=Ruby
 entity.fused_pyrite.name=Pyrite
 
 tile.drain_lily.name=Drain Lily
-tile.crux_0.name=Limestone
-tile.crux_1.name=Galena
-tile.crux_2.name=Chalk
-tile.crux_3.name=Basalt
-tile.crux_4.name=Peridotite
-tile.crux_5.name=Bauxite
-tile.crux_6.name=Marble
-tile.crux_7.name=Sodalite
-tile.crux_8.name=Uraninite
-tile.crux_9.name=Bismite
-tile.crux_10.name=Apatite
-tile.crux_11.name=Halite
-tile.crux_12.name=Malachite
-tile.crux_13.name=Pyrite
-tile.crux_14.name=Serpentinite
-tile.crux_15.name=Basanite
 
 item.gem_shard_0.name=White Gem Shard
 item.gem_shard_1.name=Orange Gem Shard
@@ -88,6 +74,7 @@ item.ender_pearl_gem.name=Ender Pearl Gem
 item.nacre_gem.name=Mother of Pearl Gem
 item.nephrite_gem.name=Nephrite Gem
 item.nephrite_1_gem.name=Nephrite Gem
+item.emerald_gem.name=Emerald Gem
 
 item.steven_stone.name=Steven's Gem
 item.connie_bracelet.name=Connie's Glow Bracelet
@@ -99,6 +86,7 @@ item.cracked_ender_pearl_gem.name=Cracked Ender Pearl Gem
 item.cracked_nacre_gem.name=Cracked Mother of Pearl Gem
 item.cracked_nephrite_gem.name=Cracked Nephrite Gem
 item.cracked_nephrite_1_gem.name=Cracked Nephrite Gem
+item.cracked_emerald_gem.name=Emerald Gem
 
 item.record.connie_bracelet.desc=Aivi & Surasshu - Love Like You
 
@@ -112,6 +100,7 @@ amalgam.config.title=Welcome to Amalgam!
 amalgam.general.addnewcruxes=Add crux blocks?
 amalgam.general.addemptycruxes=Add unused crux blocks?
 amalgam.general.removepearlcruxes=Remove Pearl cruxes?
+amalgam.general.changehessonite=Change Hessonite model?
 amalgam.general.socializerubies=Socialize Rubies?
 amalgam.general.spawngembuds=Spawn Steven & Connie?
 amalgam.general.spawndrainlilies=Spawn Drain Lilies?
@@ -121,3 +110,4 @@ amalgam.general.enableenderpearl=Enable Ender Pearl?
 amalgam.general.enablepyrite=Enable Pyrite?
 amalgam.general.enablenacre=Enable Mother of Pearl?
 amalgam.general.enablenephrite=Enable Nephrite?
+amalgam.general.enableemerald=Enable Emerald?

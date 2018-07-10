@@ -181,6 +181,10 @@ public class AmEvents {
 			ruby.tasks.addTask(4, new EntityAIFollowOtherGem(ruby, 0.8D, EntityBabyPearl.class));
 			ruby.targetTasks.addTask(2, new EntityAICallForBackup(ruby, EntityRuby.class));
 		}
+		if (e.getEntity() instanceof EntityAnimal) {
+			EntityAnimal animal = (EntityAnimal)(e.getEntity());
+			animal.targetTasks.addTask(3, new EntityAIFollowTopaz(animal, 0.9D));
+		}
 		if (e.getEntity() instanceof EntityGem) {
 			EntityGem gem = (EntityGem)(e.getEntity());
 			Iterator<EntityAITaskEntry> tasks = gem.tasks.taskEntries.iterator();
@@ -206,10 +210,6 @@ public class AmEvents {
 			}
 			else if (gem instanceof EntityTopaz) {
 				gem.tasks.addTask(3, new EntityAICrossFuse<EntityTopaz, EntityFusedTopaz>(gem, EntityTopaz.class, EntityFusedTopaz.class, 16));
-			}
-			if (e.getEntity() instanceof EntityAnimal) {
-				EntityAnimal animal = (EntityAnimal) e.getEntity();
-				animal.targetTasks.addTask(3, new EntityAIFollowTopaz(animal, 0.9D));
 			}
 		}
 	}

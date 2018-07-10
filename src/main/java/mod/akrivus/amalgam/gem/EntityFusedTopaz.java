@@ -58,20 +58,6 @@ public class EntityFusedTopaz extends EntityFusionGem {
 	public EntityFusedTopaz(World worldIn) {
 		super(worldIn);
 		this.setSize(1.8F, 4.6F);
-		this.isSoldier = true;
-		
-		//Define valid gem cuts and placements
-		this.setCutPlacement(GemCuts.DRUM, GemPlacements.BACK_OF_HEAD);
-		this.setCutPlacement(GemCuts.DRUM, GemPlacements.FOREHEAD);
-		this.setCutPlacement(GemCuts.DRUM, GemPlacements.LEFT_EYE);
-		this.setCutPlacement(GemCuts.DRUM, GemPlacements.RIGHT_EYE);
-		//Cheeks are actually the ear positions
-		this.setCutPlacement(GemCuts.DRUM, GemPlacements.LEFT_CHEEK);
-		this.setCutPlacement(GemCuts.DRUM, GemPlacements.RIGHT_CHEEK);
-		this.setCutPlacement(GemCuts.DRUM, GemPlacements.BACK);
-		this.setCutPlacement(GemCuts.DRUM, GemPlacements.CHEST);
-		this.setCutPlacement(GemCuts.DRUM, GemPlacements.BELLY);
-
 		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
 		this.tasks.addTask(1, new EntityAIAttackFusedTopaz(this, 1.0D));

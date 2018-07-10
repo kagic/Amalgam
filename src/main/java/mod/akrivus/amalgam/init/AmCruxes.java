@@ -3,6 +3,7 @@ package mod.akrivus.amalgam.init;
 import java.util.Iterator;
 
 import mod.akrivus.amalgam.gem.EntityCitrine;
+import mod.akrivus.amalgam.gem.EntityEmerald;
 import mod.akrivus.amalgam.gem.EntityEnderPearl;
 import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.amalgam.gem.EntityNephrite;
@@ -87,6 +88,11 @@ public class AmCruxes {
 			ModEntities.registerOreDictValue(EntityNephrite.NEPHRITE_YIELDS, 0.11, "stoneDiorite");
 			ModEntities.registerOreDictValue(EntityNephrite.NEPHRITE_YIELDS, 0.22, "stoneDioritePolished");
 			ModEntities.registerWithOreDictionary(EntityNephrite.NEPHRITE_YIELDS, "Nephrite", "Jade");
+		}
+		if (AmConfigs.enableEmerald) {
+			EntityEmerald.EMERALD_YIELDS.put(Blocks.EMERALD_ORE.getDefaultState(), 2.99);
+			EntityEmerald.EMERALD_YIELDS.put(Blocks.EMERALD_BLOCK.getDefaultState(), 5.99);
+			ModEntities.registerWithOreDictionary(EntityEmerald.EMERALD_YIELDS, "Emerald", "Beryl");
 		}
 	}
 }
