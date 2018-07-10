@@ -1,6 +1,7 @@
 package mod.akrivus.amalgam.init;
 
 import java.util.Iterator;
+import java.util.Set;
 
 import mod.akrivus.amalgam.gem.EntityCitrine;
 import mod.akrivus.amalgam.gem.EntityEmerald;
@@ -8,10 +9,14 @@ import mod.akrivus.amalgam.gem.EntityEnderPearl;
 import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.amalgam.gem.EntityPyrite;
+import mod.akrivus.kagic.entity.gem.EntityAquamarine;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
 import mod.akrivus.kagic.init.ModEntities;
 import net.minecraft.block.BlockRotatedPillar;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -93,6 +98,33 @@ public class AmCruxes {
 			EntityEmerald.EMERALD_YIELDS.put(Blocks.EMERALD_ORE.getDefaultState(), 2.99);
 			EntityEmerald.EMERALD_YIELDS.put(Blocks.EMERALD_BLOCK.getDefaultState(), 5.99);
 			ModEntities.registerWithOreDictionary(EntityEmerald.EMERALD_YIELDS, "Emerald", "Beryl");
+			Set<IBlockState> states = EntityAquamarine.AQUAMARINE_YIELDS.keySet();
+			Iterator<IBlockState> it = states.iterator();
+			while (it.hasNext()) {
+				boolean removed = false;
+				IBlockState current = it.next();
+				for (ItemStack stack : OreDictionary.getOres("oreEmerald")) {
+					if (stack.getItem() instanceof ItemBlock) {
+						IBlockState state = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
+						if (state == current) {
+							it.remove();
+							removed = true;
+							break;
+						}
+					}
+				}
+				if (!removed) {
+					for (ItemStack stack : OreDictionary.getOres("blockEmerald")) {
+						if (stack.getItem() instanceof ItemBlock) {
+							IBlockState state = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
+							if (state == current) {
+								it.remove();
+								break;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

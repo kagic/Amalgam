@@ -42,6 +42,11 @@ public class AmSounds {
 	public static final SoundEvent CONNIE_PROTECT = new SoundEvent(new ResourceLocation("amalgam:entities.connie.protect"));
 	public static final SoundEvent CONNIE_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.connie.death"));
 	
+	public static final SoundEvent EMERALD_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.hurt"));
+	public static final SoundEvent EMERALD_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.death"));
+	public static final SoundEvent EMERALD_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.obey"));
+	public static final SoundEvent EMERALD_LIVING = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.living"));
+	
 	public static void register(RegistryEvent.Register<SoundEvent> event) {
 		registerSound(RECORD_LOVE_LIKE_YOU, new ResourceLocation("amalgam:records.love_like_you"), event);
 
@@ -79,6 +84,11 @@ public class AmSounds {
 		registerSound(CONNIE_HURT, new ResourceLocation("amalgam:entities.connie.hurt"), event);
 		registerSound(CONNIE_PROTECT, new ResourceLocation("amalgam:entities.connie.protect"), event);
 		registerSound(CONNIE_DEATH, new ResourceLocation("amalgam:entities.connie.death"), event);
+		
+		registerSound(EMERALD_HURT, new ResourceLocation("amalgam:entities.emerald.hurt"), event);
+		registerSound(EMERALD_DEATH, new ResourceLocation("amalgam:entities.emerald.death"), event);
+		registerSound(EMERALD_OBEY, new ResourceLocation("amalgam:entities.emerald.obey"), event);
+		registerSound(EMERALD_LIVING, new ResourceLocation("amalgam:entities.emerald.living"), event);
 	}
 	private static void registerSound(SoundEvent sound, ResourceLocation location, RegistryEvent.Register<SoundEvent> event) {
 		sound.setRegistryName(location);

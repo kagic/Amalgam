@@ -1,6 +1,6 @@
 package mod.akrivus.amalgam.client.render;
 
-import mod.akrivus.amalgam.client.model.ModelEmerald;
+import mod.akrivus.amalgam.client.model.ModelHessonite;
 import mod.akrivus.kagic.client.render.RenderGemBase;
 import mod.akrivus.kagic.client.render.layers.LayerBirthdayHat;
 import mod.akrivus.kagic.client.render.layers.LayerGemPlacement;
@@ -19,9 +19,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
-public class RenderHackHessonite extends RenderGemBase<EntityHessonite> {
-	public RenderHackHessonite() {
-		super(Minecraft.getMinecraft().getRenderManager(), new ModelEmerald(), 0.5F);
+public class RenderHacksonite extends RenderGemBase<EntityHessonite> {
+	public RenderHacksonite() {
+		super(Minecraft.getMinecraft().getRenderManager(), new ModelHessonite(), 0.5F);
 		this.addLayer(new LayerQuartzItem(this));
 		this.addLayer(new LayerSkin(this));
 		this.addLayer(new LayerHair(this));
@@ -50,6 +50,6 @@ public class RenderHackHessonite extends RenderGemBase<EntityHessonite> {
 	}
 	@Override
 	protected ResourceLocation getEntityTexture(EntityHessonite entity) {
-		return new ResourceLocation("amalgam:/textures/entities/hessonite/hessonite.png");
+		return new ResourceLocation("amalgam:textures/entities/hessonite/hessonite.png");
 	}
 }

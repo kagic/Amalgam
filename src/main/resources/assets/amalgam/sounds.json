@@ -228,5 +228,35 @@
 			{ "name": "amalgam:entities/connie/death3" },
 			{ "name": "amalgam:entities/connie/death4" }
 		]
-	}
+	},
+	"entities.emerald.death": {
+        "sounds": [
+            { "name": "amalgam:entities/emerald/death1" },
+            { "name": "amalgam:entities/emerald/death2" },
+            { "name": "amalgam:entities/emerald/death3" }
+        ]
+    },
+	"entities.emerald.hurt": {
+        "sounds": [
+            { "name": "amalgam:entities/emerald/hurt1" },
+            { "name": "amalgam:entities/emerald/hurt2" },
+            { "name": "amalgam:entities/emerald/hurt3" },
+            { "name": "amalgam:entities/emerald/hurt4" },
+            { "name": "amalgam:entities/emerald/hurt5" },
+            { "name": "amalgam:entities/emerald/hurt6" }
+        ]
+    },
+    "entities.emerald.obey": {
+        "sounds": [
+            { "name": "amalgam:entities/emerald/obey1" },
+            { "name": "amalgam:entities/emerald/obey2" }
+        ]
+    },
+	"entities.emerald.living": {
+        "sounds": [
+            { "name": "amalgam:entities/emerald/living1" },
+            { "name": "amalgam:entities/emerald/living2" },
+            { "name": "amalgam:entities/emerald/living3" }
+        ]
+    }
 }

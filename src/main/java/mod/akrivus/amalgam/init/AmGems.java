@@ -1,6 +1,6 @@
 package mod.akrivus.amalgam.init;
 
-import mod.akrivus.amalgam.client.render.RenderHackHessonite;
+import mod.akrivus.amalgam.client.render.RenderHacksonite;
 import mod.akrivus.amalgam.entity.EntityGemShard;
 import mod.akrivus.amalgam.entity.EntitySpitball;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
@@ -48,7 +48,7 @@ public class AmGems {
 		registerEntity("spitball", EntitySpitball.class);
 		
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			RenderingRegistry.registerEntityRenderingHandler(EntityHessonite.class, new RenderHackHessonite());
+			RenderingRegistry.registerEntityRenderingHandler(EntityHessonite.class, new RenderHacksonite());
 		}
 	}
 	public static <T extends Entity> void registerMob(String name, Class<T> entity, int back, int fore) {
