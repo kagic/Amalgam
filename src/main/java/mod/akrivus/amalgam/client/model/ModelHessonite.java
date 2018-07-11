@@ -5,14 +5,16 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class ModelHessonite extends ModelGem {
+	private ModelRenderer bipedCape;
+	private ModelRenderer bipedCapeBack;
 	private ModelRenderer bipedLeftShoulder;
 	private ModelRenderer bipedRightShoulder;
 	private ModelRenderer bipedHips;
     public ModelHessonite() {
 		super(0.0F, 0.0F, 64, 64, false, -1F);
 		this.bipedHead = new ModelRenderer(this, 28, 14);
-		this.bipedHead.addBox(-6.0F, -16.0F, -4.0F, 12, 10, 8);
-        this.bipedHead.setRotationPoint(0.0F, 0.0F, 0.0F);
+		this.bipedHead.addBox(-7.0F, -18.0F, -4.0F, 14, 12, 8);
+        this.bipedHead.setRotationPoint(0.0F, 12.0F, 0.0F);
         this.bipedHeadwear = new ModelRenderer(this, 0, 0);
         this.bipedHips = new ModelRenderer(this, 0, 12);
         this.bipedHips.setRotationPoint(0.0F, 3.0F, 0.0F);
@@ -36,8 +38,15 @@ public class ModelHessonite extends ModelGem {
         this.bipedLeftArm.addBox(-1.5F, -2.0F, -1.5F, 3, 13, 3);
         this.bipedLeftArm.setRotationPoint(2.0F, -2.0F, 0.0F);
         this.bipedBody = new ModelRenderer(this, 0, 0);
-        this.bipedBody.addBox(-3.0F, -8.0F, -3.0F, 6, 12, 6);
+        this.bipedBody.addBox(-3.0F, -6.0F, -3.0F, 6, 10, 6);
         this.bipedBody.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.bipedCape = new ModelRenderer(this, 0, 0);
+		this.bipedCape.addBox(-15.0F, -6.0F, -1.5f, 30, 20, 1);
+		this.bipedCape.setTextureSize(64, 64);
+		this.bipedCapeBack = new ModelRenderer(this, 0, 22);
+		this.bipedCapeBack.addBox(-15.0F, -6.0F, -1.525f, 30, 20, 1);
+		this.bipedCapeBack.setTextureSize(64, 64);
+		this.bipedCape.addChild(this.bipedCapeBack);
     }
     @Override
     public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
@@ -57,5 +66,9 @@ public class ModelHessonite extends ModelGem {
     @Override
     public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
+	}
+    @Override
+	public void renderCape(float scale) {
+		this.bipedCape.render(scale);
 	}
 }
