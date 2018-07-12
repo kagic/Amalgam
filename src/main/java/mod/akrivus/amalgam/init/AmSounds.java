@@ -42,6 +42,10 @@ public class AmSounds {
 	public static final SoundEvent CONNIE_PROTECT = new SoundEvent(new ResourceLocation("amalgam:entities.connie.protect"));
 	public static final SoundEvent CONNIE_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.connie.death"));
 	
+	public static final SoundEvent STEVONNIE_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.stevonnie.hurt"));
+	public static final SoundEvent STEVONNIE_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.stevonnie.death"));
+	public static final SoundEvent STEVONNIE_LIVING = new SoundEvent(new ResourceLocation("amalgam:entities.stevonnie.living"));
+	
 	public static final SoundEvent EMERALD_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.hurt"));
 	public static final SoundEvent EMERALD_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.death"));
 	public static final SoundEvent EMERALD_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.obey"));
@@ -89,6 +93,10 @@ public class AmSounds {
 		registerSound(EMERALD_DEATH, new ResourceLocation("amalgam:entities.emerald.death"), event);
 		registerSound(EMERALD_OBEY, new ResourceLocation("amalgam:entities.emerald.obey"), event);
 		registerSound(EMERALD_LIVING, new ResourceLocation("amalgam:entities.emerald.living"), event);
+		
+		registerSound(STEVONNIE_HURT, new ResourceLocation("amalgam:entities.stevonnie.hurt"), event);
+		registerSound(STEVONNIE_DEATH, new ResourceLocation("amalgam:entities.stevonnie.death"), event);
+		registerSound(STEVONNIE_LIVING, new ResourceLocation("amalgam:entities.stevonnie.living"), event);
 	}
 	private static void registerSound(SoundEvent sound, ResourceLocation location, RegistryEvent.Register<SoundEvent> event) {
 		sound.setRegistryName(location);

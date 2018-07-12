@@ -14,6 +14,7 @@ import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.amalgam.gem.EntityPyrite;
 import mod.akrivus.amalgam.gem.EntitySteven;
+import mod.akrivus.amalgam.gem.EntityStevonnie;
 import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.init.ModEntities;
 import net.minecraft.client.renderer.entity.Render;
@@ -43,6 +44,7 @@ public class AmGems {
 		registerMob("gem_shard", EntityGemShard.class, 0x9AA4AF, 0xDDDDDD);
 		registerMob("steven", EntitySteven.class, 0xFD6270, 0xFFD248);
 		registerMob("connie", EntityConnie.class, 0x99D3CD, 0xAF4E3D);
+		registerEntity("stevonnie", EntityStevonnie.class);
 		registerEntity("spitball", EntitySpitball.class);
 		
 		//if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {

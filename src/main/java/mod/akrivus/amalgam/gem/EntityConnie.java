@@ -3,6 +3,7 @@ package mod.akrivus.amalgam.gem;
 import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowSteven;
+import mod.akrivus.amalgam.gem.ai.EntityAIFormStevonnie;
 import mod.akrivus.amalgam.gem.ai.EntityAIPickUpItemsIndiscriminately;
 import mod.akrivus.amalgam.gem.ai.EntityAIProtectSteven;
 import mod.akrivus.amalgam.gem.ai.EntityAIProtectVillagers;
@@ -95,6 +96,7 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
 				return input.getCreeperState() == 1;
 			}
         }, 6.0F, 1.0D, 1.2D));
+		this.tasks.addTask(1, new EntityAIFormStevonnie(this));
 		this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, true));
         this.tasks.addTask(3, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
         this.tasks.addTask(3, new EntityAIMoveThroughVillage(this, 0.8D, true));
@@ -107,10 +109,9 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
         this.tasks.addTask(7, new EntityAIWander(this, 0.6D));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
-        this.tasks.addTask(9, new EntityAILookIdle(this));
         
         // Apply targetting.
-        this.targetTasks.addTask(1, new EntityAIProtectSteven(this));
+        this.targetTasks.addTask(0, new EntityAIProtectSteven(this));
         this.targetTasks.addTask(1, new EntityAIProtectVillagers(this));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
             public boolean apply(EntityLiving input) {
@@ -330,7 +331,7 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
     public boolean canDespawn() {
 		return false;
     }
-    public boolean shouldAttackEntity(EntityLivingBase var1, EntityLivingBase var2) {
+    public boolean shouldAttackEntity(EntityLivingBase attacker, EntityLivingBase target) {
         return true;
     }
     public boolean attackEntityAsMob(Entity entityIn) {
@@ -353,7 +354,7 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
 				entityIn.setFire(j * 4);
 			}
 			if (entityIn instanceof EntityPlayer) {
-				EntityPlayer entityplayer = (EntityPlayer)entityIn;
+				EntityPlayer entityplayer = (EntityPlayer)(entityIn);
 				ItemStack itemstack = this.getHeldItemMainhand();
 				ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
 				if (itemstack.getItem() instanceof ItemAxe && itemstack1.getItem() == Items.SHIELD) {

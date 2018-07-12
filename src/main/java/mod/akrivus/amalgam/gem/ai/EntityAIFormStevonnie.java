@@ -4,7 +4,7 @@ import java.util.List;
 
 import mod.akrivus.amalgam.gem.EntityConnie;
 import mod.akrivus.amalgam.gem.EntitySteven;
-import mod.akrivus.kagic.entity.EntityGem;
+import mod.akrivus.amalgam.gem.EntityStevonnie;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 
@@ -12,25 +12,25 @@ public class EntityAIFormStevonnie extends EntityAIBase {
 	private EntitySteven steven;
 	private EntityConnie connie;
 
-	public <T extends EntityGem> EntityAIFormStevonnie(EntitySteven steven) {
-		this.steven = steven;
+	public EntityAIFormStevonnie(EntityConnie connie) {
+		this.connie = connie;
 		this.setMutexBits(1);
 	}
 
 	@Override
 	public boolean shouldExecute() {
-		List<EntityConnie> list = this.steven.world.<EntityConnie>getEntitiesWithinAABB(EntityConnie.class, this.steven.getEntityBoundingBox().grow(24.0F, 24.0F, 24.0F));
+		List<EntitySteven> list = this.connie.world.<EntitySteven>getEntitiesWithinAABB(EntitySteven.class, this.connie.getEntityBoundingBox().grow(24.0F, 24.0F, 24.0F));
 		double distance = Double.MAX_VALUE;
-		for (EntityConnie connie : list) {
-			if (this.checkInitiator() && this.checkTarget(connie)) {
-				double newDistance = this.steven.getDistanceSq(connie);
+		for (EntitySteven steven : list) {
+			if (this.checkInitiator() && this.checkTarget(steven)) {
+				double newDistance = this.connie.getDistanceSq(steven);
 				if (newDistance <= distance) {
 					distance = newDistance;
-					this.connie = connie;
+					this.steven = steven;
 				}
 			}
 		}
-		if (this.checkTarget(this.connie)) {
+		if (this.checkTarget(this.steven)) {
 			return true;
 		}
 		return false;
@@ -38,23 +38,25 @@ public class EntityAIFormStevonnie extends EntityAIBase {
 
 	@Override
 	public void startExecuting() {
-		this.steven.getLookHelper().setLookPositionWithEntity(this.connie, 30.0F, 30.0F);
+		this.steven.getLookHelper().setLookPositionWithEntity(this.steven, 30.0F, 30.0F);
 	}
 	
 	@Override
 	public boolean shouldContinueExecuting() {
-		return this.checkInitiator() && this.checkTarget(this.connie);
+		return this.checkInitiator() && this.checkTarget(this.steven);
 	}
 	
 	@Override
 	public void updateTask() {
-		if (this.steven.getDistanceSq(this.connie) > this.steven.width * 3) {
-			this.steven.getNavigator().tryMoveToEntityLiving(this.connie, this.steven.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 2.0);
+		if (this.connie.getDistanceSq(this.steven) > this.connie.width * 3) {
+			this.connie.getNavigator().tryMoveToEntityLiving(this.steven, this.connie.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 2.0);
 		}
 		else {
-			/*
-			 * Stevonnie happens here.
-			 */
+			EntityStevonnie stevonnie = new EntityStevonnie(this.connie.world);
+			stevonnie.setPosition(this.connie.posX, this.connie.posY, this.connie.posZ);
+			this.connie.world.spawnEntity(stevonnie);
+			stevonnie.setSteven(this.steven);
+			stevonnie.setConnie(this.connie);
 			this.resetTask();
 		}
 	}
@@ -66,10 +68,10 @@ public class EntityAIFormStevonnie extends EntityAIBase {
 	}
 	
 	private boolean checkInitiator() {
-		return this.steven.getHealth() > 0 && !this.steven.isDead;
+		return this.connie.getHealth() > 0 && this.connie.getHealth() < 10 && !this.connie.isDead;
 	}
 
-	private boolean checkTarget(EntityConnie connie) {
-		return connie != null && connie.getHealth() > 0 && !connie.isDead && connie.getRevengeTarget() != null && connie.getRevengeTarget() != this.steven && !connie.getRevengeTarget().isDead;
+	private boolean checkTarget(EntitySteven steven) {
+		return steven != null && steven.getHealth() > 0 && !steven.isDead && steven.getRevengeTarget() != null && steven.getRevengeTarget() != this.connie && !steven.getRevengeTarget().isDead;
 	}
 }

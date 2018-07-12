@@ -2,11 +2,15 @@ package mod.akrivus.amalgam.gem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+
+import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.gem.ai.EntityAIEatBlocks;
 import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.amalgam.init.AmSounds;
-import mod.akrivus.kagic.entity.EntityGem;
+import mod.akrivus.kagic.entity.ai.EntityAIFollowDiamond;
+import mod.akrivus.kagic.entity.ai.EntityAIStay;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
 import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.init.ModSounds;
@@ -15,6 +19,10 @@ import mod.heimrarnadalr.kagic.util.Colors;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -61,8 +69,19 @@ public class EntityNacre extends EntityPearl {
 		super(worldIn);
 		this.setSize(0.6F, 2.5F);
 		this.nativeColor = 9;
+		Iterator<EntityAITaskEntry> it = this.tasks.taskEntries.iterator();
+		while (it.hasNext()) {
+			it.next(); it.remove();
+		}
+		this.stayAI = new EntityAIStay(this);
+		this.tasks.addTask(0, new EntityAISwimming(this));
+		this.tasks.addTask(1, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
+			public boolean apply(EntityCreeper input) {
+				return ((EntityCreeper)input).getCreeperState() == 1;
+			}
+        }, 6.0F, 1.0D, 1.2D));
+		this.tasks.addTask(2, new EntityAIFollowDiamond(this, 1.0D));
 		this.tasks.addTask(2, new EntityAIEatBlocks(this, 0.9D));
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
 		this.dataManager.register(CRACKED, false);
 		this.dataManager.register(COLOR_1, this.rand.nextInt(16));
 		this.dataManager.register(COLOR_2, this.rand.nextInt(16));
@@ -70,6 +89,7 @@ public class EntityNacre extends EntityPearl {
 		this.dataManager.register(COLOR_4, this.rand.nextInt(16));
 		this.dataManager.register(STRESS, 0);
 		this.dataManager.register(FOOD, 0);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
 		this.setHairColor(this.generateHairColor());
 		this.droppedGemItem = AmItems.NACRE_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_NACRE_GEM;

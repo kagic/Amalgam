@@ -38,7 +38,7 @@ public class EntityAIProtectSteven extends EntityAITarget {
 
 	@Override
 	public void startExecuting() {
-		this.taskOwner.setAttackTarget(this.connie.getRevengeTarget());
+		this.taskOwner.setAttackTarget(this.steven.getRevengeTarget());
 		if (this.connie.world.getWorldTime() - this.lastScream > 20) {
 			this.connie.playProtectSound(this.steven.getHealth());
 			this.lastScream = this.connie.world.getWorldTime();

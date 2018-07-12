@@ -117,8 +117,12 @@ public class EntityEmerald extends EntityGem implements IAnimals {
 	protected SoundEvent getDeathSound() {
 		return AmSounds.EMERALD_DEATH;
 	}
-	protected SoundEvent getLivingSound() {
-		return AmSounds.EMERALD_LIVING;
+	protected SoundEvent getAmbientSound() {
+		if (this.rand.nextInt(3) == 0) {
+			return AmSounds.EMERALD_LIVING;
+		} else {
+			return null;
+		}
 	}
 	
 	/*********************************************************

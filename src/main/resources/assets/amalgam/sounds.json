@@ -258,5 +258,24 @@
             { "name": "amalgam:entities/emerald/living2" },
             { "name": "amalgam:entities/emerald/living3" }
         ]
-    }
+    },
+    "entities.stevonnie.living": {
+		"sounds": [
+			{ "name": "amalgam:entities/stevonnie/living1" },
+			{ "name": "amalgam:entities/stevonnie/living2" },
+			{ "name": "amalgam:entities/stevonnie/living3" }
+		]
+	},
+	"entities.stevonnie.hurt": {
+		"sounds": [
+			{ "name": "amalgam:entities/stevonnie/hurt1" },
+			{ "name": "amalgam:entities/stevonnie/hurt2" },
+			{ "name": "amalgam:entities/stevonnie/hurt3" }
+		]
+	},
+	"entities.stevonnie.protect": {
+		"sounds": [
+			{ "name": "amalgam:entities/stevonnie/death1" }
+		]
+	}
 }

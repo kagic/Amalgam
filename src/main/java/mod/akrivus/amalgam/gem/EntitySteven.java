@@ -163,6 +163,9 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
     	if (!this.getDisplayName().getUnformattedText().equals("Steven")) {
     		this.setCustomNameTag("Steven");
     	}
+    	if (!this.onGround && this.motionY < 0.0D) {
+			this.motionY *= 0.5D;
+		}
     	if (this.ticksExisted % 20 == 0) {
     		this.heal(2.0F);
     	}
@@ -217,7 +220,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 	public boolean canDespawn() {
 		return false;
     }
-    public boolean shouldAttackEntity(EntityLivingBase var1, EntityLivingBase var2) {
+	public boolean shouldAttackEntity(EntityLivingBase attacker, EntityLivingBase target) {
         return true;
     }
     public boolean attackEntityAsMob(Entity entityIn) {
@@ -240,7 +243,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 				entityIn.setFire(j * 4);
 			}
 			if (entityIn instanceof EntityPlayer) {
-				EntityPlayer entityplayer = (EntityPlayer)entityIn;
+				EntityPlayer entityplayer = (EntityPlayer)(entityIn);
 				ItemStack itemstack = this.getHeldItemMainhand();
 				ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
 				if (itemstack.getItem() instanceof ItemAxe && itemstack1.getItem() == Items.SHIELD) {
