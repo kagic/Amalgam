@@ -2,11 +2,14 @@ package mod.akrivus.amalgam.gem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.amalgam.init.AmSounds;
+import mod.akrivus.amalgam.world.EmeraldTeleporter;
 import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.entity.ai.EntityAICommandGems;
 import mod.akrivus.kagic.entity.ai.EntityAIDiamondHurtByTarget;
@@ -16,9 +19,15 @@ import mod.akrivus.kagic.entity.ai.EntityAISitStill;
 import mod.akrivus.kagic.entity.ai.EntityAIStay;
 import mod.akrivus.kagic.entity.gem.GemCuts;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
+import mod.akrivus.kagic.tileentity.TileEntityGalaxyPadCore;
+import mod.akrivus.kagic.tileentity.TileEntityWarpPadCore;
+import mod.heimrarnadalr.kagic.networking.EntityTeleportMessage;
+import mod.heimrarnadalr.kagic.networking.KTPacketHandler;
 import mod.heimrarnadalr.kagic.util.Colors;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -29,10 +38,16 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.DimensionManager;
 
 public class EntityEmerald extends EntityGem implements IAnimals {
 	public static final HashMap<IBlockState, Double> EMERALD_YIELDS = new HashMap<IBlockState, Double>();
@@ -95,6 +110,84 @@ public class EntityEmerald extends EntityGem implements IAnimals {
         
         this.droppedGemItem = AmItems.EMERALD_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_EMERALD_GEM;
+	}
+	@Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+		if (super.processInteract(player, hand)) {
+			return true;
+		}
+		else {
+			if (this.isTamed() && this.isOwnedBy(player) && !this.world.isRemote && !this.isCoreItem(player.getHeldItem(hand))) {
+				TileEntityWarpPadCore pad = TileEntityWarpPadCore.getEntityPad(this);
+				if (pad != null && pad.isValidPad() && !pad.isWarping()) {
+					this.playObeySound();
+					if (pad instanceof TileEntityGalaxyPadCore) {
+						boolean generating = true;
+						int dimension = 0;
+						while (generating) { 
+							dimension = DimensionManager.getIDs()[this.world.rand.nextInt(DimensionManager.getIDs().length)];
+							if (this.world.provider.getDimension() != dimension) {
+								generating = false;
+							}
+						}
+						if (this.world.provider.getDimension() != dimension) {
+							attemptWarp(pad, dimension);
+						}
+					}
+					else {
+						attemptWarp(pad, this.world.provider.getDimension());
+					}
+				}
+			}
+		}
+		return false;
+	}
+	private void attemptWarp(TileEntityWarpPadCore pad, int dimension) {
+		BlockPos minorCorner = new BlockPos(pad.getPos().getX() - 1, pad.getPos().getY() + 1, pad.getPos().getZ() - 1);
+		BlockPos majorCorner = new BlockPos(pad.getPos().getX() + 2, pad.getPos().getY() + 5, pad.getPos().getZ() + 2);
+		AxisAlignedBB warpArea = new AxisAlignedBB(minorCorner, majorCorner);
+		List<Entity> entitiesToWarp = this.world.getEntitiesWithinAABB(Entity.class, warpArea);
+		Iterator<Entity> it = entitiesToWarp.iterator();
+		BlockPos destination = null;
+		boolean generating = true;
+		while (generating) {
+			destination = new BlockPos(this.world.rand.nextInt(600000) - 300000, 0, this.world.rand.nextInt(600000) - 300000);
+			int top = this.world.getTopSolidOrLiquidBlock(destination).getY();
+			if (top < 252) {
+				destination = destination.up(top);
+				generating = false;
+			}
+		}
+		while (it.hasNext()) {
+			Entity entity = (Entity) it.next();
+			double posX = destination.getX() + entity.posX - pad.getPos().getX();
+			double posY = destination.getY() + entity.posY - pad.getPos().getY();
+			double posZ = destination.getZ() + entity.posZ - pad.getPos().getZ();
+			if (dimension != this.world.provider.getDimension()) {
+				if (entity instanceof EntityPlayerMP) {
+					this.world.getMinecraftServer().getPlayerList().transferPlayerToDimension((EntityPlayerMP)(entity), dimension, new EmeraldTeleporter(this.world.getMinecraftServer().getWorld(dimension), posX, posY, posZ));
+				}
+				else {
+					entity.dimension = dimension;
+					this.world.getMinecraftServer().getWorld(this.world.provider.getDimension()).removeEntityDangerously(entity);
+					entity.isDead = false;
+					this.world.getMinecraftServer().getPlayerList().transferEntityToWorld(entity, this.world.provider.getDimension(), this.world.getMinecraftServer().getWorld(this.world.provider.getDimension()), this.world.getMinecraftServer().getWorld(dimension), new EmeraldTeleporter(this.world.getMinecraftServer().getWorld(dimension), posX, posY, posZ));
+				}
+			}
+			if (entity instanceof EntityPlayerMP) {
+				entity.setPositionAndUpdate(posX, posY, posZ);
+			}
+			else if (entity instanceof EntityLivingBase) {
+				entity.setPositionAndUpdate(posX, posY, posZ);
+			}
+			else {
+				entity.setLocationAndAngles(posX, posY, posZ, entity.rotationYaw, entity.rotationPitch);
+				entity.setRotationYawHead(entity.rotationYaw);
+			}
+			for (EntityPlayer player : ((WorldServer) this.world).getEntityTracker().getTrackingPlayers(entity)) {
+				KTPacketHandler.INSTANCE.sendTo(new EntityTeleportMessage(entity.getEntityId(), posX, posY, posZ), (EntityPlayerMP) player);
+			}
+		}
 	}
 	
 	/*********************************************************
