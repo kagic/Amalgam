@@ -19,8 +19,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
-public class RenderHacksonite extends RenderGemBase<EntityHessonite> {
-	public RenderHacksonite() {
+public class RenderHessonite extends RenderGemBase<EntityHessonite> {
+	public RenderHessonite() {
 		super(Minecraft.getMinecraft().getRenderManager(), new ModelHessonite(), 0.5F);
 		this.addLayer(new LayerQuartzItem(this));
 		this.addLayer(new LayerSkin(this));
@@ -50,6 +50,6 @@ public class RenderHacksonite extends RenderGemBase<EntityHessonite> {
 	}
 	@Override
 	protected ResourceLocation getEntityTexture(EntityHessonite entity) {
-		return new ResourceLocation("amalgam:textures/entities/hessonite/hessonite.png");
+		return new ResourceLocation("kagic:textures/entities/hessonite/hessonite.png");
 	}
 }

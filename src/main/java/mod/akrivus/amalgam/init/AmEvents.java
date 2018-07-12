@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
+import com.google.common.base.Predicate;
+
 import mod.akrivus.amalgam.enchant.EnchantShard;
 import mod.akrivus.amalgam.entity.EntityGemShard;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
@@ -23,6 +25,7 @@ import mod.akrivus.kagic.entity.ai.EntityAIProtectionFuse;
 import mod.akrivus.kagic.entity.ai.EntityAIRubyFuse;
 import mod.akrivus.kagic.entity.ai.EntityAITopazFuse;
 import mod.akrivus.kagic.entity.gem.EntityAmethyst;
+import mod.akrivus.kagic.entity.gem.EntityHessonite;
 import mod.akrivus.kagic.entity.gem.EntityJasper;
 import mod.akrivus.kagic.entity.gem.EntityLapisLazuli;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
@@ -42,8 +45,11 @@ import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.items.ItemGem;
 import net.minecraft.block.BlockBush;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -180,6 +186,14 @@ public class AmEvents {
 			ruby.tasks.addTask(4, new EntityAIFollowLeaderGem(ruby, 0.8D, GemPlacements.CHEST, EntityRuby.class));
 			ruby.tasks.addTask(4, new EntityAIFollowOtherGem(ruby, 0.8D, EntityBabyPearl.class));
 			ruby.targetTasks.addTask(2, new EntityAICallForBackup(ruby, EntityRuby.class));
+		}
+		if (AmConfigs.changeHessonite && e.getEntity() instanceof EntityHessonite) {
+			EntityHessonite hessonite = (EntityHessonite)(e.getEntity());
+			hessonite.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityGem>(hessonite, EntityGem.class, 10, true, false, new Predicate<EntityGem>() {
+	            public boolean apply(EntityGem input) {
+	                return input != null && (input.isDefective() || input.isTraitor());
+	            }
+	        }));
 		}
 		if (e.getEntity() instanceof EntityAnimal) {
 			EntityAnimal animal = (EntityAnimal)(e.getEntity());

@@ -1,6 +1,5 @@
 package mod.akrivus.amalgam.init;
 
-import mod.akrivus.amalgam.client.render.RenderHacksonite;
 import mod.akrivus.amalgam.entity.EntityGemShard;
 import mod.akrivus.amalgam.entity.EntitySpitball;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
@@ -16,7 +15,6 @@ import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.amalgam.gem.EntityPyrite;
 import mod.akrivus.amalgam.gem.EntitySteven;
 import mod.akrivus.kagic.entity.EntityGem;
-import mod.akrivus.kagic.entity.gem.EntityHessonite;
 import mod.akrivus.kagic.init.ModEntities;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
@@ -47,9 +45,9 @@ public class AmGems {
 		registerMob("connie", EntityConnie.class, 0x99D3CD, 0xAF4E3D);
 		registerEntity("spitball", EntitySpitball.class);
 		
-		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			RenderingRegistry.registerEntityRenderingHandler(EntityHessonite.class, new RenderHacksonite());
-		}
+		//if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+		//	RenderingRegistry.registerEntityRenderingHandler(EntityHessonite.class, new RenderHessonite());
+		//}
 	}
 	public static <T extends Entity> void registerMob(String name, Class<T> entity, int back, int fore) {
 		EntityRegistry.registerModEntity(new ResourceLocation("amalgam:" + name), entity, name, currentID, Amalgam.instance, 256, 1, true, back, fore);

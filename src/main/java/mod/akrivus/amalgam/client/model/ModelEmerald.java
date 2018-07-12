@@ -14,10 +14,10 @@ public class ModelEmerald extends ModelGem {
 		super(0.0F, 0.0F, 64, 64, false, -1F);
 		this.bipedHead = new ModelRenderer(this, 28, 14);
 		this.bipedHead.addBox(-4.0F, -14.0F, -4.0F, 8, 8, 8);
-        this.bipedHead.setRotationPoint(0.0F, 8.0F, 0.0F);
+        this.bipedHead.setRotationPoint(0.0F, -8.0F, 0.0F);
         this.bipedHeadwear = new ModelRenderer(this, 0, 50);
         this.bipedHeadwear.addBox(-5.0F, -14.0F, -5.0F, 10, 4, 2);
-        this.bipedHeadwear.setRotationPoint(0.0F, 8.0F, 0.0F);
+        this.bipedHeadwear.setRotationPoint(0.0F, -8.0F, 0.0F);
         this.bipedHair = new ModelRenderer(this, 24, 44);
         this.bipedHair.setRotationPoint(0.0F, 0.0F, -3F);
         this.bipedHair.addBox(-17.0F, -17.0F, 0.0F, 12, 12, 8);
