@@ -259,6 +259,11 @@
             { "name": "amalgam:entities/emerald/living3" }
         ]
     },
+    "entities.emerald.deny": {
+        "sounds": [
+            { "name": "amalgam:entities/emerald/deny1" }
+        ]
+    },
     "entities.stevonnie.living": {
 		"sounds": [
 			{ "name": "amalgam:entities/stevonnie/living1" },

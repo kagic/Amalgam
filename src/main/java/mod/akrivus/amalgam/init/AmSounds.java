@@ -50,6 +50,7 @@ public class AmSounds {
 	public static final SoundEvent EMERALD_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.death"));
 	public static final SoundEvent EMERALD_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.obey"));
 	public static final SoundEvent EMERALD_LIVING = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.living"));
+	public static final SoundEvent EMERALD_DENY = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.deny"));
 	
 	public static void register(RegistryEvent.Register<SoundEvent> event) {
 		registerSound(RECORD_LOVE_LIKE_YOU, new ResourceLocation("amalgam:records.love_like_you"), event);
@@ -93,6 +94,7 @@ public class AmSounds {
 		registerSound(EMERALD_DEATH, new ResourceLocation("amalgam:entities.emerald.death"), event);
 		registerSound(EMERALD_OBEY, new ResourceLocation("amalgam:entities.emerald.obey"), event);
 		registerSound(EMERALD_LIVING, new ResourceLocation("amalgam:entities.emerald.living"), event);
+		registerSound(EMERALD_DENY, new ResourceLocation("amalgam:entities.emerald.deny"), event);
 		
 		registerSound(STEVONNIE_HURT, new ResourceLocation("amalgam:entities.stevonnie.hurt"), event);
 		registerSound(STEVONNIE_DEATH, new ResourceLocation("amalgam:entities.stevonnie.death"), event);

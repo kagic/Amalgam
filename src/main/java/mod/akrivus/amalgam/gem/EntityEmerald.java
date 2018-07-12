@@ -39,6 +39,9 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -61,6 +64,8 @@ public class EntityEmerald extends EntityGem implements IAnimals {
 	public static final int HAIR_COLOR_BEGIN = 0x93F1B5;
 	public static final int HAIR_COLOR_END = 0x10532F; 
 	private static final int NUM_HAIRSTYLES = 1;
+	
+	public int coolTicks = 6000;
 	
 	public EntityEmerald(World worldIn) {
 		super(worldIn);
@@ -112,6 +117,16 @@ public class EntityEmerald extends EntityGem implements IAnimals {
 		this.droppedCrackedGemItem = AmItems.CRACKED_EMERALD_GEM;
 	}
 	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+        super.writeEntityToNBT(compound);
+        compound.setInteger("coolTicks", this.coolTicks);
+	}
+	@Override
+    public void readEntityFromNBT(NBTTagCompound compound) {
+        super.readEntityFromNBT(compound);
+        this.coolTicks = compound.getInteger("coolTicks");
+    }
+	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (super.processInteract(player, hand)) {
 			return true;
@@ -120,29 +135,35 @@ public class EntityEmerald extends EntityGem implements IAnimals {
 			if (this.isTamed() && this.isOwnedBy(player) && !this.world.isRemote && !this.isCoreItem(player.getHeldItem(hand))) {
 				TileEntityWarpPadCore pad = TileEntityWarpPadCore.getEntityPad(this);
 				if (pad != null && pad.isValidPad() && !pad.isWarping()) {
-					this.playObeySound();
-					if (pad instanceof TileEntityGalaxyPadCore) {
-						boolean generating = true;
-						int dimension = 0;
-						while (generating) { 
-							dimension = DimensionManager.getIDs()[this.world.rand.nextInt(DimensionManager.getIDs().length)];
+					if (this.coolTicks > 6000) {
+						this.playObeySound();
+						if (pad instanceof TileEntityGalaxyPadCore) {
+							boolean generating = true;
+							int dimension = 0;
+							while (generating) { 
+								dimension = DimensionManager.getIDs()[this.world.rand.nextInt(DimensionManager.getIDs().length)];
+								if (this.world.provider.getDimension() != dimension) {
+									generating = false;
+								}
+							}
 							if (this.world.provider.getDimension() != dimension) {
-								generating = false;
+								attemptWarp(pad, dimension, this.world.provider.getDimension());
 							}
 						}
-						if (this.world.provider.getDimension() != dimension) {
-							attemptWarp(pad, dimension);
+						else {
+							attemptWarp(pad, this.world.provider.getDimension(), this.world.provider.getDimension());
 						}
+						this.coolTicks = 0;
 					}
 					else {
-						attemptWarp(pad, this.world.provider.getDimension());
+						this.playDenySound();
 					}
 				}
 			}
 		}
 		return false;
 	}
-	private void attemptWarp(TileEntityWarpPadCore pad, int dimension) {
+	private void attemptWarp(TileEntityWarpPadCore pad, int dimension, int old) {
 		BlockPos minorCorner = new BlockPos(pad.getPos().getX() - 1, pad.getPos().getY() + 1, pad.getPos().getZ() - 1);
 		BlockPos majorCorner = new BlockPos(pad.getPos().getX() + 2, pad.getPos().getY() + 5, pad.getPos().getZ() + 2);
 		AxisAlignedBB warpArea = new AxisAlignedBB(minorCorner, majorCorner);
@@ -163,15 +184,15 @@ public class EntityEmerald extends EntityGem implements IAnimals {
 			double posX = destination.getX() + entity.posX - pad.getPos().getX();
 			double posY = destination.getY() + entity.posY - pad.getPos().getY();
 			double posZ = destination.getZ() + entity.posZ - pad.getPos().getZ();
-			if (dimension != this.world.provider.getDimension()) {
+			if (dimension != old) {
 				if (entity instanceof EntityPlayerMP) {
 					this.world.getMinecraftServer().getPlayerList().transferPlayerToDimension((EntityPlayerMP)(entity), dimension, new EmeraldTeleporter(this.world.getMinecraftServer().getWorld(dimension), posX, posY, posZ));
 				}
 				else {
 					entity.dimension = dimension;
-					this.world.getMinecraftServer().getWorld(this.world.provider.getDimension()).removeEntityDangerously(entity);
+					this.world.getMinecraftServer().getWorld(old).removeEntityDangerously(entity);
 					entity.isDead = false;
-					this.world.getMinecraftServer().getPlayerList().transferEntityToWorld(entity, this.world.provider.getDimension(), this.world.getMinecraftServer().getWorld(this.world.provider.getDimension()), this.world.getMinecraftServer().getWorld(dimension), new EmeraldTeleporter(this.world.getMinecraftServer().getWorld(dimension), posX, posY, posZ));
+					this.world.getMinecraftServer().getPlayerList().transferEntityToWorld(entity, old, this.world.getMinecraftServer().getWorld(old), this.world.getMinecraftServer().getWorld(dimension), new EmeraldTeleporter(this.world.getMinecraftServer().getWorld(dimension), posX, posY, posZ));
 				}
 			}
 			if (entity instanceof EntityPlayerMP) {
@@ -188,6 +209,10 @@ public class EntityEmerald extends EntityGem implements IAnimals {
 				KTPacketHandler.INSTANCE.sendTo(new EntityTeleportMessage(entity.getEntityId(), posX, posY, posZ), (EntityPlayerMP) player);
 			}
 		}
+	}
+	public void onLivingUpdate() {
+    	super.onLivingUpdate();
+    	++this.coolTicks;
 	}
 	
 	/*********************************************************
@@ -216,6 +241,9 @@ public class EntityEmerald extends EntityGem implements IAnimals {
 		} else {
 			return null;
 		}
+	}
+	public void playDenySound() {
+		this.playSound(AmSounds.EMERALD_DENY, this.getSoundVolume(), this.getSoundPitch());
 	}
 	
 	/*********************************************************
