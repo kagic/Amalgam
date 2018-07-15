@@ -2,6 +2,7 @@ package mod.akrivus.amalgam.init;
 
 import mod.akrivus.amalgam.entity.EntityGemShard;
 import mod.akrivus.amalgam.entity.EntitySpitball;
+import mod.akrivus.amalgam.gem.EntityAquaAuraQuartz;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.amalgam.gem.EntityCitrine;
 import mod.akrivus.amalgam.gem.EntityConnie;
@@ -35,6 +36,7 @@ public class AmGems {
 		ModEntities.registerExternalGem("amalgam", "baby_pearl", EntityBabyPearl.class, "mod/akrivus/amalgam/client/render/RenderBabyPearl", 0xFCCCB1, 0x92EAD9, false);
 		ModEntities.registerExternalGem("amalgam", "nephrite", EntityNephrite.class, "mod/akrivus/amalgam/client/render/RenderNephrite", 0x428F33, 0x0E0D09, false);
 		ModEntities.registerExternalGem("amalgam", "emerald", EntityEmerald.class, "mod/akrivus/amalgam/client/render/RenderEmerald", 0x2AC861, 0xB2F731, false);
+		ModEntities.registerExternalGem("amalgam", "aqua_aura_quartz", EntityAquaAuraQuartz.class, "mod/akrivus/amalgam/client/render/RenderAquaAuraQuartz", 0x179FC4, 0xBB85D9, false);
 		
 		registerFusion("fused_topaz", EntityFusedTopaz.class);
 		registerFusion("fused_ruby", EntityFusedRuby.class);

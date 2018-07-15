@@ -7,6 +7,7 @@ import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.gem.ai.EntityAICrossFuse;
 import mod.akrivus.amalgam.gem.ai.EntityAIFireballAttack;
+import mod.akrivus.amalgam.gem.ai.EntityAIFollowLeaderGem;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
 import mod.akrivus.amalgam.gem.ai.EntityAIFuseWithPyrites;
 import mod.akrivus.amalgam.init.AmItems;
@@ -106,7 +107,8 @@ public class EntityPyrite extends EntityGem {
         
         // Other entity AIs.
 		this.tasks.addTask(3, new EntityAICrossFuse<EntityPyrite, EntityFusedPyrite>(this, EntityPyrite.class, EntityFusedPyrite.class, 16));
-        this.tasks.addTask(4, new EntityAIFollowDiamond(this, 1.0D));
+        this.tasks.addTask(3, new EntityAIFollowDiamond(this, 1.0D));
+		this.tasks.addTask(3, new EntityAIFollowLeaderGem(this, 0.8D, GemPlacements.CHEST, EntityPyrite.class));
 		this.tasks.addTask(3, new EntityAIFollowOtherGem(this, 0.8D, EntityLapisLazuli.class));
         this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(6, new EntityAIWander(this, 0.6D));

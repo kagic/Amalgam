@@ -282,5 +282,50 @@
 		"sounds": [
 			{ "name": "amalgam:entities/stevonnie/death1" }
 		]
-	}
+	},
+	"entities.aqua_aura_quartz.hurt": {
+        "sounds": [
+            { "name": "amalgam:entities/aqua_aura_quartz/hurt1" },
+            { "name": "amalgam:entities/aqua_aura_quartz/hurt2" },
+            { "name": "amalgam:entities/aqua_aura_quartz/hurt3" },
+            { "name": "amalgam:entities/aqua_aura_quartz/hurt4" }
+        ]
+    },
+    "entities.aqua_aura_quartz.obey": {
+        "sounds": [
+            { "name": "amalgam:entities/aqua_aura_quartz/obey1" },
+			{ "name": "amalgam:entities/aqua_aura_quartz/obey2" },
+            { "name": "amalgam:entities/aqua_aura_quartz/obey3" },
+            { "name": "amalgam:entities/aqua_aura_quartz/obey4" }
+        ]
+    },
+	"entities.aqua_aura_quartz.death": {
+        "sounds": [
+            { "name": "amalgam:entities/aqua_aura_quartz/death1" },
+            { "name": "amalgam:entities/aqua_aura_quartz/death2" },
+            { "name": "amalgam:entities/aqua_aura_quartz/death3" },
+            { "name": "amalgam:entities/aqua_aura_quartz/death4" }
+        ]
+    },
+    "entities.aqua_aura_quartz.prime.hurt": {
+        "sounds": [
+            { "name": "amalgam:entities/aqua_aura_quartz/prime/hurt1" },
+            { "name": "amalgam:entities/aqua_aura_quartz/prime/hurt2" },
+            { "name": "amalgam:entities/aqua_aura_quartz/prime/hurt3" },
+            { "name": "amalgam:entities/aqua_aura_quartz/prime/hurt4" }
+        ]
+    },
+    "entities.aqua_aura_quartz.prime.obey": {
+        "sounds": [
+            { "name": "amalgam:entities/aqua_aura_quartz/prime/obey1" },
+			{ "name": "amalgam:entities/aqua_aura_quartz/prime/obey2" }
+        ]
+    },
+	"entities.aqua_aura_quartz.prime.death": {
+        "sounds": [
+            { "name": "amalgam:entities/aqua_aura_quartz/prime/death1" },
+            { "name": "amalgam:entities/aqua_aura_quartz/prime/death2" },
+            { "name": "amalgam:entities/aqua_aura_quartz/prime/death3" }
+        ]
+    }
 }

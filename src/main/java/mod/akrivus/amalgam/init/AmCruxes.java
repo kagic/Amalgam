@@ -3,6 +3,7 @@ package mod.akrivus.amalgam.init;
 import java.util.Iterator;
 import java.util.Set;
 
+import mod.akrivus.amalgam.gem.EntityAquaAuraQuartz;
 import mod.akrivus.amalgam.gem.EntityCitrine;
 import mod.akrivus.amalgam.gem.EntityEmerald;
 import mod.akrivus.amalgam.gem.EntityEnderPearl;
@@ -45,6 +46,16 @@ public class AmCruxes {
 			ModEntities.registerOreDictValue(EntityCitrine.CITRINE_YIELDS, 0.11, "stoneLimestonePolished");
 			ModEntities.registerOreDictValue(EntityCitrine.CITRINE_YIELDS, 5.99, "blockQuartz");
 			ModEntities.registerWithOreDictionary(EntityCitrine.CITRINE_YIELDS, "Quartz", "Citrine");
+		}
+		if (AmConfigs.enableAquaAuraQuartz) {
+			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 0.33, "stoneDiorite");
+			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 0.33, "stoneDioritePolished");
+			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 0.11, "stoneLimestone");
+			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 0.11, "stoneLimestonePolished");
+			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 5.99, "blockQuartz");
+			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 0.99, "oreGold");
+			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 1.99, "blockGold");
+			ModEntities.registerWithOreDictionary(EntityCitrine.CITRINE_YIELDS, "Quartz");
 		}
 		if (AmConfigs.enablePyrite) { 
 			ModEntities.registerOreDictValue(EntityPyrite.PYRITE_YIELDS, 0.99, "oreQuartz");

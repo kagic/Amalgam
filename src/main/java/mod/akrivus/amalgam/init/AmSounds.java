@@ -51,7 +51,15 @@ public class AmSounds {
 	public static final SoundEvent EMERALD_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.obey"));
 	public static final SoundEvent EMERALD_LIVING = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.living"));
 	public static final SoundEvent EMERALD_DENY = new SoundEvent(new ResourceLocation("amalgam:entities.emerald.deny"));
-	
+
+	public static final SoundEvent AQUA_AURA_QUARTZ_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.aqua_aura_quartz.hurt"));
+	public static final SoundEvent AQUA_AURA_QUARTZ_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.aqua_aura_quartz.death"));
+	public static final SoundEvent AQUA_AURA_QUARTZ_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.aqua_aura_quartz.obey"));
+
+	public static final SoundEvent PRIME_AQUA_AURA_QUARTZ_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.aqua_aura_quartz.prime.hurt"));
+	public static final SoundEvent PRIME_AQUA_AURA_QUARTZ_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.aqua_aura_quartz.prime.death"));
+	public static final SoundEvent PRIME_AQUA_AURA_QUARTZ_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.aqua_aura_quartz.prime.obey"));
+
 	public static void register(RegistryEvent.Register<SoundEvent> event) {
 		registerSound(RECORD_LOVE_LIKE_YOU, new ResourceLocation("amalgam:records.love_like_you"), event);
 

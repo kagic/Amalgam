@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.google.common.base.Predicate;
 
+import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
 import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.EntityGem;
@@ -87,6 +88,7 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 
 		// Apply entity AI.
         this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
+		this.tasks.addTask(3, new EntityAIFollowOtherGem(this, 0.8D, EntityEmerald.class));
         this.tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(5, new EntityAIStandGuard(this, 0.6D));
         
@@ -101,7 +103,7 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12.0D);
         
         this.droppedGemItem = AmItems.CITRINE_GEM;
-		this.droppedCrackedGemItem = AmItems.CITRINE_GEM;
+		this.droppedCrackedGemItem = AmItems.CRACKED_CITRINE_GEM;
         
         // Register entity data.
         this.dataManager.register(CHARGED, false);
