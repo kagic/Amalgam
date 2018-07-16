@@ -277,13 +277,13 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 	 * Methods related to sound.                             *
 	 *********************************************************/
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return AmSounds.PYRITE_HURT;
+		return AmSounds.CITRINE_HURT;
 	}
 	protected SoundEvent getObeySound() {
-		return AmSounds.PYRITE_OBEY;
+		return AmSounds.CITRINE_OBEY;
 	}
 	protected SoundEvent getDeathSound() {
-		return AmSounds.PYRITE_DEATH;
+		return AmSounds.CITRINE_DEATH;
 	}
 	
 	/*********************************************************

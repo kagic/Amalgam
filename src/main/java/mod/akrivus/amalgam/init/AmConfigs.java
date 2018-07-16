@@ -20,4 +20,5 @@ public class AmConfigs {
 	public static boolean enableNephrite = true;
 	public static boolean enableEmerald = true;
 	public static boolean enableAquaAuraQuartz = true;
+	public static boolean enableWatermelonTourmaline = true;
 }

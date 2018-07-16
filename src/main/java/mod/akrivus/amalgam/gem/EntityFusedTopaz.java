@@ -26,6 +26,7 @@ import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -41,7 +42,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityFusedTopaz extends EntityFusionGem {
+public class EntityFusedTopaz extends EntityFusionGem implements IAnimals {
 	private static final int SKIN_COLOR_YELLOW = 0xF6E83E; 
 	private static final int SKIN_COLOR_BLUE = 0x5167fB; 
 	private static final int SKIN_COLOR_GREEN = 0x52FC75; 

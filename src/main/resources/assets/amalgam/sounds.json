@@ -327,5 +327,47 @@
             { "name": "amalgam:entities/aqua_aura_quartz/prime/death2" },
             { "name": "amalgam:entities/aqua_aura_quartz/prime/death3" }
         ]
+    },
+    "entities.watermelon_tourmaline.hurt": {
+        "sounds": [
+            { "name": "amalgam:entities/watermelon_tourmaline/hurt1" },
+            { "name": "amalgam:entities/watermelon_tourmaline/hurt2" },
+            { "name": "amalgam:entities/watermelon_tourmaline/hurt3" }
+        ]
+    },
+    "entities.watermelon_tourmaline.obey": {
+        "sounds": [
+            { "name": "amalgam:entities/watermelon_tourmaline/obey1" },
+			{ "name": "amalgam:entities/watermelon_tourmaline/obey2" },
+            { "name": "amalgam:entities/watermelon_tourmaline/obey3" }
+        ]
+    },
+	"entities.watermelon_tourmaline.death": {
+        "sounds": [
+            { "name": "amalgam:entities/watermelon_tourmaline/death1" },
+            { "name": "amalgam:entities/watermelon_tourmaline/death2" },
+            { "name": "amalgam:entities/watermelon_tourmaline/death3" }
+        ]
+    },
+    "entities.citrine.hurt": {
+        "sounds": [
+            { "name": "amalgam:entities/citrine/hurt1" },
+            { "name": "amalgam:entities/citrine/hurt2" },
+            { "name": "amalgam:entities/citrine/hurt3" }
+        ]
+    },
+    "entities.citrine.obey": {
+        "sounds": [
+            { "name": "amalgam:entities/citrine/obey1" },
+			{ "name": "amalgam:entities/citrine/obey2" },
+            { "name": "amalgam:entities/citrine/obey3" }
+        ]
+    },
+	"entities.citrine.death": {
+        "sounds": [
+            { "name": "amalgam:entities/citrine/death1" },
+            { "name": "amalgam:entities/citrine/death2" },
+            { "name": "amalgam:entities/citrine/death3" }
+        ]
     }
 }

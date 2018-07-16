@@ -10,6 +10,7 @@ import mod.akrivus.amalgam.gem.EntityEnderPearl;
 import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.amalgam.gem.EntityPyrite;
+import mod.akrivus.amalgam.gem.EntityWatermelonTourmaline;
 import mod.akrivus.kagic.entity.gem.EntityAquamarine;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
 import mod.akrivus.kagic.init.ModEntities;
@@ -54,8 +55,16 @@ public class AmCruxes {
 			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 0.11, "stoneLimestonePolished");
 			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 5.99, "blockQuartz");
 			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 0.99, "oreGold");
-			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 1.99, "blockGold");
 			ModEntities.registerWithOreDictionary(EntityCitrine.CITRINE_YIELDS, "Quartz");
+		}
+		if (AmConfigs.enableWatermelonTourmaline) {
+			ModEntities.registerOreDictValue(EntityWatermelonTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.33, "stoneGranite");
+			ModEntities.registerOreDictValue(EntityWatermelonTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.66, "stoneGranitePolished");
+			ModEntities.registerOreDictValue(EntityWatermelonTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.66, "sandstone");
+			ModEntities.registerOreDictValue(EntityWatermelonTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.33, "stoneLimestone");
+			ModEntities.registerOreDictValue(EntityWatermelonTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.44, "stoneLimestonePolished");
+			EntityWatermelonTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS.put(Blocks.MELON_BLOCK.getDefaultState(), 2.99);
+			ModEntities.registerWithOreDictionary(EntityCitrine.CITRINE_YIELDS, "Tourmaline");
 		}
 		if (AmConfigs.enablePyrite) { 
 			ModEntities.registerOreDictValue(EntityPyrite.PYRITE_YIELDS, 0.99, "oreQuartz");

@@ -5,8 +5,8 @@ import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
 import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
-import mod.akrivus.kagic.entity.gem.EntityRuby;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
+import net.minecraft.entity.INpc;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAITempt;
@@ -25,7 +25,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.DyeUtils;
 
-public class EntityBabyPearl extends EntityPearl {
+public class EntityBabyPearl extends EntityPearl implements INpc {
 	public EntityBabyPearl(World worldIn) {
 		super(worldIn);
 		this.setSize(0.3F, 0.95F);

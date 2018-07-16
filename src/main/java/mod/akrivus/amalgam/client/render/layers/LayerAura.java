@@ -26,8 +26,8 @@ public class LayerAura implements LayerRenderer<EntityAquaAuraQuartz> {
         GlStateManager.color(0.5F, 0.5F, 0.5F, 1.0F);
         for (int i = 0; i < 2; ++i) {
             GlStateManager.disableLighting();
-            GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_COLOR, GlStateManager.DestFactor.ONE);
-            GlStateManager.color(0.38F, 0.19F, 0.608F, 1.0F);
+            GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+            GlStateManager.color(0.67F, 0.54F, 0.717F, 0.25F);
             GlStateManager.matrixMode(5890);
             GlStateManager.loadIdentity();
             GlStateManager.scale(0.33333334F, 0.33333334F, 0.33333334F);

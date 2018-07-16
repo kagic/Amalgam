@@ -36,6 +36,7 @@ import net.minecraft.entity.ai.EntityAIOpenDoor;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
@@ -44,7 +45,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class EntityNephrite extends EntityGem {
+public class EntityNephrite extends EntityGem implements IAnimals {
 	public static final HashMap<IBlockState, Double> NEPHRITE_YIELDS = new HashMap<IBlockState, Double>();
 	public static final double NEPHRITE_DEFECTIVITY_MULTIPLIER = 1;
 	public static final double NEPHRITE_DEPTH_THRESHOLD = 0;

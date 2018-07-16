@@ -31,12 +31,13 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
-public class EntityFusedRuby extends EntityFusionGem {
+public class EntityFusedRuby extends EntityFusionGem implements IAnimals {
 	private static final int SKIN_COLOR_BEGIN = 0xE0316F; 
 	private static final int SKIN_COLOR_MID = 0xE52C5C; 
 	private static final int SKIN_COLOR_END = 0xED294C; 

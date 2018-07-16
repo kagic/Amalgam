@@ -19,6 +19,7 @@ public class AmItems {
 	public static final ItemGem NEPHRITE_1_GEM = new ItemGem("nephrite_1");
 	public static final ItemGem EMERALD_GEM = new ItemGem("emerald");
 	public static final ItemGem AQUA_AURA_QUARTZ_GEM = new ItemGem("aqua_aura_quartz");
+	public static final ItemGem WATERMELON_TOURMALINE_GEM = new ItemGem("watermelon_tourmaline");
 	
 	public static final ItemGem CRACKED_CITRINE_GEM = new ItemGem("citrine", true);
 	public static final ItemGem CRACKED_AMETRINE_GEM = new ItemGem("citrine_1", true);
@@ -29,6 +30,7 @@ public class AmItems {
 	public static final ItemGem CRACKED_NEPHRITE_1_GEM = new ItemGem("nephrite_1", true);
 	public static final ItemGem CRACKED_EMERALD_GEM = new ItemGem("emerald", true);
 	public static final ItemGem CRACKED_AQUA_AURA_QUARTZ_GEM = new ItemGem("aqua_aura_quartz", true);
+	public static final ItemGem CRACKED_WATERMELON_TOURMALINE_GEM = new ItemGem("watermelon_tourmaline", true);
 	
 	public static final ItemStevenStone STEVEN_GEM = new ItemStevenStone();
 	public static final ItemConnieBracelet CONNIE_BRACELET = new ItemConnieBracelet();
@@ -60,6 +62,7 @@ public class AmItems {
 		ModItems.registerExternalGem(NEPHRITE_1_GEM, CRACKED_NEPHRITE_1_GEM, "amalgam", event);
 		ModItems.registerExternalGem(EMERALD_GEM, CRACKED_EMERALD_GEM, "amalgam", event);
 		ModItems.registerExternalGem(AQUA_AURA_QUARTZ_GEM, CRACKED_AQUA_AURA_QUARTZ_GEM, "amalgam", event);
+		ModItems.registerExternalGem(WATERMELON_TOURMALINE_GEM, CRACKED_WATERMELON_TOURMALINE_GEM, "amalgam", event);
 		
 		ModItems.registerExternalItem(WHITE_GEM_SHARD, "amalgam", event);
 		ModItems.registerExternalItem(ORANGE_GEM_SHARD, "amalgam", event);
