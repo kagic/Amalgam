@@ -4,13 +4,13 @@ import mod.akrivus.kagic.client.model.ModelGem;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ModelHessonite extends ModelGem {
+public class ModelPezzottaite extends ModelGem {
 	private ModelRenderer bipedCape;
 	private ModelRenderer bipedCapeBack;
 	private ModelRenderer bipedLeftShoulder;
 	private ModelRenderer bipedRightShoulder;
 	private ModelRenderer bipedHips;
-    public ModelHessonite() {
+    public ModelPezzottaite() {
 		super(0.0F, 0.0F, 64, 64, false, -1F);
 		this.bipedHead = new ModelRenderer(this, 28, 14);
 		this.bipedHead.addBox(-7.0F, -18.0F, -4.0F, 14, 12, 8);

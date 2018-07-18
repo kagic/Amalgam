@@ -42,11 +42,11 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
-	public static final HashMap<IBlockState, Double> WATERMELON_TOURMALINE_QUARTZ_YIELDS = new HashMap<IBlockState, Double>();
-	public static final double WATERMELON_TOURMALINE_QUARTZ_DEFECTIVITY_MULTIPLIER = 2;
-	public static final double WATERMELON_TOURMALINE_QUARTZ_DEPTH_THRESHOLD = 72;
-	public static final HashMap<Integer, ResourceLocation> WATERMELON_TOURMALINE_QUARTZ_HAIR_STYLES = new HashMap<Integer, ResourceLocation>();
+public class EntityPezzottaite extends EntityGem implements IAnimals {
+	public static final HashMap<IBlockState, Double> PEZZOTTAITE_YIELDS = new HashMap<IBlockState, Double>();
+	public static final double PEZZOTTAITE_DEFECTIVITY_MULTIPLIER = 2;
+	public static final double PEZZOTTAITE_DEPTH_THRESHOLD = 72;
+	public static final HashMap<Integer, ResourceLocation> PEZZOTTAITE_HAIR_STYLES = new HashMap<Integer, ResourceLocation>();
 	private static final DataParameter<Integer> LOWER_COLOR = EntityDataManager.<Integer>createKey(EntityCitrine.class, DataSerializers.VARINT);
 	
 	public static final int LOWER_SKIN_COLOR_BEGIN = 0xFFC9E2; 
@@ -60,7 +60,7 @@ public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
 	
 	private static final int NUM_HAIRSTYLES = 5;
 	
-	public EntityWatermelonTourmaline(World worldIn) {
+	public EntityPezzottaite(World worldIn) {
 		super(worldIn);
 		this.setSize(0.9F, 2.3F);
 		this.nativeColor = 3;
@@ -86,7 +86,6 @@ public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
 		
 		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
-        this.tasks.addTask(1, new EntityAITourmalineBlowAttack(this, 2, 8, 12));
         this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
         this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
         this.tasks.addTask(3, new EntityAIFollowDiamond(this, 1.0D));
@@ -110,8 +109,8 @@ public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
         
-        this.droppedGemItem = AmItems.WATERMELON_TOURMALINE_GEM;
-		this.droppedCrackedGemItem = AmItems.CRACKED_WATERMELON_TOURMALINE_GEM;
+        this.droppedGemItem = AmItems.PEZZOTTAITE_GEM;
+		this.droppedCrackedGemItem = AmItems.CRACKED_PEZZOTTAITE_GEM;
         
         // Register entity data.
         this.dataManager.register(LOWER_COLOR, 0);
@@ -142,13 +141,13 @@ public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
 	 * Methods related to sound.                             *
 	 *********************************************************/
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return AmSounds.WATERMELON_TOURMALINE_HURT;
+		return AmSounds.PEZZOTTAITE_HURT;
 	}
 	protected SoundEvent getObeySound() {
-		return AmSounds.WATERMELON_TOURMALINE_OBEY;
+		return AmSounds.PEZZOTTAITE_OBEY;
 	}
 	protected SoundEvent getDeathSound() {
-		return AmSounds.WATERMELON_TOURMALINE_DEATH;
+		return AmSounds.PEZZOTTAITE_DEATH;
 	}
 	
 	/*********************************************************
@@ -157,14 +156,14 @@ public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
 	@Override
 	public int generateSkinColor() {
 		ArrayList<Integer> skinColors = new ArrayList<Integer>();
-		skinColors.add(EntityWatermelonTourmaline.SKIN_COLOR_BEGIN);
-		skinColors.add(EntityWatermelonTourmaline.SKIN_COLOR_END);
+		skinColors.add(EntityPezzottaite.SKIN_COLOR_BEGIN);
+		skinColors.add(EntityPezzottaite.SKIN_COLOR_END);
 		return Colors.arbiLerp(skinColors);
 	}
 	public int generateDefectiveColor() {
 		ArrayList<Integer> skinColors = new ArrayList<Integer>();
-		skinColors.add(EntityWatermelonTourmaline.LOWER_SKIN_COLOR_BEGIN);
-		skinColors.add(EntityWatermelonTourmaline.LOWER_SKIN_COLOR_END);
+		skinColors.add(EntityPezzottaite.LOWER_SKIN_COLOR_BEGIN);
+		skinColors.add(EntityPezzottaite.LOWER_SKIN_COLOR_END);
 		return Colors.arbiLerp(skinColors);
 	}
 	public int getLowerColor() {
@@ -172,13 +171,13 @@ public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
 	}
 	@Override
 	protected int generateHairStyle() {
-		return this.rand.nextInt(EntityWatermelonTourmaline.NUM_HAIRSTYLES);
+		return this.rand.nextInt(EntityPezzottaite.NUM_HAIRSTYLES);
 	}
 	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
-		hairColors.add(EntityWatermelonTourmaline.HAIR_COLOR_BEGIN);
-		hairColors.add(EntityWatermelonTourmaline.HAIR_COLOR_END);
+		hairColors.add(EntityPezzottaite.HAIR_COLOR_BEGIN);
+		hairColors.add(EntityPezzottaite.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
 

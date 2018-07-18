@@ -13,6 +13,7 @@ import mod.akrivus.amalgam.gem.EntityFusedRuby;
 import mod.akrivus.amalgam.gem.EntityFusedTopaz;
 import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.amalgam.gem.EntityNephrite;
+import mod.akrivus.amalgam.gem.EntityPezzottaite;
 import mod.akrivus.amalgam.gem.EntityPyrite;
 import mod.akrivus.amalgam.gem.EntitySteven;
 import mod.akrivus.amalgam.gem.EntityStevonnie;
@@ -39,6 +40,7 @@ public class AmGems {
 		ModEntities.registerExternalGem("amalgam", "emerald", EntityEmerald.class, "mod/akrivus/amalgam/client/render/RenderEmerald", 0x2AC861, 0xB2F731, false);
 		ModEntities.registerExternalGem("amalgam", "aqua_aura_quartz", EntityAquaAuraQuartz.class, "mod/akrivus/amalgam/client/render/RenderAquaAuraQuartz", 0x179FC4, 0xBB85D9, false);
 		ModEntities.registerExternalGem("amalgam", "watermelon_tourmaline", EntityWatermelonTourmaline.class, "mod/akrivus/amalgam/client/render/RenderWatermelonTourmaline", 0x45E79F, 0xFFC9E2, false);
+		ModEntities.registerExternalGem("amalgam", "raspberry_beryl", EntityPezzottaite.class, "mod/akrivus/amalgam/client/render/RenderPezzotaite", 0x45E79F, 0xFFC9E2, false);
 		
 		registerFusion("fused_topaz", EntityFusedTopaz.class);
 		registerFusion("fused_ruby", EntityFusedRuby.class);
