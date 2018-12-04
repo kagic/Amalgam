@@ -38,7 +38,7 @@ Amalgam requires KAGIC 1.10.1, also called **X11p12** or **X11p13**, and Java SE
 * Whatever [this](https://www.youtube.com/watch?v=M-bmV2ws_QY) is.
 
 ## Contact
-I am no longer on KAGIC, and won't be returning for the time being. If my attention is necessary, [file a report](https://github.com/Akrivus/Amalgam/issues), or mention me on [MMD](https://discord.mcmoddev.com/).
+I'm no longer on KAGIC, so if I'm needed, [file an issue](https://github.com/Akrivus/Amalgam/issues) or hit me up on [MMD](https://discord.mcmoddev.com/).
 
 ---
 
