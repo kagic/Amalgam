@@ -1,14 +1,9 @@
 package mod.akrivus.amalgam.gem.ai;
 
 import mod.akrivus.amalgam.gem.EntityFusedTopaz;
-import mod.akrivus.kagic.entity.gem.EntityTopaz;
-import mod.akrivus.kagic.init.ModSounds;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.Path;
-import net.minecraft.util.DamageSource;
 
 public class EntityAIAttackFusedTopaz extends EntityAIBase {
 	private final EntityFusedTopaz gem;

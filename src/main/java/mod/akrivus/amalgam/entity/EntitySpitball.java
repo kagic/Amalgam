@@ -1,7 +1,6 @@
 package mod.akrivus.amalgam.entity;
 
 import mod.akrivus.amalgam.gem.EntityNephrite;
-import mod.akrivus.kagic.entity.EntityGem;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -33,7 +32,8 @@ public class EntitySpitball extends Entity {
         super(worldIn);
         this.setSize(1.0F, 1.0F);
     }
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
     public boolean isInRangeToRenderDist(double distance) {
         double d0 = this.getEntityBoundingBox().getAverageEdgeLength() * 4.0D;
         if (Double.isNaN(d0)) {
@@ -64,7 +64,8 @@ public class EntitySpitball extends Entity {
         this.accelerationY = accelY;
         this.accelerationZ = accelZ;
     }
-    public void onUpdate() {
+    @Override
+	public void onUpdate() {
         if (this.world.isRemote || (this.shootingEntity == null || !this.shootingEntity.isDead || this.shootingEntity.getDistance(this) > 64) && this.world.isBlockLoaded(new BlockPos(this))) {
             super.onUpdate();
             RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, false, this.shootingEntity);
@@ -150,11 +151,13 @@ public class EntitySpitball extends Entity {
 			this.setDead();
         }
     }
-    public void writeEntityToNBT(NBTTagCompound compound) {
+    @Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
         compound.setTag("direction", this.newDoubleNBTList(new double[] {this.motionX, this.motionY, this.motionZ}));
         compound.setTag("power", this.newDoubleNBTList(new double[] {this.accelerationX, this.accelerationY, this.accelerationZ}));
     }
-    public void readEntityFromNBT(NBTTagCompound compound) {
+    @Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
         if (compound.hasKey("power", 9)) {
             NBTTagList nbttaglist = compound.getTagList("power", 6);
             if (nbttaglist.tagCount() == 3) {
@@ -173,10 +176,12 @@ public class EntitySpitball extends Entity {
             this.setDead();
         }
     }
-    public boolean canBeCollidedWith() {
+    @Override
+	public boolean canBeCollidedWith() {
         return true;
     }
-    public float getCollisionBorderSize() {
+    @Override
+	public float getCollisionBorderSize() {
         return 1.0F;
     }
     public float getBrightness(float partialTicks) {
@@ -186,6 +191,7 @@ public class EntitySpitball extends Entity {
     public int getBrightnessForRender(float partialTicks) {
         return 15728880;
     }
+	@Override
 	protected void entityInit() { }
     private void makeAreaOfEffectCloud(BlockPos pos) {
         EntityAreaEffectCloud cloud = new EntityAreaEffectCloud(this.world, pos.getX(), pos.getY(), pos.getZ());

@@ -18,14 +18,17 @@ public class EntityAIFireballAttack extends EntityAIBase {
         this.gem = gem;
         this.setMutexBits(3);
     }
-    public boolean shouldExecute() {
+    @Override
+	public boolean shouldExecute() {
         EntityLivingBase entitylivingbase = this.gem.getAttackTarget();
         return entitylivingbase != null && entitylivingbase.isEntityAlive();
     }
-    public void startExecuting() {
+    @Override
+	public void startExecuting() {
         this.attackStep = 0;
     }
-    public void updateTask() {
+    @Override
+	public void updateTask() {
         EntityLivingBase entity = this.gem.getAttackTarget();
         double distance = this.gem.getDistanceSq(entity);
         if (distance < 4) {
@@ -34,7 +37,7 @@ public class EntityAIFireballAttack extends EntityAIBase {
         }
         else if (distance < 256) {
             double dX = entity.posX - this.gem.posX;
-            double dY = entity.getEntityBoundingBox().minY + (double)(entity.height / 2.0F) - (this.gem.posY + (double)(this.gem.height / 2.0F));
+            double dY = entity.getEntityBoundingBox().minY + entity.height / 2.0F - (this.gem.posY + (double)(this.gem.height / 2.0F));
             double dZ = entity.posZ - this.gem.posZ;
             if (this.attackTime <= 0) {
                 ++this.attackStep;

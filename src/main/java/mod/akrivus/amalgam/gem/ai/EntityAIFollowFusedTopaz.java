@@ -2,7 +2,6 @@ package mod.akrivus.amalgam.gem.ai;
 
 import java.util.List;
 
-import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.entity.gem.EntityTopaz;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -18,7 +17,8 @@ public class EntityAIFollowFusedTopaz extends EntityAIBase {
         this.followSpeed = followSpeedIn;
         this.setMutexBits(3);
     }
-    public boolean shouldExecute() {
+    @Override
+	public boolean shouldExecute() {
         List<EntityTopaz> list = this.follower.world.<EntityTopaz>getEntitiesWithinAABB(EntityTopaz.class, this.follower.getEntityBoundingBox().grow(24.0D, 8.0D, 24.0D));
         double maxDistance = Double.MAX_VALUE;
         for (EntityTopaz gem : list) {
@@ -32,19 +32,23 @@ public class EntityAIFollowFusedTopaz extends EntityAIBase {
         }
         return this.gem != null;
     }
-    public boolean shouldContinueExecuting() {
+    @Override
+	public boolean shouldContinueExecuting() {
         return this.gem != null && !this.follower.getNavigator().noPath();
     }
-    public void startExecuting() {
+    @Override
+	public void startExecuting() {
         this.oldWaterCost = this.follower.getPathPriority(PathNodeType.WATER);
         this.follower.setPathPriority(PathNodeType.WATER, 0.0F);
     }
-    public void resetTask() {
+    @Override
+	public void resetTask() {
         this.gem = null;
         this.follower.getNavigator().clearPath();
         this.follower.setPathPriority(PathNodeType.WATER, this.oldWaterCost);
     }
-    public void updateTask() {
+    @Override
+	public void updateTask() {
         if (this.follower.getDistanceSq(this.gem) > (this.gem.width * 3) + 3) {
         	this.follower.getNavigator().tryMoveToEntityLiving(this.gem, this.followSpeed);
         }

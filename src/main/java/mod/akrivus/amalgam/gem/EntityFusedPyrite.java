@@ -7,7 +7,6 @@ import com.google.common.base.Predicate;
 import mod.akrivus.amalgam.gem.ai.EntityAICrossFuse;
 import mod.akrivus.amalgam.gem.ai.EntityAIFireballAttack;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
-import mod.akrivus.amalgam.gem.ai.EntityAIFuseWithPyrites;
 import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.EntityFusionGem;
 import mod.akrivus.kagic.entity.EntityGem;
@@ -15,14 +14,10 @@ import mod.akrivus.kagic.entity.ai.EntityAICommandGems;
 import mod.akrivus.kagic.entity.ai.EntityAIDiamondHurtByTarget;
 import mod.akrivus.kagic.entity.ai.EntityAIDiamondHurtTarget;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowDiamond;
-import mod.akrivus.kagic.entity.ai.EntityAIPickUpItems;
-import mod.akrivus.kagic.entity.ai.EntityAIStandGuard;
 import mod.akrivus.kagic.entity.ai.EntityAIStay;
 import mod.akrivus.kagic.entity.gem.EntityLapisLazuli;
-import mod.akrivus.kagic.entity.gem.EntityRuby;
 import mod.akrivus.kagic.entity.gem.GemCuts;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
-import mod.akrivus.kagic.init.ModSounds;
 import mod.heimrarnadalr.kagic.util.Colors;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -30,7 +25,6 @@ import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
-import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -99,8 +93,9 @@ public class EntityFusedPyrite extends EntityFusionGem implements IAnimals {
 		this.tasks.addTask(1, new EntityAIFireballAttack(this));
         this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
 		this.tasks.addTask(2, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
+			@Override
 			public boolean apply(EntityCreeper input) {
-				return ((EntityCreeper)input).getCreeperState() == 1;
+				return input.getCreeperState() == 1;
 			}
         }, 6.0F, 1.0D, 1.2D));
         
@@ -119,7 +114,8 @@ public class EntityFusedPyrite extends EntityFusionGem implements IAnimals {
         this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
         this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
-            public boolean apply(EntityLiving input) {
+            @Override
+			public boolean apply(EntityLiving input) {
                 return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
             }
         }));

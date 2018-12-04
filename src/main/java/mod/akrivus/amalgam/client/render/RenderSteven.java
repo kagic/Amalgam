@@ -16,6 +16,7 @@ public class RenderSteven extends RenderLivingBase<EntitySteven> {
         this.addLayer(new LayerCheeseburgerBackpack(this));
         this.addLayer(new LayerArrow(this));
     }
+	@Override
 	protected ResourceLocation getEntityTexture(EntitySteven entity) {
 		return new ResourceLocation("amalgam:textures/entities/steven/steven.png");
 	}

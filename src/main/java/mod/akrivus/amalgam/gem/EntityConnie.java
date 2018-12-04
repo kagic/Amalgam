@@ -21,7 +21,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveThroughVillage;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
@@ -92,6 +91,7 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
 		// Other entity AIs.
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
+			@Override
 			public boolean apply(EntityCreeper input) {
 				return input.getCreeperState() == 1;
 			}
@@ -114,7 +114,8 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
         this.targetTasks.addTask(0, new EntityAIProtectSteven(this));
         this.targetTasks.addTask(1, new EntityAIProtectVillagers(this));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
-            public boolean apply(EntityLiving input) {
+            @Override
+			public boolean apply(EntityLiving input) {
                 return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
             }
         }));
@@ -125,6 +126,7 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 	}
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
         super.writeEntityToNBT(compound);
         NBTTagList nbttaglist = new NBTTagList();
@@ -144,7 +146,8 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
         compound.setInteger("hairstyle", this.getHairstyle());
         compound.setBoolean("coat", this.isWearingCoat());
 	}
-    public void readEntityFromNBT(NBTTagCompound compound) {
+    @Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
         super.readEntityFromNBT(compound);
         NBTTagList nbttaglist = compound.getTagList("items", 10);
         this.initStorage();
@@ -161,7 +164,8 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
         this.setHairstyle(compound.getInteger("hairstyle"));
         this.setIsWearingCoat(compound.getBoolean("coat"));
     }
-    public boolean processInteract(EntityPlayer player, EnumHand hand) {
+    @Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
 			if (hand == EnumHand.MAIN_HAND) {
 				ItemStack stack = player.getHeldItemMainhand();
@@ -181,7 +185,8 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
 		}
 		return super.processInteract(player, hand);
     }
-    public void onLivingUpdate() {
+    @Override
+	public void onLivingUpdate() {
     	this.updateArmSwingProgress();
     	super.onLivingUpdate();
     	if (!this.world.isRemote) {
@@ -283,10 +288,12 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
             playerEntity.displayGUIChest(this.backpack);
         }
     }
+	@Override
 	public void onInventoryChanged(IInventory inventory) {
 		ItemStack item = this.backpack.getStackInSlot(8);
 		this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, item);
 	}
+	@Override
 	protected void updateEquipmentIfNeeded(EntityItem itementity) {
         ItemStack itemstack = itementity.getItem();
         ItemStack itemstack1 = this.backpack.addItem(itemstack);
@@ -328,13 +335,15 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
 	public void setIsWearingCoat(boolean coat) {
 		this.dataManager.set(COAT, coat);
 	}
-    public boolean canDespawn() {
+    @Override
+	public boolean canDespawn() {
 		return false;
     }
     public boolean shouldAttackEntity(EntityLivingBase attacker, EntityLivingBase target) {
         return true;
     }
-    public boolean attackEntityAsMob(Entity entityIn) {
+    @Override
+	public boolean attackEntityAsMob(Entity entityIn) {
     	float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 		int i = 0;
 		if (entityIn instanceof EntityLivingBase) {
@@ -345,7 +354,7 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
 		this.swingArm(EnumHand.MAIN_HAND);
 		if (flag) {
 			if (i > 0 && entityIn instanceof EntityLivingBase) {
-				((EntityLivingBase) entityIn).knockBack(this, (float) i * 0.5F, (double) MathHelper.sin(this.rotationYaw * 0.017453292F), (double)(-MathHelper.cos(this.rotationYaw * 0.017453292F)));
+				((EntityLivingBase) entityIn).knockBack(this, i * 0.5F, MathHelper.sin(this.rotationYaw * 0.017453292F), (-MathHelper.cos(this.rotationYaw * 0.017453292F)));
 				this.motionX *= 0.6D;
 				this.motionZ *= 0.6D;
 			}
@@ -358,7 +367,7 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
 				ItemStack itemstack = this.getHeldItemMainhand();
 				ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
 				if (itemstack.getItem() instanceof ItemAxe && itemstack1.getItem() == Items.SHIELD) {
-					float f1 = 0.25F + (float)EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
+					float f1 = 0.25F + EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
 					if (this.rand.nextFloat() < f1) {
 						entityplayer.getCooldownTracker().setCooldown(Items.SHIELD, 100);
 						this.world.setEntityState(entityplayer, (byte)30);
@@ -369,6 +378,7 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
 		}
 		return flag;
     }
+	@Override
 	public void onDeath(DamageSource cause) {
 		if (!this.world.isRemote) {
 			this.dropItem(AmItems.CONNIE_BRACELET, 1);
@@ -384,6 +394,7 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
 	public void sayHello() {
 		this.playSound(AmSounds.CONNIE_HELLO, this.getSoundVolume(), this.getSoundPitch());
 	}
+	@Override
 	protected SoundEvent getAmbientSound() {
 		if (!this.silent) {
 			return AmSounds.CONNIE_LIVING;
@@ -392,15 +403,19 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
 			return null;
 		}
 	}
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return AmSounds.CONNIE_HURT;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return AmSounds.CONNIE_DEATH;
 	}
+	@Override
 	protected float getSoundPitch() {
 		return 1.0F;
 	}
+	@Override
 	public int getTalkInterval() {
 		return 200;
 	}

@@ -32,9 +32,9 @@ public class LayerLowerHalf implements LayerRenderer<EntityWatermelonTourmaline>
 	public void doRenderLayer(EntityWatermelonTourmaline gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.gemRenderer.bindTexture(this.getTexture(gem));
 		int skin = gem.getLowerColor();
-		float r = (float) ((skin & 16711680) >> 16) / 255f;
-		float g = (float) ((skin & 65280) >> 8) / 255f;
-		float b = (float) ((skin & 255) >> 0) / 255f;
+		float r = ((skin & 16711680) >> 16) / 255f;
+		float g = ((skin & 65280) >> 8) / 255f;
+		float b = ((skin & 255) >> 0) / 255f;
 		GlStateManager.color(r+ this.offset, g + this.offset, b + this.offset, 1f);
 		this.gemModel.setModelAttributes(this.gemRenderer.getMainModel());
         this.gemModel.render(gem, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);

@@ -32,9 +32,9 @@ public class LayerNacreColor4 implements LayerRenderer<EntityNacre> {
 	public void doRenderLayer(EntityNacre gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.gemRenderer.bindTexture(this.getTexture(gem));
 		int skin = gem.getLayerColor(gem.getColor4());
-		float r = (float) ((skin & 16711680) >> 16) / 255f;
-		float g = (float) ((skin & 65280) >> 8) / 255f;
-		float b = (float) ((skin & 255) >> 0) / 255f;
+		float r = ((skin & 16711680) >> 16) / 255f;
+		float g = ((skin & 65280) >> 8) / 255f;
+		float b = ((skin & 255) >> 0) / 255f;
 		//KAGIC.instance.chatInfoMessage("Skin color is " + r + " , " + g + " , " + b);
 		GlStateManager.color(r+ this.offset, g + this.offset, b + this.offset, 1f);
 		//GlStateManager.enableBlend();

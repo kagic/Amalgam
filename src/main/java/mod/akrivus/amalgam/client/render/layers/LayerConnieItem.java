@@ -42,7 +42,7 @@ public class LayerConnieItem implements LayerRenderer<EntityConnie> {
 			GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
 			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 			boolean flag = handSide == EnumHandSide.LEFT;
-			GlStateManager.translate((float)(flag ? -1 : 1) / 24.0F, 0.125F, -0.75F);
+			GlStateManager.translate((flag ? -1 : 1) / 24.0F, 0.125F, -0.75F);
 			Minecraft.getMinecraft().getItemRenderer().renderItemSide(entity, stack, camera, flag);
 			GlStateManager.popMatrix();
 		}

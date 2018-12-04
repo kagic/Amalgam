@@ -94,7 +94,8 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
         
         // Apply targeting.
         this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
-            public boolean apply(EntityLiving input) {
+            @Override
+			public boolean apply(EntityLiving input) {
                 return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
             }
         }));

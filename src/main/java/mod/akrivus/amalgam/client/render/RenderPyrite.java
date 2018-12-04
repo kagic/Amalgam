@@ -23,6 +23,7 @@ public class RenderPyrite extends RenderGemBase<EntityPyrite> {
         this.addLayer(new LayerVisor(this));
         this.addLayer(new LayerGemPlacement(this));
     }
+	@Override
 	protected void preRenderCallback(EntityPyrite gem, float partialTickTime) {
 		if (gem.isFusion()) {
 			GlStateManager.scale(gem.getFusionCount(), gem.getFusionCount(), gem.getFusionCount());
@@ -31,6 +32,7 @@ public class RenderPyrite extends RenderGemBase<EntityPyrite> {
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 		}
 	}
+	@Override
 	protected ResourceLocation getEntityTexture(EntityPyrite entity) {
 		return new ResourceLocation("amalgam:textures/entities/pyrite/pyrite.png");
 	}

@@ -24,7 +24,6 @@ import net.minecraft.util.ResourceLocation;
 public class RenderCitrine extends RenderGemBase<EntityCitrine> {
 	public RenderCitrine() {
         super(Minecraft.getMinecraft().getRenderManager(), new ModelQuartz(), 0.5F);
-
 		this.addLayer(new LayerQuartzItem(this));
         this.addLayer(new LayerSkin(this));
         this.addLayer(new LayerAmetrineHalf(this));
@@ -51,14 +50,12 @@ public class RenderCitrine extends RenderGemBase<EntityCitrine> {
 		};
 		this.addLayer(citrineArmor);
     }
-	
 	@Override
 	protected void preRenderCallback(EntityCitrine citrine, float partialTickTime) {
 		if (citrine.isPrimary()) {
 			GlStateManager.scale(1.1F, 1.1F, 1.1F);
 		}
 	}
-	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityCitrine entity) {
 		if (entity.isDefective()) {

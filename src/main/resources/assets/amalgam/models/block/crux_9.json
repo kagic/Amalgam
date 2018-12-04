@@ -1,6 +1,0 @@
-{
-    "parent": "block/all",
-    "textures": {
-        "all": "amalgam:blocks/bismite"
-    }
-}

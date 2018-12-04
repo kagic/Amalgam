@@ -20,19 +20,22 @@ public class BlockDrainLily extends BlockBush {
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		this.setTickRandomly(true);
 	}
+	@Override
 	protected boolean canSustainBush(IBlockState state) {
         return true;
     }
-	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-		return worldIn.isSideSolid(pos.down(), EnumFacing.UP);
+	@Override
+	public boolean canPlaceBlockAt(World world, BlockPos pos) {
+		return world.isSideSolid(pos.down(), EnumFacing.UP);
     }
-	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
-		if (worldIn.getBlockState(pos.down()).isTopSolid()) {
-			super.randomTick(worldIn, pos, state, random);
-			InjectorResult.drainBlock(worldIn, pos.down());
+	@Override
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random random) {
+		if (world.getBlockState(pos.down()).isSideSolid(world, pos, EnumFacing.UP)) {
+			super.updateTick(world, pos, state, random);
+			InjectorResult.drainBlock(world, pos.down());
 		}
 		else {
-			worldIn.destroyBlock(pos, true);
+			world.destroyBlock(pos, true);
 		}
 	}
 }

@@ -31,8 +31,8 @@ public class LayerAura implements LayerRenderer<EntityAquaAuraQuartz> {
             GlStateManager.matrixMode(5890);
             GlStateManager.loadIdentity();
             GlStateManager.scale(0.33333334F, 0.33333334F, 0.33333334F);
-            GlStateManager.rotate(30.0F - (float)i * 60.0F, 0.0F, 0.0F, 1.0F);
-            GlStateManager.translate(0.0F, mult * (0.001F + (float)(i) * 0.003F) * 20.0F, 0.0F);
+            GlStateManager.rotate(30.0F - i * 60.0F, 0.0F, 0.0F, 1.0F);
+            GlStateManager.translate(0.0F, mult * (0.001F + (i) * 0.003F) * 20.0F, 0.0F);
             GlStateManager.matrixMode(5888);
             this.gemModel.render(gem, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
             GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);

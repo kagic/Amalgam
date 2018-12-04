@@ -9,7 +9,6 @@ import mod.akrivus.amalgam.gem.ai.EntityAICrossFuse;
 import mod.akrivus.amalgam.gem.ai.EntityAIFireballAttack;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowLeaderGem;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
-import mod.akrivus.amalgam.gem.ai.EntityAIFuseWithPyrites;
 import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.EntityGem;
@@ -101,8 +100,9 @@ public class EntityPyrite extends EntityGem implements IAnimals {
 		this.tasks.addTask(1, new EntityAIFireballAttack(this));
         this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
 		this.tasks.addTask(2, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
+			@Override
 			public boolean apply(EntityCreeper input) {
-				return ((EntityCreeper)input).getCreeperState() == 1;
+				return input.getCreeperState() == 1;
 			}
         }, 6.0F, 1.0D, 1.2D));
         
@@ -122,7 +122,8 @@ public class EntityPyrite extends EntityGem implements IAnimals {
         this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
         this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
-            public boolean apply(EntityLiving input) {
+            @Override
+			public boolean apply(EntityLiving input) {
                 return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
             }
         }));

@@ -23,10 +23,12 @@ public class RenderFusedRuby extends RenderGemBase<EntityFusedRuby> {
         this.addLayer(new LayerHair(this));
 		this.addLayer(new LayerCrossFusionGemPlacement(this));
     }
+	@Override
 	protected void preRenderCallback(EntityFusedRuby gem, float partialTickTime) {
 		GlStateManager.scale(0.8F * gem.getFusionCount(), 0.8F * gem.getFusionCount(), 0.8F * gem.getFusionCount());
 		this.shadowSize = 0.25F * gem.getFusionCount();
 	}
+	@Override
 	protected ResourceLocation getEntityTexture(EntityFusedRuby entity) {
 		return new ResourceLocation("amalgam:textures/entities/fused_ruby/ruby.png");
 	}

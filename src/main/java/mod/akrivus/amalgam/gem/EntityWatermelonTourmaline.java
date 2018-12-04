@@ -100,7 +100,8 @@ public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
         this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
         this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
-            public boolean apply(EntityLiving input) {
+            @Override
+			public boolean apply(EntityLiving input) {
                 return input != null && (IMob.VISIBLE_MOB_SELECTOR.apply(input) || input instanceof EntitySquid);
             }
         }));

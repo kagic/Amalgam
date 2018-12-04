@@ -18,6 +18,7 @@ public class AmWorldGen implements IWorldGenerator {
 	public AmWorldGen(Type type) {
 		this.type = type;
 	}
+	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		BlockPos base = new BlockPos(chunkX * 16, 0, chunkZ * 16);
 		switch (world.provider.getDimensionType()) {

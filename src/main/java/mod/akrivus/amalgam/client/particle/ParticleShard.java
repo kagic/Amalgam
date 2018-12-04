@@ -27,19 +27,21 @@ public class ParticleShard extends Particle {
         this.particleScale = this.rand.nextFloat() * 0.2F + 0.5F;
         this.shardicleScale = this.particleScale;
         this.particleColor = color;
-        this.particleRed = (float) ((this.particleColor & 16711680) >> 16) / 255f;
-        this.particleGreen = (float) ((this.particleColor & 65280) >> 8) / 255f;
-        this.particleBlue = (float) ((this.particleColor & 255) >> 0) / 255f;
+        this.particleRed = ((this.particleColor & 16711680) >> 16) / 255f;
+        this.particleGreen = ((this.particleColor & 65280) >> 8) / 255f;
+        this.particleBlue = ((this.particleColor & 255) >> 0) / 255f;
         this.particleMaxAge = (int)(Math.random() * 10.0D) + 40;
         this.setParticleTextureIndex((int)(Math.random() * 8.0D));
     }
-    public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-        float f = ((float)this.particleAge + partialTicks) / (float)this.particleMaxAge * 32.0F;
+    @Override
+	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
+        float f = (this.particleAge + partialTicks) / this.particleMaxAge * 32.0F;
         f = MathHelper.clamp(f, 0.0F, 1.0F);
         this.particleScale = (float)(this.shardicleScale * f);
         super.renderParticle(buffer, entityIn, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
     }
-    public void onUpdate() {
+    @Override
+	public void onUpdate() {
         this.prevPosX = this.posX;
         this.prevPosY = this.posY;
         this.prevPosZ = this.posZ;
@@ -63,7 +65,8 @@ public class ParticleShard extends Particle {
 
     @SideOnly(Side.CLIENT)
     public static class Factory implements IParticleFactory {
-    	public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
+    	@Override
+		public Particle createParticle(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_) {
     		return new ParticleShard(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn, p_178902_15_[0]);
         }
     }

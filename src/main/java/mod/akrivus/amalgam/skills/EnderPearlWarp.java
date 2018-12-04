@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.SortedMap;
 
 import mod.akrivus.amalgam.gem.EntityEnderPearl;
+import mod.akrivus.kagic.skills.SkillBase.RunWith;
 import mod.akrivus.kagic.skills.Speak;
 import mod.akrivus.kagic.tileentity.TileEntityWarpPadCore;
 import mod.heimrarnadalr.kagic.worlddata.WarpPadDataEntry;
@@ -40,7 +41,7 @@ public class EnderPearlWarp extends Speak<EntityEnderPearl> {
 		SortedMap<Double, BlockPos> sortedPoses = WorldDataWarpPad.getSortedPositions(padData, gem.getPosition());
 		Iterator<BlockPos> it = sortedPoses.values().iterator();
 		while (it.hasNext()) {
-			BlockPos pos = (BlockPos) it.next();
+			BlockPos pos = it.next();
 			WarpPadDataEntry data = padData.get(pos);
 			if (this.entireMessage.toLowerCase().contains(data.name.toLowerCase())) {
 				TileEntityWarpPadCore dest = (TileEntityWarpPadCore) gem.getEntityWorld().getTileEntity(pos);

@@ -45,11 +45,9 @@ import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.items.ItemGem;
 import net.minecraft.block.BlockBush;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -187,7 +185,7 @@ public class AmEvents {
 			ruby.tasks.addTask(4, new EntityAIFollowOtherGem(ruby, 0.8D, EntityBabyPearl.class));
 			ruby.targetTasks.addTask(2, new EntityAICallForBackup(ruby, EntityRuby.class));
 		}
-		if (AmConfigs.changeHessonite && e.getEntity() instanceof EntityHessonite) {
+		if (e.getEntity() instanceof EntityHessonite) {
 			EntityHessonite hessonite = (EntityHessonite)(e.getEntity());
 			hessonite.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityGem>(hessonite, EntityGem.class, 10, true, false, new Predicate<EntityGem>() {
 	            public boolean apply(EntityGem input) {
@@ -229,7 +227,7 @@ public class AmEvents {
 	}
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
-		e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"§cAmalgam " + Amalgam.VERSION + "§f\"}]"));
+		e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"ï¿½cAmalgam " + Amalgam.VERSION + "ï¿½f\"}]"));
 	}
 	@SubscribeEvent
 	public void onAnvilRepair(AnvilRepairEvent e) {
@@ -308,14 +306,14 @@ public class AmEvents {
 					    		gemColor = nbt.getInteger("gemColor");
 					    	}
 					    }
-					    float r = (float) ((gemColor & 16711680) >> 16);
-				        float g = (float) ((gemColor & 65280) >> 8);
-				        float b = (float) ((gemColor & 255) >> 0);
+					    float r = (gemColor & 16711680) >> 16;
+				        float g = (gemColor & 65280) >> 8;
+				        float b = (gemColor & 255) >> 0;
 					    for (int i = 0; i < EntityGemShard.PARTICLE_COLORS.length; ++i) {
 					    	int color = EntityGemShard.PARTICLE_COLORS[i];
-							float r1 = (float) ((color & 16711680) >> 16);
-					        float g1 = (float) ((color & 65280) >> 8);
-					        float b1 = (float) ((color & 255) >> 0);
+							float r1 = (color & 16711680) >> 16;
+					        float g1 = (color & 65280) >> 8;
+					        float b1 = (color & 255) >> 0;
 							double dist = Math.sqrt(Math.pow(r1-r, 2)+Math.pow(g1-g, 2)+Math.pow(b1-b, 2));
 							diffs.add(dist);
 					    }

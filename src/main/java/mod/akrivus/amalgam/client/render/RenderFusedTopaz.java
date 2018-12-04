@@ -23,10 +23,12 @@ public class RenderFusedTopaz extends RenderGemBase<EntityFusedTopaz> {
         this.addLayer(new LayerVisor(this));
 		this.addLayer(new LayerCrossFusionGemPlacement(this));
     }
+	@Override
 	protected void preRenderCallback(EntityFusedTopaz gem, float partialTickTime) {
 		GlStateManager.scale(2.0F, 2.0F, 2.0F);
 		this.shadowSize = 1.25F;
 	}
+	@Override
 	protected ResourceLocation getEntityTexture(EntityFusedTopaz entity) {
 		return new ResourceLocation("amalgam:textures/entities/fused_topaz/topaz.png");
 	}

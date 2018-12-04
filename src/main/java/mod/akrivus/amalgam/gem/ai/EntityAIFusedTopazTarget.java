@@ -1,7 +1,6 @@
 package mod.akrivus.amalgam.gem.ai;
 
 import mod.akrivus.amalgam.gem.EntityFusedTopaz;
-import mod.akrivus.kagic.entity.gem.EntityTopaz;
 import net.minecraft.entity.ai.EntityAITarget;
 
 public class EntityAIFusedTopazTarget extends EntityAITarget {
@@ -11,13 +10,15 @@ public class EntityAIFusedTopazTarget extends EntityAITarget {
         this.gem = topaz;
         this.setMutexBits(1);
     }
-    public boolean shouldExecute() {
+    @Override
+	public boolean shouldExecute() {
         if (this.gem.getAttackTarget() != null && !this.gem.getHeldEntities().isEmpty()) {
             return true;
         }
         return false;
     }
-    public void startExecuting() {
+    @Override
+	public void startExecuting() {
         if (this.gem.getHeldEntities().contains(this.gem.getAttackTarget())) {
         	this.gem.setAttackTarget(null);
         }

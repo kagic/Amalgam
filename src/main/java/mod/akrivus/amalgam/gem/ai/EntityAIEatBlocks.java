@@ -5,7 +5,6 @@ import mod.akrivus.kagic.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.ai.EntityAIMoveToBlock;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
@@ -21,6 +20,7 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 		this.gem = gem;
 		this.world = gem.world;
 	}
+	@Override
 	public boolean shouldExecute() {
 		if (this.gem.isTamed()) {
 			if (this.gem.world.getCurrentMoonPhaseFactor() == 1.0) {
@@ -35,18 +35,22 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 		}
 		return false;
 	}
+	@Override
 	public boolean shouldContinueExecuting() {
 		return super.shouldContinueExecuting() && this.gem.world.getCurrentMoonPhaseFactor() == 1.0 && !this.gem.getNavigator().noPath();
 	}
+	@Override
 	public void startExecuting() {
 		super.startExecuting();
 	}
+	@Override
 	public void resetTask() {
 		super.resetTask();
 	}
+	@Override
 	public void updateTask() {
 		super.updateTask();
-		this.gem.getLookHelper().setLookPosition((double) this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), (double) this.destinationBlock.getZ() + 0.5D, 10.0F, (float) this.gem.getVerticalFaceSpeed());
+		this.gem.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), this.destinationBlock.getZ() + 0.5D, 10.0F, (float) this.gem.getVerticalFaceSpeed());
 		if (this.gem.getDistanceSq(this.destinationBlock) < 14) {
             boolean eaten = this.world.destroyBlock(this.destinationBlock, false);
             if (eaten) {
@@ -60,6 +64,7 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
             }
 		}
 	}
+	@Override
 	protected boolean shouldMoveTo(World world, BlockPos pos) {
 		if (!world.isAirBlock(pos)) {
 			IBlockState state = world.getBlockState(pos);

@@ -23,7 +23,6 @@ import net.minecraft.util.ResourceLocation;
 public class RenderWatermelonTourmaline extends RenderGemBase<EntityWatermelonTourmaline> {
 	public RenderWatermelonTourmaline() {
         super(Minecraft.getMinecraft().getRenderManager(), new ModelQuartz(), 0.5F);
-
 		this.addLayer(new LayerQuartzItem(this));
         this.addLayer(new LayerSkin(this));
         this.addLayer(new LayerLowerHalf(this));
@@ -40,7 +39,6 @@ public class RenderWatermelonTourmaline extends RenderGemBase<EntityWatermelonTo
 		} else if (KAGIC.isChristmas()) {
 			this.addLayer(new LayerSantaHat(this));
 		}
-
 		LayerBipedArmor armor = new LayerBipedArmor(this) {
 			@Override
 			protected void initArmor() {
@@ -49,8 +47,7 @@ public class RenderWatermelonTourmaline extends RenderGemBase<EntityWatermelonTo
 			}
 		};
 		this.addLayer(armor);
-    }
-	
+	}
 	@Override
 	protected ResourceLocation getEntityTexture(EntityWatermelonTourmaline entity) {
 		return new ResourceLocation("amalgam:textures/entities/watermelon_tourmaline/watermelon_tourmaline.png");

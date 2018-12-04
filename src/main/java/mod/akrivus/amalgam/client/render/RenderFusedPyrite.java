@@ -23,10 +23,12 @@ public class RenderFusedPyrite extends RenderGemBase<EntityFusedPyrite> {
         this.addLayer(new LayerHair(this));
 		this.addLayer(new LayerCrossFusionGemPlacement(this));
     }
+	@Override
 	protected void preRenderCallback(EntityFusedPyrite gem, float partialTickTime) {
 		GlStateManager.scale(gem.getFusionCount(), gem.getFusionCount(), gem.getFusionCount());
 		this.shadowSize = 0.25F * gem.getFusionCount();
 	}
+	@Override
 	protected ResourceLocation getEntityTexture(EntityFusedPyrite entity) {
 		return new ResourceLocation("amalgam:textures/entities/fused_pyrite/pyrite.png");
 	}

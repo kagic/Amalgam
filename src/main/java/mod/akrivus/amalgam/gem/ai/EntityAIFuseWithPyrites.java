@@ -14,7 +14,8 @@ public class EntityAIFuseWithPyrites extends EntityAIBase {
         this.movementSpeed = speed;
         this.setMutexBits(1);
     }
-    public boolean shouldExecute() {
+    @Override
+	public boolean shouldExecute() {
     	if (this.pyrite.canFuse()) {
 	    	List<EntityPyrite> list = this.pyrite.world.<EntityPyrite>getEntitiesWithinAABB(EntityPyrite.class, this.pyrite.getEntityBoundingBox().grow(16.0D, 8.0D, 16.0D));
 	        double distance = Double.MAX_VALUE;

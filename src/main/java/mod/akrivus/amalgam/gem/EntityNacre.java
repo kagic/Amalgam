@@ -77,8 +77,9 @@ public class EntityNacre extends EntityPearl implements INpc {
 		this.stayAI = new EntityAIStay(this);
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
+			@Override
 			public boolean apply(EntityCreeper input) {
-				return ((EntityCreeper)input).getCreeperState() == 1;
+				return input.getCreeperState() == 1;
 			}
         }, 6.0F, 1.0D, 1.2D));
 		this.tasks.addTask(2, new EntityAIFollowDiamond(this, 1.0D));

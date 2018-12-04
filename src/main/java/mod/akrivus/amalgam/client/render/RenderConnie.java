@@ -20,6 +20,7 @@ public class RenderConnie extends RenderLivingBase<EntityConnie> {
         this.addLayer(new LayerConnieBackpack(this));
         this.addLayer(new LayerArrow(this));
     }
+	@Override
 	protected ResourceLocation getEntityTexture(EntityConnie entity) {
 		return new ResourceLocation("amalgam:textures/entities/connie/connie.png");
 	}

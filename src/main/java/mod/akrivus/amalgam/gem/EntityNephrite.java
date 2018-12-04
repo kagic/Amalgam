@@ -73,6 +73,7 @@ public class EntityNephrite extends EntityGem implements IAnimals {
 		this.tasks.addTask(2, new EntityAIRemoveHazards(this, 0.8D));
 		this.tasks.addTask(3, new EntityAIFollowDiamond(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIFollowOtherGem(this, 0.8D, EntityHessonite.class));
+		this.tasks.addTask(3, new EntityAIFollowOtherGem(this, 0.8D, EntityEmerald.class));
 		this.tasks.addTask(3, new EntityAIFollowLeaderGem(this, 0.8D, GemPlacements.BACK_OF_HEAD, EntityNephrite.class));
 		this.tasks.addTask(4, new EntityAIOpenDoor(this, true));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
@@ -83,7 +84,8 @@ public class EntityNephrite extends EntityGem implements IAnimals {
         this.targetTasks.addTask(2, new EntityAICallForBackup(this, EntityNephrite.class));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
         this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
-            public boolean apply(EntityLiving input) {
+            @Override
+			public boolean apply(EntityLiving input) {
             	if (input != null) {
             		try {
             			double damage = input.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getBaseValue();

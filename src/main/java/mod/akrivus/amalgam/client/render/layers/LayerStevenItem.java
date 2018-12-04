@@ -18,7 +18,8 @@ public class LayerStevenItem implements LayerRenderer<EntitySteven> {
     public LayerStevenItem(RenderSteven livingEntityRendererIn) {
         this.livingEntityRenderer = livingEntityRendererIn;
     }
-    public void doRenderLayer(EntitySteven entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+    @Override
+	public void doRenderLayer(EntitySteven entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         boolean flag = entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT;
         ItemStack mainHand = flag ? entitylivingbaseIn.getHeldItemOffhand() : entitylivingbaseIn.getHeldItemMainhand();
         ItemStack offHand = flag ? entitylivingbaseIn.getHeldItemMainhand() : entitylivingbaseIn.getHeldItemOffhand();
@@ -47,7 +48,8 @@ public class LayerStevenItem implements LayerRenderer<EntitySteven> {
     protected void setSide(EnumHandSide side) {
         ((ModelBiped) this.livingEntityRenderer.getMainModel()).postRenderArm(0.0625F, side);
     }
-    public boolean shouldCombineTextures() {
+    @Override
+	public boolean shouldCombineTextures() {
         return false;
     }
 }

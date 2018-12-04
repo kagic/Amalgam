@@ -23,7 +23,8 @@ public abstract class EntityAIMoveGemToBlock extends EntityAIBase
         this.searchLength = length;
         this.setMutexBits(5);
     }
-    public boolean shouldExecute() {
+    @Override
+	public boolean shouldExecute() {
         if (this.runDelay > 0) {
             --this.runDelay;
             return false;
@@ -33,20 +34,23 @@ public abstract class EntityAIMoveGemToBlock extends EntityAIBase
             return this.searchForDestination();
         }
     }
-    public boolean shouldContinueExecuting() {
+    @Override
+	public boolean shouldContinueExecuting() {
         return this.timeoutCounter >= -this.maxStayTicks && this.timeoutCounter <= 1200 && this.shouldMoveTo(this.creature.world, this.destinationBlock);
     }
-    public void startExecuting() {
-        this.creature.getNavigator().tryMoveToXYZ((double)((float)this.destinationBlock.getX()) + 0.5D, (double)(this.destinationBlock.getY() + 1), (double)((float)this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
+    @Override
+	public void startExecuting() {
+        this.creature.getNavigator().tryMoveToXYZ((this.destinationBlock.getX()) + 0.5D, this.destinationBlock.getY() + 1, (this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
         this.timeoutCounter = 0;
         this.maxStayTicks = this.creature.getRNG().nextInt(this.creature.getRNG().nextInt(1200) + 1200) + 1200;
     }
-    public void updateTask() {
+    @Override
+	public void updateTask() {
         if (this.creature.getDistanceSqToCenter(this.destinationBlock.up()) > 1.0D) {
             this.isAboveDestination = false;
             ++this.timeoutCounter;
             if (this.timeoutCounter % 40 == 0) {
-                this.creature.getNavigator().tryMoveToXYZ((double)((float)this.destinationBlock.getX()) + 0.5D, (double)(this.destinationBlock.getY() + 1), (double)((float)this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
+                this.creature.getNavigator().tryMoveToXYZ((this.destinationBlock.getX()) + 0.5D, this.destinationBlock.getY() + 1, (this.destinationBlock.getZ()) + 0.5D, this.movementSpeed);
             }
         }
         else {

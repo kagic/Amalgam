@@ -1,11 +1,8 @@
 package mod.akrivus.amalgam.entity;
 
-import com.google.common.base.Predicate;
-
 import mod.akrivus.amalgam.client.particle.ParticleShard;
 import mod.akrivus.amalgam.init.AmItems;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -19,7 +16,6 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -38,7 +34,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -100,21 +95,25 @@ public class EntityGemShard extends EntityMob {
 		this.dataManager.register(ITEM, EntityGemShard.ITEMS[this.dataManager.get(COLOR)].serializeNBT());
 		this.setStatsBasedOnItem();
 	}
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
         compound.setTag("item", this.getItem().serializeNBT());
         compound.setInteger("color", this.getColor());
         super.writeEntityToNBT(compound);
 	}
+	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		NBTTagCompound itemStackTag = (NBTTagCompound) compound.getTag("item");
         this.setItem(new ItemStack(itemStackTag));
         this.setColor(compound.getInteger("color"));
         super.readEntityFromNBT(compound);
 	}
+	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		this.setHealth(this.getMaxHealth());
 		return super.onInitialSpawn(difficulty, livingdata);
 	}
+	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote && !this.dead) {
 			ItemStack stack = this.getItem().copy();
@@ -128,6 +127,7 @@ public class EntityGemShard extends EntityMob {
 		}
 		return super.processInteract(player, hand);
 	}
+	@Override
 	public void onLivingUpdate() {
         if (this.world.isRemote) {
             for (int i = 0; i < 1; ++i) {
@@ -136,6 +136,7 @@ public class EntityGemShard extends EntityMob {
         }
         super.onLivingUpdate();
     }
+	@Override
 	public void onDeath(DamageSource cause) {
 		if (!this.world.isRemote) {
 			this.entityDropItem(this.getItem(), 0.0F);
@@ -149,15 +150,19 @@ public class EntityGemShard extends EntityMob {
 		this.dataManager.set(ITEM, item.serializeNBT());
 		this.setStatsBasedOnItem();
 	}
+	@Override
 	public SoundEvent getHurtSound(DamageSource source) {
 		return SoundEvents.BLOCK_WOOD_BREAK;
 	}
+	@Override
 	public SoundEvent getDeathSound() {
 		return SoundEvents.ENTITY_ITEM_BREAK;
 	}
+	@Override
 	protected boolean canTriggerWalking() {
         return false;
 	}
+	@Override
 	public void fall(float distance, float damageMultiplier) {
 		return;
 	}

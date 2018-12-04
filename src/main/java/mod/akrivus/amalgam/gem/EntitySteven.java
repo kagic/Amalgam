@@ -76,6 +76,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 		// Other entity AIs.
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
+			@Override
 			public boolean apply(EntityCreeper input) {
 				return input.getCreeperState() == 1;
 			}
@@ -103,6 +104,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 	}
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
         super.writeEntityToNBT(compound);
         NBTTagList nbttaglist = new NBTTagList();
@@ -117,7 +119,8 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
         compound.setBoolean("backpacked", this.isBackpacked());
         compound.setBoolean("wristband", this.hasWristband());
 	}
-    public void readEntityFromNBT(NBTTagCompound compound) {
+    @Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
         super.readEntityFromNBT(compound);
         NBTTagList nbttaglist = compound.getTagList("items", 10);
         this.initStorage();
@@ -131,7 +134,8 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
         this.setBackpack(compound.getBoolean("backpacked"));
         this.setWristband(compound.getBoolean("wristband"));
     }
-    public boolean processInteract(EntityPlayer player, EnumHand hand) {
+    @Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
 			if (hand == EnumHand.MAIN_HAND) {
 				ItemStack stack = player.getHeldItemMainhand();
@@ -158,7 +162,8 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 		}
 		return super.processInteract(player, hand);
     }
-    public void onLivingUpdate() {
+    @Override
+	public void onLivingUpdate() {
     	super.onLivingUpdate();
     	if (!this.getDisplayName().getUnformattedText().equals("Steven")) {
     		this.setCustomNameTag("Steven");
@@ -190,10 +195,12 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
             playerEntity.displayGUIChest(this.backpack);
         }
     }
+	@Override
 	public void onInventoryChanged(IInventory inventory) {
 		ItemStack item = this.backpack.getStackInSlot(8);
 		this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, item);
 	}
+	@Override
 	protected void updateEquipmentIfNeeded(EntityItem itementity) {
         ItemStack itemstack = itementity.getItem();
         ItemStack itemstack1 = this.backpack.addItem(itemstack);
@@ -217,13 +224,15 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 	public void setWristband(boolean wristband) {
 		this.dataManager.set(WRISTBAND, wristband);
 	}
+	@Override
 	public boolean canDespawn() {
 		return false;
     }
 	public boolean shouldAttackEntity(EntityLivingBase attacker, EntityLivingBase target) {
         return true;
     }
-    public boolean attackEntityAsMob(Entity entityIn) {
+    @Override
+	public boolean attackEntityAsMob(Entity entityIn) {
     	float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 		int i = 0;
 		if (entityIn instanceof EntityLivingBase) {
@@ -234,7 +243,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 		this.swingArm(EnumHand.MAIN_HAND);
 		if (flag) {
 			if (i > 0 && entityIn instanceof EntityLivingBase) {
-				((EntityLivingBase) entityIn).knockBack(this, (float) i * 0.5F, (double) MathHelper.sin(this.rotationYaw * 0.017453292F), (double)(-MathHelper.cos(this.rotationYaw * 0.017453292F)));
+				((EntityLivingBase) entityIn).knockBack(this, i * 0.5F, MathHelper.sin(this.rotationYaw * 0.017453292F), (-MathHelper.cos(this.rotationYaw * 0.017453292F)));
 				this.motionX *= 0.6D;
 				this.motionZ *= 0.6D;
 			}
@@ -247,7 +256,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 				ItemStack itemstack = this.getHeldItemMainhand();
 				ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
 				if (itemstack.getItem() instanceof ItemAxe && itemstack1.getItem() == Items.SHIELD) {
-					float f1 = 0.25F + (float)EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
+					float f1 = 0.25F + EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
 					if (this.rand.nextFloat() < f1) {
 						entityplayer.getCooldownTracker().setCooldown(Items.SHIELD, 100);
 						this.world.setEntityState(entityplayer, (byte)30);
@@ -258,6 +267,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 		}
 		return flag;
     }
+	@Override
 	public void onDeath(DamageSource cause) {
 		this.world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, this.posX, this.posY + this.height / 2, this.posZ, 1.0D, 1.0D, 1.0D);
 		if (!this.world.isRemote) {
@@ -274,6 +284,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 	public void sayHello() {
 		this.playSound(AmSounds.STEVEN_HELLO, this.getSoundVolume(), this.getSoundPitch());
 	}
+	@Override
 	protected SoundEvent getAmbientSound() {
 		if (!this.silent) {
 			if (BiomeDictionary.hasType(this.world.getBiome(this.getPosition()), Type.MAGICAL)) {
@@ -285,15 +296,19 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 			return null;
 		}
 	}
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return AmSounds.STEVEN_HURT;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return AmSounds.STEVEN_DEATH;
 	}
+	@Override
 	protected float getSoundPitch() {
 		return 1.0F;
 	}
+	@Override
 	public int getTalkInterval() {
 		return 200;
 	}

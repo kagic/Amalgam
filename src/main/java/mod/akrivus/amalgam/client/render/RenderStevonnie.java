@@ -18,6 +18,7 @@ public class RenderStevonnie extends RenderLivingBase<EntityStevonnie> {
         this.addLayer(new LayerStevonnieHair(this));
         this.addLayer(new LayerArrow(this));
     }
+	@Override
 	protected ResourceLocation getEntityTexture(EntityStevonnie entity) {
 		return new ResourceLocation("amalgam:textures/entities/stevonnie/stevonnie.png");
 	}

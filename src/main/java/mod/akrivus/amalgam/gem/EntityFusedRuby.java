@@ -15,7 +15,6 @@ import mod.akrivus.kagic.entity.ai.EntityAIPickUpItems;
 import mod.akrivus.kagic.entity.ai.EntityAIStandGuard;
 import mod.akrivus.kagic.entity.ai.EntityAIStay;
 import mod.akrivus.kagic.entity.gem.EntityRuby;
-import mod.akrivus.kagic.entity.gem.GemCuts;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
 import mod.akrivus.kagic.init.ModSounds;
 import mod.heimrarnadalr.kagic.util.Colors;
@@ -55,8 +54,9 @@ public class EntityFusedRuby extends EntityFusionGem implements IAnimals {
 		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
 		this.tasks.addTask(1, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
+			@Override
 			public boolean apply(EntityCreeper input) {
-				return ((EntityCreeper)input).getCreeperState() == 1;
+				return input.getCreeperState() == 1;
 			}
         }, 6.0F, 1.0D, 1.2D));
         
@@ -77,7 +77,8 @@ public class EntityFusedRuby extends EntityFusionGem implements IAnimals {
         this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
         this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
-            public boolean apply(EntityLiving input) {
+            @Override
+			public boolean apply(EntityLiving input) {
                 return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
             }
         }));

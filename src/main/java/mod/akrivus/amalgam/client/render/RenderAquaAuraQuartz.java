@@ -24,7 +24,6 @@ import net.minecraft.util.ResourceLocation;
 public class RenderAquaAuraQuartz extends RenderGemBase<EntityAquaAuraQuartz> {
 	public RenderAquaAuraQuartz() {
         super(Minecraft.getMinecraft().getRenderManager(), new ModelQuartz(), 0.5F);
-
 		this.addLayer(new LayerQuartzItem(this));
         this.addLayer(new LayerSkin(this));
         this.addLayer(new LayerUniform(this));
@@ -51,14 +50,12 @@ public class RenderAquaAuraQuartz extends RenderGemBase<EntityAquaAuraQuartz> {
 		};
 		this.addLayer(armor);
     }
-	
 	@Override
 	protected void preRenderCallback(EntityAquaAuraQuartz entity, float partialTickTime) {
 		if (entity.isPrimary()) {
 			GlStateManager.scale(1.1F, 1.1F, 1.1F);
 		}
 	}
-	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityAquaAuraQuartz entity) {
 		return new ResourceLocation("amalgam:textures/entities/aqua_aura_quartz/aqua_aura_quartz.png");

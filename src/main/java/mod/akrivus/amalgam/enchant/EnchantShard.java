@@ -2,7 +2,6 @@ package mod.akrivus.amalgam.enchant;
 
 import java.util.HashMap;
 
-import mod.akrivus.amalgam.entity.EntityGemShard;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.Entity;
@@ -24,6 +23,7 @@ public class EnchantShard extends Enchantment {
 		this.color = color;
 		ENCHANTS.put("gem_shard_" + color, this);
 	}
+	@Override
 	public void onEntityDamaged(EntityLivingBase user, Entity target, int level) {
 		if (target instanceof EntityLivingBase) {
 			EntityLivingBase entity = (EntityLivingBase)(target);
@@ -88,7 +88,8 @@ public class EnchantShard extends Enchantment {
 			}
 		}
     }
-    public void onUserHurt(EntityLivingBase user, Entity attacker, int level) {
+    @Override
+	public void onUserHurt(EntityLivingBase user, Entity attacker, int level) {
     	/*
     	for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
     		ItemStack stack = user.getItemStackFromSlot(slot);
@@ -110,24 +111,31 @@ public class EnchantShard extends Enchantment {
 		}
 		*/
     }
-    public boolean canApplyAtEnchantingTable(ItemStack stack) {
+    @Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack) {
         return false;
     }
-    public boolean isTreasureEnchantment() {
+    @Override
+	public boolean isTreasureEnchantment() {
         return true;
     }
-    public boolean isCurse() {
+    @Override
+	public boolean isCurse() {
         return true;
     }
+	@Override
 	public boolean isAllowedOnBooks() {
 		return false;
 	}
+	@Override
 	public int getMinEnchantability(int enchantmentLevel) {
         return 5;
     }
-    public int getMaxEnchantability(int enchantmentLevel) {
+    @Override
+	public int getMaxEnchantability(int enchantmentLevel) {
         return 55;
     }
+	@Override
 	public int getMaxLevel() {
         return 1;
     }

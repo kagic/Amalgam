@@ -13,12 +13,14 @@ import net.minecraft.util.ResourceLocation;
 public class RenderGemShard extends RenderLiving<EntityGemShard> {
     public RenderGemShard() {
         super(Minecraft.getMinecraft().getRenderManager(), new ModelBiped() {
-        	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        	@Override
+			public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         		return;
         	}
         }, 0.25F);
     }
-    public void doRender(EntityGemShard entity, double x, double y, double z, float entityYaw, float partialTicks) {
+    @Override
+	public void doRender(EntityGemShard entity, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.pushMatrix();
         GlStateManager.translate(x, y  + Math.sin(entity.getIdleTime() * 50) / 50 + 1.2D, z);
         GlStateManager.scale(1.5D, 1.5D, 1.5D);
@@ -40,7 +42,8 @@ public class RenderGemShard extends RenderLiving<EntityGemShard> {
         GlStateManager.popMatrix();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
-    protected ResourceLocation getEntityTexture(EntityGemShard entity) {
+    @Override
+	protected ResourceLocation getEntityTexture(EntityGemShard entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 }

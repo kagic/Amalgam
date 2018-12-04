@@ -10,7 +10,6 @@ import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
 import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.ai.EntityAIStandGuard;
-import mod.akrivus.kagic.entity.gem.EntityAmethyst;
 import mod.akrivus.kagic.entity.gem.EntityQuartzSoldier;
 import mod.akrivus.kagic.entity.gem.GemCuts;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
@@ -90,7 +89,8 @@ public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimal
         
         // Apply targeting.
         this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
-            public boolean apply(EntityLiving input) {
+            @Override
+			public boolean apply(EntityLiving input) {
                 return input != null && (IMob.VISIBLE_MOB_SELECTOR.apply(input) || input instanceof EntitySquid);
             }
         }));

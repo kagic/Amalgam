@@ -67,6 +67,7 @@ public class EntityStevonnie extends EntityCreature implements INpc {
 		// Other entity AIs.
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
+			@Override
 			public boolean apply(EntityCreeper input) {
 				return input.getCreeperState() == 1;
 			}
@@ -86,7 +87,8 @@ public class EntityStevonnie extends EntityCreature implements INpc {
         // Apply targetting.
         this.targetTasks.addTask(1, new EntityAIProtectVillagers(this));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
-            public boolean apply(EntityLiving input) {
+            @Override
+			public boolean apply(EntityLiving input) {
                 return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
             }
         }));
@@ -97,6 +99,7 @@ public class EntityStevonnie extends EntityCreature implements INpc {
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(220.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 	}
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
         super.writeEntityToNBT(compound);
         NBTTagCompound nbttagcompound = new NBTTagCompound();
@@ -108,6 +111,7 @@ public class EntityStevonnie extends EntityCreature implements INpc {
         compound.setTag("steven", this.steven);
         compound.setTag("connie", this.connie);
 	}
+	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
         super.readEntityFromNBT(compound);
         this.setBackStack(new ItemStack(compound.getCompoundTag("sheathed")));
@@ -117,7 +121,8 @@ public class EntityStevonnie extends EntityCreature implements INpc {
         this.steven = compound.getCompoundTag("steven");
         this.connie = compound.getCompoundTag("connie");
     }
-    public void onLivingUpdate() {
+    @Override
+	public void onLivingUpdate() {
     	this.updateArmSwingProgress();
     	super.onLivingUpdate();
     	if (!this.world.isRemote) {
@@ -162,13 +167,15 @@ public class EntityStevonnie extends EntityCreature implements INpc {
 	public void setIsWearingCoat(boolean coat) {
 		this.dataManager.set(COAT, coat);
 	}
-    public boolean canDespawn() {
+    @Override
+	public boolean canDespawn() {
 		return false;
     }
     public boolean shouldAttackEntity(EntityLivingBase attacker, EntityLivingBase target) {
         return true;
     }
-    public boolean attackEntityAsMob(Entity entityIn) {
+    @Override
+	public boolean attackEntityAsMob(Entity entityIn) {
     	float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 		int i = 0;
 		if (entityIn instanceof EntityLivingBase) {
@@ -179,7 +186,7 @@ public class EntityStevonnie extends EntityCreature implements INpc {
 		this.swingArm(EnumHand.MAIN_HAND);
 		if (flag) {
 			if (i > 0 && entityIn instanceof EntityLivingBase) {
-				((EntityLivingBase) entityIn).knockBack(this, (float) i * 0.5F, (double) MathHelper.sin(this.rotationYaw * 0.017453292F), (double)(-MathHelper.cos(this.rotationYaw * 0.017453292F)));
+				((EntityLivingBase) entityIn).knockBack(this, i * 0.5F, MathHelper.sin(this.rotationYaw * 0.017453292F), (-MathHelper.cos(this.rotationYaw * 0.017453292F)));
 				this.motionX *= 0.6D;
 				this.motionZ *= 0.6D;
 			}
@@ -192,7 +199,7 @@ public class EntityStevonnie extends EntityCreature implements INpc {
 				ItemStack itemstack = this.getHeldItemMainhand();
 				ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
 				if (itemstack.getItem() instanceof ItemAxe && itemstack1.getItem() == Items.SHIELD) {
-					float f1 = 0.25F + (float)EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
+					float f1 = 0.25F + EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
 					if (this.rand.nextFloat() < f1) {
 						entityplayer.getCooldownTracker().setCooldown(Items.SHIELD, 100);
 						this.world.setEntityState(entityplayer, (byte)30);
@@ -203,6 +210,7 @@ public class EntityStevonnie extends EntityCreature implements INpc {
 		}
 		return flag;
     }
+	@Override
 	public void onDeath(DamageSource cause) {
 		super.onDeath(cause);
 		this.unfuse();
@@ -236,18 +244,23 @@ public class EntityStevonnie extends EntityCreature implements INpc {
 		}
 		this.world.removeEntity(this);
 	}
+	@Override
 	protected SoundEvent getAmbientSound() {
 		return AmSounds.STEVONNIE_LIVING;
 	}
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return AmSounds.STEVONNIE_HURT;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return AmSounds.STEVONNIE_DEATH;
 	}
+	@Override
 	protected float getSoundPitch() {
 		return 1.0F;
 	}
+	@Override
 	public int getTalkInterval() {
 		return 200;
 	}

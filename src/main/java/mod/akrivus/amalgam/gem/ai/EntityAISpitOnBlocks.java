@@ -24,6 +24,7 @@ public class EntityAISpitOnBlocks extends EntityAIMoveGemToBlock {
 		this.gem = gem;
 		this.world = gem.world;
 	}
+	@Override
 	public boolean shouldExecute() {
 		if (this.gem.isTamed()) {
 			if (this.world.getGameRules().getBoolean("mobGriefing")) {
@@ -39,18 +40,22 @@ public class EntityAISpitOnBlocks extends EntityAIMoveGemToBlock {
 		}
 		return false;
 	}
+	@Override
 	public boolean shouldContinueExecuting() {
 		return super.shouldContinueExecuting() && this.gem.getAttackTarget() == null && !this.gem.getNavigator().noPath();
 	}
+	@Override
 	public void startExecuting() {
 		super.startExecuting();
 	}
+	@Override
 	public void resetTask() {
 		this.distance = 0;
 		super.resetTask();
 	}
+	@Override
 	public void updateTask() {
-		this.gem.getLookHelper().setLookPosition((double) this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), (double) this.destinationBlock.getZ() + 0.5D, 10.0F, (float) this.gem.getVerticalFaceSpeed());
+		this.gem.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), this.destinationBlock.getZ() + 0.5D, 10.0F, (float) this.gem.getVerticalFaceSpeed());
 		if (this.blockTime > 10 && this.distance < 3) {
 			double dX = this.destinationBlock.getX() - this.gem.posX;
             double dY = this.destinationBlock.getY() - (this.gem.posY + (double)(this.gem.height / 2.0F));
@@ -66,6 +71,7 @@ public class EntityAISpitOnBlocks extends EntityAIMoveGemToBlock {
 		++this.blockTime;
 		super.updateTask();
 	}
+	@Override
 	protected boolean shouldMoveTo(World world, BlockPos pos) {
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();

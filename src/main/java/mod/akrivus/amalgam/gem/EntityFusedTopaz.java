@@ -12,8 +12,6 @@ import mod.akrivus.kagic.entity.ai.EntityAIDiamondHurtTarget;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowDiamond;
 import mod.akrivus.kagic.entity.ai.EntityAISitStill;
 import mod.akrivus.kagic.entity.ai.EntityAIStay;
-import mod.akrivus.kagic.entity.gem.GemCuts;
-import mod.akrivus.kagic.entity.gem.GemPlacements;
 import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.init.ModSounds;
 import net.minecraft.block.Block;

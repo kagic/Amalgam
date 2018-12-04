@@ -46,10 +46,10 @@ public class RenderNacre extends RenderGemBase<EntityNacre> {
 			this.addLayer(new LayerSantaHat(this));
 		}
     }
+	@Override
 	protected void preRenderCallback(EntityNacre gem, float partialTickTime) {
 		GlStateManager.translate(0F, -0.4F, 0F);
 	}
-	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityNacre entity) {
 		return new ResourceLocation("amalgam:textures/entities/nacre/nacre.png");
