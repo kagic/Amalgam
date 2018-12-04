@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.SortedMap;
 
 import mod.akrivus.amalgam.gem.EntityEnderPearl;
-import mod.akrivus.kagic.skills.SkillBase.RunWith;
 import mod.akrivus.kagic.skills.Speak;
 import mod.akrivus.kagic.tileentity.TileEntityWarpPadCore;
 import mod.heimrarnadalr.kagic.worlddata.WarpPadDataEntry;

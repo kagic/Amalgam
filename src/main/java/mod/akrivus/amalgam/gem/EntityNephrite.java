@@ -110,16 +110,18 @@ public class EntityNephrite extends EntityGem implements IAnimals {
 		
 		this.setDefective(this.rand.nextInt(20) == 0);
 	}
+	@Override
 	public boolean attackEntityFrom(DamageSource cause, float amount) {
 		if (cause == DamageSource.WITHER || cause == DamageSource.MAGIC) {
 			return false;
 		}
 		return super.attackEntityFrom(cause, amount);
 	}
+	@Override
 	public void onLivingUpdate() {
 		if (this.ticksExisted % 20 == 0 && !(this.isDead || this.getHealth() <= 0.0F)) {
 			if (!this.world.isRemote) {
-				AxisAlignedBB axisalignedbb = (new AxisAlignedBB(this.posX, this.posY, this.posZ, (this.posX + 1), (this.posY + 1), (this.posZ + 1))).grow(16.0, (double) this.world.getHeight(), 16.0);
+				AxisAlignedBB axisalignedbb = (new AxisAlignedBB(this.posX, this.posY, this.posZ, (this.posX + 1), (this.posY + 1), (this.posZ + 1))).grow(16.0, this.world.getHeight(), 16.0);
 				List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 				for (EntityLivingBase entity : list) {
 					if (!entity.isDead || entity.getHealth() > 0.0F) {
@@ -144,6 +146,7 @@ public class EntityNephrite extends EntityGem implements IAnimals {
 		super.onLivingUpdate();
 	}
 	
+	@Override
 	public void onDeath(DamageSource cause) {
 		if (this.getGemPlacement() == GemPlacements.BACK_OF_HEAD) {
 			this.droppedGemItem = AmItems.NEPHRITE_1_GEM;
@@ -151,9 +154,11 @@ public class EntityNephrite extends EntityGem implements IAnimals {
 		}
 		super.onDeath(cause);
 	}
+	@Override
 	public int generateGemColor() {
 		return this.isDefective() ? 0xFFFFB6 : 0x80F67A;
 	}
+	@Override
 	public int generateSkinColor() {
 		ArrayList<Integer> skinColors = new ArrayList<Integer>();
 		if (this.isDefective() || this.rand.nextInt(12) == 0) {
@@ -169,6 +174,7 @@ public class EntityNephrite extends EntityGem implements IAnimals {
 		}
 		return Colors.arbiLerp(skinColors);
 	}
+	@Override
 	public int generateHairStyle() {
 		if (this.isPrimary()) {
 			return 0;
@@ -177,12 +183,14 @@ public class EntityNephrite extends EntityGem implements IAnimals {
 			return 1;
 		}
 	}
+	@Override
 	public int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
 		hairColors.add(EntityNephrite.HAIR_COLOR_BEGIN);
 		hairColors.add(EntityNephrite.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
+	@Override
 	public void setNewCutPlacement() {
 		super.setNewCutPlacement();
 		if (this.isPrimary()) {
@@ -194,6 +202,7 @@ public class EntityNephrite extends EntityGem implements IAnimals {
 			}
 		}
 	}
+	@Override
 	public void itemDataToGemData(int data) {
 		if (data == 1) {
 			this.setPrimary(true);
@@ -201,12 +210,15 @@ public class EntityNephrite extends EntityGem implements IAnimals {
 			this.setHairStyle(0);
 		}
 	}
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return AmSounds.NEPHRITE_INJURE;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return AmSounds.NEPHRITE_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return AmSounds.NEPHRITE_INJURE;
 	}

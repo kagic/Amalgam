@@ -121,15 +121,18 @@ public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
 	/*********************************************************
 	 * Methods related to entity loading.                    *
 	 *********************************************************/
+	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		this.dataManager.set(LOWER_COLOR, this.generateDefectiveColor());
 		return super.onInitialSpawn(difficulty, livingdata);
     }
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
         compound.setInteger("lowerColors", this.dataManager.get(LOWER_COLOR));
         super.writeEntityToNBT(compound);
     }
-    public void readEntityFromNBT(NBTTagCompound compound) {
+    @Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
         this.dataManager.set(LOWER_COLOR, compound.getInteger("lowerColors"));
         super.readEntityFromNBT(compound);
     }
@@ -142,12 +145,15 @@ public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
 	/*********************************************************
 	 * Methods related to sound.                             *
 	 *********************************************************/
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return AmSounds.WATERMELON_TOURMALINE_HURT;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return AmSounds.WATERMELON_TOURMALINE_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return AmSounds.WATERMELON_TOURMALINE_DEATH;
 	}

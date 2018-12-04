@@ -114,6 +114,7 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 	/*********************************************************
 	 * Methods related to entity loading.                    *
 	 *********************************************************/
+	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		if (this.isDefective()) {
 			this.setCustomNameTag(new TextComponentTranslation("entity.kagic.citrine_1.name").getUnformattedComponentText());
@@ -125,6 +126,7 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 		return super.onInitialSpawn(difficulty, livingdata);
     }
 	
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
         compound.setBoolean("charged", this.dataManager.get(CHARGED).booleanValue());
         compound.setInteger("charge_ticks", this.charge_ticks);
@@ -132,7 +134,8 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
         compound.setInteger("defectiveColors", this.dataManager.get(DEFECTIVE_COLOR));
         super.writeEntityToNBT(compound);
     }
-    public void readEntityFromNBT(NBTTagCompound compound) {
+    @Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
         this.dataManager.set(CHARGED, compound.getBoolean("charged"));
         this.charge_ticks = compound.getInteger("charge_ticks");
         this.hit_count = compound.getInteger("hit_count");
@@ -178,6 +181,7 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
     /*********************************************************
      * Methods related to entity combat.                     *
      *********************************************************/
+	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		if (!this.world.isRemote) {
 			this.charge_ticks += 20;
@@ -190,7 +194,7 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 				this.isImmuneToFire = false;
 			}
 			if (this.isCharged()) {
-				AxisAlignedBB axisalignedbb = (new AxisAlignedBB(this.posX, this.posY, this.posZ, (this.posX + 1), (this.posY + 1), (this.posZ + 1))).grow(12.0, (double) this.world.getHeight(), 12.0);
+				AxisAlignedBB axisalignedbb = (new AxisAlignedBB(this.posX, this.posY, this.posZ, (this.posX + 1), (this.posY + 1), (this.posZ + 1))).grow(12.0, this.world.getHeight(), 12.0);
 	            List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 	            for (EntityLivingBase entity : list) {
 	            	if (this.isOwner(entity)) {
@@ -240,12 +244,14 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 		
 		return super.attackEntityAsMob(entityIn);
 	}
+	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		if (!this.world.isRemote) {
 			this.attackEntityAsMob(target);
 		}
 		super.attackEntityWithRangedAttack(target, distanceFactor);
 	}
+	@Override
 	public void onDeath(DamageSource cause) {
 		if (this.isDefective()) {
 			this.droppedGemItem = AmItems.AMETRINE_GEM;
@@ -261,6 +267,7 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 	/*********************************************************
 	 * Methods related to entity living.                     *
 	 *********************************************************/
+	@Override
 	public void onLivingUpdate() {
 		if (this.hit_count > 7) {
 			this.charge_ticks -= 1;
@@ -277,12 +284,15 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 	/*********************************************************
 	 * Methods related to sound.                             *
 	 *********************************************************/
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return AmSounds.CITRINE_HURT;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return AmSounds.CITRINE_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return AmSounds.CITRINE_DEATH;
 	}
@@ -290,6 +300,7 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 	/*********************************************************
 	 * Methods related to rendering.                         *
 	 *********************************************************/
+	@Override
 	public void itemDataToGemData(int data) {
 		this.setDefective(data == 1);
 		if (this.isDefective()) {
@@ -374,12 +385,14 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 		}
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
     public int getBrightnessForRender() {
         return isCharged() ? 15728880 : super.getBrightnessForRender();
 	}
 	
-    public float getBrightness() {
+    @Override
+	public float getBrightness() {
         return isCharged() ? 1.0F : super.getBrightness();
     }
 }

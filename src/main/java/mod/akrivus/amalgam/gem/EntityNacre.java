@@ -96,6 +96,7 @@ public class EntityNacre extends EntityPearl implements INpc {
 		this.droppedGemItem = AmItems.NACRE_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_NACRE_GEM;
 	}
+	@Override
 	public int generateSkinColor() {
 		ArrayList<Integer> skinColors = new ArrayList<Integer>();
 		skinColors.add(EntityNacre.SKIN_COLOR_BEGIN);
@@ -103,15 +104,18 @@ public class EntityNacre extends EntityPearl implements INpc {
 		skinColors.add(EntityNacre.SKIN_COLOR_END);
 		return Colors.arbiLerp(skinColors);
 	}
+	@Override
 	public int generateHairStyle() {
 		return this.rand.nextInt(EntityNacre.NUM_HAIRSTYLES);
 	}
+	@Override
 	public int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
 		hairColors.add(EntityNacre.HAIR_COLOR_BEGIN);
 		hairColors.add(EntityNacre.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
+	@Override
 	public int generateGemColor() {
 		return 0xE9F4F1;
 	}
@@ -152,6 +156,7 @@ public class EntityNacre extends EntityPearl implements INpc {
     	}
 		return 0xFFFFFF;
 	}
+	@Override
 	public int getColor() {
 		return -1;
 	}
@@ -185,11 +190,13 @@ public class EntityNacre extends EntityPearl implements INpc {
 	public void setCracked(boolean cracked) {
 		this.dataManager.set(CRACKED, cracked);
 	}
+	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		this.itemDataToGemData(0);
 		return livingdata;
 	}
+	@Override
 	public void itemDataToGemData(int data) {
 		this.setGemColor(this.generateGemColor());
 		this.setSkinColor(this.generateSkinColor());
@@ -198,6 +205,7 @@ public class EntityNacre extends EntityPearl implements INpc {
 		this.setUniformColor(this.getColor2());
 		this.nativeColor = this.getColor2();
 	}
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setInteger("ticksUntilSneeze", this.ticksUntilSneeze);
@@ -210,6 +218,7 @@ public class EntityNacre extends EntityPearl implements INpc {
         compound.setInteger("color_4", this.getColor4());
         compound.setBoolean("cracked", this.isCracked());
 	}
+	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
 		this.ticksUntilSneeze = compound.getInteger("ticksUntilSneeze");
@@ -222,6 +231,7 @@ public class EntityNacre extends EntityPearl implements INpc {
 		this.setColor4(compound.getInteger("color_4"));
 		this.setCracked(compound.getBoolean("cracked"));
 	}
+	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
 			if (hand == EnumHand.MAIN_HAND) {
@@ -251,12 +261,15 @@ public class EntityNacre extends EntityPearl implements INpc {
 		}
 		return false;
     }
+	@Override
 	public boolean canPickUpItem(Item itemIn) {
 		return false;
 	}
+	@Override
 	public boolean canPickUpLoot() {
 		return false;
 	}
+	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 		if (!this.world.isRemote) {
@@ -342,6 +355,7 @@ public class EntityNacre extends EntityPearl implements INpc {
 			this.heal(1.0F);
 		}
 	}
+	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (this.world.getCurrentMoonPhaseFactor() == 0.0 && this.getStressLevel() > 0 && this.totalExpected > 0 && !this.isCracked()) {
 			if (source.getTrueSource() instanceof EntityPlayer) {
@@ -380,12 +394,15 @@ public class EntityNacre extends EntityPearl implements INpc {
 		}
 		return super.attackEntityFrom(source, amount);
 	}
+	@Override
 	public boolean canChangeInsigniaColorByDefault() {
 		return true;
 	}
+	@Override
 	public boolean canChangeUniformColorByDefault() {
 		return true;
 	}
+	@Override
 	public void setHairColor(int color) {
 		if (color > EntityNacre.HAIR_COLOR_BEGIN && color < EntityNacre.HAIR_COLOR_END) {
 			super.setHairColor(color);
@@ -409,15 +426,19 @@ public class EntityNacre extends EntityPearl implements INpc {
 	public int getFoodLevel() {
 		return this.dataManager.get(FOOD);
 	}
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return AmSounds.NACRE_HURT;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return AmSounds.NACRE_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return AmSounds.NACRE_DEATH;
 	}
+	@Override
 	protected SoundEvent getWeirdSound() {
 		return AmSounds.NACRE_SNEEZE;
 	}

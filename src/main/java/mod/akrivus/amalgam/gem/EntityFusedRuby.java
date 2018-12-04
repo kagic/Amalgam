@@ -88,6 +88,7 @@ public class EntityFusedRuby extends EntityFusionGem implements IAnimals {
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 	}
+	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 		if (this.world.isRemote) {
@@ -96,15 +97,18 @@ public class EntityFusedRuby extends EntityFusionGem implements IAnimals {
 			}
 		}
 	}
+	@Override
 	public boolean addGem(EntityGem gem) {
 		if (this.getFusionCount() > 9) {
 			return false;
 		}
 		return super.addGem(gem);
 	}
+	@Override
 	protected int generateGemColor() {
     	return 0xEE2331;
     }
+	@Override
 	protected int generateSkinColor() {
 		ArrayList<Integer> skinColors = new ArrayList<Integer>();
 		skinColors.add(EntityFusedRuby.SKIN_COLOR_BEGIN);
@@ -112,15 +116,18 @@ public class EntityFusedRuby extends EntityFusionGem implements IAnimals {
 		skinColors.add(EntityFusedRuby.SKIN_COLOR_END);
 		return Colors.arbiLerp(skinColors);
 	}
+	@Override
 	protected int generateHairStyle() {
 		return this.rand.nextInt(EntityFusedRuby.NUM_HAIRSTYLES);
 	}
+	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
 		hairColors.add(EntityFusedRuby.HAIR_COLOR_BEGIN);
 		hairColors.add(EntityFusedRuby.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
+	@Override
 	public boolean hasHairVariant(GemPlacements placement) {
 		switch(placement) {
 		case FOREHEAD:
@@ -129,18 +136,23 @@ public class EntityFusedRuby extends EntityFusionGem implements IAnimals {
 			return false;
 		}
 	}
+	@Override
 	protected SoundEvent getAmbientSound() {
 		return ModSounds.RUBY_LIVING;
 	}
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.RUBY_HURT;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return ModSounds.RUBY_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.RUBY_DEATH;
 	}
+	@Override
 	public void setAdjustedSize() {
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80D * this.getFusionCount());
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4D * this.getFusionCount());

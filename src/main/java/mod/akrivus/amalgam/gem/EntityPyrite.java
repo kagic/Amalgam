@@ -135,6 +135,7 @@ public class EntityPyrite extends EntityGem implements IAnimals {
         this.droppedGemItem = AmItems.PYRITE_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_PYRITE_GEM;
 	}
+	@Override
 	public void whenDefective() {
     	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
@@ -142,14 +143,17 @@ public class EntityPyrite extends EntityGem implements IAnimals {
         this.stepHeight = 0.5F;
     }
 	public void whenFused() {
-    	this.setSize(0.7F * (float) this.getFusionCount(), 1.8F * (float) this.getFusionCount());
+    	this.setSize(0.7F * this.getFusionCount(), 1.8F * this.getFusionCount());
     }
+	@Override
 	public int generateGemColor() {
     	return 0xEED923;
     }
+	@Override
 	public void setAttackAI() {
 		return;
 	}
+	@Override
 	public int generateSkinColor() {
 		ArrayList<Integer> skinColors = new ArrayList<Integer>();
 		skinColors.add(EntityPyrite.SKIN_COLOR_BEGIN);
@@ -157,15 +161,18 @@ public class EntityPyrite extends EntityGem implements IAnimals {
 		skinColors.add(EntityPyrite.SKIN_COLOR_END);
 		return Colors.arbiLerp(skinColors);
 	}
+	@Override
 	public int generateHairStyle() {
 		return this.rand.nextInt(EntityPyrite.NUM_HAIRSTYLES);
 	}
+	@Override
 	public int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
 		hairColors.add(EntityPyrite.HAIR_COLOR_BEGIN);
 		hairColors.add(EntityPyrite.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
+	@Override
 	public boolean hasInsigniaVariant(GemPlacements placement) {
 		switch(placement) {
 		case BELLY:
@@ -176,6 +183,7 @@ public class EntityPyrite extends EntityGem implements IAnimals {
 			return false;
 		}
 	}
+	@Override
 	public boolean hasUniformVariant(GemPlacements placement) {
 		switch(placement) {
 		case BELLY:
@@ -186,6 +194,7 @@ public class EntityPyrite extends EntityGem implements IAnimals {
 			return false;
 		}
 	}
+	@Override
 	public boolean hasHairVariant(GemPlacements placement) {
 		switch(placement) {
 		case FOREHEAD:
@@ -194,6 +203,7 @@ public class EntityPyrite extends EntityGem implements IAnimals {
 			return false;
 		}
 	}
+	@Override
 	public boolean alternateInteract(EntityPlayer player) {
     	this.wantsToFuse = true;
     	super.alternateInteract(player);
@@ -255,6 +265,7 @@ public class EntityPyrite extends EntityGem implements IAnimals {
     	pyrite.setSize(0.7F * pyrite.getFusionCount(), 1.8F * pyrite.getFusionCount());
      	return pyrite;
 	}
+	@Override
 	public void unfuse() {
 		for (int i = 0; i < this.fusionMembers.size(); ++i) {
 			EntityPyrite pyrite = new EntityPyrite(this.world);
@@ -291,12 +302,15 @@ public class EntityPyrite extends EntityGem implements IAnimals {
 		}
 		return false;
 	}
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return AmSounds.PYRITE_HURT;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return AmSounds.PYRITE_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return AmSounds.PYRITE_DEATH;
 	}

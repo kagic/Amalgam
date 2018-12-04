@@ -35,7 +35,7 @@ public class EntityAISpitballAttack extends EntityAIBase {
         }
         else if (distance < 256) {
             double dX = entity.posX - this.gem.posX;
-            double dY = entity.getEntityBoundingBox().minY + entity.height / 2.0F - (this.gem.posY + (double)(this.gem.height / 2.0F));
+            double dY = entity.getEntityBoundingBox().minY + entity.height / 2.0F - (this.gem.posY + this.gem.height / 2.0F);
             double dZ = entity.posZ - this.gem.posZ;
             if (this.attackTime <= 0) {
                 ++this.attackStep;
@@ -53,7 +53,7 @@ public class EntityAISpitballAttack extends EntityAIBase {
                     this.gem.world.playSound(null, this.gem.getPosition(), SoundEvents.ENTITY_LLAMA_SPIT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                     for (int i = 0; i < 1; ++i) {
                     	EntitySpitball spitball = new EntitySpitball(this.gem.world, this.gem, dX, dY, dZ);
-                    	spitball.posY = this.gem.posY + (double)(this.gem.height / 2.0F) + 0.5D;
+                    	spitball.posY = this.gem.posY + this.gem.height / 2.0F + 0.5D;
                         this.gem.world.spawnEntity(spitball);
                     }
                 }

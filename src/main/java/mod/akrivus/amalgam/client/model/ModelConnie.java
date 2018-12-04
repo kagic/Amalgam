@@ -49,6 +49,7 @@ public class ModelConnie extends ModelGem {
 	    this.bipedLeftLeg.addBox(1F, 2F, -1F, 2, 10, 2);
 	    this.bipedLeftLeg.setRotationPoint(0F, 0F, 0F);
     }
+	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		this.bipedHead.render(scale);
@@ -60,6 +61,7 @@ public class ModelConnie extends ModelGem {
 		this.bipedRightLeg.render(scale);
 		this.bipedLeftLeg.render(scale);
 	}
+	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		super.copyModelAngles(this.bipedBody, this.bipedSkirt);

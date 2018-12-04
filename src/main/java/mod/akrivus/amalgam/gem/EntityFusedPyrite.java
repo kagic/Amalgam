@@ -125,6 +125,7 @@ public class EntityFusedPyrite extends EntityFusionGem implements IAnimals {
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 	}
+	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 		if (this.world.isRemote) {
@@ -133,15 +134,18 @@ public class EntityFusedPyrite extends EntityFusionGem implements IAnimals {
 			}
 		}
 	}
+	@Override
 	public boolean addGem(EntityGem gem) {
 		if (this.getFusionCount() > 9) {
 			return false;
 		}
 		return super.addGem(gem);
 	}
+	@Override
 	public int generateGemColor() {
     	return 0xEED923;
     }
+	@Override
 	protected int generateSkinColor() {
 		ArrayList<Integer> skinColors = new ArrayList<Integer>();
 		skinColors.add(EntityFusedPyrite.SKIN_COLOR_BEGIN);
@@ -149,15 +153,18 @@ public class EntityFusedPyrite extends EntityFusionGem implements IAnimals {
 		skinColors.add(EntityFusedPyrite.SKIN_COLOR_END);
 		return Colors.arbiLerp(skinColors);
 	}
+	@Override
 	protected int generateHairStyle() {
 		return this.rand.nextInt(EntityFusedPyrite.NUM_HAIRSTYLES);
 	}
+	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
 		hairColors.add(EntityFusedPyrite.HAIR_COLOR_BEGIN);
 		hairColors.add(EntityFusedPyrite.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
+	@Override
 	public boolean hasHairVariant(GemPlacements placement) {
 		switch(placement) {
 		case FOREHEAD:
@@ -166,15 +173,19 @@ public class EntityFusedPyrite extends EntityFusionGem implements IAnimals {
 			return false;
 		}
 	}
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return AmSounds.PYRITE_HURT;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return AmSounds.PYRITE_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return AmSounds.PYRITE_DEATH;
 	}
+	@Override
 	public void setAdjustedSize() {
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80D * this.getFusionCount());
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4D * this.getFusionCount());

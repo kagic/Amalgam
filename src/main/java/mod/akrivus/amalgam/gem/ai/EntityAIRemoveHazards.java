@@ -50,7 +50,7 @@ public class EntityAIRemoveHazards extends EntityAIMoveGemToBlock {
 	}
 	@Override
 	public void updateTask() {
-		this.gem.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), this.destinationBlock.getZ() + 0.5D, 10.0F, (float) this.gem.getVerticalFaceSpeed());
+		this.gem.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, this.destinationBlock.getY() + 1, this.destinationBlock.getZ() + 0.5D, 10.0F, this.gem.getVerticalFaceSpeed());
 		if (this.blockTime > 10 && this.distance < 3) {
 			this.gem.world.destroyBlock(this.destinationBlock, true);
 			this.blockTime = 0;

@@ -37,25 +37,41 @@ Amalgam requires KAGIC 1.10.1, also called **X11p12** or **X11p13**, and Java SE
 * StoKAGIC-style intelligent injectors and gem seeds.
 * Whatever [this](https://www.youtube.com/watch?v=M-bmV2ws_QY) is.
 
-## Contact
-I'm no longer on KAGIC, so if I'm needed, [file an issue](https://github.com/Akrivus/Amalgam/issues) or hit me up on [MMD](https://discord.mcmoddev.com/).
+## Issues
+1. Collect any helpful logs, screenshots, or snippets.
+2. Report issues to our [issue tracker.](https://github.com/Akrivus/Amalgam/issues)
+3. Ask for help in our [Discord.](https://discord.gg/SMjxZQ7)
 
----
+## Discord
 
-## Prerequisites
-* Java JDK 1.8
-* Git
+Our Discord server _is a place to collaborate, learn, showcase, and discuss_ the development of Amalgam. It is a place where those who abide by the rules are welcomed, regardless of skill level.
+Click [here](https://discord.gg/SMjxZQ7) to join us!
 
 ## Installation
-* Run `git clone https://github.com/Akrivus/Amalgam.git`
-* From the cloned repository, run `.\gradlew setupDecompWorkspace eclipse`
-* The required KAGIC sources should already be installed.
-* You've installed the Amalgam workspace.
+### Prerequisites
+1. KAGIC 1.10.1 should already be installed and loaded by the buildscript.
+2. JDK 8 - [Download.](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+3. Git - [Download.](https://git-scm.com/downloads)
 
-## Build
-* Run `.\gradlew build`
-* The built jarfile should be in the `build/libs` folder.
+### Setup
+1. Install the above prerequisites.
+2. Run command: `git clone https://github.com/Akrivus/Amalgam.git`
+3. In repository folder, run: `.\gradlew setupDecompWorkspace`
+4. Run `.\gradlew eclipse` or `.\gradlew idea` depending on your IDE.
+5. Amalgam is now installed.
 
-## Contribute
-* Contributions are welcome!
-* Send us a pull request and we'll see what we can do.
+### Build
+1. Go to the directory of your repository.
+2. Run command: `.\gradlew build`
+3. Find `Amalgam-x.jar` in the `build/lib` folder.
+4. Amalgam has been built for distribution.
+
+### Testing
+1. Go to the directory of your repository.
+2. Run `.\gradlew runClient` to play on the modded client.
+3. Run `.\gradlew runServer` to start a modded server.
+
+### Contribute
+1. Fork, install, and setup Amalgam on your machine.
+2. Write code with comments for increased legibility.
+3. Summarize any changes for future pull requests.

@@ -35,12 +35,14 @@ public class EntityBabyPearl extends EntityPearl implements INpc {
 		this.tasks.addTask(4, new EntityAIPanic(this, 0.9D));
 		this.targetTasks.addTask(2, new EntityAICallForBackup(this, EntityGem.class));
 	}
+	@Override
 	public void onDeath(DamageSource cause) {
 		if (this.isDefective()) {
 			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
 		}
 		super.onDeath(cause);
 	}
+	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
 			if (hand == EnumHand.MAIN_HAND) {
@@ -157,6 +159,7 @@ public class EntityBabyPearl extends EntityPearl implements INpc {
 		}
 		return super.processInteract(player, hand);
 	}
+	@Override
 	public void onInventoryChanged(IInventory inventory) {
 		ItemStack firstItem = this.gemStorage.getStackInSlot(0);
 		if (firstItem.getItem().isDamageable()) {
@@ -167,6 +170,7 @@ public class EntityBabyPearl extends EntityPearl implements INpc {
 		}
 		super.onInventoryChanged(inventory);
 	}
+	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (!this.world.isRemote && this.isDefective() && this.ticksExisted > 20) {
 			this.entityDropItem(this.getHeldItem(EnumHand.MAIN_HAND), 0.0F);
@@ -177,6 +181,7 @@ public class EntityBabyPearl extends EntityPearl implements INpc {
 		}
 		return super.attackEntityFrom(source, amount);
 	}
+	@Override
 	public void jump() {
 		if (!this.world.isRemote && this.isDefective() && this.ticksExisted > 20) {
 			this.entityDropItem(this.getHeldItem(EnumHand.MAIN_HAND), 0.0F);
@@ -187,6 +192,7 @@ public class EntityBabyPearl extends EntityPearl implements INpc {
 		}
 		super.jump();
 	}
+	@Override
 	public void fall(float distance, float damageMultiplier) {
 		if (!this.world.isRemote && this.isDefective() && this.ticksExisted > 20) {
 			this.entityDropItem(this.getHeldItem(EnumHand.MAIN_HAND), 0.0F);
@@ -197,6 +203,7 @@ public class EntityBabyPearl extends EntityPearl implements INpc {
 		}
 		super.fall(distance, damageMultiplier);
 	}
+	@Override
 	public int getMaxInventorySlots() {
 		int slots = 27;
 		if (this.getGemPlacement() == GemPlacements.FOREHEAD) {
@@ -204,6 +211,7 @@ public class EntityBabyPearl extends EntityPearl implements INpc {
 		}
 		return slots;
 	}
+	@Override
 	public int getTalkInterval() {
 		return 120;
 	}
@@ -213,18 +221,23 @@ public class EntityBabyPearl extends EntityPearl implements INpc {
 		}
 		return AmSounds.BABY_PEARL_OH;
 	}
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return AmSounds.BABY_PEARL_OH;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return AmSounds.BABY_PEARL_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return AmSounds.BABY_PEARL_OH;
 	}
+	@Override
 	protected SoundEvent getWeirdSound() {
 		return AmSounds.BABY_PEARL_OH;
 	}
+	@Override
 	public int playNote(int tone, SoundEvent sound) {
 		// 2 = half note
 		// 7 = half rest

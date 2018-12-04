@@ -33,38 +33,46 @@ public class EntityEnderPearl extends EntityPearl implements INpc {
 		this.droppedCrackedGemItem = AmItems.CRACKED_ENDER_PEARL_GEM;
 		this.nativeColor = 2;
 	}
+	@Override
 	public int generateGemColor() {
 		return 0x00FFFF;
 	}
+	@Override
 	public int getColor() {
 		return -1;
 	}
+	@Override
 	public int getHairColor() {
 		return 2;
 	}
+	@Override
 	public String getSpecialSkin() {
 		return super.getSpecialSkin();
 	}
+	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		this.setInsigniaColor(2);
 		return livingdata;
 	}
+	@Override
 	public void onLivingUpdate() {
         if (this.world.isRemote) {
             for (int i = 0; i < 2; ++i) {
-                this.world.spawnParticle(EnumParticleTypes.PORTAL, this.posX + (this.rand.nextDouble() - 0.5D) * (double)this.width, this.posY + this.rand.nextDouble() * (double)this.height - 0.25D, this.posZ + (this.rand.nextDouble() - 0.5D) * (double)this.width, (this.rand.nextDouble() - 0.5D) * 2.0D, -this.rand.nextDouble(), (this.rand.nextDouble() - 0.5D) * 2.0D);
+                this.world.spawnParticle(EnumParticleTypes.PORTAL, this.posX + (this.rand.nextDouble() - 0.5D) * this.width, this.posY + this.rand.nextDouble() * this.height - 0.25D, this.posZ + (this.rand.nextDouble() - 0.5D) * this.width, (this.rand.nextDouble() - 0.5D) * 2.0D, -this.rand.nextDouble(), (this.rand.nextDouble() - 0.5D) * 2.0D);
             }
         }
         this.isJumping = false;
         super.onLivingUpdate();
     }
-    protected void updateAITasks() {
+    @Override
+	protected void updateAITasks() {
         if (this.isWet()) {
             this.attackEntityFrom(DamageSource.DROWN, 1.0F);
         }
         super.updateAITasks();
     }
+	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
 			if (hand == EnumHand.MAIN_HAND) {
@@ -80,6 +88,7 @@ public class EntityEnderPearl extends EntityPearl implements INpc {
 		}
 		return super.processInteract(player, hand);
     }
+	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		boolean hit = super.attackEntityFrom(source, amount);
 		if (this.getHealth() > 0) {
@@ -89,16 +98,16 @@ public class EntityEnderPearl extends EntityPearl implements INpc {
 	}
 	protected boolean teleportRandomly() {
         double d0 = this.posX + (this.rand.nextDouble() - 0.5D) * 64.0D;
-        double d1 = this.posY + (double)(this.rand.nextInt(64) - 32);
+        double d1 = this.posY + (this.rand.nextInt(64) - 32);
         double d2 = this.posZ + (this.rand.nextDouble() - 0.5D) * 64.0D;
         return this.teleportTo(d0, d1, d2);
     }
     protected boolean teleportToEntity(Entity entity) {
-        Vec3d vec3d = new Vec3d(this.posX - entity.posX, this.getEntityBoundingBox().minY + (double)(this.height / 2.0F) - entity.posY + (double) entity.getEyeHeight(), this.posZ - entity.posZ);
+        Vec3d vec3d = new Vec3d(this.posX - entity.posX, this.getEntityBoundingBox().minY + this.height / 2.0F - entity.posY + entity.getEyeHeight(), this.posZ - entity.posZ);
         vec3d = vec3d.normalize();
         double d0 = 16.0D;
         double d1 = this.posX + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.x * 16.0D;
-        double d2 = this.posY + (double)(this.rand.nextInt(16) - 8) - vec3d.y * 16.0D;
+        double d2 = this.posY + (this.rand.nextInt(16) - 8) - vec3d.y * 16.0D;
         double d3 = this.posZ + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.z * 16.0D;
         return this.teleportTo(d1, d2, d3);
     }
@@ -112,18 +121,23 @@ public class EntityEnderPearl extends EntityPearl implements INpc {
         }
         return flag;
     }
-    public int playNote(int tone) {
+    @Override
+	public int playNote(int tone) {
 		return this.playNote(tone, AmSounds.ENDER_PEARL_SING);
 	}
-    protected SoundEvent getHurtSound(DamageSource source) {
+    @Override
+	protected SoundEvent getHurtSound(DamageSource source) {
 		return AmSounds.ENDER_PEARL_HURT;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return AmSounds.ENDER_PEARL_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return AmSounds.ENDER_PEARL_DEATH;
 	}
+	@Override
 	protected SoundEvent getWeirdSound() {
 		return AmSounds.ENDER_PEARL_WEIRD;
 	}

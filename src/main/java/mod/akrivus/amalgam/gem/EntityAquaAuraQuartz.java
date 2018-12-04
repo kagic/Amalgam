@@ -108,13 +108,15 @@ public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimal
 	/*********************************************************
 	 * Methods related to entity loading.                    *
 	 *********************************************************/
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
         compound.setBoolean("charged", this.dataManager.get(CHARGED).booleanValue());
         compound.setInteger("charge_ticks", this.charge_ticks);
         compound.setInteger("hit_count", this.hit_count);
         super.writeEntityToNBT(compound);
     }
-    public void readEntityFromNBT(NBTTagCompound compound) {
+    @Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
         this.dataManager.set(CHARGED, compound.getBoolean("charged"));
         this.charge_ticks = compound.getInteger("charge_ticks");
         this.hit_count = compound.getInteger("hit_count");
@@ -159,6 +161,7 @@ public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimal
     /*********************************************************
      * Methods related to entity combat.                     *
      *********************************************************/
+	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		if (!this.world.isRemote) {
 			this.charge_ticks += 20;
@@ -166,6 +169,7 @@ public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimal
 		}
 		return super.attackEntityAsMob(entityIn);
 	}
+	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		if (!this.world.isRemote) {
 			this.attackEntityAsMob(target);
@@ -176,6 +180,7 @@ public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimal
 	/*********************************************************
 	 * Methods related to entity living.                     *
 	 *********************************************************/
+	@Override
 	public void onLivingUpdate() {
 		if (this.hit_count > 7) {
 			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, this.charge_ticks, 3));
@@ -195,12 +200,15 @@ public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimal
 	/*********************************************************
 	 * Methods related to sound.                             *
 	 *********************************************************/
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return this.isPrimary() ? AmSounds.PRIME_AQUA_AURA_QUARTZ_HURT : AmSounds.AQUA_AURA_QUARTZ_HURT;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return this.isPrimary() ? AmSounds.PRIME_AQUA_AURA_QUARTZ_OBEY : AmSounds.AQUA_AURA_QUARTZ_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return this.isPrimary() ? AmSounds.PRIME_AQUA_AURA_QUARTZ_DEATH : AmSounds.AQUA_AURA_QUARTZ_DEATH;
 	}
@@ -253,12 +261,14 @@ public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimal
 		}
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
     public int getBrightnessForRender() {
         return isCharged() ? 15728880 : super.getBrightnessForRender();
 	}
 	
-    public float getBrightness() {
+    @Override
+	public float getBrightness() {
         return isCharged() ? 1.0F : super.getBrightness();
     }
 }

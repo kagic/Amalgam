@@ -188,7 +188,8 @@ public class AmEvents {
 		if (e.getEntity() instanceof EntityHessonite) {
 			EntityHessonite hessonite = (EntityHessonite)(e.getEntity());
 			hessonite.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityGem>(hessonite, EntityGem.class, 10, true, false, new Predicate<EntityGem>() {
-	            public boolean apply(EntityGem input) {
+	            @Override
+				public boolean apply(EntityGem input) {
 	                return input != null && (input.isDefective() || input.isTraitor());
 	            }
 	        }));

@@ -50,7 +50,7 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 	@Override
 	public void updateTask() {
 		super.updateTask();
-		this.gem.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), this.destinationBlock.getZ() + 0.5D, 10.0F, (float) this.gem.getVerticalFaceSpeed());
+		this.gem.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, this.destinationBlock.getY() + 1, this.destinationBlock.getZ() + 0.5D, 10.0F, this.gem.getVerticalFaceSpeed());
 		if (this.gem.getDistanceSq(this.destinationBlock) < 14) {
             boolean eaten = this.world.destroyBlock(this.destinationBlock, false);
             if (eaten) {

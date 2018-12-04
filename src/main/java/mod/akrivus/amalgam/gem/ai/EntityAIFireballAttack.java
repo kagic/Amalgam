@@ -37,7 +37,7 @@ public class EntityAIFireballAttack extends EntityAIBase {
         }
         else if (distance < 256) {
             double dX = entity.posX - this.gem.posX;
-            double dY = entity.getEntityBoundingBox().minY + entity.height / 2.0F - (this.gem.posY + (double)(this.gem.height / 2.0F));
+            double dY = entity.getEntityBoundingBox().minY + entity.height / 2.0F - (this.gem.posY + this.gem.height / 2.0F);
             double dZ = entity.posZ - this.gem.posZ;
             if (this.attackTime <= 0) {
                 ++this.attackStep;
@@ -61,12 +61,12 @@ public class EntityAIFireballAttack extends EntityAIBase {
 	                    for (int i = 0; i < 1; ++i) {
 	                    	if (this.gem.isFusion()) {
 	                    		EntityLargeFireball fireball = new EntityLargeFireball(this.gem.world, this.gem, dX, dY, dZ);
-	                    		fireball.posY = this.gem.posY + (double)(this.gem.height / 2.0F);
+	                    		fireball.posY = this.gem.posY + this.gem.height / 2.0F;
 		                        this.gem.world.spawnEntity(fireball);
 	                    	}
 	                    	else {
 		                    	EntitySmallFireball fireball = new EntitySmallFireball(this.gem.world, this.gem, dX + this.gem.getRNG().nextGaussian() * dS, dY, dZ + this.gem.getRNG().nextGaussian() * dS);
-		                        fireball.posY = this.gem.posY + (double)(this.gem.height / 2.0F);
+		                        fireball.posY = this.gem.posY + this.gem.height / 2.0F;
 		                        this.gem.world.spawnEntity(fireball);
 	                    	}
 	                    }

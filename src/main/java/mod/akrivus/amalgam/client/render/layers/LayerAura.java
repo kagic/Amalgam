@@ -17,7 +17,7 @@ public class LayerAura implements LayerRenderer<EntityAquaAuraQuartz> {
 	}
 	@Override
 	public void doRenderLayer(EntityAquaAuraQuartz gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		float mult = (float)(gem.ticksExisted + partialTicks);
+		float mult = gem.ticksExisted + partialTicks;
 		this.gemRenderer.bindTexture(new ResourceLocation("textures/misc/enchanted_item_glint.png"));
         Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
         GlStateManager.enableBlend();

@@ -83,6 +83,7 @@ public class EntityFusedTopaz extends EntityFusionGem implements IAnimals {
 		this.droppedCrackedGemItem = ModItems.CRACKED_TOPAZ_GEM;
 		this.dataManager.register(HOLDING, false);
 	}
+	@Override
 	public boolean addGem(EntityGem gem) {
 		if (this.getSpecial() == 0) {
 			this.setSpecial(gem.getSpecial());
@@ -102,6 +103,7 @@ public class EntityFusedTopaz extends EntityFusionGem implements IAnimals {
 		}
 		return super.addGem(gem);
 	}
+	@Override
 	protected int generateGemColor() {
 		if (this.getSpecial() == 1) {
 			return 0x5D73FF;
@@ -125,9 +127,11 @@ public class EntityFusedTopaz extends EntityFusionGem implements IAnimals {
 			return 0;
 		}
 	}
+	@Override
 	protected int generateHairStyle() {
 		return this.rand.nextInt(EntityFusedTopaz.NUM_HAIRSTYLES);
 	}
+	@Override
 	protected int generateHairColor() {
 		int color = this.getSpecial();
 		switch(color) {
@@ -154,7 +158,8 @@ public class EntityFusedTopaz extends EntityFusionGem implements IAnimals {
 	public void setColor(int color) {
 		this.setSpecial(color);
 	}
-    public boolean processInteract(EntityPlayer player, EnumHand hand) {
+    @Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
 			if (hand == EnumHand.MAIN_HAND) {
 				if (this.isTamed() && this.isOwnedBy(player)) {
@@ -204,6 +209,7 @@ public class EntityFusedTopaz extends EntityFusionGem implements IAnimals {
     public boolean isHolding() {
     	return this.dataManager.get(HOLDING);
     }
+	@Override
 	public void onLivingUpdate() {
 		if (!this.world.isRemote) {
 			for (int i = 0; i < this.heldEntities.size(); ++i) {
@@ -283,20 +289,25 @@ public class EntityFusedTopaz extends EntityFusionGem implements IAnimals {
 		}
 		super.onLivingUpdate();
 	}
+	@Override
 	protected void collideWithEntity(Entity entityIn) {
 		if (this.heldEntities.isEmpty()) {
 			super.collideWithEntity(entityIn);
 		}
 	}
+	@Override
 	protected void playStepSound(BlockPos pos, Block blockIn) {
         this.playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0F, 1.0F);
     }
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.TOPAZ_STEP;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return ModSounds.TOPAZ_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.TOPAZ_DEATH;
 	}

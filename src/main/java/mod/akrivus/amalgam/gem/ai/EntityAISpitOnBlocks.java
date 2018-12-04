@@ -55,15 +55,15 @@ public class EntityAISpitOnBlocks extends EntityAIMoveGemToBlock {
 	}
 	@Override
 	public void updateTask() {
-		this.gem.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), this.destinationBlock.getZ() + 0.5D, 10.0F, (float) this.gem.getVerticalFaceSpeed());
+		this.gem.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, this.destinationBlock.getY() + 1, this.destinationBlock.getZ() + 0.5D, 10.0F, this.gem.getVerticalFaceSpeed());
 		if (this.blockTime > 10 && this.distance < 3) {
 			double dX = this.destinationBlock.getX() - this.gem.posX;
-            double dY = this.destinationBlock.getY() - (this.gem.posY + (double)(this.gem.height / 2.0F));
+            double dY = this.destinationBlock.getY() - (this.gem.posY + this.gem.height / 2.0F);
             double dZ = this.destinationBlock.getZ() - this.gem.posZ;
             this.gem.world.playSound(null, this.gem.getPosition(), SoundEvents.ENTITY_LLAMA_SPIT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
             for (int i = 0; i < 1; ++i) {
             	EntitySpitball spitball = new EntitySpitball(this.gem.world, this.gem, dX, dY, dZ);
-            	spitball.posY = this.gem.posY + (double)(this.gem.height / 2.0F) + 0.5D;
+            	spitball.posY = this.gem.posY + this.gem.height / 2.0F + 0.5D;
                 this.gem.world.spawnEntity(spitball);
             }
 			this.blockTime = 0;
@@ -85,10 +85,10 @@ public class EntityAISpitOnBlocks extends EntityAIMoveGemToBlock {
 	protected boolean hasAir(BlockPos pos) {
 		if (this.gem.world.isAirBlock(pos.up())) {
 			double dX = pos.getX() - this.gem.posX;
-	        double dY = pos.getY() - (this.gem.posY + (double)(this.gem.height / 2.0F));
+	        double dY = pos.getY() - (this.gem.posY + this.gem.height / 2.0F);
 	        double dZ = pos.getZ() - this.gem.posZ;
 			EntitySpitball spitball = new EntitySpitball(this.gem.world, this.gem, dX, dY, dZ);
-	    	spitball.posY = this.gem.posY + (double)(this.gem.height / 2.0F) + 0.5D;
+	    	spitball.posY = this.gem.posY + this.gem.height / 2.0F + 0.5D;
 	    	if (!this.world.getBlockState(pos).isTopSolid()) {
 	    		pos = pos.down();
 	    	}

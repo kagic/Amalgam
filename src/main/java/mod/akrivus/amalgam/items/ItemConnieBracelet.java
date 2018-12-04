@@ -46,11 +46,13 @@ public class ItemConnieBracelet extends ModRecord {
 		entity.extinguish();
         return false;
     }
+	@Override
 	@SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		
     }
-    public EnumRarity getRarity(ItemStack stack) {
+    @Override
+	public EnumRarity getRarity(ItemStack stack) {
         return EnumRarity.COMMON;
     }
 }
