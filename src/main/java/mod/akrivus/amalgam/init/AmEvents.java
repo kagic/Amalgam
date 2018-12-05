@@ -52,12 +52,14 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
@@ -376,6 +378,7 @@ public class AmEvents {
 						bubble.setPosition(item.posX, item.posY, item.posZ);
 						bubble.setHealth(0.5F);
 						bubble.motionY = e.getWorld().rand.nextDouble() / 2;
+						bubble.playBubbleSound();
 						item.setDead();
 						e.getWorld().spawnEntity(bubble);
 					}

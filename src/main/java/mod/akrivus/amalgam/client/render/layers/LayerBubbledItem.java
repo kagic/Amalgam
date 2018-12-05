@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -32,6 +33,15 @@ public class LayerBubbledItem implements LayerRenderer<EntityBubble> {
 			}
 			GlStateManager.popMatrix();
 		}
+		int color = bubble.getColor();
+		float r = (float)((color & 16711680) >> 16) / 255f;
+        float g = (float)((color & 65280) >> 8) / 255f;
+        float b = (float)((color & 255) >> 0) / 255f;
+        GlStateManager.enableBlend();
+        GlStateManager.color(r, g, b, 0.3F);
+        this.renderer.bindTexture(new ResourceLocation("amalgam:textures/entities/bubble.png"));
+        this.renderer.getMainModel().render(bubble, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        GlStateManager.disableAlpha();
 	}
 	@Override
 	public boolean shouldCombineTextures() {

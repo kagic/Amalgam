@@ -19,10 +19,9 @@ public class LayerInjectorGlow implements LayerRenderer<EntityInjector> {
         float[] rgb = EnumDyeColor.byDyeDamage(entity.getColor()).getColorComponentValues();
         if (!entity.isInvisible()) {
         	this.renderer.bindTexture(new ResourceLocation("amalgam:textures/entities/injector/glass.png"));
-            GlStateManager.enableBlend();
+        	GlStateManager.enableBlend();
             GlStateManager.color(rgb[0], rgb[1], rgb[2]);
             GlStateManager.disableAlpha();
-            GlStateManager.depthMask(false);
             this.renderer.getMainModel().render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         }
     }

@@ -4,6 +4,21 @@
             { "name": "amalgam:records/love_like_you", "stream": true }
         ]
     },
+    "bubble.bubble": {
+        "sounds": [
+            { "name": "amalgam:bubble" }
+        ]
+    },
+    "bubble.pop": {
+        "sounds": [
+            { "name": "amalgam:pop" }
+        ]
+    },
+    "bubble.send": {
+        "sounds": [
+            { "name": "amalgam:send" }
+        ]
+    },
 	"entities.pyrite.hurt": {
         "sounds": [
             { "name": "amalgam:entities/pyrite/hurt1" },

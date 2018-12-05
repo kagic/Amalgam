@@ -7,6 +7,10 @@ import net.minecraftforge.event.RegistryEvent;
 public class AmSounds {
 	public static final SoundEvent RECORD_LOVE_LIKE_YOU = new SoundEvent(new ResourceLocation("amalgam:records.love_like_you"));
 	
+	public static final SoundEvent BUBBLE_BUBBLE = new SoundEvent(new ResourceLocation("amalgam:bubble.bubble"));
+	public static final SoundEvent BUBBLE_POP = new SoundEvent(new ResourceLocation("amalgam:bubble.pop"));
+	public static final SoundEvent BUBBLE_SEND = new SoundEvent(new ResourceLocation("amalgam:bubble.send"));
+	
 	public static final SoundEvent PYRITE_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.pyrite.hurt"));
 	public static final SoundEvent PYRITE_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.pyrite.obey"));
 	public static final SoundEvent PYRITE_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.pyrite.death"));
@@ -72,6 +76,9 @@ public class AmSounds {
 	public static void register(RegistryEvent.Register<SoundEvent> event) {
 		registerSound(RECORD_LOVE_LIKE_YOU, new ResourceLocation("amalgam:records.love_like_you"), event);
 
+		registerSound(BUBBLE_BUBBLE, new ResourceLocation("amalgam:bubble.bubble"), event);
+		registerSound(BUBBLE_POP, new ResourceLocation("amalgam:bubble.pop"), event);
+		
 		registerSound(PYRITE_HURT, new ResourceLocation("amalgam:entities.pyrite.hurt"), event);
 		registerSound(PYRITE_OBEY, new ResourceLocation("amalgam:entities.pyrite.obey"), event);
 		registerSound(PYRITE_DEATH, new ResourceLocation("amalgam:entities.pyrite.death"), event);

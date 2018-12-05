@@ -2,6 +2,7 @@ package mod.akrivus.amalgam.entity;
 
 import java.util.List;
 
+import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.items.ItemGem;
 import net.minecraft.entity.EntityLiving;
@@ -13,9 +14,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
@@ -74,7 +75,9 @@ public class EntityBubble extends EntityLiving {
 				while (generating && attempts < 30) {
 					BlockPos pos = location.add((this.world.rand.nextFloat() - 0.5F) * 5, this.world.rand.nextFloat() * 3 + 1, (this.world.rand.nextFloat() - 0.5F) * 5);
 					if (this.world.isAirBlock(pos) && this.world.isAirBlock(pos.east()) && this.world.isAirBlock(pos.west()) && this.world.isAirBlock(pos.north()) && this.world.isAirBlock(pos.south())) {
+						this.playSendSound();
 						this.setPosition(pos.getX(), pos.getY(), pos.getZ());
+						this.playSendSound();
 						return true;
 					}
 					++attempts;
@@ -105,6 +108,7 @@ public class EntityBubble extends EntityLiving {
 				this.entityDropItem(this.getItem(), 0.0F);
 			}
 		}
+		this.playPopSound();
 		super.onDeath(cause);
 	}
 	@Override
@@ -132,10 +136,27 @@ public class EntityBubble extends EntityLiving {
 	public boolean canDespawn() {
 		return false;
 	}
+	@Override
+	public SoundEvent getHurtSound(DamageSource source) {
+		return null;
+	}
+	@Override
+	public SoundEvent getDeathSound() { 
+		return null;
+	}
 	public void setColor(int color) {
 		this.dataManager.set(COLOR, color);
 	}
 	public int getColor() {
 		return this.dataManager.get(COLOR);
+	}
+	public void playBubbleSound() {
+		this.playSound(AmSounds.BUBBLE_BUBBLE, this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+	}
+	public void playPopSound() {
+		this.playSound(AmSounds.BUBBLE_POP, this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+	}
+	public void playSendSound() {
+		this.playSound(AmSounds.BUBBLE_SEND, this.getSoundVolume(), (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
 	}
 }

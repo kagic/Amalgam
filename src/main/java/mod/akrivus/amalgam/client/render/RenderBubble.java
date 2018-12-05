@@ -14,16 +14,11 @@ public class RenderBubble extends RenderLiving<EntityBubble> {
 		this.addLayer(new LayerBubbledItem(this));
 	}
 	@Override
-	public void doRender(EntityBubble entity, double x, double y, double z, float entityYaw, float partialTicks) {
-		int color = entity.getColor();
-		float r = (float)((color & 16711680) >> 16) / 255f;
-        float g = (float)((color & 65280) >> 8) / 255f;
-        float b = (float)((color & 255) >> 0) / 255f;
+	public void doRender(EntityBubble bubble, double x, double y, double z, float entityYaw, float partialTicks) {
         GlStateManager.enableBlend();
-        GlStateManager.color(r, g, b, 0.3F);
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 0.0F);
         GlStateManager.disableAlpha();
-        GlStateManager.depthMask(false);
-        super.doRender(entity, x, y, z, entityYaw, partialTicks);
+        super.doRender(bubble, x, y, z, entityYaw, partialTicks);
 	}
 	@Override
 	protected ResourceLocation getEntityTexture(EntityBubble entity) {
