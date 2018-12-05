@@ -19,6 +19,7 @@ Amalgam requires KAGIC 1.10.1, also called **X11p12** or **X11p13**, and Java SE
 * Emerald, unfinished warrior gem, leads Nephrites.
 * Aqua Aura Quartz, blue, shiny Quartz gem.
 * Watermelon Tourmaline, green Quartz-like gem with a wicked sneeze.
+* Bubbling, right click item with gem staff to bubble, right click bubble to send off.
 
 ## Changes
 * Crux blocks for lightly modded games are enabled but no blocks exist at them moment.
@@ -31,7 +32,6 @@ Amalgam requires KAGIC 1.10.1, also called **X11p12** or **X11p13**, and Java SE
 * Topaz can fuse again.
 
 ## Plans
-* Bubbles, allowing users to carry items outside of their inventory and send them to their spawn.
 * Slagnests, air-exposed gem seeds spawn slags at a high rate.
 * Moonstone, a trader gem inspired by Lenhi's OC, with permission.
 * StoKAGIC-style intelligent injectors and gem seeds.

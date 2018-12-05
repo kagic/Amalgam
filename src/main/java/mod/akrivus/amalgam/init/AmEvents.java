@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.enchant.EnchantShard;
+import mod.akrivus.amalgam.entity.EntityBubble;
 import mod.akrivus.amalgam.entity.EntityGemShard;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.amalgam.gem.EntityFusedRuby;
@@ -48,6 +50,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item.ToolMaterial;
@@ -55,7 +58,10 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -177,7 +183,7 @@ public class AmEvents {
 	}
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
-		e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"�cAmalgam " + Amalgam.VERSION + "�f\"}]"));
+		e.player.sendMessage(new TextComponentString("Amalgam " + Amalgam.VERSION).setStyle(new Style().setColor(TextFormatting.RED)));
 	}
 	@SubscribeEvent
 	public void onAnvilRepair(AnvilRepairEvent e) {
@@ -289,7 +295,7 @@ public class AmEvents {
 		}
 	}
 	@SubscribeEvent
-	public void onPlayerInteract(PlayerInteractEvent e) {
+	public void onRightClickItem(PlayerInteractEvent.RightClickItem e) {
 		ItemStack gem = ItemStack.EMPTY;
 		if (e.getItemStack().getItem() instanceof ItemGem) {
 			ItemGem item = (ItemGem)(e.getItemStack().getItem());
@@ -343,6 +349,38 @@ public class AmEvents {
 			        e.getEntityPlayer().setHeldItem(e.getHand(), new ItemStack(ItemGemShard.SHARD_COLORS.get(colorMap.get(closestRGB)), 9));
 				}
 		    }
+		}
+	}
+	@SubscribeEvent
+	public void onBlockInteract(PlayerInteractEvent.RightClickBlock e) {
+		if (!e.getWorld().isRemote) {
+			List<EntityItem> items = e.getEntityPlayer().world.<EntityItem>getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(e.getPos()).grow(1, 1, 1));
+			for (EntityItem item : items) {
+				if (e.getItemStack().getItem() == ModItems.GEM_STAFF) {
+					List<EntityGem> list = e.getEntityPlayer().world.<EntityGem>getEntitiesWithinAABB(EntityGem.class, e.getEntityPlayer().getEntityBoundingBox().grow(4, 4, 4));
+					double distance = Double.MAX_VALUE;
+					EntityGem gem = null;
+					for (EntityGem testedGem : list) {
+						if (testedGem.isOwnedBy(e.getEntityPlayer())) {
+							double newDistance = e.getEntityPlayer().getDistanceSq(testedGem);
+							if (newDistance <= distance) {
+								distance = newDistance;
+								gem = testedGem;
+							}
+						}
+					}
+					if (gem != null) {
+						EntityBubble bubble = new EntityBubble(e.getWorld());
+						bubble.setColor(gem.getGemColor());
+						bubble.setItem(item.getItem());
+						bubble.setPosition(item.posX, item.posY, item.posZ);
+						bubble.setHealth(0.5F);
+						bubble.motionY = e.getWorld().rand.nextDouble() / 2;
+						item.setDead();
+						e.getWorld().spawnEntity(bubble);
+					}
+				}
+			}
 		}
 	}
 }

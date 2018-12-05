@@ -143,6 +143,10 @@ public class EntityGemShard extends EntityMob {
 		}
 		super.onDeath(cause);
 	}
+	@Override
+	public boolean canDespawn() {
+		return false;
+	}
 	public ItemStack getItem() {
 		return new ItemStack(this.dataManager.get(ITEM));
 	}

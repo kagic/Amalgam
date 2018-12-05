@@ -1,5 +1,6 @@
 package mod.akrivus.amalgam.init;
 
+import mod.akrivus.amalgam.entity.EntityBubble;
 import mod.akrivus.amalgam.entity.EntityGemShard;
 import mod.akrivus.amalgam.entity.EntitySpitball;
 import mod.akrivus.amalgam.gem.EntityAquaAuraQuartz;
@@ -50,6 +51,7 @@ public class AmGems {
 		registerMob("connie", EntityConnie.class, 0x99D3CD, 0xAF4E3D);
 		registerEntity("stevonnie", EntityStevonnie.class);
 		registerEntity("spitball", EntitySpitball.class);
+		registerEntity("bubble", EntityBubble.class);
 	}
 	public static <T extends Entity> void registerMob(String name, Class<T> entity, int back, int fore) {
 		EntityRegistry.registerModEntity(new ResourceLocation("amalgam:" + name), entity, name, currentID, Amalgam.instance, 256, 1, true, back, fore);
