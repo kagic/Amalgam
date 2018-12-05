@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderBubble extends RenderLiving<EntityBubble> {
-	public static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation("amalgam:textures/entities/bubble.png");
 	public RenderBubble() {
 		super(Minecraft.getMinecraft().getRenderManager(), new ModelBubble(), 0.0F);
 		this.addLayer(new LayerBubbledItem(this));
@@ -21,13 +20,13 @@ public class RenderBubble extends RenderLiving<EntityBubble> {
         float g = (float)((color & 65280) >> 8) / 255f;
         float b = (float)((color & 255) >> 0) / 255f;
         GlStateManager.enableBlend();
-        GlStateManager.color(r, g, b, 0.11F);
+        GlStateManager.color(r, g, b, 0.3F);
         GlStateManager.disableAlpha();
         GlStateManager.depthMask(false);
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 	@Override
 	protected ResourceLocation getEntityTexture(EntityBubble entity) {
-		return TEXTURE_LOCATION;
+		return new ResourceLocation("amalgam:textures/entities/bubble.png");
 	}
 }

@@ -26,11 +26,8 @@ public class EntityBubble extends EntityLiving {
 	public EntityBubble(World worldIn) {
 		super(worldIn);
 		this.setSize(0.4F, 0.4F);
-       	((PathNavigateGround) this.getNavigator()).setBreakDoors(true);
-		((PathNavigateGround) this.getNavigator()).setEnterDoors(true);
 		this.dataManager.register(ITEM, ItemStack.EMPTY.serializeNBT());
 		this.dataManager.register(COLOR, 0xFFFFFF);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1.0D);
 	}
 	@Override
