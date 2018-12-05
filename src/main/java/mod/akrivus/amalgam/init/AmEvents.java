@@ -49,14 +49,12 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AnvilUpdateEvent;
@@ -82,56 +80,7 @@ public class AmEvents {
 				for (int i = 0; i < enchantments.tagCount(); i++) {
 					if (Enchantment.getEnchantmentByID(enchantments.getCompoundTagAt(i).getInteger("id")) instanceof EnchantShard) {
 						EnchantShard en = (EnchantShard)(Enchantment.getEnchantmentByID(enchantments.getCompoundTagAt(i).getInteger("id")));
-						switch (en.color) {
-						case 0:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.SATURATION, 200));
-							break;
-						case 1:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 200));
-							break;
-						case 2:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 200));
-							break;
-						case 3:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.SPEED, 200));
-							break;
-						case 4:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.HASTE, 200));
-							break;
-						case 5:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 200));
-							break;
-						case 6:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 200));
-							break;
-						case 7:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 200));
-							break;
-						case 8:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 200));
-							break;
-						case 9:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 200));
-							break;
-						case 10:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 200));
-							break;
-						case 11:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 200));
-							break;
-						case 12:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 200));
-							break;
-						case 13:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.LUCK, 200));
-							break;
-						case 14:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 200));
-							break;
-						case 15:
-							e.getEntityLiving().addPotionEffect(new PotionEffect(MobEffects.SATURATION, 200));
-							break;
-						}
+						e.getEntityLiving().addPotionEffect(en.getBuff(en.color));
 					}
 				}
 			}

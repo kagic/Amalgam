@@ -2,6 +2,7 @@ package mod.akrivus.amalgam.enchant;
 
 import java.util.HashMap;
 
+import mod.akrivus.amalgam.entity.EntityGemShard;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.Entity;
@@ -33,56 +34,7 @@ public class EnchantShard extends Enchantment {
 				for (int i = 0; i < enchantments.tagCount(); i++) {
 					if (Enchantment.getEnchantmentByID(enchantments.getCompoundTagAt(i).getInteger("id")) instanceof EnchantShard) {
 						EnchantShard en = (EnchantShard)(Enchantment.getEnchantmentByID(enchantments.getCompoundTagAt(i).getInteger("id")));
-						switch (en.color) {
-						case 0:
-							entity.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 400));
-							break;
-						case 1:
-							entity.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 400));
-							break;
-						case 2:
-							entity.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 400));
-							break;
-						case 3:
-							entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 400));
-							break;
-						case 4:
-							entity.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 400));
-							break;
-						case 5:
-							entity.addPotionEffect(new PotionEffect(MobEffects.LEVITATION, 400));
-							break;
-						case 6:
-							entity.addPotionEffect(new PotionEffect(MobEffects.POISON, 400));
-							break;
-						case 7:
-							entity.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 400));
-							break;
-						case 8:
-							entity.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 400));
-							break;
-						case 9:
-							entity.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 400));
-							break;
-						case 10:
-							entity.addPotionEffect(new PotionEffect(MobEffects.WITHER, 400));
-							break;
-						case 11:
-							entity.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 400));
-							break;
-						case 12:
-							entity.addPotionEffect(new PotionEffect(MobEffects.WITHER, 400));
-							break;
-						case 13:
-							entity.addPotionEffect(new PotionEffect(MobEffects.UNLUCK, 400));
-							break;
-						case 14:
-							entity.setFire(800);
-							break;
-						case 15:
-							entity.addPotionEffect(new PotionEffect(MobEffects.HUNGER, 400));
-							break;
-						}
+						entity.addPotionEffect(this.getDeBuff(en.color));
 					}
 				}
 			}
@@ -90,7 +42,6 @@ public class EnchantShard extends Enchantment {
     }
     @Override
 	public void onUserHurt(EntityLivingBase user, Entity attacker, int level) {
-    	/*
     	for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
     		ItemStack stack = user.getItemStackFromSlot(slot);
 			NBTTagList enchantments = stack.getEnchantmentTagList();
@@ -109,7 +60,6 @@ public class EnchantShard extends Enchantment {
 				}
 			}
 		}
-		*/
     }
     @Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack) {
@@ -139,4 +89,80 @@ public class EnchantShard extends Enchantment {
 	public int getMaxLevel() {
         return 1;
     }
+	public PotionEffect getDeBuff(int color) {
+		switch (color) {
+		case 0:	// White
+			return new PotionEffect(MobEffects.HUNGER, 400);
+		case 1:	// Orange
+			return new PotionEffect(MobEffects.WEAKNESS, 400);
+		case 2:	// Magenta
+			return new PotionEffect(MobEffects.WEAKNESS, 400);
+		case 3:	// Light Blue
+			return new PotionEffect(MobEffects.SLOWNESS, 400);
+		case 4:	// Yellow
+			return new PotionEffect(MobEffects.MINING_FATIGUE, 400);
+		case 5:	// Lime
+			return new PotionEffect(MobEffects.LEVITATION, 400);
+		case 6:	// Pink
+			return new PotionEffect(MobEffects.POISON, 400);
+		case 7:	// Gray
+			return new PotionEffect(MobEffects.BLINDNESS, 400);
+		case 8:	// Light Gray
+			return new PotionEffect(MobEffects.BLINDNESS, 400);
+		case 9: // Cyan
+			return new PotionEffect(MobEffects.NAUSEA, 400);
+		case 10:// Purple
+			return new PotionEffect(MobEffects.WITHER, 400);
+		case 11:// Blue
+			return new PotionEffect(MobEffects.NAUSEA, 400);
+		case 12:// Brown
+			return new PotionEffect(MobEffects.WITHER, 400);
+		case 13:// Green
+			return new PotionEffect(MobEffects.UNLUCK, 400);
+		case 14:// Red
+			return new PotionEffect(MobEffects.MINING_FATIGUE, 400);
+		case 15:// Black
+			return new PotionEffect(MobEffects.WITHER, 400);
+		default:
+			return new PotionEffect(MobEffects.SLOWNESS, 400);
+		}
+	}
+	public PotionEffect getBuff(int color) {
+		switch (color) {
+		case 0:	// White
+			return new PotionEffect(MobEffects.INVISIBILITY, 400);
+		case 1:	// Orange
+			return new PotionEffect(MobEffects.STRENGTH, 400);
+		case 2:	// Magenta
+			return new PotionEffect(MobEffects.SPEED, 400);
+		case 3:	// Light Blue
+			return new PotionEffect(MobEffects.FIRE_RESISTANCE, 400);
+		case 4:	// Yellow
+			return new PotionEffect(MobEffects.ABSORPTION, 400);
+		case 5:	// Lime
+			return new PotionEffect(MobEffects.JUMP_BOOST, 400);
+		case 6:	// Pink
+			return new PotionEffect(MobEffects.REGENERATION, 400);
+		case 7:	// Gray
+			return new PotionEffect(MobEffects.RESISTANCE, 400);
+		case 8:	// Light Gray
+			return new PotionEffect(MobEffects.HEALTH_BOOST, 400);
+		case 9: // Cyan
+			return new PotionEffect(MobEffects.NIGHT_VISION, 400);
+		case 10:// Purple
+			return new PotionEffect(MobEffects.REGENERATION, 400);
+		case 11:// Blue
+			return new PotionEffect(MobEffects.WATER_BREATHING, 400);
+		case 12:// Brown
+			return new PotionEffect(MobEffects.HASTE, 400);
+		case 13:// Green
+			return new PotionEffect(MobEffects.LUCK, 400);
+		case 14:// Red
+			return new PotionEffect(MobEffects.STRENGTH, 400);
+		case 15:// Black
+			return new PotionEffect(MobEffects.RESISTANCE, 400);
+		default:
+			return new PotionEffect(MobEffects.FIRE_RESISTANCE, 400);
+		}
+	}
 }
