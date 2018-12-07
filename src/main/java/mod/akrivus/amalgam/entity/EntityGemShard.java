@@ -1,8 +1,7 @@
 package mod.akrivus.amalgam.entity;
 
-import mod.akrivus.amalgam.client.particle.ParticleShard;
 import mod.akrivus.amalgam.init.AmItems;
-import net.minecraft.client.Minecraft;
+import mod.akrivus.amalgam.init.Amalgam;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -131,7 +130,7 @@ public class EntityGemShard extends EntityMob {
 	public void onLivingUpdate() {
         if (this.world.isRemote) {
             for (int i = 0; i < 1; ++i) {
-            	Minecraft.getMinecraft().effectRenderer.addEffect(new ParticleShard(this.world, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.posY + 0.5D + (this.rand.nextFloat() * this.height), this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.rand.nextGaussian() * 0.02D, this.rand.nextGaussian() * 0.02D, this.rand.nextGaussian() * 0.02D, EntityGemShard.PARTICLE_COLORS[this.getColor()]));
+            	Amalgam.proxy.addShardParticle(this.world, this.posX + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.posY + 0.5D + (this.rand.nextFloat() * this.height), this.posZ + (this.rand.nextFloat() * this.width * 2.0F) - this.width, this.rand.nextGaussian() * 0.02D, this.rand.nextGaussian() * 0.02D, this.rand.nextGaussian() * 0.02D, EntityGemShard.PARTICLE_COLORS[this.getColor()]);
             }
         }
         super.onLivingUpdate();

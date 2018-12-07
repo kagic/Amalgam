@@ -3,6 +3,7 @@ package mod.akrivus.amalgam.init;
 import java.util.Iterator;
 
 import mod.akrivus.amalgam.command.CommandGetCrux;
+import mod.akrivus.amalgam.proxies.CommonProxy;
 import mod.akrivus.kagic.init.ModConfigs;
 import mod.akrivus.kagic.util.injector.Injector;
 import net.minecraft.block.Block;
@@ -18,6 +19,7 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -30,6 +32,9 @@ public class Amalgam {
     public static final String MCVERSION = "1.12.2";
 	public static final String MODID = "amalgam";
 
+	@SidedProxy(clientSide = "mod.akrivus.amalgam.proxies.ClientProxy", serverSide = "mod.akrivus.amalgam.proxies.ServerProxy")
+	public static CommonProxy proxy;
+	
     @Instance
     public static Amalgam instance;
 
