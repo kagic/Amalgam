@@ -57,6 +57,7 @@ public class EnchantShard extends Enchantment {
 					if (attacker instanceof EntityLivingBase) {
 						shard.setAttackTarget((EntityLivingBase) attacker);
 					}
+					break;
 				}
 			}
 		}

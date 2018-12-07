@@ -42,9 +42,9 @@ public class EntityEmerald extends EntityGem implements IAnimals {
 
 	public static final int SKIN_COLOR_BEGIN = 0xD7F6EE;
 	public static final int SKIN_COLOR_MID = 0xC0E195;
-	public static final int SKIN_COLOR_END = 0xC0E195; 
+	public static final int SKIN_COLOR_END = 0xC0E195;
 	public static final int HAIR_COLOR_BEGIN = 0x93F1B5;
-	public static final int HAIR_COLOR_END = 0x10532F; 
+	public static final int HAIR_COLOR_END = 0x10532F;
 	private static final int NUM_HAIRSTYLES = 1;
 	
 	public EntityEmerald(World worldIn) {
@@ -79,6 +79,12 @@ public class EntityEmerald extends EntityGem implements IAnimals {
             @Override
 			public boolean apply(EntityLiving input) {
                 return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
+            }
+        }));
+        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityGem>(this, EntityGem.class, 10, true, false, new Predicate<EntityGem>() {
+            @Override
+			public boolean apply(EntityGem input) {
+                return input != null && (input.isDefective() || input.isTraitor());
             }
         }));
         

@@ -2,7 +2,6 @@ package mod.akrivus.amalgam.init;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -12,6 +11,7 @@ import com.google.common.base.Predicate;
 import mod.akrivus.amalgam.enchant.EnchantShard;
 import mod.akrivus.amalgam.entity.EntityBubble;
 import mod.akrivus.amalgam.entity.EntityGemShard;
+import mod.akrivus.amalgam.entity.EntityInjector;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.amalgam.gem.EntityFusedRuby;
 import mod.akrivus.amalgam.gem.EntityFusedTopaz;
@@ -43,15 +43,20 @@ import mod.akrivus.kagic.entity.gem.fusion.EntityRainbowQuartz;
 import mod.akrivus.kagic.entity.gem.fusion.EntityRhodonite;
 import mod.akrivus.kagic.event.DrainBlockEvent;
 import mod.akrivus.kagic.event.TimeGlassEvent;
+import mod.akrivus.kagic.init.ModBlocks;
 import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.items.ItemGem;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.BlockStainedGlass;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item.ToolMaterial;
@@ -59,11 +64,13 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -71,6 +78,7 @@ import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -297,90 +305,94 @@ public class AmEvents {
 		}
 	}
 	@SubscribeEvent
-	public void onRightClickItem(PlayerInteractEvent.RightClickItem e) {
-		ItemStack gem = ItemStack.EMPTY;
-		if (e.getItemStack().getItem() instanceof ItemGem) {
-			ItemGem item = (ItemGem)(e.getItemStack().getItem());
-			if (item.isCracked) {
-				gem = e.getItemStack();
-			}
-		}
-		if (!gem.isEmpty()) {
-			HashMap<String, Integer> colorMap = new HashMap<String, Integer>();
-			colorMap.put("FFFFFF", 0);
-			colorMap.put("FDC84D", 1);
-			colorMap.put("EB3DFE", 2);
-			colorMap.put("CEEDF4", 3);
-			colorMap.put("F4E900", 4);
-			colorMap.put("B6FEAB", 5);
-			colorMap.put("F8C2EB", 6);
-			colorMap.put("9AA4AF", 7);
-			colorMap.put("DDDDDD", 8);
-			colorMap.put("A8DCDF", 9);
-			colorMap.put("B185CF", 10);
-			colorMap.put("A0B7EB", 11);
-			colorMap.put("E9D5C9", 12);
-			colorMap.put("2ED6A8", 13);
-			colorMap.put("FD4813", 14);
-			colorMap.put("2E2941", 15);
-			if (gem.hasTagCompound()) {
-				NBTTagCompound nbt = gem.getTagCompound();
-				if (nbt.hasKey("gemColor")) {
-					String rgb = Integer.toString(nbt.getInteger("gemColor"), 16);
-				    int r1 = Integer.parseInt(rgb.substring(0, 2), 16);
-				    int g1 = Integer.parseInt(rgb.substring(2, 4), 16);
-				    int b1 = Integer.parseInt(rgb.substring(4, 6), 16);
-			        int r2, g2, b2;
-			        double difference = 0;
-			        String closestRGB = null;
-			        for (String rawRGB : colorMap.keySet()) {
-			            r2 = Integer.parseInt(rawRGB.substring(0, 2), 16);
-			            g2 = Integer.parseInt(rawRGB.substring(2, 4), 16);
-			            b2 = Integer.parseInt(rawRGB.substring(4, 6), 16);
-			            double diff = Math.sqrt((r2 - r1) ^ 2 + (g2 - g1) ^ 2 + (b2 - b1) ^ 2);
-			            if (closestRGB == null) {
-			                closestRGB = rawRGB;
-			                difference = diff;
-			                continue;
-			            }
-			            if (diff < difference) {
-			                closestRGB = rawRGB;
-			                difference = diff;
-			            }
-			        }
-			        e.getEntityPlayer().setHeldItem(e.getHand(), new ItemStack(ItemGemShard.SHARD_COLORS.get(colorMap.get(closestRGB)), 9));
+	public void onBlockInteract(PlayerInteractEvent.RightClickBlock e) {
+		if (AmConfigs.enableBubbling) {
+			if (!e.getWorld().isRemote) {
+				List<EntityItem> items = e.getEntityPlayer().world.<EntityItem>getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(e.getPos()).grow(1, 1, 1));
+				for (EntityItem item : items) {
+					if (e.getItemStack().getItem() == ModItems.GEM_STAFF || e.getItemStack().getItem() == ModItems.COMMANDER_STAFF) {
+						List<EntityGem> list = e.getEntityPlayer().world.<EntityGem>getEntitiesWithinAABB(EntityGem.class, e.getEntityPlayer().getEntityBoundingBox().grow(4, 4, 4));
+						double distance = Double.MAX_VALUE;
+						EntityGem gem = null;
+						for (EntityGem testedGem : list) {
+							if (testedGem.isOwnedBy(e.getEntityPlayer())) {
+								double newDistance = e.getEntityPlayer().getDistanceSq(testedGem);
+								if (newDistance <= distance) {
+									distance = newDistance;
+									gem = testedGem;
+								}
+							}
+						}
+						if (gem != null) {
+							EntityBubble bubble = new EntityBubble(e.getWorld());
+							bubble.setColor(gem.getGemColor());
+							bubble.setItem(item.getItem());
+							bubble.setPosition(item.posX, item.posY, item.posZ);
+							bubble.setHealth(0.5F);
+							bubble.motionY = e.getWorld().rand.nextDouble() / 2;
+							bubble.playBubbleSound();
+							item.setDead();
+							e.getWorld().spawnEntity(bubble);
+						}
+					}
 				}
-		    }
+			}
 		}
 	}
 	@SubscribeEvent
-	public void onBlockInteract(PlayerInteractEvent.RightClickBlock e) {
-		if (!e.getWorld().isRemote) {
-			List<EntityItem> items = e.getEntityPlayer().world.<EntityItem>getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(e.getPos()).grow(1, 1, 1));
-			for (EntityItem item : items) {
-				if (e.getItemStack().getItem() == ModItems.GEM_STAFF) {
-					List<EntityGem> list = e.getEntityPlayer().world.<EntityGem>getEntitiesWithinAABB(EntityGem.class, e.getEntityPlayer().getEntityBoundingBox().grow(4, 4, 4));
-					double distance = Double.MAX_VALUE;
-					EntityGem gem = null;
-					for (EntityGem testedGem : list) {
-						if (testedGem.isOwnedBy(e.getEntityPlayer())) {
-							double newDistance = e.getEntityPlayer().getDistanceSq(testedGem);
-							if (newDistance <= distance) {
-								distance = newDistance;
-								gem = testedGem;
+	public void onBlockPlace(BlockEvent.PlaceEvent e) {
+		if (AmConfigs.replaceInjectors) {
+			IBlockState state = e.getPlacedBlock();
+			int metadata = 0;
+			if (state.getBlock() == Blocks.STAINED_GLASS) {
+				metadata = state.getValue(BlockStainedGlass.COLOR).getDyeDamage();
+				state = e.getWorld().getBlockState(e.getPos().down(1));
+				if (state.getBlock() == Blocks.STAINED_GLASS
+				&&  state.getValue(BlockStainedGlass.COLOR).getDyeDamage() == metadata) {
+					state = e.getWorld().getBlockState(e.getPos().down(2));
+					if (state.getBlock() == Blocks.ANVIL) {
+						state = e.getWorld().getBlockState(e.getPos().down(3));
+						if (state.getBlock() == Blocks.DISPENSER
+						&&  state.getValue(BlockDispenser.FACING) == EnumFacing.DOWN) {
+							IBlockState north = e.getWorld().getBlockState(e.getPos().down(3).north());
+							IBlockState south = e.getWorld().getBlockState(e.getPos().down(3).south());
+							IBlockState east  = e.getWorld().getBlockState(e.getPos().down(3).east());
+							IBlockState west  = e.getWorld().getBlockState(e.getPos().down(3).west());
+							if (north.getBlock() == Blocks.IRON_BARS && south.getBlock() == Blocks.IRON_BARS
+							&& east.getBlock() == Blocks.IRON_BARS && west.getBlock() == Blocks.IRON_BARS) {
+								state = e.getWorld().getBlockState(e.getPos().down(4));
+								if (state.getBlock() == Blocks.HOPPER) {
+									north = e.getWorld().getBlockState(e.getPos().down(4).north());
+									south = e.getWorld().getBlockState(e.getPos().down(4).south());
+									east  = e.getWorld().getBlockState(e.getPos().down(4).east());
+									west  = e.getWorld().getBlockState(e.getPos().down(4).west());
+									if (north.getBlock() == Blocks.IRON_BARS && south.getBlock() == Blocks.IRON_BARS
+									&& east.getBlock() == Blocks.IRON_BARS && west.getBlock() == Blocks.IRON_BARS) {
+										e.getItemInHand().shrink(1);
+										e.getWorld().destroyBlock(e.getPos().down(1), false);
+										e.getWorld().destroyBlock(e.getPos().down(2), false);
+										e.getWorld().destroyBlock(e.getPos().down(3), false);
+										e.getWorld().destroyBlock(e.getPos().down(3).north(), false);
+										e.getWorld().destroyBlock(e.getPos().down(3).south(), false);
+										e.getWorld().destroyBlock(e.getPos().down(3).east(), false);
+										e.getWorld().destroyBlock(e.getPos().down(3).west(), false);
+										e.getWorld().destroyBlock(e.getPos().down(4), false);
+										e.getWorld().destroyBlock(e.getPos().down(4).north(), false);
+										e.getWorld().destroyBlock(e.getPos().down(4).south(), false);
+										e.getWorld().destroyBlock(e.getPos().down(4).east(), false);
+										e.getWorld().destroyBlock(e.getPos().down(4).west(), false);
+										e.setCanceled(true);
+										if (!e.getWorld().isRemote) {
+											EntityInjector injector = new EntityInjector(e.getWorld());
+											injector.setPosition(e.getPos().getX() + 0.5F, e.getPos().getY() - 4, e.getPos().getZ() + 0.5F);
+											injector.setColor(metadata);
+											injector.setHealth(10.0F);
+											e.getWorld().spawnEntity(injector);
+										}
+									}
+								}
 							}
 						}
-					}
-					if (gem != null) {
-						EntityBubble bubble = new EntityBubble(e.getWorld());
-						bubble.setColor(gem.getGemColor());
-						bubble.setItem(item.getItem());
-						bubble.setPosition(item.posX, item.posY, item.posZ);
-						bubble.setHealth(0.5F);
-						bubble.motionY = e.getWorld().rand.nextDouble() / 2;
-						bubble.playBubbleSound();
-						item.setDead();
-						e.getWorld().spawnEntity(bubble);
 					}
 				}
 			}

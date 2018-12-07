@@ -135,14 +135,14 @@ public class ModelInjector extends ModelBase {
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
     	this.resetRotationAngles();
     	this.neck.rotateAngleY = netHeadYaw * (3.141592653F / 180F);
-       	this.leg1.rotateAngleY +=  (MathHelper.cos(limbSwing * 0.6662F * 2.0F + 0.0F) * 0.8F) * limbSwingAmount;
-    	this.leg2.rotateAngleY += -(MathHelper.cos(limbSwing * 0.6662F * 2.0F + 0.0F) * 0.8F) * limbSwingAmount;
-    	this.leg3.rotateAngleY +=  (MathHelper.cos(limbSwing * 0.6662F * 2.0F + 3.14F) * 0.8F) * limbSwingAmount;
-    	this.leg4.rotateAngleY += -(MathHelper.cos(limbSwing * 0.6662F * 2.0F + 3.14F) * 0.8F) * limbSwingAmount;
-    	this.leg1.rotateAngleZ +=  -Math.abs(MathHelper.sin(limbSwing * 0.6662F + 0.0F) * 0.8F) * limbSwingAmount;
-    	this.leg2.rotateAngleZ +=   Math.abs(MathHelper.sin(limbSwing * 0.6662F + 0.0F) * 0.8F) * limbSwingAmount;
-    	this.leg3.rotateAngleZ +=  -Math.abs(MathHelper.sin(limbSwing * 0.6662F + 3.14F) * 0.8F) * limbSwingAmount;
-    	this.leg4.rotateAngleZ +=   Math.abs(MathHelper.sin(limbSwing * 0.6662F + 3.14F) * 0.8F) * limbSwingAmount;
+    	this.leg1.rotateAngleY +=  Math.abs(MathHelper.sin(limbSwing * 0.6662F + 3.14F) * 0.4F) * limbSwingAmount;
+    	this.leg2.rotateAngleY += -Math.abs(MathHelper.sin(limbSwing * 0.6662F + 3.14F) * 0.4F) * limbSwingAmount;
+    	this.leg3.rotateAngleY += -Math.abs(MathHelper.sin(limbSwing * 0.6662F + 0.0F) * 0.4F) * limbSwingAmount;
+    	this.leg4.rotateAngleY +=  Math.abs(MathHelper.sin(limbSwing * 0.6662F + 0.0F) * 0.4F) * limbSwingAmount;
+       	this.leg1.rotateAngleZ +=  MathHelper.cos(limbSwing * 0.6662F * 2.0F + 3.14F) * 0.4F * limbSwingAmount;
+    	this.leg2.rotateAngleZ += -MathHelper.cos(limbSwing * 0.6662F * 2.0F + 3.14F) * 0.4F * limbSwingAmount;
+    	this.leg3.rotateAngleZ +=  MathHelper.cos(limbSwing * 0.6662F * 2.0F + 0.0F) * 0.4F * limbSwingAmount;
+    	this.leg4.rotateAngleZ += -MathHelper.cos(limbSwing * 0.6662F * 2.0F + 0.0F) * 0.4F * limbSwingAmount;
     }
     @Override
     public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headYaw, float scale) {

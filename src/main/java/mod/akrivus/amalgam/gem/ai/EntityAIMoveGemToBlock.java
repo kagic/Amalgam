@@ -46,7 +46,7 @@ public abstract class EntityAIMoveGemToBlock extends EntityAIBase
     }
     @Override
 	public void updateTask() {
-        if (this.creature.getDistanceSqToCenter(this.destinationBlock.up()) > 1.0D) {
+        if (this.creature.getDistanceSqToCenter(this.destinationBlock.up()) > this.creature.height * 2) {
             this.isAboveDestination = false;
             ++this.timeoutCounter;
             if (this.timeoutCounter % 40 == 0) {

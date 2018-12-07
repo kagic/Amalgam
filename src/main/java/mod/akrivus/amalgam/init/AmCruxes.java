@@ -24,18 +24,6 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class AmCruxes {
 	public static void register() {
-		Iterator<String> ores = AmBlocks.DICTS.keySet().iterator();
-		while (ores.hasNext() && AmConfigs.addNewCruxes) {
-			String ore = ores.next();
-			if (AmConfigs.addEmptyCruxes) {
-				if (OreDictionary.getOres(ore, true).isEmpty()) {
-					OreDictionary.registerOre(ore, AmBlocks.DICTS.get(ore));
-				}
-			}
-			else {
-				OreDictionary.registerOre(ore, AmBlocks.DICTS.get(ore));
-			}
-		}
 		if (AmConfigs.removePearlCruxes && AmConfigs.enableNacre) {
 			ModEntities.MINERALS.remove(EntityPearl.class);
 			EntityPearl.PEARL_YIELDS.clear();
@@ -97,9 +85,10 @@ public class AmCruxes {
 			EntityNacre.NACRE_YIELDS.put(Blocks.MAGENTA_GLAZED_TERRACOTTA.getDefaultState(), 5.99);
 			EntityNacre.NACRE_YIELDS.put(Blocks.PINK_GLAZED_TERRACOTTA.getDefaultState(), 5.99);
 			EntityNacre.NACRE_YIELDS.put(Blocks.PURPLE_GLAZED_TERRACOTTA.getDefaultState(), 5.99);
-			EntityNacre.NACRE_YIELDS.put(Blocks.WATER.getDefaultState(), 0.99);
-			EntityNacre.NACRE_YIELDS.put(Blocks.GRAVEL.getDefaultState(), 0.01);
-			EntityNacre.NACRE_YIELDS.put(Blocks.CLAY.getDefaultState(), 0.55);
+			EntityNacre.NACRE_YIELDS.put(Blocks.COAL_ORE.getDefaultState(), 0.55);
+			EntityNacre.NACRE_YIELDS.put(Blocks.WATER.getDefaultState(), 0.45);
+			EntityNacre.NACRE_YIELDS.put(Blocks.GRAVEL.getDefaultState(), 0.001);
+			EntityNacre.NACRE_YIELDS.put(Blocks.CLAY.getDefaultState(), 0.35);
 			EntityNacre.NACRE_YIELDS.put(Blocks.LOG.getDefaultState(), 1.99);
 			EntityNacre.NACRE_YIELDS.put(Blocks.LOG2.getDefaultState(), 1.99);
 			ModEntities.registerOreDictValue(EntityNacre.NACRE_YIELDS, 0.99, "stoneLimestone");
@@ -108,8 +97,9 @@ public class AmCruxes {
 			ModEntities.registerWithOreDictionary(EntityNacre.NACRE_YIELDS, "Calcite", "Aragonite");
 		}
 		if (AmConfigs.enableNephrite) {
-			EntityNephrite.NEPHRITE_YIELDS.put(Blocks.BEDROCK.getDefaultState(), 2.99);
-			EntityNephrite.NEPHRITE_YIELDS.put(Blocks.GRASS.getDefaultState(), 0.01);
+			EntityNephrite.NEPHRITE_YIELDS.put(Blocks.BEDROCK.getDefaultState(), 0.99);
+			EntityNephrite.NEPHRITE_YIELDS.put(Blocks.COAL_ORE.getDefaultState(), 0.45);
+			EntityNephrite.NEPHRITE_YIELDS.put(Blocks.GRASS.getDefaultState(), 0.001);
 			ModEntities.registerOreDictValue(EntityNephrite.NEPHRITE_YIELDS, 0.11, "stoneDiorite");
 			ModEntities.registerOreDictValue(EntityNephrite.NEPHRITE_YIELDS, 0.22, "stoneDioritePolished");
 			ModEntities.registerWithOreDictionary(EntityNephrite.NEPHRITE_YIELDS, "Nephrite", "Jade");

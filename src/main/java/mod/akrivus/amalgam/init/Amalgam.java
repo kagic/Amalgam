@@ -1,9 +1,15 @@
 package mod.akrivus.amalgam.init;
 
+import java.util.Iterator;
+
 import mod.akrivus.amalgam.command.CommandGetCrux;
+import mod.akrivus.kagic.init.ModConfigs;
+import mod.akrivus.kagic.util.injector.Injector;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -38,6 +44,7 @@ public class Amalgam {
     }
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+    	ModConfigs.displayNames = AmConfigs.showDescriptors;
     	AmSkills.register();
     	AmCruxes.register();
     }
@@ -48,6 +55,19 @@ public class Amalgam {
     
     @Mod.EventBusSubscriber(modid = Amalgam.MODID)
 	public static class RegistrationHandler {
+    	@SubscribeEvent
+    	public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+    		Iterator<IRecipe> it = event.getRegistry().iterator();
+    		while (it.hasNext()) {
+    			IRecipe recipe = it.next();
+    			if (recipe.getRecipeOutput().getItem() instanceof ItemBlock) {
+    				ItemBlock block = (ItemBlock)(recipe.getRecipeOutput().getItem());
+    				if (Injector.isInjectorBlock(block.getBlock())) {
+    					it.remove();
+    				}
+    			}
+    		}
+    	}
     	@SubscribeEvent
 		public static void registerEnchants(RegistryEvent.Register<Enchantment> event) {
 			AmEnchants.register(event);
@@ -66,8 +86,10 @@ public class Amalgam {
 		}
 		@SubscribeEvent
 		public static void changeConfigs(ConfigChangedEvent.OnConfigChangedEvent event) {
-			if (event.getModID().equals(Amalgam.MODID)) {
-				ConfigManager.sync(Amalgam.MODID, Config.Type.INSTANCE);
+			if (AmConfigs.replaceInjectors) {
+				if (event.getModID().equals(Amalgam.MODID)) {
+					ConfigManager.sync(Amalgam.MODID, Config.Type.INSTANCE);
+				}
 			}
 		}
 	}

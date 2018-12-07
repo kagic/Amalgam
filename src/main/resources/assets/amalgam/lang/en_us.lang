@@ -25,10 +25,14 @@ entity.nephrite_1.name=Nephrite
 entity.emerald.name=Emerald
 entity.aqua_aura_quartz.name=Aqua Aura Quartz
 entity.watermelon_tourmaline.name=Watermelon Tourmaline
+
 entity.steven.name=Steven
 entity.connie.name=Connie
 entity.stevonnie.name=Stevonnie
+
 entity.gem_shard.name=Gem Shard
+entity.bubble.name=Bubble
+entity.injector.name=Injector
 
 entity.fused_topaz.name=Topaz
 entity.fused_ruby.name=Ruby
