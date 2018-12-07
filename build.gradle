@@ -11,8 +11,6 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-def minecraftVersion = "1.12.2"
-
 group = "mod.akrivus.amalgam"
 archivesBaseName = "amalgam"
 version = "1.0"
@@ -25,7 +23,6 @@ dependencies {
 }
 
 minecraft {
-    replace "@mcversion", minecraftVersion
     replace "@version", project.version
     replaceIn "Amalgam.java"
     version = "1.12.2-14.23.5.2775"

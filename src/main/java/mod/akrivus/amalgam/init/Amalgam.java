@@ -27,7 +27,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod(modid = Amalgam.MODID, version = Amalgam.VERSION, acceptedMinecraftVersions = Amalgam.MCVERSION, dependencies="after:kagic")
 public class Amalgam {
     public static final String VERSION = "@version";
-    public static final String MCVERSION = "@mcversion";
+    public static final String MCVERSION = "1.12.2";
 	public static final String MODID = "amalgam";
 
     @Instance

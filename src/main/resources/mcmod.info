@@ -4,9 +4,9 @@
 		"name": "Amalgam",
 		"description": "Amalgam; the big addon for a big collection of head-canons, gameplay rewrites, experimental gems, and interesting gemsonas from various artists.",
 		"version": "${version}",
-		"mcversion": "${mcversion}",
+		"mcversion": "1.12.2",
 		"authorList": ["Akrivus"],
-		"credits": "§7\n\"Moonstone\" is based on the amazing work of Lenhi with their written permission.\n\"Steven Universe\" and all related characters and elements are trademarks of Cartoon Network.§f",
+		"credits": "\"Moonstone\" is based on the amazing work of Lenhi with their written permission.\n\"Steven Universe\" and all related characters and elements are trademarks of Cartoon Network.",
 		"dependencies": [
 			"kagic"
 		]
