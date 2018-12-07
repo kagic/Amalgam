@@ -20,12 +20,14 @@ Amalgam requires KAGIC 1.10.1, also called **X11p12** or **X11p13**, and Java SE
 * Aqua Aura Quartz, blue, shiny Quartz gem.
 * Watermelon Tourmaline, green Quartz-like gem with a wicked sneeze.
 * Bubbling, right click item with gem staff to bubble, right click bubble to send off.
+* Mobile Injector Entities, built like golems.
 
 ## Changes
 * Crux blocks for lightly modded games are enabled but no blocks exist at them moment.
 * Pearls can't be grown from Kindergartens and require a **Mother of Pearl**.
 * Rubies are social gems, and automatically follow the strongest gem.
 * Hessonites kill defective and rebellious gems.
+* Injectors can no longer be crafted.
 
 ## Fixes
 * Ruby dupe glitch is fixed.
