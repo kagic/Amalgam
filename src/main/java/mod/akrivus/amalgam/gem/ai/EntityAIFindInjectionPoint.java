@@ -17,10 +17,16 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 	}
 	@Override
 	public boolean shouldExecute() {
-		if (this.injector.getPlayerBeingFollowed() == null && this.injector.getLevel() > 0) {
-			if (this.delay > 50 + this.injector.getRNG().nextInt(50)) {
+		if (this.injector.getPlayerBeingFollowed() == null && this.injector.getLevel() > 0 && this.injector.numberOfFails < 27) {
+			if (this.delay > 100 + this.injector.getRNG().nextInt(100)) {
 				this.runDelay = 0;
-				return super.shouldExecute();
+				if (super.shouldExecute()) {
+					return true;
+				}
+				else {
+					++this.injector.numberOfFails;
+					return false;
+				}
 			}
 			else {
 				++this.delay;
@@ -43,19 +49,14 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 	@Override
 	public void updateTask() {
 		super.updateTask();
-		this.injector.playSound(SoundEvents.BLOCK_IRON_DOOR_OPEN, 1.0F, 1.0F);
 		this.injector.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, this.destinationBlock.getY() + 1, this.destinationBlock.getZ() + 0.5D, 10.0F, this.injector.getVerticalFaceSpeed());
 		if (this.getIsAboveDestination()) {
-			System.out.println("I shouldn't be moving.");
 			this.injector.world.playSound(null, this.injector.getPosition(), ModSounds.BLOCK_INJECTOR_FIRE, SoundCategory.NEUTRAL, 1000.0F, 1.0F);
 			this.injector.world.setBlockState(this.getRelativePoint(this.injector.world, this.destinationBlock), ModBlocks.GEM_SEED.getDefaultState());
 			this.injector.setLevel(this.injector.getLevel() - 1);
 		}
 		else {
-			System.out.println("D = " + this.injector.getDistanceSq(this.destinationBlock.up()));
-			System.out.println(this.destinationBlock);
-			System.out.println(this.injector.getPosition());
-			System.out.println("I should be moving.");
+			this.injector.playSound(SoundEvents.BLOCK_IRON_DOOR_OPEN, 1.0F, 1.0F);
 		}
 	}
 	@Override

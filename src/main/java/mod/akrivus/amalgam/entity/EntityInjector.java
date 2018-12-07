@@ -39,6 +39,7 @@ public class EntityInjector extends EntityCreature {
 	private static final DataParameter<Integer> COLOR = EntityDataManager.<Integer>createKey(EntityInjector.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> LEVEL = EntityDataManager.<Integer>createKey(EntityInjector.class, DataSerializers.VARINT);
 	private EntityPlayer playerBeingFollowed;
+	public int numberOfFails = 0;
 	public EntityInjector(World world) {
 		super(world);
 		this.setSize(0.9F, 4.6F);
@@ -59,6 +60,7 @@ public class EntityInjector extends EntityCreature {
 		if (this.getPlayerUUIDBeingFollowed() != null) {
 			compound.setUniqueId("playerBeingFollowed", this.getPlayerUUIDBeingFollowed());
 		}
+		compound.setInteger("numberOfFails", this.numberOfFails);
         compound.setInteger("color", this.getColor());
         compound.setInteger("level", this.getLevel());
         super.writeEntityToNBT(compound);
@@ -66,6 +68,7 @@ public class EntityInjector extends EntityCreature {
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		this.setPlayerUUIDBeingFollowed(compound.getUniqueId("playerBeingFollowed"));
+		this.numberOfFails = compound.getInteger("numberOfFails");
         this.setColor(compound.getInteger("color"));
         this.setLevel(compound.getInteger("level"));
         super.readEntityFromNBT(compound);
@@ -89,6 +92,7 @@ public class EntityInjector extends EntityCreature {
 					if (this.playerBeingFollowed != null && this.playerBeingFollowed.isEntityEqual(player)) {
 						this.say(player, this.getName() + " will not follow you.");
 						this.playerBeingFollowed = null;
+						this.numberOfFails = 0;
 					}
 					else {
 						this.say(player, this.getName() + " will follow you.");
