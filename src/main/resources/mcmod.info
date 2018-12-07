@@ -1,18 +1,14 @@
 [
-{
-  "modid": "amalgam",
-  "name": "Amalgam",
-  "description": "Akri's Gem Madness; the big addon for a big collection of head-canons, experimental gems, and interesting gemsonas from various artists.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "",
-  "updateUrl": "",
-  "authorList": ["Akrivus"],
-  "credits": "§7\n\"Moonstone\" is based on the amazing work of Lenhi with their written permission.\n\"Steven Universe\" and all related characters and elements are trademarks of Cartoon Network.§f",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": [
-  	"kagic"
-  ]
-}
+	{
+		"modid": "amalgam",
+		"name": "Amalgam",
+		"description": "Amalgam; the big addon for a big collection of head-canons, gameplay rewrites, experimental gems, and interesting gemsonas from various artists.",
+		"version": "${version}",
+		"mcversion": "${mcversion}",
+		"authorList": ["Akrivus"],
+		"credits": "§7\n\"Moonstone\" is based on the amazing work of Lenhi with their written permission.\n\"Steven Universe\" and all related characters and elements are trademarks of Cartoon Network.§f",
+		"dependencies": [
+			"kagic"
+		]
+	}
 ]
