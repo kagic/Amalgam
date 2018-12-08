@@ -18,6 +18,7 @@ import mod.akrivus.amalgam.gem.EntityFusedTopaz;
 import mod.akrivus.amalgam.gem.EntitySteven;
 import mod.akrivus.amalgam.gem.ai.EntityAICallForBackup;
 import mod.akrivus.amalgam.gem.ai.EntityAICrossFuse;
+import mod.akrivus.amalgam.gem.ai.EntityAIFixInjectors;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowLeaderGem;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
 import mod.akrivus.amalgam.items.ItemGemShard;
@@ -31,6 +32,7 @@ import mod.akrivus.kagic.entity.gem.EntityHessonite;
 import mod.akrivus.kagic.entity.gem.EntityJasper;
 import mod.akrivus.kagic.entity.gem.EntityLapisLazuli;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
+import mod.akrivus.kagic.entity.gem.EntityPeridot;
 import mod.akrivus.kagic.entity.gem.EntityRoseQuartz;
 import mod.akrivus.kagic.entity.gem.EntityRuby;
 import mod.akrivus.kagic.entity.gem.EntitySapphire;
@@ -43,7 +45,6 @@ import mod.akrivus.kagic.entity.gem.fusion.EntityRainbowQuartz;
 import mod.akrivus.kagic.entity.gem.fusion.EntityRhodonite;
 import mod.akrivus.kagic.event.DrainBlockEvent;
 import mod.akrivus.kagic.event.TimeGlassEvent;
-import mod.akrivus.kagic.init.ModBlocks;
 import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.items.ItemGem;
 import net.minecraft.block.BlockBush;
@@ -57,7 +58,6 @@ import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemPickaxe;
@@ -66,11 +66,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -165,29 +163,36 @@ public class AmEvents {
 		}
 		if (e.getEntity() instanceof EntityGem) {
 			EntityGem gem = (EntityGem)(e.getEntity());
-			Iterator<EntityAITaskEntry> tasks = gem.tasks.taskEntries.iterator();
-			while (tasks.hasNext()) {
-				EntityAIBase ai = tasks.next().action;
-				if (ai instanceof EntityAIProtectionFuse || ai instanceof EntityAITopazFuse || ai instanceof EntityAIRubyFuse) {
-					tasks.remove();
+			if (e.getEntity() instanceof EntityAmethyst || e.getEntity() instanceof EntityJasper
+			 || e.getEntity() instanceof EntityRoseQuartz || e.getEntity() instanceof EntityRuby
+			 || e.getEntity() instanceof EntityTopaz) {
+				Iterator<EntityAITaskEntry> tasks = gem.tasks.taskEntries.iterator();
+				while (tasks.hasNext()) {
+					EntityAIBase ai = tasks.next().action;
+					if (ai instanceof EntityAIProtectionFuse || ai instanceof EntityAITopazFuse || ai instanceof EntityAIRubyFuse) {
+						tasks.remove();
+					}
+				}
+				if (gem instanceof EntityAmethyst) {
+					gem.tasks.addTask(3, new EntityAICrossFuse<EntityPearl, EntityOpal>(gem, EntityPearl.class, EntityOpal.class, 16));
+				}
+				else if (gem instanceof EntityJasper) {
+					gem.tasks.addTask(3, new EntityAICrossFuse<EntityLapisLazuli, EntityMalachite>(gem, EntityLapisLazuli.class, EntityMalachite.class, 16));
+				}
+				else if (gem instanceof EntityRoseQuartz) {
+					gem.tasks.addTask(3, new EntityAICrossFuse<EntityPearl, EntityRainbowQuartz>(gem, EntityPearl.class, EntityRainbowQuartz.class, 16));
+				}
+				else if (gem instanceof EntityRuby) {
+					gem.tasks.addTask(3, new EntityAICrossFuse<EntityPearl, EntityRhodonite>(gem, EntityPearl.class, EntityRhodonite.class, 16));
+					gem.tasks.addTask(3, new EntityAICrossFuse<EntitySapphire, EntityGarnet>(gem, EntitySapphire.class, EntityGarnet.class, 16));
+					gem.tasks.addTask(3, new EntityAICrossFuse<EntityRuby, EntityFusedRuby>(gem, EntityRuby.class, EntityFusedRuby.class, 16));
+				}
+				else if (gem instanceof EntityTopaz) {
+					gem.tasks.addTask(3, new EntityAICrossFuse<EntityTopaz, EntityFusedTopaz>(gem, EntityTopaz.class, EntityFusedTopaz.class, 16));
 				}
 			}
-			if (gem instanceof EntityAmethyst) {
-				gem.tasks.addTask(3, new EntityAICrossFuse<EntityPearl, EntityOpal>(gem, EntityPearl.class, EntityOpal.class, 16));
-			}
-			else if (gem instanceof EntityJasper) {
-				gem.tasks.addTask(3, new EntityAICrossFuse<EntityLapisLazuli, EntityMalachite>(gem, EntityLapisLazuli.class, EntityMalachite.class, 16));
-			}
-			else if (gem instanceof EntityRoseQuartz) {
-				gem.tasks.addTask(3, new EntityAICrossFuse<EntityPearl, EntityRainbowQuartz>(gem, EntityPearl.class, EntityRainbowQuartz.class, 16));
-			}
-			else if (gem instanceof EntityRuby) {
-				gem.tasks.addTask(3, new EntityAICrossFuse<EntityPearl, EntityRhodonite>(gem, EntityPearl.class, EntityRhodonite.class, 16));
-				gem.tasks.addTask(3, new EntityAICrossFuse<EntitySapphire, EntityGarnet>(gem, EntitySapphire.class, EntityGarnet.class, 16));
-				gem.tasks.addTask(3, new EntityAICrossFuse<EntityRuby, EntityFusedRuby>(gem, EntityRuby.class, EntityFusedRuby.class, 16));
-			}
-			else if (gem instanceof EntityTopaz) {
-				gem.tasks.addTask(3, new EntityAICrossFuse<EntityTopaz, EntityFusedTopaz>(gem, EntityTopaz.class, EntityFusedTopaz.class, 16));
+			if (gem instanceof EntityPeridot) {
+				gem.tasks.addTask(4, new EntityAIFixInjectors((EntityPeridot)(gem), 0.6D));
 			}
 		}
 	}

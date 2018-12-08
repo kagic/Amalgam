@@ -10,13 +10,11 @@ public class EntityAIPickUpItemsIndiscriminately extends EntityAIBase {
 	private final EntityCreature entity;
 	private final double movementSpeed;
 	private EntityItem item;
-
 	public EntityAIPickUpItemsIndiscriminately(EntityCreature entityIn, double movementSpeedIn) {
 		this.entity = entityIn;
 		this.movementSpeed = movementSpeedIn;
 		this.setMutexBits(3);
 	}
-	
 	@Override
 	public boolean shouldExecute() {
 		List<EntityItem> list = this.entity.world.<EntityItem>getEntitiesWithinAABB(EntityItem.class, this.entity.getEntityBoundingBox().grow(8.0D, 8.0D, 8.0D));
@@ -30,7 +28,6 @@ public class EntityAIPickUpItemsIndiscriminately extends EntityAIBase {
 		}
 		return this.item != null && !this.item.isDead && this.entity.canPickUpLoot();
 	}
-	
 	@Override
 	public boolean shouldContinueExecuting() {
 		return this.item != null 
@@ -38,18 +35,15 @@ public class EntityAIPickUpItemsIndiscriminately extends EntityAIBase {
 				&& this.entity.canEntityBeSeen(this.item) 
 				&& !this.entity.getNavigator().noPath();
 	}
-	
 	@Override
 	public void startExecuting() {
 		this.entity.getLookHelper().setLookPositionWithEntity(this.item, 30.0F, 30.0F);
 	}
-	
 	@Override
 	public void resetTask() {
 		this.entity.getNavigator().clearPath();
 		this.item = null;
 	}
-	
 	@Override
 	public void updateTask() {
 		if (this.entity.getDistanceSq(this.item) > 1F) {

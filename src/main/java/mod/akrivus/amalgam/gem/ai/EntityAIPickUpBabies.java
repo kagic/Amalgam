@@ -7,7 +7,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 
 public class EntityAIPickUpBabies extends EntityAITarget {
     private final EntityTopaz topaz;
-    
     public EntityAIPickUpBabies(EntityTopaz gem) {
         super(gem, true);
         this.topaz = gem;
