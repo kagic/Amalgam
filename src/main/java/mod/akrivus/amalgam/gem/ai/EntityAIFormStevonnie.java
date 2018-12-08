@@ -30,10 +30,7 @@ public class EntityAIFormStevonnie extends EntityAIBase {
 				}
 			}
 		}
-		if (this.checkTarget(this.steven)) {
-			return true;
-		}
-		return false;
+		return this.steven != null;
 	}
 
 	@Override
@@ -72,6 +69,6 @@ public class EntityAIFormStevonnie extends EntityAIBase {
 	}
 
 	private boolean checkTarget(EntitySteven steven) {
-		return steven != null && steven.getHealth() > 0 && !steven.isDead && steven.getRevengeTarget() != null && steven.getRevengeTarget() != this.connie && !steven.getRevengeTarget().isDead;
+		return steven != null && steven.getHealth() > 0 && !steven.isDead && steven.getRevengeTarget() != this.connie;
 	}
 }

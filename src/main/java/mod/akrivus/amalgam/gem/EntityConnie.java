@@ -120,6 +120,7 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
             }
         }));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityConnie>(this, EntityConnie.class, true, false));
                 
         // Apply entity attributes.
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);

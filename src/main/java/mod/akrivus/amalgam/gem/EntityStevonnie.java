@@ -139,7 +139,12 @@ public class EntityStevonnie extends EntityCreature implements INpc {
 	    	}
 	    	++this.lastHiltTime;
     	}
-    	if (this.getRevengeTimer() > 600) {
+    	if (this.getAttackTarget() == null) {
+    		if (this.ticksExisted % 20 == 0) {
+    			this.jump();
+    		}
+    	}
+    	if (this.getRevengeTarget() == null && this.ticksExisted % 200 == 0) {
     		this.unfuse();
     	}
     }
@@ -234,12 +239,14 @@ public class EntityStevonnie extends EntityCreature implements INpc {
 			EntitySteven steven = new EntitySteven(this.world);
 			steven.readFromNBT(this.steven);
 			steven.setPosition(this.posX, this.posY, this.posZ);
+			steven.setHealth(200.0F);
 			this.world.spawnEntity(steven);
 		}
 		if (this.connie != null) {
 			EntityConnie connie = new EntityConnie(this.world);
 			connie.readFromNBT(this.connie);
 			connie.setPosition(this.posX, this.posY, this.posZ);
+			connie.setHealth(20.0F);
 			this.world.spawnEntity(connie);
 		}
 		this.world.removeEntity(this);
