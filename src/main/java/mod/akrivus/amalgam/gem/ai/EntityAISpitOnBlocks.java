@@ -28,8 +28,9 @@ public class EntityAISpitOnBlocks extends EntityAIMoveGemToBlock {
 	public boolean shouldExecute() {
 		if (this.gem.isTamed()) {
 			if (this.world.getGameRules().getBoolean("mobGriefing")) {
-				if (delay > 20 + this.gem.getRNG().nextInt(20)) {
+				if (this.delay > 20 + this.gem.getRNG().nextInt(20)) {
 					this.runDelay = 0;
+					this.delay = 0;
 					return super.shouldExecute();
 				}
 				else {

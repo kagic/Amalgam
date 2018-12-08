@@ -26,6 +26,7 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 			if (this.gem.world.getCurrentMoonPhaseFactor() == 1.0) {
 				if (this.delay > 20 + this.gem.getRNG().nextInt(20)) {
 					this.runDelay = 0;
+					this.delay = 0;
 					return super.shouldExecute();
 				}
 				else {

@@ -19,8 +19,9 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 	public boolean shouldExecute() {
 		if (this.injector.getPlayerBeingFollowed() == null && this.injector.getLevel() > 0 && this.injector.numberOfFails < 27) {
 			if (this.delay > 100 + this.injector.getRNG().nextInt(100)) {
-				this.runDelay = 0;
 				if (super.shouldExecute()) {
+					this.runDelay = 0;
+					this.delay = 0;
 					return true;
 				}
 				else {
@@ -68,16 +69,18 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 				BlockPos check = new BlockPos(pos.getX(), y, pos.getZ()); failed = false;
 				if (world.getBlockState(check).getBlock() == ModBlocks.GEM_SEED) {
 					failed = true;
-					y += 3;
+					y += 4;
 					if (y > maxalt) {
 						return false;
 					}
 				}
 				else {
-					for (int x = -1; x <= 1; ++x) {
-						for (int z = -1; z <= 1; ++z) {
-							if (world.getBlockState(check.add(x, 0, z)).getBlock() == ModBlocks.GEM_SEED) {
-								return false;
+					for (int j = -4; j <= 4; ++j) {
+						for (int x = -1; x <= 1; ++x) {
+							for (int z = -1; z <= 1; ++z) {
+								if (world.getBlockState(check.add(x, j, z)).getBlock() == ModBlocks.GEM_SEED) {
+									return false;
+								}
 							}
 						}
 					}

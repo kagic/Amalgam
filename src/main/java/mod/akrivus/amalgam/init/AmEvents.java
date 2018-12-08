@@ -18,6 +18,10 @@ import mod.akrivus.amalgam.gem.EntityFusedTopaz;
 import mod.akrivus.amalgam.gem.EntitySteven;
 import mod.akrivus.amalgam.gem.ai.EntityAICallForBackup;
 import mod.akrivus.amalgam.gem.ai.EntityAICrossFuse;
+import mod.akrivus.amalgam.gem.ai.EntityAIFestiveBurnStuff;
+import mod.akrivus.amalgam.gem.ai.EntityAIFestiveDance;
+import mod.akrivus.amalgam.gem.ai.EntityAIFestiveFireworks;
+import mod.akrivus.amalgam.gem.ai.EntityAIFixAnvils;
 import mod.akrivus.amalgam.gem.ai.EntityAIFixInjectors;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowLeaderGem;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
@@ -28,6 +32,7 @@ import mod.akrivus.kagic.entity.ai.EntityAIProtectionFuse;
 import mod.akrivus.kagic.entity.ai.EntityAIRubyFuse;
 import mod.akrivus.kagic.entity.ai.EntityAITopazFuse;
 import mod.akrivus.kagic.entity.gem.EntityAmethyst;
+import mod.akrivus.kagic.entity.gem.EntityBismuth;
 import mod.akrivus.kagic.entity.gem.EntityHessonite;
 import mod.akrivus.kagic.entity.gem.EntityJasper;
 import mod.akrivus.kagic.entity.gem.EntityLapisLazuli;
@@ -193,6 +198,12 @@ public class AmEvents {
 			}
 			if (gem instanceof EntityPeridot) {
 				gem.tasks.addTask(4, new EntityAIFixInjectors((EntityPeridot)(gem), 0.6D));
+				gem.tasks.addTask(6, new EntityAIFestiveBurnStuff((EntityPeridot)(gem), 0.6D));
+				gem.tasks.addTask(6, new EntityAIFestiveDance((EntityPeridot)(gem)));
+				gem.tasks.addTask(6, new EntityAIFestiveFireworks((EntityPeridot)(gem)));
+			}
+			if (gem instanceof EntityBismuth) {
+				gem.tasks.addTask(4, new EntityAIFixAnvils((EntityBismuth)(gem), 0.6D));
 			}
 		}
 	}
@@ -328,9 +339,9 @@ public class AmEvents {
 								}
 							}
 						}
-						if (gem != null) {
+						if (AmConfigs.enableBubblingNoGem || gem != null) {
 							EntityBubble bubble = new EntityBubble(e.getWorld());
-							bubble.setColor(gem.getGemColor());
+							bubble.setColor(gem == null ? e.getWorld().rand.nextInt(0xFFFFFF) : gem.getGemColor());
 							bubble.setItem(item.getItem());
 							bubble.setPosition(item.posX, item.posY, item.posZ);
 							bubble.setHealth(0.5F);

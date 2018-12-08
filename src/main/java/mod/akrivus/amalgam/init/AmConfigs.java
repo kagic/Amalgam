@@ -15,6 +15,8 @@ public class AmConfigs {
 	public static boolean replaceInjectors = true;
 	@Config.Name("Enable bubbling:")
 	public static boolean enableBubbling = true;
+	@Config.Name("Enable bubbling without gems:")
+	public static boolean enableBubblingNoGem = false;
 	@Config.Name("Rubies talk to each other:")
 	public static boolean socializeRubies = true;
 	@Config.Name("Only MOPs can create Pearls:")

@@ -41,7 +41,6 @@ public class LayerBubbledItem implements LayerRenderer<EntityBubble> {
         GlStateManager.color(r, g, b, 0.3F);
         this.renderer.bindTexture(new ResourceLocation("amalgam:textures/entities/bubble.png"));
         this.renderer.getMainModel().render(bubble, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        GlStateManager.disableAlpha();
 	}
 	@Override
 	public boolean shouldCombineTextures() {
