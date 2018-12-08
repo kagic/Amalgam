@@ -29,7 +29,7 @@ public class EntityBubble extends EntityLiving {
 		this.setSize(0.4F, 0.4F);
 		this.dataManager.register(ITEM, ItemStack.EMPTY.serializeNBT());
 		this.dataManager.register(COLOR, 0xFFFFFF);
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(0.5D);
 	}
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
@@ -102,7 +102,12 @@ public class EntityBubble extends EntityLiving {
 			}
 			if (this.getItem().getItem() instanceof ItemGem) {
 				ItemGem gem = (ItemGem)(this.getItem().getItem());
-				gem.spawnGem(this.world, player, this.getPosition(), this.getItem());
+				if (!gem.isCracked) {
+					gem.spawnGem(this.world, player, this.getPosition(), this.getItem());
+				}
+				else {
+					this.entityDropItem(this.getItem(), 0.0F);
+				}
 			}
 			else {
 				this.entityDropItem(this.getItem(), 0.0F);

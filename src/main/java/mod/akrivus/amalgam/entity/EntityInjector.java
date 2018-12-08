@@ -8,14 +8,14 @@ import mod.akrivus.amalgam.gem.ai.EntityAIFollowControllingPlayer;
 import mod.akrivus.amalgam.items.ItemGemShard;
 import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.init.ModSounds;
-import mod.akrivus.kagic.items.ItemGem;
+import mod.akrivus.kagic.items.ItemActiveGemBase;
+import mod.akrivus.kagic.items.ItemActiveGemShard;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -137,21 +137,18 @@ public class EntityInjector extends EntityCreature {
 		}
 	}
 	public boolean canEatItem(Item item) {
-		return item == ModItems.ACTIVATED_GEM_BASE || item == ModItems.ACTIVATED_GEM_SHARD || item instanceof ItemGemShard || (item instanceof ItemGem && ((ItemGem)(item)).isCracked);
+		return item instanceof ItemActiveGemBase || item instanceof ItemActiveGemShard || item instanceof ItemGemShard;
 	}
 	public int getDigestionPoints(Item item) {
 		if (this.canEatItem(item)) {
-			if (item == ModItems.ACTIVATED_GEM_BASE) {
+			if (item instanceof ItemActiveGemBase) {
 				return 9;
 			}
-			else if (item == ModItems.ACTIVATED_GEM_SHARD) {
+			else if (item instanceof ItemActiveGemShard) {
 				return 1;
 			}
-			else if (item instanceof ItemGemShard) {
-				return 2;
-			}
 			else {
-				return 18;
+				return 2;
 			}
 		}
 		return 0;
