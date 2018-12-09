@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "conglomerate:items/melanite_gem"
+        "layer0": "amalgam:items/melanite_gem"
     }
 }
