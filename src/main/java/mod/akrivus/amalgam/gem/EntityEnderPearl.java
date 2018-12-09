@@ -105,7 +105,6 @@ public class EntityEnderPearl extends EntityPearl implements INpc {
     protected boolean teleportToEntity(Entity entity) {
         Vec3d vec3d = new Vec3d(this.posX - entity.posX, this.getEntityBoundingBox().minY + this.height / 2.0F - entity.posY + entity.getEyeHeight(), this.posZ - entity.posZ);
         vec3d = vec3d.normalize();
-        double d0 = 16.0D;
         double d1 = this.posX + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.x * 16.0D;
         double d2 = this.posY + (this.rand.nextInt(16) - 8) - vec3d.y * 16.0D;
         double d3 = this.posZ + (this.rand.nextDouble() - 0.5D) * 8.0D - vec3d.z * 16.0D;

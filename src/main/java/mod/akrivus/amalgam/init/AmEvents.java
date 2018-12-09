@@ -301,6 +301,8 @@ public class AmEvents {
 					    		gemColor = nbt.getInteger("gemColor");
 					    	}
 					    }
+					    double maxDist = Double.MAX_VALUE;
+					    int dyeColor = 0;
 					    float r = (gemColor & 16711680) >> 16;
 				        float g = (gemColor & 65280) >> 8;
 				        float b = (gemColor & 255) >> 0;
@@ -310,20 +312,12 @@ public class AmEvents {
 					        float g1 = (color & 65280) >> 8;
 					        float b1 = (color & 255) >> 0;
 							double dist = Math.sqrt(Math.pow(r1-r, 2)+Math.pow(g1-g, 2)+Math.pow(b1-b, 2));
-							diffs.add(dist);
+							if (dist < maxDist) {
+								maxDist = dist;
+								dyeColor = i;
+							}
 					    }
-					    double[] lowestKeys = new double[4];
-					    Arrays.fill(lowestKeys, Double.MAX_VALUE);
-					    int[] lowestValues = new int[4];
-					    for (int i = 0; i < diffs.size(); ++i) {
-					        if (diffs.get(i) < lowestKeys[1]) {
-					        	lowestKeys[1] = diffs.get(i);
-					           	lowestValues[1] = i;
-					           	Arrays.sort(lowestValues);
-					            Arrays.sort(lowestKeys);
-					        }
-					    }
-					    e.setOutput(new ItemStack(ItemGemShard.SHARD_COLORS.get(lowestValues[rand.nextInt(3) + 1]), 9));
+					    e.setOutput(new ItemStack(ItemGemShard.SHARD_COLORS.get(dyeColor), 9));
 					    if (!e.getOutput().isEmpty()) {
 							e.setResult(Result.ALLOW);
 							e.setCost(1);
@@ -339,29 +333,31 @@ public class AmEvents {
 			if (!e.getWorld().isRemote) {
 				List<EntityItem> items = e.getEntityPlayer().world.<EntityItem>getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(e.getPos()).grow(1, 1, 1));
 				for (EntityItem item : items) {
-					if (e.getItemStack().getItem() == ModItems.GEM_STAFF || e.getItemStack().getItem() == ModItems.COMMANDER_STAFF) {
-						List<EntityGem> list = e.getEntityPlayer().world.<EntityGem>getEntitiesWithinAABB(EntityGem.class, e.getEntityPlayer().getEntityBoundingBox().grow(4, 4, 4));
-						double distance = Double.MAX_VALUE;
-						EntityGem gem = null;
-						for (EntityGem testedGem : list) {
-							if (testedGem.isOwnedBy(e.getEntityPlayer())) {
-								double newDistance = e.getEntityPlayer().getDistanceSq(testedGem);
-								if (newDistance <= distance) {
-									distance = newDistance;
-									gem = testedGem;
+					if (!item.isDead) {
+						if (e.getItemStack().getItem() == ModItems.GEM_STAFF || e.getItemStack().getItem() == ModItems.COMMANDER_STAFF) {
+							List<EntityGem> list = e.getEntityPlayer().world.<EntityGem>getEntitiesWithinAABB(EntityGem.class, e.getEntityPlayer().getEntityBoundingBox().grow(4, 4, 4));
+							double distance = Double.MAX_VALUE;
+							EntityGem gem = null;
+							for (EntityGem testedGem : list) {
+								if (testedGem.isOwnedBy(e.getEntityPlayer())) {
+									double newDistance = e.getEntityPlayer().getDistanceSq(testedGem);
+									if (newDistance <= distance) {
+										distance = newDistance;
+										gem = testedGem;
+									}
 								}
 							}
-						}
-						if (AmConfigs.enableBubblingNoGem || gem != null) {
-							EntityBubble bubble = new EntityBubble(e.getWorld());
-							bubble.setColor(gem == null ? e.getWorld().rand.nextInt(0xFFFFFF) : gem.getGemColor());
-							bubble.setItem(item.getItem());
-							bubble.setPosition(item.posX, item.posY, item.posZ);
-							bubble.setHealth(0.5F);
-							bubble.motionY = e.getWorld().rand.nextDouble() / 2;
-							bubble.playBubbleSound();
-							item.setDead();
-							e.getWorld().spawnEntity(bubble);
+							if (AmConfigs.enableBubblingNoGem || gem != null) {
+								EntityBubble bubble = new EntityBubble(e.getWorld());
+								bubble.setColor(gem == null ? e.getWorld().rand.nextInt(0xFFFFFF) : gem.getGemColor());
+								bubble.setItem(item.getItem());
+								bubble.setPosition(item.posX, item.posY, item.posZ);
+								bubble.setHealth(0.5F);
+								bubble.motionY = e.getWorld().rand.nextDouble() / 2;
+								bubble.playBubbleSound();
+								item.setDead();
+								e.getWorld().spawnEntity(bubble);
+							}
 						}
 					}
 				}

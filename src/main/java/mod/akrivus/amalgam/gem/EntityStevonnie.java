@@ -227,6 +227,7 @@ public class EntityStevonnie extends EntityCreature implements INpc {
 	}
 	public void setConnie(EntityConnie connie) {
 		this.connie = connie.writeToNBT(new NBTTagCompound());
+		this.changedWeapons = connie.changedWeapons;
 		this.setBackStack(connie.getBackStack());
 		this.setHeldItem(EnumHand.MAIN_HAND, connie.getHeldItemMainhand());
 		this.setIsWearingCoat(connie.isWearingCoat());
@@ -246,6 +247,7 @@ public class EntityStevonnie extends EntityCreature implements INpc {
 			EntityConnie connie = new EntityConnie(this.world);
 			connie.readFromNBT(this.connie);
 			connie.setPosition(this.posX, this.posY, this.posZ);
+			connie.changedWeapons = this.changedWeapons;
 			connie.setHealth(20.0F);
 			this.world.spawnEntity(connie);
 		}

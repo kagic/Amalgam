@@ -2,6 +2,7 @@ package mod.akrivus.amalgam.entity;
 
 import java.util.List;
 
+import mod.akrivus.amalgam.init.AmConfigs;
 import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.items.ItemGem;
@@ -26,7 +27,7 @@ public class EntityBubble extends EntityLiving {
 	private static final DataParameter<Integer> COLOR = EntityDataManager.<Integer>createKey(EntityBubble.class, DataSerializers.VARINT);
 	public EntityBubble(World worldIn) {
 		super(worldIn);
-		this.setSize(0.4F, 0.4F);
+		this.setSize(0.8F, 0.8F);
 		this.dataManager.register(ITEM, ItemStack.EMPTY.serializeNBT());
 		this.dataManager.register(COLOR, 0xFFFFFF);
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(0.5D);
@@ -64,25 +65,35 @@ public class EntityBubble extends EntityLiving {
 				}
 			}
 		}
-		if (gem != null) {
-			BlockPos location = player.getBedLocation();
-			if (location == null) {
-				location = this.world.getSpawnPoint();
-			}
-			if (!this.world.isRemote && !this.dead) {
-				boolean generating = true;
-				int attempts = 0;
-				while (generating && attempts < 30) {
-					BlockPos pos = location.add((this.world.rand.nextFloat() - 0.5F) * 5, this.world.rand.nextFloat() * 3 + 1, (this.world.rand.nextFloat() - 0.5F) * 5);
-					if (this.world.isAirBlock(pos) && this.world.isAirBlock(pos.east()) && this.world.isAirBlock(pos.west()) && this.world.isAirBlock(pos.north()) && this.world.isAirBlock(pos.south())) {
-						this.playSendSound();
-						this.setPosition(pos.getX(), pos.getY(), pos.getZ());
-						this.playSendSound();
-						return true;
-					}
-					++attempts;
+		if (!player.isSneaking()) {
+			if (AmConfigs.enableBubblingNoGem || gem != null) {
+				BlockPos location = player.getBedLocation();
+				if (location == null) {
+					location = this.world.getSpawnPoint();
 				}
-				return false;
+				if (!this.world.isRemote && !this.dead) {
+					boolean generating = true;
+					int attempts = 0;
+					while (generating && attempts < 30) {
+						BlockPos pos = location.add((this.world.rand.nextFloat() - 0.5F) * 5, this.world.rand.nextFloat() * 3 + 1, (this.world.rand.nextFloat() - 0.5F) * 5);
+						if (this.world.isAirBlock(pos) && this.world.isAirBlock(pos.east()) && this.world.isAirBlock(pos.west()) && this.world.isAirBlock(pos.north()) && this.world.isAirBlock(pos.south())) {
+							this.playSendSound();
+							this.setPosition(pos.getX(), pos.getY(), pos.getZ());
+							this.playSendSound();
+							return true;
+						}
+						++attempts;
+					}
+					return false;
+				}
+			}
+		}
+		else {
+			if (player.inventory.addItemStackToInventory(this.getItem())) {
+				this.setDead();
+			}
+			else {
+				this.attackEntityFrom(DamageSource.GENERIC, 1.0F);
 			}
 		}
 		return super.processInteract(player, hand);
@@ -90,8 +101,8 @@ public class EntityBubble extends EntityLiving {
 	@Override
 	public void onLivingUpdate() {
 		this.setNoGravity(true);
-		this.motionY *= 0.9;
 		super.onLivingUpdate();
+		this.motionY *= 0.9;
 	}
 	@Override
 	public void onDeath(DamageSource cause) {

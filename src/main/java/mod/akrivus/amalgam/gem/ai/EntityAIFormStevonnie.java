@@ -52,6 +52,7 @@ public class EntityAIFormStevonnie extends EntityAIBase {
 			EntityStevonnie stevonnie = new EntityStevonnie(this.connie.world);
 			stevonnie.setPosition(this.connie.posX, this.connie.posY, this.connie.posZ);
 			this.connie.world.spawnEntity(stevonnie);
+			stevonnie.setAttackTarget(this.connie.getAttackTarget());
 			stevonnie.setSteven(this.steven);
 			stevonnie.setConnie(this.connie);
 			this.resetTask();

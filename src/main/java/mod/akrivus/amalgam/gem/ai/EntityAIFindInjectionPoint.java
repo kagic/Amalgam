@@ -3,6 +3,8 @@ package mod.akrivus.amalgam.gem.ai;
 import mod.akrivus.amalgam.entity.EntityInjector;
 import mod.akrivus.kagic.init.ModBlocks;
 import mod.akrivus.kagic.init.ModSounds;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -65,8 +67,9 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 		if (!world.isAirBlock(pos)) {
 			int maxalt = pos.getY() - 4;
 			boolean failed = false;
-			for (int y = 5; y < maxalt; ++y) {
-				BlockPos check = new BlockPos(pos.getX(), y, pos.getZ()); failed = false;
+			for (int y = Math.max(maxalt - 48, 5); y < maxalt; ++y) {
+				failed = false;
+				BlockPos check = new BlockPos(pos.getX(), y, pos.getZ());
 				if (world.getBlockState(check).getBlock() == ModBlocks.GEM_SEED) {
 					failed = true;
 					y += 4;
@@ -86,13 +89,15 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 					}
 					if (!failed) {
 						for (int x = -1; x <= 1; ++x) {
-							if (world.isAirBlock(check.add(x, 0, 0)) || world.getBlockState(check.add(x, 0, 0)).getBlock() == ModBlocks.GEM_SEED) {
+							Block block = world.getBlockState(check.add(x, 0, 0)).getBlock();
+							if (block == ModBlocks.GEM_SEED || block == Blocks.AIR) {
 								failed = true;
 								break;
 							}
 						}
 						for (int z = -1; z <= 1; ++z) {
-							if (world.isAirBlock(check.add(0, 0, z)) || world.getBlockState(check.add(0, 0, z)).getBlock() == ModBlocks.GEM_SEED) {
+							Block block = world.getBlockState(check.add(0, 0, z)).getBlock();
+							if (block == ModBlocks.GEM_SEED || block == Blocks.AIR) {
 								failed = true;
 								break;
 							}
@@ -101,10 +106,10 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 					if (!failed) {
 						boolean aired = false;
 						if (!aired) {
-							for (int i = 2; i < 7; ++i) {
+							for (int i = 2; i <= 6; ++i) {
 								if (world.isAirBlock(check.add(-i, 0, 0)) || world.isAirBlock(check.add( i, 0, 0))) {
 									boolean canSeeUp = true;
-									for (int j = 0; j < 17; ++j) {
+									for (int j = 0; j <= 16; ++j) {
 										if (!world.isAirBlock(check.add(-i, j, 0)) || !world.isAirBlock(check.add( i, j, 0))) {
 											canSeeUp = false;
 										}
@@ -121,10 +126,10 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 							}
 						}
 						if (!aired) {
-							for (int i = 2; i < 7; ++i) {
+							for (int i = 2; i <= 6; ++i) {
 								if (world.isAirBlock(check.add(0, 0, -i)) || world.isAirBlock(check.add(0, 0,  i))) {
 									boolean canSeeUp = true;
-									for (int j = 0; j < 17; ++j) {
+									for (int j = 0; j <= 16; ++j) {
 										if (!world.isAirBlock(check.add(0, j, -i)) || !world.isAirBlock(check.add(0, j,  i))) {
 											canSeeUp = false;
 										}

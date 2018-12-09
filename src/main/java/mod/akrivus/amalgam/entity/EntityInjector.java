@@ -47,8 +47,6 @@ public class EntityInjector extends EntityCreature {
 		this.tasks.addTask(1, new EntityAIFollowControllingPlayer(this, 0.6D));
 		this.tasks.addTask(2, new EntityAIEatShards(this, 0.6D));
 		this.tasks.addTask(3, new EntityAIFindInjectionPoint(this, 0.6D));
-		//this.tasks.addTask(4, new EntityAIWander(this, 0.5D));
-        this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityLivingBase.class, 16.0F));
         this.tasks.addTask(6, new EntityAILookIdle(this));
 		this.dataManager.register(COLOR, world.rand.nextInt(16));
 		this.dataManager.register(LEVEL, 0);
@@ -101,7 +99,7 @@ public class EntityInjector extends EntityCreature {
 				}
 			}
 			else if (this.canEatItem(stack.getItem())) {
-				this.setLevel(this.getLevel() + this.getDigestionPoints(stack.getItem()));
+				this.setLevel(this.getLevel() + stack.getCount());
 				this.say(player, this.getName() + " can produce " + this.getLevel() + " gems.");
 				this.playSound(ModSounds.BLOCK_INJECTOR_CLOSE, 0.3F, 1.0F);
 				stack.shrink(1);
@@ -131,27 +129,13 @@ public class EntityInjector extends EntityCreature {
 	protected void updateEquipmentIfNeeded(EntityItem entity) {
 		ItemStack stack = entity.getItem();
 		if (this.canEatItem(stack.getItem())) {
-			this.setLevel(this.getLevel() + this.getDigestionPoints(stack.getItem()) * stack.getCount());
+			this.setLevel(this.getLevel() + stack.getCount());
 			this.playSound(ModSounds.BLOCK_INJECTOR_CLOSE, 0.3F, 1.0F);
 			entity.setDead();
 		}
 	}
 	public boolean canEatItem(Item item) {
-		return item instanceof ItemActiveGemBase || item instanceof ItemActiveGemShard || item instanceof ItemGemShard;
-	}
-	public int getDigestionPoints(Item item) {
-		if (this.canEatItem(item)) {
-			if (item instanceof ItemActiveGemBase) {
-				return 9;
-			}
-			else if (item instanceof ItemActiveGemShard) {
-				return 1;
-			}
-			else {
-				return 2;
-			}
-		}
-		return 0;
+		return item instanceof ItemActiveGemBase;
 	}
 	@Override
 	protected boolean canTriggerWalking() {
