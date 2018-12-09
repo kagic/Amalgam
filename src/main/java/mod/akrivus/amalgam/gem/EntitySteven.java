@@ -1,7 +1,10 @@
 package mod.akrivus.amalgam.gem;
 
+import java.util.List;
+
 import com.google.common.base.Predicate;
 
+import mod.akrivus.amalgam.gem.ai.EntityAIFollowConnie;
 import mod.akrivus.amalgam.gem.ai.EntityAIProtectConnie;
 import mod.akrivus.amalgam.gem.ai.EntityAIProtectVillagers;
 import mod.akrivus.amalgam.gem.ai.EntityAISpawnConnie;
@@ -31,7 +34,6 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -89,6 +91,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
         this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
         this.tasks.addTask(2, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(2, new EntityAIMoveThroughVillage(this, 0.6D, true));
+        this.tasks.addTask(3, new EntityAIFollowConnie(this, 1.0D));
         this.tasks.addTask(3, new EntityAIFollowGem(this, 0.9D));
         this.tasks.addTask(3, new EntityAIFollowPlayer(this, 0.9D));
         this.tasks.addTask(3, new EntityAISpawnConnie(this));
@@ -104,7 +107,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<EntitySteven>(this, EntitySteven.class, true, false));
         
         // Apply entity attributes.
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 	}
@@ -176,7 +179,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 			this.motionY *= 0.5D;
 		}
     	if (this.ticksExisted % 20 == 0) {
-    		this.heal(2.0F);
+    		this.heal((200 - this.getHealth() / 200) * this.getHealth());
     	}
     }
 	private void initStorage() {
@@ -229,6 +232,24 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 		this.dataManager.set(WRISTBAND, wristband);
 	}
 	@Override
+	public void fall(float distance, float damageMultiplier) {
+		List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().grow(distance, 1.0F, distance));
+		for (EntityLivingBase entity : list) {
+			if (entity instanceof EntityLiving) {
+				EntityLiving living = (EntityLiving)(entity);
+				if (living.getAttackTarget() == this) {
+					living.motionY += distance * 0.5F;
+					this.attackEntityAsMob(living);
+				}
+			}
+			else if (this.getAttackTarget() == entity
+				  || this.getRevengeTarget() == entity) {
+				entity.motionY += distance * 0.5F;
+				this.attackEntityAsMob(entity);
+			}
+		}
+	}
+	@Override
 	public boolean canDespawn() {
 		return false;
     }
@@ -236,27 +257,27 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
         return true;
     }
     @Override
-	public boolean attackEntityAsMob(Entity entityIn) {
+	public boolean attackEntityAsMob(Entity entity) {
     	float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 		int i = 0;
-		if (entityIn instanceof EntityLivingBase) {
-			f += EnchantmentHelper.getModifierForCreature(this.getHeldItemMainhand(), ((EntityLivingBase) entityIn).getCreatureAttribute());
+		if (entity instanceof EntityLivingBase) {
+			f += EnchantmentHelper.getModifierForCreature(this.getHeldItemMainhand(), ((EntityLivingBase) entity).getCreatureAttribute());
 			i += EnchantmentHelper.getKnockbackModifier(this);
 		}
-		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f);
+		boolean flag = entity.attackEntityFrom(DamageSource.causeMobDamage(this), f);
 		this.swingArm(EnumHand.MAIN_HAND);
 		if (flag) {
-			if (i > 0 && entityIn instanceof EntityLivingBase) {
-				((EntityLivingBase) entityIn).knockBack(this, i * 0.5F, MathHelper.sin(this.rotationYaw * 0.017453292F), (-MathHelper.cos(this.rotationYaw * 0.017453292F)));
+			if (i > 0 && entity instanceof EntityLivingBase) {
+				((EntityLivingBase)(entity)).knockBack(this, i * 6.0F, MathHelper.sin(this.rotationYaw * 0.017453292F), (-MathHelper.cos(this.rotationYaw * 0.017453292F)));
 				this.motionX *= 0.6D;
 				this.motionZ *= 0.6D;
 			}
 			int j = EnchantmentHelper.getFireAspectModifier(this);
 			if (j > 0) {
-				entityIn.setFire(j * 4);
+				entity.setFire(j * 4);
 			}
-			if (entityIn instanceof EntityPlayer) {
-				EntityPlayer entityplayer = (EntityPlayer)(entityIn);
+			if (entity instanceof EntityPlayer) {
+				EntityPlayer entityplayer = (EntityPlayer)(entity);
 				ItemStack itemstack = this.getHeldItemMainhand();
 				ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
 				if (itemstack.getItem() instanceof ItemAxe && itemstack1.getItem() == Items.SHIELD) {
@@ -267,7 +288,7 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 					}
 				}
 			}
-			this.applyEnchantments(this, entityIn);
+			this.applyEnchantments(this, entity);
 		}
 		return flag;
     }
@@ -290,10 +311,10 @@ public class EntitySteven extends EntityCreature implements IInventoryChangedLis
 	}
 	@Override
 	protected SoundEvent getAmbientSound() {
+		if (BiomeDictionary.hasType(this.world.getBiome(this.getPosition()), Type.MAGICAL)) {
+			return AmSounds.STEVEN_SNEEZE;
+		}
 		if (!this.silent) {
-			if (BiomeDictionary.hasType(this.world.getBiome(this.getPosition()), Type.MAGICAL)) {
-				return AmSounds.STEVEN_SNEEZE;
-			}
 			return AmSounds.STEVEN_LIVING;
 		}
 		else {

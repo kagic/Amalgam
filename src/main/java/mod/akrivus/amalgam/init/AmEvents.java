@@ -1,7 +1,6 @@
 package mod.akrivus.amalgam.init;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -293,7 +292,6 @@ public class AmEvents {
 				if (canBreak) {
 					ItemGem gem = (ItemGem)(e.getLeft().getItem());
 					if (gem.isCracked) {
-					    ArrayList<Double> diffs = new ArrayList<Double>();
 					    int gemColor = rand.nextInt(16777215);
 					    if (e.getLeft().hasTagCompound()) {
 					    	NBTTagCompound nbt = e.getLeft().getTagCompound();

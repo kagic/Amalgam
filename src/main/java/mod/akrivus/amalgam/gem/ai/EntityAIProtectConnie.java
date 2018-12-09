@@ -30,7 +30,10 @@ public class EntityAIProtectConnie extends EntityAITarget {
 			}
 		}
 		if (this.checkTarget(this.connie)) {
-			this.connie.heal(5.0F);
+			this.connie.heal((20 - this.connie.getHealth() / 20) * this.connie.getHealth());
+	    	if (!this.connie.onGround && this.connie.motionY < 0.0D) {
+				this.connie.motionY *= 0.5D;
+			}
 			return true;
 		}
 		return false;

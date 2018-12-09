@@ -13,9 +13,9 @@ public class EntityAIFollowSteven extends EntityAIBase {
 	private final double followSpeed;
 	private float oldWaterCost;
 	
-	public EntityAIFollowSteven(EntityConnie connieIn, double followSpeedIn) {
-		this.connie = connieIn;
-		this.followSpeed = followSpeedIn;
+	public EntityAIFollowSteven(EntityConnie connie, double followSpeed) {
+		this.connie = connie;
+		this.followSpeed = followSpeed;
 		this.setMutexBits(3);
 	}
 	

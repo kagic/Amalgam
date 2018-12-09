@@ -19,16 +19,20 @@ public class EntityAIFormStevonnie extends EntityAIBase {
 
 	@Override
 	public boolean shouldExecute() {
-		List<EntitySteven> list = this.connie.world.<EntitySteven>getEntitiesWithinAABB(EntitySteven.class, this.connie.getEntityBoundingBox().grow(24.0F, 24.0F, 24.0F));
-		double distance = Double.MAX_VALUE;
-		for (EntitySteven steven : list) {
-			if (this.checkInitiator() && this.checkTarget(steven)) {
-				double newDistance = this.connie.getDistanceSq(steven);
-				if (newDistance <= distance) {
-					distance = newDistance;
-					this.steven = steven;
+		try {
+			List<EntitySteven> list = this.connie.world.<EntitySteven>getEntitiesWithinAABB(EntitySteven.class, this.connie.getEntityBoundingBox().grow(24.0F, 24.0F, 24.0F));
+			double distance = Double.MAX_VALUE;
+			for (EntitySteven steven : list) {
+				if (this.checkInitiator() && this.checkTarget(steven)) {
+					double newDistance = this.connie.getDistanceSq(steven);
+					if (newDistance <= distance) {
+						distance = newDistance;
+						this.steven = steven;
+					}
 				}
 			}
+		} catch (NullPointerException e) {
+			return false;
 		}
 		return this.steven != null;
 	}

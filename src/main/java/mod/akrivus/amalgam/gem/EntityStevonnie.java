@@ -1,5 +1,7 @@
 package mod.akrivus.amalgam.gem;
 
+import java.util.List;
+
 import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.gem.ai.EntityAIProtectVillagers;
@@ -95,8 +97,8 @@ public class EntityStevonnie extends EntityCreature implements INpc {
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
         
         // Apply entity attributes.
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(220.0D);
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(400.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 	}
 	@Override
@@ -144,10 +146,35 @@ public class EntityStevonnie extends EntityCreature implements INpc {
     			this.jump();
     		}
     	}
-    	if (this.getRevengeTarget() == null && this.ticksExisted % 200 == 0) {
+    	if (this.getAttackTarget() == null && this.getRevengeTarget() == null
+    	 && this.ticksExisted % 200 == 0) {
     		this.unfuse();
     	}
+    	if (!this.onGround && this.motionY < 0.0D) {
+			this.motionY *= 0.5D;
+		}
+    	if (this.ticksExisted % 20 == 0) {
+    		this.heal((200 - this.getHealth() / 200) * this.getHealth());
+    	}
     }
+	@Override
+	public void fall(float distance, float damageMultiplier) {
+		List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().grow(distance, 1.0F, distance));
+		for (EntityLivingBase entity : list) {
+			if (entity instanceof EntityLiving) {
+				EntityLiving living = (EntityLiving)(entity);
+				if (living.getAttackTarget() == this) {
+					living.motionY += distance * 0.5F;
+					this.attackEntityAsMob(living);
+				}
+			}
+			else if (this.getAttackTarget() == entity
+				  || this.getRevengeTarget() == entity) {
+				entity.motionY += distance * 0.5F;
+				this.attackEntityAsMob(entity);
+			}
+		}
+	}
 	public ItemStack getBackStack() {
 		return this.dataManager.get(SHEATHED);
 	}
@@ -180,27 +207,27 @@ public class EntityStevonnie extends EntityCreature implements INpc {
         return true;
     }
     @Override
-	public boolean attackEntityAsMob(Entity entityIn) {
+	public boolean attackEntityAsMob(Entity entity) {
     	float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 		int i = 0;
-		if (entityIn instanceof EntityLivingBase) {
-			f += EnchantmentHelper.getModifierForCreature(this.getHeldItemMainhand(), ((EntityLivingBase) entityIn).getCreatureAttribute());
+		if (entity instanceof EntityLivingBase) {
+			f += EnchantmentHelper.getModifierForCreature(this.getHeldItemMainhand(), ((EntityLivingBase) entity).getCreatureAttribute());
 			i += EnchantmentHelper.getKnockbackModifier(this);
 		}
-		boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f);
+		boolean flag = entity.attackEntityFrom(DamageSource.causeMobDamage(this), f);
 		this.swingArm(EnumHand.MAIN_HAND);
 		if (flag) {
-			if (i > 0 && entityIn instanceof EntityLivingBase) {
-				((EntityLivingBase) entityIn).knockBack(this, i * 0.5F, MathHelper.sin(this.rotationYaw * 0.017453292F), (-MathHelper.cos(this.rotationYaw * 0.017453292F)));
+			if (i > 0 && entity instanceof EntityLivingBase) {
+				((EntityLivingBase)(entity)).knockBack(this, i * 6.0F, MathHelper.sin(this.rotationYaw * 0.017453292F), (-MathHelper.cos(this.rotationYaw * 0.017453292F)));
 				this.motionX *= 0.6D;
 				this.motionZ *= 0.6D;
 			}
 			int j = EnchantmentHelper.getFireAspectModifier(this);
 			if (j > 0) {
-				entityIn.setFire(j * 4);
+				entity.setFire(j * 4);
 			}
-			if (entityIn instanceof EntityPlayer) {
-				EntityPlayer entityplayer = (EntityPlayer)(entityIn);
+			if (entity instanceof EntityPlayer) {
+				EntityPlayer entityplayer = (EntityPlayer)(entity);
 				ItemStack itemstack = this.getHeldItemMainhand();
 				ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
 				if (itemstack.getItem() instanceof ItemAxe && itemstack1.getItem() == Items.SHIELD) {
@@ -211,7 +238,7 @@ public class EntityStevonnie extends EntityCreature implements INpc {
 					}
 				}
 			}
-			this.applyEnchantments(this, entityIn);
+			this.applyEnchantments(this, entity);
 		}
 		return flag;
     }

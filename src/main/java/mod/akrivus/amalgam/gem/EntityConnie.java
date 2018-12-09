@@ -183,6 +183,10 @@ public class EntityConnie extends EntityCreature implements IInventoryChangedLis
 				this.sayHello();
 				return true;
 			}
+			else if (player.getHeldItem(hand).getItem() == AmItems.STEVEN_GEM) {
+				this.playProtectSound(0);
+				return true;
+			}
 		}
 		return super.processInteract(player, hand);
     }
