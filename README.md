@@ -36,7 +36,6 @@ Amalgam requires KAGIC 1.10.1, also called **X11p12** or **X11p13**, and Java SE
 ## Plans
 * Slagnests, air-exposed gem seeds spawn slags at a high rate.
 * Moonstone, a trader gem inspired by Lenhi's OC, with permission.
-* StoKAGIC-style intelligent injectors and gem seeds.
 * Whatever [this](https://www.youtube.com/watch?v=M-bmV2ws_QY) is.
 
 ## Issues
@@ -44,12 +43,14 @@ Amalgam requires KAGIC 1.10.1, also called **X11p12** or **X11p13**, and Java SE
 2. Report issues to our [issue tracker.](https://github.com/Akrivus/Amalgam/issues)
 3. Ask for help in our [Discord.](https://discord.gg/SMjxZQ7)
 
-## Discord
+## Download
+Check our [releases page](https://github.com/Akrivus/Amalgam/releases) for downloads.
 
+## Discord
 Our Discord server _is a place to collaborate, learn, showcase, and discuss_ the development of Amalgam. It is a place where those who abide by the rules are welcomed, regardless of skill level.
 Click [here](https://discord.gg/SMjxZQ7) to join us!
 
-## Installation
+## Development
 ### Prerequisites
 1. KAGIC 1.10.1 should already be installed and loaded by the buildscript.
 2. JDK 8 - [Download.](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)

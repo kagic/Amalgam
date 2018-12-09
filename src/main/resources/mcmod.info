@@ -2,7 +2,7 @@
 	{
 		"modid": "amalgam",
 		"name": "Amalgam",
-		"description": "Amalgam; the big addon for a big collection of head-canons, gameplay rewrites, experimental gems, and interesting gemsonas from various artists.",
+		"description": "The spiritual re-incarnation of KAGIC X, adding headcanon and experimental features.",
 		"version": "${version}",
 		"mcversion": "1.12.2",
 		"authorList": ["Akrivus"],
