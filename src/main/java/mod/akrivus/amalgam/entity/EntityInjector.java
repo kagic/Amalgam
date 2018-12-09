@@ -131,7 +131,7 @@ public class EntityInjector extends EntityCreature {
 	protected void updateEquipmentIfNeeded(EntityItem entity) {
 		ItemStack stack = entity.getItem();
 		if (this.canEatItem(stack.getItem())) {
-			this.setLevel(this.getLevel() + this.getDigestionPoints(stack.getItem()));
+			this.setLevel(this.getLevel() + this.getDigestionPoints(stack.getItem()) * stack.getCount());
 			this.playSound(ModSounds.BLOCK_INJECTOR_CLOSE, 0.3F, 1.0F);
 			entity.setDead();
 		}

@@ -61,7 +61,9 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item.ToolMaterial;
@@ -146,25 +148,18 @@ public class AmEvents {
 	}
 	@SubscribeEvent
 	public void onEntitySpawn(EntityJoinWorldEvent e) {
-		if (AmConfigs.socializeRubies && e.getEntity() instanceof EntityRuby) {
-			EntityRuby ruby = (EntityRuby)(e.getEntity());
-			ruby.tasks.addTask(4, new EntityAIFollowLeaderGem(ruby, 0.8D, GemPlacements.NOSE, EntityJasper.class));
-			ruby.tasks.addTask(4, new EntityAIFollowLeaderGem(ruby, 0.8D, GemPlacements.CHEST, EntityRuby.class));
-			ruby.tasks.addTask(4, new EntityAIFollowOtherGem(ruby, 0.8D, EntityBabyPearl.class));
-			ruby.targetTasks.addTask(2, new EntityAICallForBackup(ruby, EntityRuby.class));
-		}
-		if (e.getEntity() instanceof EntityHessonite) {
-			EntityHessonite hessonite = (EntityHessonite)(e.getEntity());
-			hessonite.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityGem>(hessonite, EntityGem.class, 10, true, false, new Predicate<EntityGem>() {
-	            @Override
-				public boolean apply(EntityGem input) {
-	                return input != null && (input.isDefective() || input.isTraitor());
-	            }
-	        }));
-		}
 		if (e.getEntity() instanceof EntityAnimal) {
 			EntityAnimal animal = (EntityAnimal)(e.getEntity());
 			animal.targetTasks.addTask(3, new EntityAIFollowTopaz(animal, 0.9D));
+		}
+		if (e.getEntity() instanceof EntityEnderman) {
+			EntityEnderman ender = (EntityEnderman)(e.getEntity());
+			ender.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityPlayer>(ender, EntityPlayer.class, 10, true, false, new Predicate<EntityPlayer>() {
+	            @Override
+				public boolean apply(EntityPlayer input) {
+	                return input != null && Amalgam.KILL_LIST.contains(input.getName());
+	            }
+	        }));
 		}
 		if (e.getEntity() instanceof EntityGem) {
 			EntityGem gem = (EntityGem)(e.getEntity());
@@ -204,6 +199,24 @@ public class AmEvents {
 			}
 			if (gem instanceof EntityBismuth) {
 				gem.tasks.addTask(4, new EntityAIFixAnvils((EntityBismuth)(gem), 0.6D));
+			}
+			if (gem instanceof EntityRuby) {
+				if (AmConfigs.socializeRubies) {
+					EntityRuby ruby = (EntityRuby)(gem);
+					ruby.tasks.addTask(4, new EntityAIFollowLeaderGem(ruby, 0.8D, GemPlacements.NOSE, EntityJasper.class));
+					ruby.tasks.addTask(4, new EntityAIFollowLeaderGem(ruby, 0.8D, GemPlacements.CHEST, EntityRuby.class));
+					ruby.tasks.addTask(4, new EntityAIFollowOtherGem(ruby, 0.8D, EntityBabyPearl.class));
+					ruby.targetTasks.addTask(2, new EntityAICallForBackup(ruby, EntityRuby.class));
+				}
+			}
+			if (gem instanceof EntityHessonite) {
+				EntityHessonite hessonite = (EntityHessonite)(gem);
+				hessonite.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityGem>(hessonite, EntityGem.class, 10, true, false, new Predicate<EntityGem>() {
+		            @Override
+					public boolean apply(EntityGem input) {
+		                return input != null && (input.isDefective() || input.isTraitor());
+		            }
+		        }));
 			}
 		}
 	}

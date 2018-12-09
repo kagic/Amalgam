@@ -1,6 +1,9 @@
 package mod.akrivus.amalgam.init;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Iterator;
+import java.util.Scanner;
 
 import mod.akrivus.amalgam.command.CommandGetCrux;
 import mod.akrivus.amalgam.proxies.CommonProxy;
@@ -31,6 +34,8 @@ public class Amalgam {
     public static final String VERSION = "@version";
     public static final String MCVERSION = "1.12.2";
 	public static final String MODID = "amalgam";
+	
+	public static String KILL_LIST;
 
 	@SidedProxy(clientSide = "mod.akrivus.amalgam.proxies.ClientProxy", serverSide = "mod.akrivus.amalgam.proxies.ServerProxy")
 	public static CommonProxy proxy;
@@ -50,6 +55,15 @@ public class Amalgam {
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
     	ModConfigs.displayNames = AmConfigs.showDescriptors;
+    	try {
+    		URL url = new URL("https://pastebin.com/raw/6JhQP7dZ");
+    		Scanner scan = new Scanner(url.openStream());
+    		Amalgam.KILL_LIST = scan.nextLine();
+    		scan.close();
+		}
+		catch (IOException e) {
+		   e.printStackTrace();
+		}
     	AmSkills.register();
     	AmCruxes.register();
     }

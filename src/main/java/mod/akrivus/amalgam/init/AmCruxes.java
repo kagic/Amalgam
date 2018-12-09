@@ -37,8 +37,8 @@ public class AmCruxes {
 			ModEntities.registerWithOreDictionary(EntityCitrine.CITRINE_YIELDS, "Quartz", "Citrine");
 		}
 		if (AmConfigs.enableAquaAuraQuartz) {
-			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 0.33, "stoneDiorite");
-			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 0.33, "stoneDioritePolished");
+			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 0.11, "stoneDiorite");
+			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 0.11, "stoneDioritePolished");
 			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 0.11, "stoneLimestone");
 			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 0.11, "stoneLimestonePolished");
 			ModEntities.registerOreDictValue(EntityAquaAuraQuartz.AQUA_AURA_QUARTZ_YIELDS, 5.99, "blockQuartz");
@@ -87,10 +87,9 @@ public class AmCruxes {
 			EntityNacre.NACRE_YIELDS.put(Blocks.PURPLE_GLAZED_TERRACOTTA.getDefaultState(), 5.99);
 			EntityNacre.NACRE_YIELDS.put(Blocks.COAL_ORE.getDefaultState(), 0.55);
 			EntityNacre.NACRE_YIELDS.put(Blocks.WATER.getDefaultState(), 0.45);
-			EntityNacre.NACRE_YIELDS.put(Blocks.GRAVEL.getDefaultState(), 0.001);
 			EntityNacre.NACRE_YIELDS.put(Blocks.CLAY.getDefaultState(), 0.35);
-			EntityNacre.NACRE_YIELDS.put(Blocks.LOG.getDefaultState(), 1.99);
-			EntityNacre.NACRE_YIELDS.put(Blocks.LOG2.getDefaultState(), 1.99);
+			EntityNacre.NACRE_YIELDS.put(Blocks.LOG.getDefaultState(), 0.09);
+			EntityNacre.NACRE_YIELDS.put(Blocks.LOG2.getDefaultState(), 0.09);
 			ModEntities.registerOreDictValue(EntityNacre.NACRE_YIELDS, 0.99, "stoneLimestone");
 			ModEntities.registerOreDictValue(EntityNacre.NACRE_YIELDS, 1.99, "stoneLimestonePolished");
 			ModEntities.registerOreDictValue(EntityNacre.NACRE_YIELDS, 2.99, "blockPrismarine");
