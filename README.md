@@ -19,6 +19,7 @@ Amalgam requires KAGIC 1.10.1, also called **X11p12** or **X11p13**, and Java SE
 * Emerald, unfinished warrior gem, leads Nephrites.
 * Aqua Aura Quartz, blue, shiny Quartz gem.
 * Watermelon Tourmaline, green Quartz-like gem with a wicked sneeze.
+* Melanite, a black Garnet, hunts down defectives and fusions that don't belong to you and convert gems to Active Gem Base Shards.
 * Bubbling, right click item with gem staff to bubble, right click bubble to send off.
 * Mobile Injector Entities, built like golems.
 

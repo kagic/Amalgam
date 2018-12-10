@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "amalgam:items/cracked_melanite_gem"
+    }
+}

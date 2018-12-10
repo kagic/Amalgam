@@ -45,6 +45,8 @@ public class AmConfigs {
 	public static boolean enableAquaAuraQuartz = true;
 	@Config.Name("Watermelon Tourmalines can be grown:")
 	public static boolean enableWatermelonTourmaline = true;
+	@Config.Name("Melanites can be grown:")
+	public static boolean enableMelanite = true;
 	
 	@SubscribeEvent
 	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent e) {
