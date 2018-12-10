@@ -95,7 +95,7 @@ public class EntityInjector extends EntityCreature {
 				}
 			}
 			else if (this.canEatItem(stack.getItem())) {
-				this.setLevel(this.getLevel() + stack.getCount());
+				this.setLevel(this.getLevel() + 1);
 				this.say(player, this.getName() + " can produce " + this.getLevel() + " gems.");
 				this.playSound(ModSounds.BLOCK_INJECTOR_CLOSE, 0.3F, 1.0F);
 				stack.shrink(1);
