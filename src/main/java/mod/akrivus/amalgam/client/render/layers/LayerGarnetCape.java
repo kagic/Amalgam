@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerQuartzCape implements LayerRenderer<EntityGem> {
+public class LayerGarnetCape implements LayerRenderer<EntityGem> {
 	private final RenderLivingBase<?> gemRenderer;
 	private final boolean isBack;
 	private final boolean useInsigniaColors;
