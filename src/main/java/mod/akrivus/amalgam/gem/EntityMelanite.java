@@ -6,9 +6,10 @@ import java.util.Random;
 
 import com.google.common.base.Predicate;
 
-import mod.akrivus.kagic.entity.EntityGem;
-import mod.akrivus.kagic.entity.EntityFusionGem;
+import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.kagic.entity.EntityCorruptedGem;
+import mod.akrivus.kagic.entity.EntityFusionGem;
+import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.entity.ai.EntityAICommandGems;
 import mod.akrivus.kagic.entity.ai.EntityAIDiamondHurtByTarget;
 import mod.akrivus.kagic.entity.ai.EntityAIDiamondHurtTarget;
@@ -18,16 +19,11 @@ import mod.akrivus.kagic.entity.ai.EntityAISitStill;
 import mod.akrivus.kagic.entity.ai.EntityAIStay;
 import mod.akrivus.kagic.entity.gem.GemCuts;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
-import mod.akrivus.kagic.init.KAGIC;
 import mod.akrivus.kagic.init.ModItems;
-import mod.akrivus.kagic.items.ItemGem;
-import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.kagic.init.ModSounds;
-import mod.akrivus.kagic.skills.SkillBase;
+import mod.akrivus.kagic.items.ItemGem;
 import mod.heimrarnadalr.kagic.util.Colors;
-import mod.heimrarnadalr.kagic.util.GemPlayerLoot;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.crash.CrashReport;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -38,21 +34,18 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.init.MobEffects;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
-import net.minecraft.util.*;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 public class EntityMelanite extends EntityGem implements IAnimals {
@@ -94,12 +87,14 @@ public class EntityMelanite extends EntityGem implements IAnimals {
         this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
         this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
-            public boolean apply(EntityLiving input) {
+            @Override
+			public boolean apply(EntityLiving input) {
                 return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
             }
         }));
         this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityGem>(this, EntityGem.class, 10, true, false, new Predicate<EntityGem>() {
-            public boolean apply(EntityGem input) {
+            @Override
+			public boolean apply(EntityGem input) {
                 return input != null && (input.isDefective() || input instanceof EntityFusionGem || input instanceof EntityCorruptedGem);
             }
         }));
@@ -108,11 +103,12 @@ public class EntityMelanite extends EntityGem implements IAnimals {
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
         this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0D);
-        this.droppedGemItem = ConglomerateItems.MELANITE_GEM;
-        this.droppedCrackedGemItem = ConglomerateItems.CRACKED_MELANITE_GEM;
+        this.droppedGemItem = AmItems.MELANITE_GEM;
+        this.droppedCrackedGemItem = AmItems.CRACKED_MELANITE_GEM;
     }
 
-    public boolean processInteract(EntityPlayer player, EnumHand hand) {
+    @Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
         if (hand == EnumHand.MAIN_HAND && !this.world.isRemote) {
             ItemStack stack = player.getHeldItemMainhand();
             if (this.isTamed() && this.isOwner(player)) {

@@ -7,13 +7,13 @@ import mod.akrivus.amalgam.gem.EntityAquaAuraQuartz;
 import mod.akrivus.amalgam.gem.EntityCitrine;
 import mod.akrivus.amalgam.gem.EntityEmerald;
 import mod.akrivus.amalgam.gem.EntityEnderPearl;
+import mod.akrivus.amalgam.gem.EntityMelanite;
 import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.amalgam.gem.EntityPyrite;
 import mod.akrivus.amalgam.gem.EntityWatermelonTourmaline;
 import mod.akrivus.kagic.entity.gem.EntityAquamarine;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
-import mod.akrivus.kagic.entity.gem.EntityMelanite;
 import mod.akrivus.kagic.init.ModEntities;
 import net.minecraft.block.BlockRotatedPillar;
 import net.minecraft.block.state.IBlockState;
@@ -57,12 +57,12 @@ public class AmCruxes {
 		}
 		if (AmConfigs.enableMelanite) {
 		    ModEntities.registerOreDictValue(EntityMelanite.MELANITE_YIELDS, 0.11, "oreIron");
-                    ModEntities.registerOreDictValue(EntityMelanite.MELANITE_YIELDS, 0.55, "blockIron");
-                    EntityMelanite.MELANITE_YIELDS.put(Blocks.BONE_BLOCK.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.X), 0.99);
-                    EntityMelanite.MELANITE_YIELDS.put(Blocks.BONE_BLOCK.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), 0.99);
-                    EntityMelanite.MELANITE_YIELDS.put(Blocks.BONE_BLOCK.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Z), 0.99);
-                    ModEntities.registerOreDictValue(EntityMelanite.MELANITE_YIELDS, 1.99, "oreGarnet");
-                    ModEntities.registerOreDictValue(EntityMelanite.MELANITE_YIELDS, 5.99, "blockGarnet");
+            ModEntities.registerOreDictValue(EntityMelanite.MELANITE_YIELDS, 0.55, "blockIron");
+            EntityMelanite.MELANITE_YIELDS.put(Blocks.BONE_BLOCK.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.X), 0.99);
+            EntityMelanite.MELANITE_YIELDS.put(Blocks.BONE_BLOCK.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), 0.99);
+            EntityMelanite.MELANITE_YIELDS.put(Blocks.BONE_BLOCK.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Z), 0.99);
+            ModEntities.registerOreDictValue(EntityMelanite.MELANITE_YIELDS, 1.99, "oreGarnet");
+            ModEntities.registerOreDictValue(EntityMelanite.MELANITE_YIELDS, 5.99, "blockGarnet");
 		}
 		if (AmConfigs.enablePyrite) { 
 			ModEntities.registerOreDictValue(EntityPyrite.PYRITE_YIELDS, 0.99, "oreQuartz");

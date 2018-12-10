@@ -2,7 +2,6 @@ package mod.akrivus.amalgam.gem.ai;
 
 import java.util.List;
 
-import mod.akrivus.amalgam.entity.EntityInjector;
 import mod.akrivus.kagic.entity.gem.EntityLapisLazuli;
 import mod.akrivus.kagic.entity.gem.EntityPeridot;
 import net.minecraft.block.state.IBlockState;

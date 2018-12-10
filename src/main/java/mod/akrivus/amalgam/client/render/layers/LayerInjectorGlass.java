@@ -17,7 +17,8 @@ public class LayerInjectorGlass implements LayerRenderer<EntityInjector> {
     public LayerInjectorGlass(RenderInjector renderer) {
         this.renderer = renderer;
     }
-    public void doRenderLayer(EntityInjector entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+    @Override
+	public void doRenderLayer(EntityInjector entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         float[] rgb = EnumDyeColor.byDyeDamage(entity.getColor()).getColorComponentValues();
         if (!entity.isInvisible()) {
         	this.renderer.bindTexture(new ResourceLocation("amalgam:textures/entities/injector/glass.png"));
@@ -27,7 +28,8 @@ public class LayerInjectorGlass implements LayerRenderer<EntityInjector> {
             this.renderer.getMainModel().render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         }
     }
-    public boolean shouldCombineTextures() {
+    @Override
+	public boolean shouldCombineTextures() {
         return false;
     }
 }

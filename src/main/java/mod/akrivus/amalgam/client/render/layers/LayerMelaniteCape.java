@@ -17,52 +17,43 @@ public class LayerMelaniteCape implements LayerRenderer<EntityGem> {
 	private final RenderLivingBase<?> gemRenderer;
 	private final boolean isBack;
 	private final boolean useInsigniaColors;
-
-	public LayerQuartzCape(RenderLivingBase<?> gemRenderer) {
-		this(gemRenderer, false, false);
-	}
-
-	public LayerQuartzCape(RenderLivingBase<?> gemRenderer, boolean isBack, boolean useInsigniaColors) {
+	public LayerMelaniteCape(RenderLivingBase<?> gemRenderer, boolean isBack, boolean useInsigniaColors) {
 		this.gemRenderer = gemRenderer;
 		this.isBack = isBack;
 		this.useInsigniaColors = useInsigniaColors;
 	}
-
 	@Override
 	public void doRenderLayer(EntityGem gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		if (!gem.isInvisible() && gem.hasCape())	{
 			this.gemRenderer.bindTexture(this.getTexture(gem));
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(0.0F, 0.0F, 0.125F);
-			double d0 = gem.prevChasingPosX + (gem.chasingPosX - gem.prevChasingPosX) * (double)partialTicks - (gem.prevPosX + (gem.posX - gem.prevPosX) * (double)partialTicks);
-			double d1 = gem.prevChasingPosY + (gem.chasingPosY - gem.prevChasingPosY) * (double)partialTicks - (gem.prevPosY + (gem.posY - gem.prevPosY) * (double)partialTicks);
-			double d2 = gem.prevChasingPosZ + (gem.chasingPosZ - gem.prevChasingPosZ) * (double)partialTicks - (gem.prevPosZ + (gem.posZ - gem.prevPosZ) * (double)partialTicks);
+			double d0 = gem.prevChasingPosX + (gem.chasingPosX - gem.prevChasingPosX) * partialTicks - (gem.prevPosX + (gem.posX - gem.prevPosX) * partialTicks);
+			double d1 = gem.prevChasingPosY + (gem.chasingPosY - gem.prevChasingPosY) * partialTicks - (gem.prevPosY + (gem.posY - gem.prevPosY) * partialTicks);
+			double d2 = gem.prevChasingPosZ + (gem.chasingPosZ - gem.prevChasingPosZ) * partialTicks - (gem.prevPosZ + (gem.posZ - gem.prevPosZ) * partialTicks);
 			float f = gem.prevRenderYawOffset + (gem.renderYawOffset - gem.prevRenderYawOffset) * partialTicks;
-			double d3 = (double)MathHelper.sin(f * 0.017453292F);
-			double d4 = (double)(-MathHelper.cos(f * 0.017453292F));
+			double d3 = MathHelper.sin(f * 0.017453292F);
+			double d4 = (-MathHelper.cos(f * 0.017453292F));
 			float f1 = (float)d1 * 10.0F;
 			f1 = MathHelper.clamp(f1, -6.0F, 32.0F);
 			float f2 = (float)(d0 * d3 + d2 * d4) * 100.0F;
 			float f3 = (float)(d0 * d4 - d2 * d3) * 100.0F;
-
 			if (f2 < 0.0F) {
 				f2 = 0.0F;
 			}
-
 			f1 = f1 + MathHelper.sin((gem.prevDistanceWalkedModified + (gem.distanceWalkedModified - gem.prevDistanceWalkedModified) * partialTicks) * 6.0F) * 32.0F;
-
 			if (gem.isSneaking()) {
 				f1 += 25.0F;
 			}
-
 			GlStateManager.rotate(6.0F + f2 / 2.0F + f1, 1.0F, 0.0F, 0.0F);
 			GlStateManager.rotate(f3 / 2.0F, 0.0F, 0.0F, 1.0F);
 			GlStateManager.rotate(-f3 / 2.0F, 0.0F, 1.0F, 0.0F);
 			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 			float[] afloat;
-			if (useInsigniaColors) {
+			if (this.useInsigniaColors) {
 				afloat = EntitySheep.getDyeRgb(EnumDyeColor.values()[gem.getInsigniaColor()]);
-			} else {
+			}
+			else {
 				afloat = EntitySheep.getDyeRgb(EnumDyeColor.values()[gem.getUniformColor()]);
 			}
 			GlStateManager.color(afloat[0] * 2, afloat[1] * 2, afloat[2] * 2);
@@ -70,7 +61,6 @@ public class LayerMelaniteCape implements LayerRenderer<EntityGem> {
 			GlStateManager.popMatrix();
 		}
 	}
-
 	public ResourceLocation getTexture(EntityGem gem) {
 		if (isBack) {
 			return new ResourceLocation("amalgam:textures/entities/melanite/cape_back.png");
@@ -78,7 +68,7 @@ public class LayerMelaniteCape implements LayerRenderer<EntityGem> {
 			return new ResourceLocation("amalgam:textures/entities/melanite/cape.png");
 		}
 	}
-
+	@Override
 	public boolean shouldCombineTextures() {
 		return true;
 	}

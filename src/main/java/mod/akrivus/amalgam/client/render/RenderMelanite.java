@@ -1,5 +1,7 @@
 package mod.akrivus.amalgam.client.render;
 
+import mod.akrivus.amalgam.client.render.layers.LayerMelaniteCape;
+import mod.akrivus.amalgam.gem.EntityMelanite;
 import mod.akrivus.kagic.client.model.ModelHessonite;
 import mod.akrivus.kagic.client.render.RenderGemBase;
 import mod.akrivus.kagic.client.render.layers.LayerBirthdayHat;
@@ -8,14 +10,12 @@ import mod.akrivus.kagic.client.render.layers.LayerGemPlacement;
 import mod.akrivus.kagic.client.render.layers.LayerHair;
 import mod.akrivus.kagic.client.render.layers.LayerInsignia;
 import mod.akrivus.kagic.client.render.layers.LayerNoDyeOverlay;
-import mod.akricus.amalgam.client.render.layers.LayerQuartzCape;
 import mod.akrivus.kagic.client.render.layers.LayerQuartzItem;
 import mod.akrivus.kagic.client.render.layers.LayerSantaHat;
 import mod.akrivus.kagic.client.render.layers.LayerSkin;
 import mod.akrivus.kagic.client.render.layers.LayerUniform;
 import mod.akrivus.kagic.client.render.layers.LayerVisor;
 import mod.akrivus.kagic.client.render.layers.LayerWitchHat;
-import mod.akrivus.amalgam.gem.EntityMelanite;
 import mod.akrivus.kagic.init.KAGIC;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -32,8 +32,7 @@ public class RenderMelanite extends RenderGemBase<EntityMelanite> {
         this.addLayer(new LayerUniform(this));
         this.addLayer(new LayerInsignia(this));
         this.addLayer(new LayerNoDyeOverlay(this));
-        this.addLayer(new LayerQuartzCape(this));
-        this.addLayer(new LayerQuartzCape(this, true, true));
+        this.addLayer(new LayerMelaniteCape(this, true, true));
         this.addLayer(new LayerVisor(this));
         this.addLayer(new LayerGemPlacement(this));
         if (KAGIC.isBirthday()) {
