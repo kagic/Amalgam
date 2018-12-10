@@ -55,7 +55,7 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 		this.injector.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, this.destinationBlock.getY() + 1, this.destinationBlock.getZ() + 0.5D, 10.0F, this.injector.getVerticalFaceSpeed());
 		if (this.getIsAboveDestination()) {
 			this.injector.world.playSound(null, this.injector.getPosition(), ModSounds.BLOCK_INJECTOR_FIRE, SoundCategory.NEUTRAL, 1000.0F, 1.0F);
-			this.injector.world.setBlockState(this.getRelativePoint(this.injector.world, this.destinationBlock), ModBlocks.GEM_SEED.getDefaultState());
+			this.injector.world.setBlockState(new BlockPos(this.destinationBlock.getX(), this.getRelativeY(this.injector.world, this.destinationBlock), this.destinationBlock.getZ()), ModBlocks.GEM_SEED.getDefaultState());
 			this.injector.setLevel(this.injector.getLevel() - 1);
 		}
 		else {
@@ -64,17 +64,17 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 	}
 	@Override
 	protected boolean shouldMoveTo(World world, BlockPos pos) {
+		return this.getRelativeY(world, pos) > 0;
+	}
+	public int getRelativeY(World world, BlockPos pos) {
 		if (!world.isAirBlock(pos)) {
 			int maxalt = pos.getY() - 4;
-			boolean failed = false;
 			for (int y = Math.max(maxalt - 48, 5); y < maxalt; ++y) {
-				failed = false;
 				BlockPos check = new BlockPos(pos.getX(), y, pos.getZ());
 				if (world.getBlockState(check).getBlock() == ModBlocks.GEM_SEED) {
-					failed = true;
 					y += 4;
 					if (y > maxalt) {
-						return false;
+						return -1;
 					}
 				}
 				else {
@@ -82,14 +82,22 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 						for (int x = -1; x <= 1; ++x) {
 							for (int z = -1; z <= 1; ++z) {
 								if (world.getBlockState(check.add(x, j, z)).getBlock() == ModBlocks.GEM_SEED) {
-									return false;
+									return -1;
 								}
 							}
 						}
 					}
+					boolean failed = false;
 					if (!failed) {
 						for (int x = -1; x <= 1; ++x) {
 							Block block = world.getBlockState(check.add(x, 0, 0)).getBlock();
+							if (block == ModBlocks.GEM_SEED || block == Blocks.AIR) {
+								failed = true;
+								break;
+							}
+						}
+						for (int j = -1; j <= 1; ++j) {
+							Block block = world.getBlockState(check.add(0, j, 0)).getBlock();
 							if (block == ModBlocks.GEM_SEED || block == Blocks.AIR) {
 								failed = true;
 								break;
@@ -102,93 +110,16 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 								break;
 							}
 						}
-					}
-					if (!failed) {
-						boolean aired = false;
-						if (!aired) {
-							for (int i = 2; i <= 6; ++i) {
-								if (world.isAirBlock(check.add(-i, 0, 0)) || world.isAirBlock(check.add( i, 0, 0))) {
-									boolean canSeeUp = true;
-									for (int j = 0; j <= 16; ++j) {
-										if (!world.isAirBlock(check.add(-i, j, 0)) || !world.isAirBlock(check.add( i, j, 0))) {
-											canSeeUp = false;
-										}
-										else if (!canSeeUp) {
-											canSeeUp = true;
-											break;
-										}
-									}
-									aired = canSeeUp;
-									if (aired) {
-										break;
-									}
-								}
-							}
-						}
-						if (!aired) {
-							for (int i = 2; i <= 6; ++i) {
-								if (world.isAirBlock(check.add(0, 0, -i)) || world.isAirBlock(check.add(0, 0,  i))) {
-									boolean canSeeUp = true;
-									for (int j = 0; j <= 16; ++j) {
-										if (!world.isAirBlock(check.add(0, j, -i)) || !world.isAirBlock(check.add(0, j,  i))) {
-											canSeeUp = false;
-										}
-										else if (!canSeeUp) {
-											canSeeUp = true;
-											break;
-										}
-									}
-									aired = canSeeUp;
-									if (aired) {
-										break;
-									}
-								}
-							}
-						}
-						if (!aired) {
-							failed = true;
-						}
-					}
-					if (!failed) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-	public BlockPos getRelativePoint(World world, BlockPos pos) {
-		if (!world.isAirBlock(pos)) {
-			int maxalt = pos.getY() - 4;
-			boolean failed = false;
-			for (int y = 5; y < maxalt; ++y) {
-				BlockPos check = new BlockPos(pos.getX(), y, pos.getZ()); failed = false;
-				if (world.getBlockState(check).getBlock() == ModBlocks.GEM_SEED) {
-					failed = true;
-					y += 3;
-					if (y > maxalt) {
-						return pos;
-					}
-				}
-				else {
-					for (int x = -1; x <= 1; ++x) {
-						if (world.isAirBlock(check.add(x, 0, 0)) || world.getBlockState(check.add(x, 0, 0)).getBlock() == ModBlocks.GEM_SEED) {
-							failed = true;
-							break;
-						}
-					}
-					for (int z = -1; z <= 1; ++z) {
-						if (world.isAirBlock(check.add(0, 0, z)) || world.getBlockState(check.add(0, 0, z)).getBlock() == ModBlocks.GEM_SEED) {
-							failed = true;
-							break;
+						if (failed) {
+							continue;
 						}
 					}
 					boolean aired = false;
 					if (!aired) {
-						for (int i = 2; i < 7; ++i) {
+						for (int i = 2; i <= 6; ++i) {
 							if (world.isAirBlock(check.add(-i, 0, 0)) || world.isAirBlock(check.add( i, 0, 0))) {
 								boolean canSeeUp = true;
-								for (int j = 0; j < 17; ++j) {
+								for (int j = 0; j <= 16; ++j) {
 									if (!world.isAirBlock(check.add(-i, j, 0)) || !world.isAirBlock(check.add( i, j, 0))) {
 										canSeeUp = false;
 									}
@@ -205,10 +136,10 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 						}
 					}
 					if (!aired) {
-						for (int i = 2; i < 7; ++i) {
+						for (int i = 2; i <= 6; ++i) {
 							if (world.isAirBlock(check.add(0, 0, -i)) || world.isAirBlock(check.add(0, 0,  i))) {
 								boolean canSeeUp = true;
-								for (int j = 0; j < 17; ++j) {
+								for (int j = 0; j <= 16; ++j) {
 									if (!world.isAirBlock(check.add(0, j, -i)) || !world.isAirBlock(check.add(0, j,  i))) {
 										canSeeUp = false;
 									}
@@ -228,11 +159,11 @@ public class EntityAIFindInjectionPoint extends EntityAIMoveGemToBlock {
 						failed = true;
 					}
 					if (!failed) {
-						return check;
+						return y;
 					}
 				}
 			}
 		}
-		return pos;
+		return -1;
 	}
 }

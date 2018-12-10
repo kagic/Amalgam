@@ -141,13 +141,7 @@ public class EntityStevonnie extends EntityCreature implements INpc {
 	    	}
 	    	++this.lastHiltTime;
     	}
-    	if (this.getAttackTarget() == null) {
-    		if (this.ticksExisted % 20 == 0) {
-    			this.jump();
-    		}
-    	}
-    	if (this.getAttackTarget() == null && this.getRevengeTarget() == null
-    	 && this.ticksExisted % 200 == 0) {
+    	if (this.getAttackTarget() == null && this.getRevengeTarget() == null && this.ticksExisted % 200 == 0) {
     		this.unfuse();
     	}
     	if (!this.onGround && this.motionY < 0.0D) {

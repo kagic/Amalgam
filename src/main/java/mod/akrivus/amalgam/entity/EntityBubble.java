@@ -53,47 +53,50 @@ public class EntityBubble extends EntityLiving {
 	}
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
-		List<EntityGem> list = player.world.<EntityGem>getEntitiesWithinAABB(EntityGem.class, player.getEntityBoundingBox().grow(4, 4, 4));
-		double distance = Double.MAX_VALUE;
-		EntityGem gem = null;
-		for (EntityGem testedGem : list) {
-			if (testedGem.isOwnedBy(player)) {
-				double newDistance = player.getDistanceSq(testedGem);
-				if (newDistance <= distance) {
-					distance = newDistance;
-					gem = testedGem;
-				}
-			}
-		}
-		if (!player.isSneaking()) {
-			if (AmConfigs.enableBubblingNoGem || gem != null) {
-				BlockPos location = player.getBedLocation();
-				if (location == null) {
-					location = this.world.getSpawnPoint();
-				}
-				if (!this.world.isRemote && !this.dead) {
-					boolean generating = true;
-					int attempts = 0;
-					while (generating && attempts < 30) {
-						BlockPos pos = location.add((this.world.rand.nextFloat() - 0.5F) * 5, this.world.rand.nextFloat() * 3 + 1, (this.world.rand.nextFloat() - 0.5F) * 5);
-						if (this.world.isAirBlock(pos) && this.world.isAirBlock(pos.east()) && this.world.isAirBlock(pos.west()) && this.world.isAirBlock(pos.north()) && this.world.isAirBlock(pos.south())) {
-							this.playSendSound();
-							this.setPosition(pos.getX(), pos.getY(), pos.getZ());
-							this.playSendSound();
-							return true;
-						}
-						++attempts;
+		if (!this.world.isRemote && hand == EnumHand.MAIN_HAND) {
+			List<EntityGem> list = player.world.<EntityGem>getEntitiesWithinAABB(EntityGem.class, player.getEntityBoundingBox().grow(4, 4, 4));
+			double distance = Double.MAX_VALUE;
+			EntityGem gem = null;
+			for (EntityGem testedGem : list) {
+				if (testedGem.isOwnedBy(player)) {
+					double newDistance = player.getDistanceSq(testedGem);
+					if (newDistance <= distance) {
+						distance = newDistance;
+						gem = testedGem;
 					}
-					return false;
 				}
 			}
-		}
-		else {
-			if (player.inventory.addItemStackToInventory(this.getItem())) {
-				this.setDead();
+			if (!player.isSneaking()) {
+				if (AmConfigs.enableBubblingNoGem || gem != null) {
+					BlockPos location = player.getBedLocation();
+					if (location == null) {
+						location = this.world.getSpawnPoint();
+					}
+					if (!this.dead) {
+						boolean generating = true;
+						int attempts = 0;
+						while (generating && attempts < 30) {
+							BlockPos pos = location.add((this.world.rand.nextFloat() - 0.5F) * 5, this.world.rand.nextFloat() * 3 + 1, (this.world.rand.nextFloat() - 0.5F) * 5);
+							if (this.world.isAirBlock(pos) && this.world.isAirBlock(pos.east()) && this.world.isAirBlock(pos.west()) && this.world.isAirBlock(pos.north()) && this.world.isAirBlock(pos.south())) {
+								this.playSendSound();
+								this.setPosition(pos.getX(), pos.getY(), pos.getZ());
+								this.playSendSound();
+								return true;
+							}
+							++attempts;
+						}
+						return false;
+					}
+				}
 			}
 			else {
-				this.attackEntityFrom(DamageSource.GENERIC, 1.0F);
+				if (player.inventory.addItemStackToInventory(this.getItem())) {
+					this.setDead();
+				}
+				else {
+					this.attackEntityFrom(DamageSource.GENERIC, 1.0F);
+				}
+				return true;
 			}
 		}
 		return super.processInteract(player, hand);
