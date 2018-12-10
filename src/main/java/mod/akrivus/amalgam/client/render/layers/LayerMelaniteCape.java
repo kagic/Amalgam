@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerGarnetCape implements LayerRenderer<EntityGem> {
+public class LayerMelaniteCape implements LayerRenderer<EntityGem> {
 	private final RenderLivingBase<?> gemRenderer;
 	private final boolean isBack;
 	private final boolean useInsigniaColors;
@@ -73,9 +73,9 @@ public class LayerGarnetCape implements LayerRenderer<EntityGem> {
 
 	public ResourceLocation getTexture(EntityGem gem) {
 		if (isBack) {
-			return new ResourceLocation("conglomerate:textures/entities/melanite/cape_back.png");
+			return new ResourceLocation("amalgam:textures/entities/melanite/cape_back.png");
 		} else {
-			return new ResourceLocation("conglomerate:textures/entities/melanite/cape.png");
+			return new ResourceLocation("amalgam:textures/entities/melanite/cape.png");
 		}
 	}
 
