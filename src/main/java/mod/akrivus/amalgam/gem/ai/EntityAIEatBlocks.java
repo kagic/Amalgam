@@ -22,7 +22,7 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 	}
 	@Override
 	public boolean shouldExecute() {
-		if (this.gem.isTamed()) {
+		if (this.gem.isTamed() && this.gem.getFoodLevel() < this.gem.getMaxExpected()) {
 			if (this.gem.world.getCurrentMoonPhaseFactor() == 1.0) {
 				if (this.delay > 20 + this.gem.getRNG().nextInt(20)) {
 					this.runDelay = 0;
@@ -38,7 +38,7 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 	}
 	@Override
 	public boolean shouldContinueExecuting() {
-		return super.shouldContinueExecuting() && this.gem.world.getCurrentMoonPhaseFactor() == 1.0 && !this.gem.getNavigator().noPath();
+		return super.shouldContinueExecuting() && this.gem.world.getCurrentMoonPhaseFactor() == 1.0 && !this.gem.getNavigator().noPath() && this.gem.getFoodLevel() < this.gem.getMaxExpected();
 	}
 	@Override
 	public void startExecuting() {

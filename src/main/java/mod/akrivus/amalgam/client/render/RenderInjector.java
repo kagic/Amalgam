@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderInjector extends RenderLiving<EntityInjector> {
 	public RenderInjector() {
-		super(Minecraft.getMinecraft().getRenderManager(), new ModelInjector(), 0.0F);
+		super(Minecraft.getMinecraft().getRenderManager(), new ModelInjector(), 0.25F);
 		this.addLayer(new LayerInjectorGlass(this));
 	}
 	@Override

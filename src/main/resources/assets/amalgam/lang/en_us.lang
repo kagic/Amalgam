@@ -35,6 +35,7 @@ entity.stevonnie.name=Stevonnie
 entity.gem_shard.name=Gem Shard
 entity.bubble.name=Bubble
 entity.injector.name=Injector
+entity.palanquin.name=Palanquin
 
 entity.fused_topaz.name=Topaz
 entity.fused_ruby.name=Ruby

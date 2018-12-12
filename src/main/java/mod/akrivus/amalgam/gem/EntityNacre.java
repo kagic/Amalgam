@@ -275,7 +275,7 @@ public class EntityNacre extends EntityPearl implements INpc {
 		if (!this.world.isRemote) {
 			if (this.world.getCurrentMoonPhaseFactor() == 0.0) {
 				if (this.totalExpected == 0 && this.getStressLevel() == 0) {
-					this.totalExpected = this.getFoodLevel() / 864;
+					this.totalExpected = this.getFoodLevel() / 64;
 				}
 				if (this.isDefective()) {
 					this.totalExpected = 0;
@@ -425,6 +425,17 @@ public class EntityNacre extends EntityPearl implements INpc {
 	}
 	public int getFoodLevel() {
 		return this.dataManager.get(FOOD);
+	}
+	public int getMaxExpected() {
+		if (this.isDefective()) {
+			return this.rand.nextInt(32) + 32;
+		}
+		else {
+			if (this.rand.nextInt(20) == 0 || this.isPrimary()) {
+				return this.rand.nextInt(256) + 128;
+			}
+			return this.rand.nextInt(64) + 64;
+		}
 	}
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {

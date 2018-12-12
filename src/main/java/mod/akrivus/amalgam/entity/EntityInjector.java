@@ -1,7 +1,5 @@
 package mod.akrivus.amalgam.entity;
 
-import java.util.UUID;
-
 import mod.akrivus.amalgam.gem.ai.EntityAIEatShards;
 import mod.akrivus.amalgam.gem.ai.EntityAIFindInjectionPoint;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowControllingPlayer;
@@ -9,7 +7,6 @@ import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.init.ModSounds;
 import mod.akrivus.kagic.items.ItemActiveGemBase;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -27,14 +24,12 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityInjector extends EntityCreature {
+public class EntityInjector extends EntityMachine {
 	private static final DataParameter<Integer> COLOR = EntityDataManager.<Integer>createKey(EntityInjector.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> LEVEL = EntityDataManager.<Integer>createKey(EntityInjector.class, DataSerializers.VARINT);
-	private EntityPlayer playerBeingFollowed;
 	public int numberOfFails = 0;
 	public EntityInjector(World world) {
 		super(world);
@@ -46,26 +41,24 @@ public class EntityInjector extends EntityCreature {
         this.tasks.addTask(6, new EntityAILookIdle(this));
 		this.dataManager.register(COLOR, world.rand.nextInt(16));
 		this.dataManager.register(LEVEL, 0);
+		this.isImmuneToFire = true;
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(20.0D);
 	}
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
-		if (this.getPlayerUUIDBeingFollowed() != null) {
-			compound.setUniqueId("playerBeingFollowed", this.getPlayerUUIDBeingFollowed());
-		}
+        super.writeEntityToNBT(compound);
 		compound.setInteger("numberOfFails", this.numberOfFails);
         compound.setInteger("color", this.getColor());
         compound.setInteger("level", this.getLevel());
-        super.writeEntityToNBT(compound);
 	}
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
-		this.setPlayerUUIDBeingFollowed(compound.getUniqueId("playerBeingFollowed"));
+        super.readEntityFromNBT(compound);
 		this.numberOfFails = compound.getInteger("numberOfFails");
         this.setColor(compound.getInteger("color"));
         this.setLevel(compound.getInteger("level"));
-        super.readEntityFromNBT(compound);
 	}
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
@@ -83,14 +76,14 @@ public class EntityInjector extends EntityCreature {
 					this.say(player, this.getName() + " can produce " + this.getLevel() + " gems.");
 				}
 				else {
-					if (this.playerBeingFollowed != null && this.playerBeingFollowed.isEntityEqual(player)) {
+					if (this.getPlayerBeingFollowed() != null && this.getPlayerBeingFollowed().isEntityEqual(player)) {
 						this.say(player, this.getName() + " will not follow you.");
-						this.playerBeingFollowed = null;
+						this.setPlayerBeingFollowed(null);
 						this.numberOfFails = 0;
 					}
 					else {
 						this.say(player, this.getName() + " will follow you.");
-						this.playerBeingFollowed = player;
+						this.setPlayerBeingFollowed(player);
 					}
 				}
 			}
@@ -116,7 +109,7 @@ public class EntityInjector extends EntityCreature {
 	}
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (source.getTrueSource() != null || source == DamageSource.CACTUS || source == DamageSource.CRAMMING || source == DamageSource.OUT_OF_WORLD) {
+		if (source.getTrueSource() != null || source == DamageSource.CRAMMING || source == DamageSource.OUT_OF_WORLD) {
 			return super.attackEntityFrom(source, amount);
 		}
 		return false;
@@ -137,6 +130,10 @@ public class EntityInjector extends EntityCreature {
 	protected boolean canTriggerWalking() {
         return false;
 	}
+	@Override
+	public boolean canBreatheUnderwater() {
+        return true;
+    }
 	@Override
 	public void fall(float distance, float damageMultiplier) {
 		return;
@@ -168,25 +165,5 @@ public class EntityInjector extends EntityCreature {
 	}
 	public int getLevel() {
 		return this.dataManager.get(LEVEL);
-	}
-	public void setPlayerUUIDBeingFollowed(UUID uuid) {
-		this.playerBeingFollowed = this.world.getPlayerEntityByUUID(uuid);
-	}
-	public UUID getPlayerUUIDBeingFollowed() {
-		if (this.playerBeingFollowed != null) {
-			return this.playerBeingFollowed.getUniqueID();
-		}
-		else {
-			return null;
-		}
-	}
-	public void setPlayerBeingFollowed(EntityPlayer player) {
-		this.playerBeingFollowed = player;
-	}
-	public EntityPlayer getPlayerBeingFollowed() {
-		return this.playerBeingFollowed;
-	}
-	public void say(EntityPlayer player, String line) {
-		player.sendMessage(new TextComponentString("<" + this.getName() + "> " + line));
 	}
 }

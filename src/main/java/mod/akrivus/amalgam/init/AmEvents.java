@@ -10,6 +10,7 @@ import mod.akrivus.amalgam.enchant.EnchantShard;
 import mod.akrivus.amalgam.entity.EntityBubble;
 import mod.akrivus.amalgam.entity.EntityGemShard;
 import mod.akrivus.amalgam.entity.EntityInjector;
+import mod.akrivus.amalgam.entity.EntityPalanquin;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.amalgam.gem.EntityFusedRuby;
 import mod.akrivus.amalgam.gem.EntityFusedTopaz;
@@ -51,15 +52,18 @@ import mod.akrivus.kagic.event.TimeGlassEvent;
 import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.items.ItemGem;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -150,14 +154,18 @@ public class AmEvents {
 			EntityAnimal animal = (EntityAnimal)(e.getEntity());
 			animal.targetTasks.addTask(3, new EntityAIFollowTopaz(animal, 0.9D));
 		}
-		if (e.getEntity() instanceof EntityEnderman) {
-			EntityEnderman ender = (EntityEnderman)(e.getEntity());
-			ender.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityPlayer>(ender, EntityPlayer.class, 10, true, false, new Predicate<EntityPlayer>() {
-	            @Override
-				public boolean apply(EntityPlayer input) {
-	                return input != null && Amalgam.KILL_LIST.contains(input.getName());
-	            }
-	        }));
+		if (e.getEntity() instanceof EntityMob) {
+			if (e.getEntity() instanceof EntityEnderman) {
+				EntityEnderman ender = (EntityEnderman)(e.getEntity());
+				ender.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityPlayer>(ender, EntityPlayer.class, 10, true, false, new Predicate<EntityPlayer>() {
+		            @Override
+					public boolean apply(EntityPlayer input) {
+		                return input != null && Amalgam.KILL_LIST.contains(input.getName());
+		            }
+		        }));
+			}
+			EntityMob mob = (EntityMob)(e.getEntity());
+			mob.tasks.addTask(0, new EntityAIAvoidEntity<EntityPalanquin>(mob, EntityPalanquin.class, 16, 0.2D, 0.8D));
 		}
 		if (e.getEntity() instanceof EntityGem) {
 			EntityGem gem = (EntityGem)(e.getEntity());
@@ -408,7 +416,7 @@ public class AmEvents {
 											EntityInjector injector = new EntityInjector(e.getWorld());
 											injector.setPosition(e.getPos().getX() + 0.5F, e.getPos().getY() - 4, e.getPos().getZ() + 0.5F);
 											injector.setColor(metadata);
-											injector.setHealth(10.0F);
+											injector.setHealth(20.0F);
 											e.getWorld().spawnEntity(injector);
 										}
 									}
@@ -419,5 +427,137 @@ public class AmEvents {
 				}
 			}
 		}
+		if (AmConfigs.enablePalanquins) {
+			IBlockState state = e.getPlacedBlock();
+			boolean failed = false;
+			int seatColor = -1;
+			int bodyColor = -1;
+			int veilColor = -1;
+			if (state.getBlock() == Blocks.WOOL) {
+				seatColor = state.getValue(BlockColored.COLOR).getDyeDamage();
+				state = e.getWorld().getBlockState(e.getPos().down(1));
+				if (state.getBlock() == Blocks.CONCRETE) {
+					bodyColor = state.getValue(BlockColored.COLOR).getDyeDamage();
+					for (int x = -1; x <= 1; ++x) {
+						for (int z = -1; z <= 1; ++z) {
+							state = e.getWorld().getBlockState(e.getPos().add(x, -1, z));
+							if (state.getBlock() == Blocks.CONCRETE && state.getValue(BlockColored.COLOR).getDyeDamage() == bodyColor) { }
+							else {
+								failed = true;
+								break;
+							}
+						}
+						if (failed) {
+							break;
+						}
+					}
+					if (!failed) {
+						int airX = 0; int airZ = 0;
+						for (int y = 0; y <= 3; ++y) {
+							for (int x = -1; x <= 1; ++x) {
+								for (int z = -1; z <= 1; ++z) {
+									state = e.getWorld().getBlockState(e.getPos().add(x, y, z));
+									if (x == 0 && z == 0) {
+										if (y == 0) {
+											if (state.getBlock() != Blocks.WOOL) {
+												failed = true;
+												break;
+											}
+										}
+										else {
+											if (state.getBlock() != Blocks.AIR) {
+												failed = true;
+												break;
+											}
+										}
+									}
+									else {
+										System.out.println(state);
+										if (state.getBlock() == Blocks.AIR) {
+											if (y == 0) {
+												airX = x; airZ = z;
+											}
+											else if (airX == x && airZ == z) {
+												continue;
+											}
+											else {
+												failed = true;
+												break;
+											}
+										}
+										else {
+											if (airX == x && airZ == z) {
+												failed = true;
+												break;
+											}
+											else {
+												if (state.getBlock() == Blocks.STAINED_GLASS) {
+													if (veilColor == -1) {
+														veilColor = state.getValue(BlockStainedGlass.COLOR).getDyeDamage();
+													}
+													else if (state.getValue(BlockStainedGlass.COLOR).getDyeDamage() == veilColor) {
+														continue;
+													}
+													else {
+														failed = true;
+														break;
+													}
+												}
+												else {
+													failed = true;
+													break;
+												}
+											}
+										}
+									}
+								}
+								if (failed) {
+									break;
+								}
+							}
+							if (failed) {
+								break;
+							}
+						}
+					}
+					if (!failed) {
+						for (int x = -1; x <= 1; ++x) {
+							for (int z = -1; z <= 1; ++z) {
+								state = e.getWorld().getBlockState(e.getPos().add(x, 4, z));
+								if (state.getBlock() == Blocks.CONCRETE && state.getValue(BlockColored.COLOR).getDyeDamage() == bodyColor) { }
+								else {
+									failed = true;
+									break;
+								}
+							}
+							if (failed) {
+								break;
+							}
+						}
+					}
+					if (!failed) {
+						e.getItemInHand().shrink(1);
+						for (int y = -1; y <= 5; ++y) {
+							for (int x = -1; x <= 1; ++x) {
+								for (int z = -1; z <= 1; ++z) {
+									e.getWorld().destroyBlock(e.getPos().add(x, y, z), false);
+								}
+							}
+						}
+						e.setCanceled(true);
+						if (!e.getWorld().isRemote) {
+							EntityPalanquin palanquin = new EntityPalanquin(e.getWorld());
+							palanquin.setPosition(e.getPos().getX() + 0.5F, e.getPos().getY() - 1, e.getPos().getZ() + 0.5F);
+							palanquin.setHighlightColor(seatColor);
+							palanquin.setBodyColor(bodyColor);
+							palanquin.setVeilColor(veilColor);
+							palanquin.setHealth(20.0F);
+							e.getWorld().spawnEntity(palanquin);
+						}
+					}
+				}
+			}
+		}
+		
 	}
 }

@@ -13,6 +13,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class AmConfigs {
 	@Config.Name("Replace injectors with mobile ones:")
 	public static boolean replaceInjectors = true;
+	@Config.Name("Enable palanquins:")
+	public static boolean enablePalanquins = true;
 	@Config.Name("Enable bubbling:")
 	public static boolean enableBubbling = true;
 	@Config.Name("Enable bubbling without gems:")

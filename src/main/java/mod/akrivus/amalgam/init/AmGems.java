@@ -3,6 +3,7 @@ package mod.akrivus.amalgam.init;
 import mod.akrivus.amalgam.entity.EntityBubble;
 import mod.akrivus.amalgam.entity.EntityGemShard;
 import mod.akrivus.amalgam.entity.EntityInjector;
+import mod.akrivus.amalgam.entity.EntityPalanquin;
 import mod.akrivus.amalgam.entity.EntitySpitball;
 import mod.akrivus.amalgam.gem.EntityAquaAuraQuartz;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
@@ -13,13 +14,13 @@ import mod.akrivus.amalgam.gem.EntityEnderPearl;
 import mod.akrivus.amalgam.gem.EntityFusedPyrite;
 import mod.akrivus.amalgam.gem.EntityFusedRuby;
 import mod.akrivus.amalgam.gem.EntityFusedTopaz;
+import mod.akrivus.amalgam.gem.EntityMelanite;
 import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.amalgam.gem.EntityPyrite;
 import mod.akrivus.amalgam.gem.EntitySteven;
 import mod.akrivus.amalgam.gem.EntityStevonnie;
 import mod.akrivus.amalgam.gem.EntityWatermelonTourmaline;
-import mod.akrivus.amalgam.gem.EntityMelanite;
 import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.init.ModEntities;
 import net.minecraft.client.renderer.entity.Render;
@@ -56,6 +57,7 @@ public class AmGems {
 		registerEntity("spitball", EntitySpitball.class);
 		registerEntity("bubble", EntityBubble.class);
 		registerEntity("injector", EntityInjector.class);
+		registerEntity("palanquin", EntityPalanquin.class);
 	}
 	public static <T extends Entity> void registerMob(String name, Class<T> entity, int back, int fore) {
 		EntityRegistry.registerModEntity(new ResourceLocation("amalgam:" + name), entity, name, currentID, Amalgam.instance, 256, 1, true, back, fore);
