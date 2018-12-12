@@ -333,12 +333,12 @@ public class EntityNacre extends EntityPearl implements INpc {
 			}
 		}
 		else {
-			if (this.getStressLevel() > 0.0) {
+			if (this.getStressLevel() > 0) {
 				for (int i = 0; i < 1; ++i) {
 	                this.world.spawnParticle(EnumParticleTypes.VILLAGER_ANGRY, this.posX + this.rand.nextFloat() * this.width * 2.0F - this.width, this.posY + 0.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0F - this.width, this.rand.nextGaussian() * 0.02D,  this.rand.nextGaussian() * 0.02D, this.rand.nextGaussian() * 0.02D);
 	            }
 			}
-			else if (this.getFoodLevel() > 864.0) {
+			if (this.getFoodLevel() > 64) {
 				for (int i = 0; i < 1; ++i) {
 	                this.world.spawnParticle(EnumParticleTypes.HEART, this.posX + this.rand.nextFloat() * this.width * 2.0F - this.width, this.posY + 0.5D + this.rand.nextFloat() * this.height, this.posZ + this.rand.nextFloat() * this.width * 2.0F - this.width, this.rand.nextGaussian() * 0.02D,  this.rand.nextGaussian() * 0.02D, this.rand.nextGaussian() * 0.02D);
 	            }

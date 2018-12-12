@@ -65,7 +65,7 @@ public class AmItems {
 		ModItems.registerExternalGem(EMERALD_GEM, CRACKED_EMERALD_GEM, "amalgam", event);
 		ModItems.registerExternalGem(AQUA_AURA_QUARTZ_GEM, CRACKED_AQUA_AURA_QUARTZ_GEM, "amalgam", event);
 		ModItems.registerExternalGem(WATERMELON_TOURMALINE_GEM, CRACKED_WATERMELON_TOURMALINE_GEM, "amalgam", event);
-		ModItems.registerExternalGem(MELANITE_GEM, CRACKED_MELANITE_GEM, "melanite", event);
+		ModItems.registerExternalGem(MELANITE_GEM, CRACKED_MELANITE_GEM, "amalgam", event);
 		
 		ModItems.registerExternalItem(WHITE_GEM_SHARD, "amalgam", event);
 		ModItems.registerExternalItem(ORANGE_GEM_SHARD, "amalgam", event);

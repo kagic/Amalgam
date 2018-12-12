@@ -16,7 +16,7 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 	private final World world;
 	private int delay = 0;
 	public EntityAIEatBlocks(EntityNacre gem, double speed) {
-		super(gem, speed, 16);
+		super(gem, speed, 8);
 		this.gem = gem;
 		this.world = gem.world;
 	}
@@ -24,7 +24,7 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 	public boolean shouldExecute() {
 		if (this.gem.isTamed() && this.gem.getFoodLevel() < this.gem.getMaxExpected()) {
 			if (this.gem.world.getCurrentMoonPhaseFactor() == 1.0) {
-				if (this.delay > 20 + this.gem.getRNG().nextInt(20)) {
+				if (this.delay > 5 + this.gem.getRNG().nextInt(5)) {
 					this.runDelay = 0;
 					this.delay = 0;
 					return super.shouldExecute();
@@ -71,19 +71,13 @@ public class EntityAIEatBlocks extends EntityAIMoveGemToBlock {
 			IBlockState state = world.getBlockState(pos);
 			Block block = state.getBlock();
 			if (block == Blocks.COAL_BLOCK || block == Blocks.COAL_ORE
-					|| block == Blocks.END_STONE || block == Blocks.NETHERRACK) {
-				return this.hasAir(pos);
-			}
-			else if (state.getMaterial() == Material.WOOD || state.getMaterial() == Material.CACTUS || state.getMaterial() == Material.GOURD
-					|| state.getMaterial() == Material.CAKE || state.getMaterial() == ModBlocks.DRAINED) {
-				return this.hasAir(pos);
-			}
-			else if (state.getMaterial() == Material.CLAY || state.getMaterial() == Material.GLASS || state.getMaterial() == Material.GROUND
-					|| state.getMaterial() == Material.GRASS || state.getMaterial() == Material.SNOW) {
-				return this.hasAir(pos);
-			}
-			else if (state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.PLANTS
-					|| state.getMaterial() == Material.SAND || state.getMaterial() == Material.VINE) {
+			 || block == Blocks.END_STONE || block == Blocks.NETHERRACK
+			 || state.getMaterial() == Material.GOURD || state.getMaterial() == Material.CAKE
+			 || state.getMaterial() == Material.VINE || state.getMaterial() == Material.CLAY
+			 || state.getMaterial() == Material.GROUND || state.getMaterial() == Material.GRASS
+			 || state.getMaterial() == Material.SNOW || state.getMaterial() == Material.LEAVES
+			 || state.getMaterial() == Material.PLANTS || state.getMaterial() == Material.SAND
+			 || state.getMaterial() == ModBlocks.DRAINED) {
 				return this.hasAir(pos);
 			}
 		}

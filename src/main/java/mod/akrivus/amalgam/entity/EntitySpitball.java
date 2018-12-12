@@ -134,11 +134,8 @@ public class EntitySpitball extends Entity {
 		                		else if (block == Blocks.WEB) {
 		                			this.world.destroyBlock(newp, true);
 		                		}
-		                		else if (mat == Material.CACTUS || mat == Material.CAKE || mat == Material.CARPET
-		                				|| mat == Material.CLOTH || mat == Material.CORAL || mat == Material.FIRE
-		                				|| mat == Material.GOURD || mat == Material.GRASS || mat == Material.GROUND
-		                				|| mat == Material.LAVA || mat == Material.LEAVES || mat == Material.PLANTS
-		                				|| mat == Material.VINE || mat == Material.WOOD) {
+		                		else if (mat == Material.CACTUS || mat == Material.FIRE || mat == Material.GRASS
+		                			  || mat == Material.LEAVES || mat == Material.PLANTS || mat == Material.VINE) {
 		                			this.world.setBlockToAir(newp);
 		                		}
 	        				}

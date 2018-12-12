@@ -132,7 +132,7 @@ public class EntityBubble extends EntityLiving {
 	}
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (source.getTrueSource() != null || source == DamageSource.CACTUS || source == DamageSource.CRAMMING || source == DamageSource.OUT_OF_WORLD) {
+		if (source.getTrueSource() != null || source == DamageSource.CACTUS || source == DamageSource.CRAMMING || source == DamageSource.OUT_OF_WORLD || source == DamageSource.IN_WALL) {
 			return super.attackEntityFrom(source, amount);
 		}
 		return false;

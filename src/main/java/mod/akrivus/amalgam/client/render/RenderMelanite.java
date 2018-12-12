@@ -22,10 +22,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderMelanite extends RenderGemBase<EntityMelanite> {
-
     public RenderMelanite() {
         super(Minecraft.getMinecraft().getRenderManager(), new ModelHessonite(), 0.5F);
-
         this.addLayer(new LayerQuartzItem(this));
         this.addLayer(new LayerSkin(this));
         this.addLayer(new LayerHair(this));
@@ -43,17 +41,15 @@ public class RenderMelanite extends RenderGemBase<EntityMelanite> {
             this.addLayer(new LayerSantaHat(this));
         }
     }
-
     @Override
     protected void preRenderCallback(EntityMelanite gem, float partialTickTime) {
-        if(gem.isDefective()) {
+        if (gem.isDefective()) {
             GlStateManager.scale(0.8F, 0.7F, 0.8F);
         }
-        if(gem.isPrimary()) {
+        if (gem.isPrimary()) {
             this.addLayer(new LayerDiamondGlow(this));
         }
     }
-
     @Override
     protected ResourceLocation getEntityTexture(EntityMelanite entity) {
         return new ResourceLocation("amalgam:textures/entities/melanite/melanite.png");

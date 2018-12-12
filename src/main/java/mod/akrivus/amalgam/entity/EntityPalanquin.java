@@ -101,17 +101,18 @@ public class EntityPalanquin extends EntityMachine implements IJumpingMount {
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		if (this.isBeingRidden() && (this.motionX != 0 || this.motionZ != 0)) {
-			List<Entity> entities = this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().grow(2.0D));
-			for (Entity entity : entities) {
-				if (entity instanceof EntityLivingBase) {
-					EntityLivingBase living = (EntityLivingBase)(entity);
-					if (!this.isRidingOrBeingRiddenBy(living) /*&& !living.isOnSameTeam(this.getControllingPassenger())*/) {
-						living.attackEntityFrom(DamageSource.FLY_INTO_WALL, (float)((this.motionX + this.motionZ) * 10.0D));
-						living.motionX += this.motionX * 3.0D;
-						living.motionZ += this.motionZ * 3.0D;
-						living.motionY += 0.4D;
+		if (this.isBeingRidden()) {
+			List<EntityLivingBase> entities = this.world.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox());
+			for (EntityLivingBase entity : entities) {
+				if (!this.isRidingOrBeingRiddenBy(entity) && !this.isEntityEqual(entity)) {
+					float damage = 2.0F;
+					if (this.posY > entity.posY) {
+						damage = 40.0F;
 					}
+					entity.attackEntityFrom(DamageSource.causeIndirectDamage(this, (EntityLivingBase)(this.getControllingPassenger())), damage);
+					entity.motionY += this.motionX + this.motionZ;
+					entity.motionX += this.motionX * 1.5D;
+					entity.motionZ += this.motionZ * 1.5D;
 				}
 			}
 		}
