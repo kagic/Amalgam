@@ -90,7 +90,13 @@ public class EntityNephrite extends EntityGem implements IAnimals {
             		try {
             			double damage = input.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getBaseValue();
             			if (IMob.VISIBLE_MOB_SELECTOR.apply(input) || damage > 1) {
-            				return true;
+            				if (input instanceof EntityGem) {
+            					EntityGem gem = (EntityGem)(input);
+            					return gem.isTamed();
+            				}
+            				else {
+            					return true;
+            				}
             			}
             		}
             		catch (NullPointerException e) {
@@ -108,7 +114,7 @@ public class EntityNephrite extends EntityGem implements IAnimals {
         this.droppedGemItem = AmItems.NEPHRITE_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_NEPHRITE_GEM;
 		
-		this.setDefective(this.rand.nextInt(20) == 0);
+		this.setDefective(this.rand.nextInt(40) == 0);
 	}
 	@Override
 	public boolean attackEntityFrom(DamageSource cause, float amount) {
