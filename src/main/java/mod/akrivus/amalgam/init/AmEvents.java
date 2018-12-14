@@ -15,6 +15,7 @@ import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.amalgam.gem.EntityFusedRuby;
 import mod.akrivus.amalgam.gem.EntityFusedTopaz;
 import mod.akrivus.amalgam.gem.EntitySteven;
+import mod.akrivus.amalgam.gem.ai.EntityAIBubbleItems;
 import mod.akrivus.amalgam.gem.ai.EntityAICallForBackup;
 import mod.akrivus.amalgam.gem.ai.EntityAICrossFuse;
 import mod.akrivus.amalgam.gem.ai.EntityAIFestiveBurnStuff;
@@ -41,6 +42,7 @@ import mod.akrivus.kagic.entity.gem.EntityRoseQuartz;
 import mod.akrivus.kagic.entity.gem.EntityRuby;
 import mod.akrivus.kagic.entity.gem.EntitySapphire;
 import mod.akrivus.kagic.entity.gem.EntityTopaz;
+import mod.akrivus.kagic.entity.gem.EntityZircon;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
 import mod.akrivus.kagic.entity.gem.fusion.EntityGarnet;
 import mod.akrivus.kagic.entity.gem.fusion.EntityMalachite;
@@ -223,6 +225,9 @@ public class AmEvents {
 		                return input != null && (input.isDefective() || input.isTraitor());
 		            }
 		        }));
+			}
+			if (gem instanceof EntityZircon) {
+				gem.tasks.addTask(1, new EntityAIBubbleItems(gem, 0.6D));
 			}
 		}
 	}

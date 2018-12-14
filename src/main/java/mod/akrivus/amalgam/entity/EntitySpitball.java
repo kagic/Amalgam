@@ -109,7 +109,7 @@ public class EntitySpitball extends Entity {
 	        		result.entityHit.attackEntityFrom(DamageSource.GENERIC, 10.0F);
 	        		if (result.entityHit instanceof EntityLivingBase) {
 	        			EntityLivingBase entity = (EntityLivingBase)(result.entityHit);
-	        			entity.addPotionEffect(new PotionEffect(MobEffects.WITHER, 600));
+	        			entity.addPotionEffect(new PotionEffect(MobEffects.WITHER, 100));
 	            	}
            		}
             }
