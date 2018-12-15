@@ -45,29 +45,31 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
+	/* Gem descriptors used by KAGIC to facilitate requisites. */
+	public static final HashMap<Integer, ResourceLocation> CITRINE_HAIR_STYLES = new HashMap<Integer, ResourceLocation>();
 	public static final HashMap<IBlockState, Double> CITRINE_YIELDS = new HashMap<IBlockState, Double>();
 	public static final double CITRINE_DEFECTIVITY_MULTIPLIER = 2;
 	public static final double CITRINE_DEPTH_THRESHOLD = 64;
-	public static final HashMap<Integer, ResourceLocation> CITRINE_HAIR_STYLES = new HashMap<Integer, ResourceLocation>();
+
+	/* Data parameters used to track information between the client and server. */
 	private static final DataParameter<Boolean> CHARGED = EntityDataManager.<Boolean>createKey(EntityCitrine.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> DEFECTIVE_COLOR = EntityDataManager.<Integer>createKey(EntityCitrine.class, DataSerializers.VARINT);
 	
+	/* Stylization indexes and gradients. */
 	public static final int SKIN_COLOR_BEGIN = 0xFFF37C; 
 	public static final int SKIN_COLOR_END = 0xFF9400; 
-
-
 	public static final int HAIR_COLOR_BEGIN = 0xF1DA8F;
-	public static final int HAIR_COLOR_END = 0xFFFF01; 
-	
+	public static final int HAIR_COLOR_END = 0xFFFF01;
 	private static final int NUM_HAIRSTYLES = 5;
 	
-	private int charge_ticks = 0;
-	private int hit_count = 0;
+	/* Quartz specialty fields. */
+	private int chargeTicks = 0;
+	private int hitCount = 0;
 	
 	public EntityCitrine(World worldIn) {
 		super(worldIn);
 		
-		//Define valid gem cuts and placements
+		// Define valid cuts and placements.
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.FOREHEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_EYE);
@@ -103,6 +105,7 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
         // Apply entity attributes.
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12.0D);
         
+        // Define dropped gems.
         this.droppedGemItem = AmItems.CITRINE_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_CITRINE_GEM;
         
@@ -129,16 +132,16 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
         compound.setBoolean("charged", this.dataManager.get(CHARGED).booleanValue());
-        compound.setInteger("charge_ticks", this.charge_ticks);
-        compound.setInteger("hit_count", this.hit_count);
+        compound.setInteger("chargeTicks", this.chargeTicks);
+        compound.setInteger("hitCount", this.hitCount);
         compound.setInteger("defectiveColors", this.dataManager.get(DEFECTIVE_COLOR));
         super.writeEntityToNBT(compound);
     }
     @Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
         this.dataManager.set(CHARGED, compound.getBoolean("charged"));
-        this.charge_ticks = compound.getInteger("charge_ticks");
-        this.hit_count = compound.getInteger("hit_count");
+        this.chargeTicks = compound.getInteger("chargeTicks");
+        this.hitCount = compound.getInteger("hitCount");
         this.dataManager.set(DEFECTIVE_COLOR, compound.getInteger("defectiveColors"));
         super.readEntityFromNBT(compound);
     }
@@ -184,8 +187,8 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		if (!this.world.isRemote) {
-			this.charge_ticks += 20;
-			this.hit_count += 1;
+			this.chargeTicks += 20;
+			this.hitCount += 1;
 			boolean smite = this.rand.nextInt(3) == 1;
 			if (smite) {
 				this.isImmuneToFire = true;
@@ -269,12 +272,12 @@ public class EntityCitrine extends EntityQuartzSoldier implements IAnimals {
 	 *********************************************************/
 	@Override
 	public void onLivingUpdate() {
-		if (this.hit_count > 7) {
-			this.charge_ticks -= 1;
+		if (this.hitCount > 7) {
+			this.chargeTicks -= 1;
 			this.setCharged(true);
 
-			if (this.charge_ticks < 7) {
-				this.hit_count = 0;
+			if (this.chargeTicks < 7) {
+				this.hitCount = 0;
 				this.setCharged(false);
 			}
 		}

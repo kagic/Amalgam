@@ -9,7 +9,7 @@ entity.kagic.nephrite.name=Nephrite
 entity.kagic.nephrite_1.name=Nephrite
 entity.kagic.emerald.name=Emerald
 entity.kagic.aqua_aura_quartz.name=Aqua Aura Quartz
-entity.kagic.watermelon_tourmaline.name=Watermelon Tourmaline
+entity.kagic.wtourmaline.name=Watermelon Tourmaline
 entity.kagic.melanite.name=Melanite
 entity.kagic.steven.name=Steven
 entity.kagic.connie.name=Connie
@@ -25,7 +25,7 @@ entity.nephrite.name=Nephrite
 entity.nephrite_1.name=Nephrite
 entity.emerald.name=Emerald
 entity.aqua_aura_quartz.name=Aqua Aura Quartz
-entity.watermelon_tourmaline.name=Watermelon Tourmaline
+entity.wtourmaline.name=Watermelon Tourmaline
 entity.melanite.name=Melanite
 
 entity.akrimarine.name=Aquamarine
@@ -90,7 +90,7 @@ item.nephrite_gem.name=Nephrite Gem
 item.nephrite_1_gem.name=Nephrite Gem
 item.emerald_gem.name=Emerald Gem
 item.aqua_aura_quartz_gem.name=Aqua Aura Quartz Gem
-item.watermelon_tourmaline_gem.name=Watermelon Tourmaline Gem
+item.wtourmaline_gem.name=Watermelon Tourmaline Gem
 item.melanite_gem.name=Melanite Gem
 
 item.steven_stone.name=Steven's Gem
@@ -105,7 +105,7 @@ item.cracked_nephrite_gem.name=Cracked Nephrite Gem
 item.cracked_nephrite_1_gem.name=Cracked Nephrite Gem
 item.cracked_emerald_gem.name=Cracked Emerald Gem
 item.cracked_aqua_aura_quartz_gem.name=Cracked Aqua Aura Quartz Gem
-item.cracked_watermelon_tourmaline_gem.name=Cracked Watermelon Tourmaline Gem
+item.cracked_wtourmaline_gem.name=Cracked Watermelon Tourmaline Gem
 item.cracked_melanite_gem.name=Cracked Melanite Gem
 
 item.record.connie_bracelet.desc=Aivi & Surasshu - Love Like You

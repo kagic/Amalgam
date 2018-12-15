@@ -1,5 +1,6 @@
 package mod.akrivus.amalgam.client.render.layers;
 
+import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.kagic.client.render.RenderGemBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
@@ -13,26 +14,23 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerNephriteItem implements LayerRenderer<EntityLivingBase> {
-	protected final RenderGemBase livingEntityRenderer;
-	
-	public LayerNephriteItem(RenderGemBase renderPearl) {
-		this.livingEntityRenderer = renderPearl;
+public class LayerNephriteItem implements LayerRenderer<EntityNephrite> {
+	protected final RenderGemBase<EntityNephrite> renderer;
+	public LayerNephriteItem(RenderGemBase<EntityNephrite> renderer) {
+		this.renderer = renderer;
 	}
-
 	@Override
-	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		boolean flag = entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT;
-		ItemStack itemstack = flag ? entitylivingbaseIn.getHeldItemOffhand() : entitylivingbaseIn.getHeldItemMainhand();
-		ItemStack itemstack1 = flag ? entitylivingbaseIn.getHeldItemMainhand() : entitylivingbaseIn.getHeldItemOffhand();
-		if (!itemstack.isEmpty() || !itemstack1.isEmpty()) {
+	public void doRenderLayer(EntityNephrite nephrite, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		boolean flag = nephrite.getPrimaryHand() == EnumHandSide.RIGHT;
+		ItemStack offhand = flag ? nephrite.getHeldItemOffhand() : nephrite.getHeldItemMainhand();
+		ItemStack mainhand = flag ? nephrite.getHeldItemMainhand() : nephrite.getHeldItemOffhand();
+		if (!offhand.isEmpty() || !mainhand.isEmpty()) {
 			GlStateManager.pushMatrix();
-			this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
-			this.renderHeldItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
+			this.renderHeldItem(nephrite, mainhand, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
+			this.renderHeldItem(nephrite, offhand, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
 			GlStateManager.popMatrix();
 		}
 	}
-	
 	private void renderHeldItem(EntityLivingBase entity, ItemStack stack, ItemCameraTransforms.TransformType camera, EnumHandSide handSide) {
 		if (!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
@@ -48,11 +46,9 @@ public class LayerNephriteItem implements LayerRenderer<EntityLivingBase> {
 			GlStateManager.popMatrix();
 		}
 	}
-	
 	protected void setSide(EnumHandSide side) {
-		((ModelBiped) this.livingEntityRenderer.getMainModel()).postRenderArm(0.04F, side);
+		((ModelBiped)(this.renderer.getMainModel())).postRenderArm(0.04F, side);
 	}
-	
 	@Override
 	public boolean shouldCombineTextures() {
 		return false;

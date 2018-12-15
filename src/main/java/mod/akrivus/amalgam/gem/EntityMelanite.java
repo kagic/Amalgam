@@ -67,13 +67,11 @@ public class EntityMelanite extends EntityGem implements IAnimals {
         this.setSize(0.9F, 2.3F);
         this.isSoldier = true;
         this.canTalk = true;
-
         this.setCutPlacement(GemCuts.PILLOW, GemPlacements.BACK_OF_HEAD);
         this.setCutPlacement(GemCuts.PILLOW, GemPlacements.RIGHT_EYE);
         this.setCutPlacement(GemCuts.PILLOW, GemPlacements.BACK);
         this.setCutPlacement(GemCuts.PILLOW, GemPlacements.CHEST);
         this.setCutPlacement(GemCuts.PILLOW, GemPlacements.BELLY);
-
         this.stayAI = new EntityAIStay(this);
         this.tasks.addTask(1, new EntityAIFollowDiamond(this, 1.0D));
         this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
@@ -82,7 +80,6 @@ public class EntityMelanite extends EntityGem implements IAnimals {
         this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
         this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
         this.tasks.addTask(5, new EntityAILookIdle(this));
-
         this.targetTasks.addTask(1, new EntityAIDiamondHurtByTarget(this));
         this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
@@ -98,7 +95,6 @@ public class EntityMelanite extends EntityGem implements IAnimals {
                 return input != null && (input.isDefective() || input instanceof EntityFusionGem || input instanceof EntityCorruptedGem);
             }
         }));
-
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);

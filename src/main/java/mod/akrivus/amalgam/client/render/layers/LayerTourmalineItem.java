@@ -1,6 +1,6 @@
 package mod.akrivus.amalgam.client.render.layers;
 
-import mod.akrivus.amalgam.gem.EntityNacre;
+import mod.akrivus.amalgam.gem.EntityTourmaline;
 import mod.akrivus.kagic.client.render.RenderGemBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
@@ -14,20 +14,20 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerNacreItem implements LayerRenderer<EntityNacre> {
-	protected final RenderGemBase<EntityNacre> renderer;
-	public LayerNacreItem(RenderGemBase<EntityNacre> renderer) {
+public class LayerTourmalineItem implements LayerRenderer<EntityTourmaline> {
+	protected final RenderGemBase<EntityTourmaline> renderer;
+	public LayerTourmalineItem(RenderGemBase<EntityTourmaline> renderer) {
 		this.renderer = renderer;
 	}
 	@Override
-	public void doRenderLayer(EntityNacre nacre, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		boolean flag = nacre.getPrimaryHand() == EnumHandSide.RIGHT;
-		ItemStack itemstack = flag ? nacre.getHeldItemOffhand() : nacre.getHeldItemMainhand();
-		ItemStack itemstack1 = flag ? nacre.getHeldItemMainhand() : nacre.getHeldItemOffhand();
-		if (!itemstack.isEmpty() || !itemstack1.isEmpty()) {
+	public void doRenderLayer(EntityTourmaline tourmaline, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		boolean flag = tourmaline.getPrimaryHand() == EnumHandSide.RIGHT;
+		ItemStack mainhand = flag ? tourmaline.getHeldItemOffhand() : tourmaline.getHeldItemMainhand();
+		ItemStack offhand = flag ? tourmaline.getHeldItemMainhand() : tourmaline.getHeldItemOffhand();
+		if (!mainhand.isEmpty() || !offhand.isEmpty()) {
 			GlStateManager.pushMatrix();
-			this.renderHeldItem(nacre, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
-			this.renderHeldItem(nacre, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
+			this.renderHeldItem(tourmaline, offhand, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
+			this.renderHeldItem(tourmaline, mainhand, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
 			GlStateManager.popMatrix();
 		}
 	}

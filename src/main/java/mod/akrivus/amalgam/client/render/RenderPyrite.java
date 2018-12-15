@@ -1,5 +1,6 @@
 package mod.akrivus.amalgam.client.render;
 
+import mod.akrivus.amalgam.client.render.layers.LayerPyriteItem;
 import mod.akrivus.amalgam.gem.EntityPyrite;
 import mod.akrivus.kagic.client.model.ModelRuby;
 import mod.akrivus.kagic.client.render.RenderGemBase;
@@ -16,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 public class RenderPyrite extends RenderGemBase<EntityPyrite> {
 	public RenderPyrite() {
         super(Minecraft.getMinecraft().getRenderManager(), new ModelRuby(), 0.25F);
+        this.addLayer(new LayerPyriteItem(this));
         this.addLayer(new LayerSkin(this));
         this.addLayer(new LayerUniform(this));
         this.addLayer(new LayerInsignia(this));

@@ -343,25 +343,25 @@
             { "name": "amalgam:entities/aqua_aura_quartz/prime/death3" }
         ]
     },
-    "entities.watermelon_tourmaline.hurt": {
+    "entities.wtourmaline.hurt": {
         "sounds": [
-            { "name": "amalgam:entities/watermelon_tourmaline/hurt1" },
-            { "name": "amalgam:entities/watermelon_tourmaline/hurt2" },
-            { "name": "amalgam:entities/watermelon_tourmaline/hurt3" }
+            { "name": "amalgam:entities/wtourmaline/hurt1" },
+            { "name": "amalgam:entities/wtourmaline/hurt2" },
+            { "name": "amalgam:entities/wtourmaline/hurt3" }
         ]
     },
-    "entities.watermelon_tourmaline.obey": {
+    "entities.wtourmaline.obey": {
         "sounds": [
-            { "name": "amalgam:entities/watermelon_tourmaline/obey1" },
-			{ "name": "amalgam:entities/watermelon_tourmaline/obey2" },
-            { "name": "amalgam:entities/watermelon_tourmaline/obey3" }
+            { "name": "amalgam:entities/wtourmaline/obey1" },
+			{ "name": "amalgam:entities/wtourmaline/obey2" },
+            { "name": "amalgam:entities/wtourmaline/obey3" }
         ]
     },
-	"entities.watermelon_tourmaline.death": {
+	"entities.wtourmaline.death": {
         "sounds": [
-            { "name": "amalgam:entities/watermelon_tourmaline/death1" },
-            { "name": "amalgam:entities/watermelon_tourmaline/death2" },
-            { "name": "amalgam:entities/watermelon_tourmaline/death3" }
+            { "name": "amalgam:entities/wtourmaline/death1" },
+            { "name": "amalgam:entities/wtourmaline/death2" },
+            { "name": "amalgam:entities/wtourmaline/death3" }
         ]
     },
     "entities.citrine.hurt": {

@@ -8,30 +8,22 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 
 public class LayerNacreColor4 implements LayerRenderer<EntityNacre> {
-	private final RenderNacre gemRenderer;
-	private final ModelBase gemModel;
-	private float offset;
-	public LayerNacreColor4(RenderNacre gemRenderer) {
-		this(gemRenderer, 0F);
-	}
-	public LayerNacreColor4(RenderNacre gemRenderer, float offset) {
-		this.gemRenderer = gemRenderer;
-		this.gemModel = gemRenderer.getMainModel();
-		this.offset = offset;
+	private final RenderNacre renderer;
+	public LayerNacreColor4(RenderNacre renderer) {
+		this.renderer = renderer;
 	}
 	@Override
-	public void doRenderLayer(EntityNacre gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		this.gemRenderer.bindTexture(this.getTexture(gem));
-		int skin = gem.getLayerColor(gem.getColor4());
-		float r = ((skin & 16711680) >> 16) / 255f;
-		float g = ((skin & 65280) >> 8) / 255f;
-		float b = ((skin & 255) >> 0) / 255f;
-		GlStateManager.color(r + this.offset, g + this.offset, b + this.offset, 1f);
-		this.gemModel.setModelAttributes(this.gemRenderer.getMainModel());
-        this.gemModel.render(gem, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+	public void doRenderLayer(EntityNacre nacre, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		this.renderer.bindTexture(this.getTexture(nacre));
+		int skin = nacre.getLayerColor(nacre.getColor4());
+		float red = ((skin & 16711680) >> 16) / 255f;
+		float green = ((skin & 65280) >> 8) / 255f;
+		float blue = ((skin & 255) >> 0) / 255f;
+		GlStateManager.color(red, green, blue);
+        this.renderer.getMainModel().render(nacre, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		GlStateManager.disableBlend();
 	}
-	public ResourceLocation getTexture(EntityNacre gem) {
+	public ResourceLocation getTexture(EntityNacre nacre) {
 		return new ResourceLocation("amalgam:textures/entities/nacre/color_4.png");
 	}
 	@Override

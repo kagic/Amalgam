@@ -47,12 +47,12 @@ public class AmCruxes {
 			ModEntities.registerWithOreDictionary(EntityCitrine.CITRINE_YIELDS, "Quartz");
 		}
 		if (AmConfigs.enableWatermelonTourmaline) {
-			ModEntities.registerOreDictValue(EntityTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.33, "stoneGranite");
-			ModEntities.registerOreDictValue(EntityTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.66, "stoneGranitePolished");
-			ModEntities.registerOreDictValue(EntityTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.66, "sandstone");
-			ModEntities.registerOreDictValue(EntityTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.33, "stoneLimestone");
-			ModEntities.registerOreDictValue(EntityTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.44, "stoneLimestonePolished");
-			EntityTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS.put(Blocks.MELON_BLOCK.getDefaultState(), 2.99);
+			ModEntities.registerOreDictValue(EntityTourmaline.TOURMALINE_YIELDS, 0.33, "stoneGranite");
+			ModEntities.registerOreDictValue(EntityTourmaline.TOURMALINE_YIELDS, 0.66, "stoneGranitePolished");
+			ModEntities.registerOreDictValue(EntityTourmaline.TOURMALINE_YIELDS, 0.66, "sandstone");
+			ModEntities.registerOreDictValue(EntityTourmaline.TOURMALINE_YIELDS, 0.33, "stoneLimestone");
+			ModEntities.registerOreDictValue(EntityTourmaline.TOURMALINE_YIELDS, 0.44, "stoneLimestonePolished");
+			EntityTourmaline.TOURMALINE_YIELDS.put(Blocks.MELON_BLOCK.getDefaultState(), 2.99);
 			ModEntities.registerWithOreDictionary(EntityCitrine.CITRINE_YIELDS, "Tourmaline");
 		}
 		if (AmConfigs.enableMelanite) {

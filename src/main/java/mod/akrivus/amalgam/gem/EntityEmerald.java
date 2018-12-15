@@ -49,6 +49,7 @@ public class EntityEmerald extends EntityGem implements IAnimals {
 	
 	public EntityEmerald(World worldIn) {
 		super(worldIn);
+		this.isSoldier = true;
 		this.nativeColor = 13;
 		this.setSize(0.9F, 2.9F);
 		

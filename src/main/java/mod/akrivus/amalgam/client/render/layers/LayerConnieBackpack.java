@@ -1,36 +1,28 @@
 package mod.akrivus.amalgam.client.render.layers;
 
 import mod.akrivus.amalgam.human.EntityConnie;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 
 public class LayerConnieBackpack implements LayerRenderer<EntityConnie> {
-	private final RenderLivingBase<?> gemRenderer;
-	private final ModelBase gemModel;
-	
-	public LayerConnieBackpack(RenderLivingBase<?> gemRenderer) {
-		this.gemRenderer = gemRenderer;
-		this.gemModel = gemRenderer.getMainModel();
+	private final RenderLivingBase<?> renderer;
+	public LayerConnieBackpack(RenderLivingBase<?> renderer) {
+		this.renderer = renderer;
 	}
-	
 	@Override
-	public void doRenderLayer(EntityConnie gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		if (!gem.isInvisible() && gem.isBackpacked()) {
+	public void doRenderLayer(EntityConnie connie, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		if (!connie.isInvisible() && connie.isBackpacked()) {
 			GlStateManager.color(1.0F, 1.0F, 1.0F);
-			this.gemRenderer.bindTexture(this.getTexture(gem));
-			this.gemModel.setModelAttributes(this.gemRenderer.getMainModel());
-	        this.gemModel.render(gem, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+			this.renderer.bindTexture(this.getTexture(connie));
+	        this.renderer.getMainModel().render(connie, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 			GlStateManager.disableBlend();
 		}
 	}
-	
-	public ResourceLocation getTexture(EntityConnie gem) {
+	public ResourceLocation getTexture(EntityConnie connie) {
 		return new ResourceLocation("amalgam:textures/entities/connie/backpack.png");
 	}
-	
 	@Override
 	public boolean shouldCombineTextures() {
 		return false;

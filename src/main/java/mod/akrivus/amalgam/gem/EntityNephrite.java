@@ -67,6 +67,7 @@ public class EntityNephrite extends EntityGem implements IAnimals {
 		super(worldIn);
 		this.setSize(0.6F, 1.9F);
 		this.isImmuneToFire = true;
+		this.isSoldier = true;
 		this.nativeColor = 12;
 		this.setCutPlacement(GemCuts.CABOCHON, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.CABOCHON, GemPlacements.FOREHEAD);

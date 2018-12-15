@@ -48,10 +48,10 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityTourmaline extends EntityGem implements IAnimals {
-	public static final HashMap<IBlockState, Double> WATERMELON_TOURMALINE_QUARTZ_YIELDS = new HashMap<IBlockState, Double>();
-	public static final double WATERMELON_TOURMALINE_QUARTZ_DEFECTIVITY_MULTIPLIER = 2;
-	public static final double WATERMELON_TOURMALINE_QUARTZ_DEPTH_THRESHOLD = 72;
-	public static final HashMap<Integer, ResourceLocation> WATERMELON_TOURMALINE_QUARTZ_HAIR_STYLES = new HashMap<Integer, ResourceLocation>();
+	public static final HashMap<IBlockState, Double> TOURMALINE_YIELDS = new HashMap<IBlockState, Double>();
+	public static final double TOURMALINE_DEFECTIVITY_MULTIPLIER = 2;
+	public static final double TOURMALINE_DEPTH_THRESHOLD = 72;
+	public static final HashMap<Integer, ResourceLocation> TOURMALINE_HAIR_STYLES = new HashMap<Integer, ResourceLocation>();
 	private static final DataParameter<Integer> LOWER_COLOR = EntityDataManager.<Integer>createKey(EntityCitrine.class, DataSerializers.VARINT);
 	public static final int LOWER_SKIN_COLOR_BEGIN = 0xFFC9E2; 
 	public static final int LOWER_SKIN_COLOR_END = 0xD9A3FF;
@@ -59,28 +59,19 @@ public class EntityTourmaline extends EntityGem implements IAnimals {
 	public static final int SKIN_COLOR_END = 0x45AE97;
 	public static final int HAIR_COLOR_BEGIN = 0xA0FFD6;
 	public static final int HAIR_COLOR_END = 0x537066; 
-	private static final int NUM_HAIRSTYLES = 5;
+	private static final int NUM_HAIRSTYLES = 1;
 	public EntityTourmaline(World worldIn) {
 		super(worldIn);
-		this.setSize(0.9F, 2.3F);
+		this.setSize(0.9F, 1.6F);
+		this.isSoldier = true;
 		this.nativeColor = 3;
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.FOREHEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_EYE);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_EYE);
-		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_CHEEK);
-		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_CHEEK);
-		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_SHOULDER);
-		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_SHOULDER);
-		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_HAND);
-		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_HAND);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.BACK);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.CHEST);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.BELLY);
-		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_THIGH);
-		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_THIGH);
-		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_KNEE);
-		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_KNEE);
 		this.stayAI = new EntityAIStay(this);
         this.tasks.addTask(1, new EntityTourmaline.AITourmalineBlowAttack(this, 2, 8, 12));
         this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
@@ -107,8 +98,8 @@ public class EntityTourmaline extends EntityGem implements IAnimals {
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
         
-        this.droppedGemItem = AmItems.WATERMELON_TOURMALINE_GEM;
-		this.droppedCrackedGemItem = AmItems.CRACKED_WATERMELON_TOURMALINE_GEM;
+        this.droppedGemItem = AmItems.TOURMALINE_GEM;
+		this.droppedCrackedGemItem = AmItems.CRACKED_TOURMALINE_GEM;
         
         // Register entity data.
         this.dataManager.register(LOWER_COLOR, 0);
@@ -143,15 +134,15 @@ public class EntityTourmaline extends EntityGem implements IAnimals {
 	 *********************************************************/
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return AmSounds.WATERMELON_TOURMALINE_HURT;
+		return AmSounds.TOURMALINE_HURT;
 	}
 	@Override
 	protected SoundEvent getObeySound() {
-		return AmSounds.WATERMELON_TOURMALINE_OBEY;
+		return AmSounds.TOURMALINE_OBEY;
 	}
 	@Override
 	protected SoundEvent getDeathSound() {
-		return AmSounds.WATERMELON_TOURMALINE_DEATH;
+		return AmSounds.TOURMALINE_DEATH;
 	}
 	
 	/*********************************************************
@@ -184,26 +175,10 @@ public class EntityTourmaline extends EntityGem implements IAnimals {
 		hairColors.add(EntityTourmaline.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
-
 	@Override
 	public boolean hasUniformVariant(GemPlacements placement) {
 		switch(placement) {
 		case BELLY:
-			return true;
-		default:
-			return false;
-		}
-	}
-	
-	@Override
-	public boolean hasCape() {
-		return true;
-	}
-	
-	@Override
-	public boolean hasHairVariant(GemPlacements placement) {
-		switch(placement) {
-		case FOREHEAD:
 			return true;
 		default:
 			return false;

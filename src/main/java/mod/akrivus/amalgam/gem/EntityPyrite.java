@@ -62,6 +62,7 @@ public class EntityPyrite extends EntityGem implements IAnimals {
 		super(worldIn);
 		this.setSize(0.7F, 1.8F);
 		this.isImmuneToFire = true;
+		this.isSoldier = true;
 		
 		//Define valid gem cuts and placements
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.BACK_OF_HEAD);

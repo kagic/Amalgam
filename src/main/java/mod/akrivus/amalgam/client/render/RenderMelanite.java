@@ -29,7 +29,6 @@ public class RenderMelanite extends RenderGemBase<EntityMelanite> {
         this.addLayer(new LayerHair(this));
         this.addLayer(new LayerUniform(this));
         this.addLayer(new LayerInsignia(this));
-        this.addLayer(new LayerNoDyeOverlay(this));
         this.addLayer(new LayerMelaniteCape(this, true, true));
         this.addLayer(new LayerVisor(this));
         this.addLayer(new LayerGemPlacement(this));
@@ -45,9 +44,6 @@ public class RenderMelanite extends RenderGemBase<EntityMelanite> {
     protected void preRenderCallback(EntityMelanite gem, float partialTickTime) {
         if (gem.isDefective()) {
             GlStateManager.scale(0.8F, 0.7F, 0.8F);
-        }
-        if (gem.isPrimary()) {
-            this.addLayer(new LayerDiamondGlow(this));
         }
     }
     @Override

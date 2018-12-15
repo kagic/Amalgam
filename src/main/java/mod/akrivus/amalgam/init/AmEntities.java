@@ -42,7 +42,7 @@ public class AmEntities {
 		ModEntities.registerExternalGem("amalgam", "nephrite", EntityNephrite.class, "mod/akrivus/amalgam/client/render/RenderNephrite", 0x428F33, 0x0E0D09, false);
 		ModEntities.registerExternalGem("amalgam", "emerald", EntityEmerald.class, "mod/akrivus/amalgam/client/render/RenderEmerald", 0x2AC861, 0xB2F731, false);
 		ModEntities.registerExternalGem("amalgam", "aqua_aura_quartz", EntityAquaAuraQuartz.class, "mod/akrivus/amalgam/client/render/RenderAquaAuraQuartz", 0x179FC4, 0xBB85D9, false);
-		ModEntities.registerExternalGem("amalgam", "watermelon_tourmaline", EntityTourmaline.class, "mod/akrivus/amalgam/client/render/RenderTourmaline", 0x45E79F, 0xFFC9E2, false);
+		ModEntities.registerExternalGem("amalgam", "wtourmaline", EntityTourmaline.class, "mod/akrivus/amalgam/client/render/RenderTourmaline", 0x45E79F, 0xFFC9E2, false);
 		ModEntities.registerExternalGem("amalgam", "melanite", EntityMelanite.class, "mod/akrivus/amalgam/client/render/RenderMelanite", 0x343434, 0x2B2F34, false);
 		
 		registerFusion("fused_topaz", EntityFusedTopaz.class);

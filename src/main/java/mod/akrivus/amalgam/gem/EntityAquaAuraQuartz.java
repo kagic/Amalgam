@@ -39,29 +39,32 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimals {
+	/* Gem descriptors used by KAGIC to facilitate requisites. */
+	public static final HashMap<Integer, ResourceLocation> AQUA_AURA_QUARTZ_HAIR_STYLES = new HashMap<Integer, ResourceLocation>();
 	public static final HashMap<IBlockState, Double> AQUA_AURA_QUARTZ_YIELDS = new HashMap<IBlockState, Double>();
 	public static final double AQUA_AURA_QUARTZ_DEFECTIVITY_MULTIPLIER = 2;
 	public static final double AQUA_AURA_QUARTZ_DEPTH_THRESHOLD = 72;
-	public static final HashMap<Integer, ResourceLocation> AQUA_AURA_QUARTZ_HAIR_STYLES = new HashMap<Integer, ResourceLocation>();
+	
+	/* Data parameters used to track information between the client and server. */
 	private static final DataParameter<Boolean> CHARGED = EntityDataManager.<Boolean>createKey(EntityAquaAuraQuartz.class, DataSerializers.BOOLEAN);
 	
+	/* Stylization indexes and gradients. */
 	public static final int SKIN_COLOR_BEGIN = 0x00AADF; 
 	public static final int SKIN_COLOR_END = 0x9796C0; 
-
 	public static final int HAIR_COLOR_BEGIN = 0x73C6DD;
 	public static final int HAIR_COLOR_MID = 0xB6ECEF;
-	public static final int HAIR_COLOR_END = 0xF9CEFC; 
-	
+	public static final int HAIR_COLOR_END = 0xF9CEFC;
 	private static final int NUM_HAIRSTYLES = 5;
 	
-	private int charge_ticks = 0;
-	private int hit_count = 0;
+	/* Quartz specialty fields. */
+	private int chargeTicks = 0;
+	private int hitCount = 0;
 	
 	public EntityAquaAuraQuartz(World worldIn) {
 		super(worldIn);
 		this.nativeColor = 3;
 		
-		//Define valid gem cuts and placements
+		// Define valid cuts and placements.
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.FOREHEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_EYE);
@@ -98,6 +101,7 @@ public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimal
         // Apply entity attributes.
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12.0D);
         
+        // Define dropped gems.
         this.droppedGemItem = AmItems.AQUA_AURA_QUARTZ_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_AQUA_AURA_QUARTZ_GEM;
         
@@ -111,15 +115,15 @@ public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimal
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
         compound.setBoolean("charged", this.dataManager.get(CHARGED).booleanValue());
-        compound.setInteger("charge_ticks", this.charge_ticks);
-        compound.setInteger("hit_count", this.hit_count);
+        compound.setInteger("chargeTicks", this.chargeTicks);
+        compound.setInteger("hitCount", this.hitCount);
         super.writeEntityToNBT(compound);
     }
     @Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
         this.dataManager.set(CHARGED, compound.getBoolean("charged"));
-        this.charge_ticks = compound.getInteger("charge_ticks");
-        this.hit_count = compound.getInteger("hit_count");
+        this.chargeTicks = compound.getInteger("chargeTicks");
+        this.hitCount = compound.getInteger("hitCount");
         super.readEntityFromNBT(compound);
     }
 
@@ -164,8 +168,8 @@ public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimal
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		if (!this.world.isRemote) {
-			this.charge_ticks += 20;
-			this.hit_count += 1;
+			this.chargeTicks += 20;
+			this.hitCount += 1;
 		}
 		return super.attackEntityAsMob(entityIn);
 	}
@@ -182,12 +186,12 @@ public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimal
 	 *********************************************************/
 	@Override
 	public void onLivingUpdate() {
-		if (this.hit_count > 7) {
-			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, this.charge_ticks, 3));
-			this.charge_ticks -= 1;
+		if (this.hitCount > 7) {
+			this.addPotionEffect(new PotionEffect(MobEffects.SPEED, this.chargeTicks, 3));
+			this.chargeTicks -= 1;
 			this.setCharged(true);
-			if (this.charge_ticks < 7) {
-				this.hit_count = 0;
+			if (this.chargeTicks < 7) {
+				this.hitCount = 0;
 				this.setCharged(false);
 			}
 		}

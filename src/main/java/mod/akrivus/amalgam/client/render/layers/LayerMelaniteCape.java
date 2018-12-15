@@ -1,7 +1,7 @@
 package mod.akrivus.amalgam.client.render.layers;
 
+import mod.akrivus.amalgam.gem.EntityMelanite;
 import mod.akrivus.kagic.client.model.ModelGem;
-import mod.akrivus.kagic.entity.EntityGem;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -13,25 +13,25 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerMelaniteCape implements LayerRenderer<EntityGem> {
-	private final RenderLivingBase<?> gemRenderer;
+public class LayerMelaniteCape implements LayerRenderer<EntityMelanite> {
+	private final RenderLivingBase<EntityMelanite> renderer;
 	private final boolean isBack;
 	private final boolean useInsigniaColors;
-	public LayerMelaniteCape(RenderLivingBase<?> gemRenderer, boolean isBack, boolean useInsigniaColors) {
-		this.gemRenderer = gemRenderer;
+	public LayerMelaniteCape(RenderLivingBase<EntityMelanite> renderer, boolean isBack, boolean useInsigniaColors) {
+		this.renderer = renderer;
 		this.isBack = isBack;
 		this.useInsigniaColors = useInsigniaColors;
 	}
 	@Override
-	public void doRenderLayer(EntityGem gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		if (!gem.isInvisible() && gem.hasCape())	{
-			this.gemRenderer.bindTexture(this.getTexture(gem));
+	public void doRenderLayer(EntityMelanite melanite, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		if (!melanite.isInvisible() && melanite.hasCape())	{
+			this.renderer.bindTexture(this.getTexture(melanite));
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(0.0F, 0.0F, 0.125F);
-			double d0 = gem.prevChasingPosX + (gem.chasingPosX - gem.prevChasingPosX) * partialTicks - (gem.prevPosX + (gem.posX - gem.prevPosX) * partialTicks);
-			double d1 = gem.prevChasingPosY + (gem.chasingPosY - gem.prevChasingPosY) * partialTicks - (gem.prevPosY + (gem.posY - gem.prevPosY) * partialTicks);
-			double d2 = gem.prevChasingPosZ + (gem.chasingPosZ - gem.prevChasingPosZ) * partialTicks - (gem.prevPosZ + (gem.posZ - gem.prevPosZ) * partialTicks);
-			float f = gem.prevRenderYawOffset + (gem.renderYawOffset - gem.prevRenderYawOffset) * partialTicks;
+			double d0 = melanite.prevChasingPosX + (melanite.chasingPosX - melanite.prevChasingPosX) * partialTicks - (melanite.prevPosX + (melanite.posX - melanite.prevPosX) * partialTicks);
+			double d1 = melanite.prevChasingPosY + (melanite.chasingPosY - melanite.prevChasingPosY) * partialTicks - (melanite.prevPosY + (melanite.posY - melanite.prevPosY) * partialTicks);
+			double d2 = melanite.prevChasingPosZ + (melanite.chasingPosZ - melanite.prevChasingPosZ) * partialTicks - (melanite.prevPosZ + (melanite.posZ - melanite.prevPosZ) * partialTicks);
+			float f = melanite.prevRenderYawOffset + (melanite.renderYawOffset - melanite.prevRenderYawOffset) * partialTicks;
 			double d3 = MathHelper.sin(f * 0.017453292F);
 			double d4 = (-MathHelper.cos(f * 0.017453292F));
 			float f1 = (float)d1 * 10.0F;
@@ -41,8 +41,8 @@ public class LayerMelaniteCape implements LayerRenderer<EntityGem> {
 			if (f2 < 0.0F) {
 				f2 = 0.0F;
 			}
-			f1 = f1 + MathHelper.sin((gem.prevDistanceWalkedModified + (gem.distanceWalkedModified - gem.prevDistanceWalkedModified) * partialTicks) * 6.0F) * 32.0F;
-			if (gem.isSneaking()) {
+			f1 = f1 + MathHelper.sin((melanite.prevDistanceWalkedModified + (melanite.distanceWalkedModified - melanite.prevDistanceWalkedModified) * partialTicks) * 6.0F) * 32.0F;
+			if (melanite.isSneaking()) {
 				f1 += 25.0F;
 			}
 			GlStateManager.rotate(6.0F + f2 / 2.0F + f1, 1.0F, 0.0F, 0.0F);
@@ -51,18 +51,18 @@ public class LayerMelaniteCape implements LayerRenderer<EntityGem> {
 			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 			float[] afloat;
 			if (this.useInsigniaColors) {
-				afloat = EntitySheep.getDyeRgb(EnumDyeColor.values()[gem.getInsigniaColor()]);
+				afloat = EntitySheep.getDyeRgb(EnumDyeColor.values()[melanite.getInsigniaColor()]);
 			}
 			else {
-				afloat = EntitySheep.getDyeRgb(EnumDyeColor.values()[gem.getUniformColor()]);
+				afloat = EntitySheep.getDyeRgb(EnumDyeColor.values()[melanite.getUniformColor()]);
 			}
 			GlStateManager.color(afloat[0] * 2, afloat[1] * 2, afloat[2] * 2);
-			((ModelGem) this.gemRenderer.getMainModel()).renderCape(0.0625F);
+			((ModelGem)(this.renderer.getMainModel())).renderCape(0.0625F);
 			GlStateManager.popMatrix();
 		}
 	}
-	public ResourceLocation getTexture(EntityGem gem) {
-		if (isBack) {
+	public ResourceLocation getTexture(EntityMelanite melanite) {
+		if (this.isBack) {
 			return new ResourceLocation("amalgam:textures/entities/melanite/cape_back.png");
 		} else {
 			return new ResourceLocation("amalgam:textures/entities/melanite/cape.png");

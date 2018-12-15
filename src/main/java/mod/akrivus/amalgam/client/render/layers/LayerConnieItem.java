@@ -14,19 +14,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class LayerConnieItem implements LayerRenderer<EntityConnie> {
-	protected final RenderConnie livingEntityRenderer;
-	public LayerConnieItem(RenderConnie renderPearl) {
-		this.livingEntityRenderer = renderPearl;
+	protected final RenderConnie renderer;
+	public LayerConnieItem(RenderConnie renderer) {
+		this.renderer = renderer;
 	}
 	@Override
-	public void doRenderLayer(EntityConnie entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		boolean flag = entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT;
-		ItemStack itemstack = flag ? entitylivingbaseIn.getHeldItemOffhand() : entitylivingbaseIn.getHeldItemMainhand();
-		ItemStack itemstack1 = flag ? entitylivingbaseIn.getHeldItemMainhand() : entitylivingbaseIn.getHeldItemOffhand();
+	public void doRenderLayer(EntityConnie connie, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		boolean flag = connie.getPrimaryHand() == EnumHandSide.RIGHT;
+		ItemStack offhand = flag ? connie.getHeldItemOffhand() : connie.getHeldItemMainhand();
+		ItemStack mainhand = flag ? connie.getHeldItemMainhand() : connie.getHeldItemOffhand();
 		GlStateManager.pushMatrix();
-		this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
-		this.renderHeldItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
-		this.renderBackItem(entitylivingbaseIn, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND);
+		this.renderHeldItem(connie, mainhand, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT);
+		this.renderHeldItem(connie, offhand, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT);
+		this.renderBackItem(connie, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND);
 		GlStateManager.popMatrix();
 	}
 	private void renderHeldItem(EntityConnie entity, ItemStack stack, ItemCameraTransforms.TransformType camera, EnumHandSide handSide) {
@@ -56,7 +56,7 @@ public class LayerConnieItem implements LayerRenderer<EntityConnie> {
 		}
 	}
 	protected void setSide(EnumHandSide side) {
-		((ModelBiped) this.livingEntityRenderer.getMainModel()).postRenderArm(0.04F, side);
+		((ModelBiped)(this.renderer.getMainModel())).postRenderArm(0.04F, side);
 	}
 	@Override
 	public boolean shouldCombineTextures() {

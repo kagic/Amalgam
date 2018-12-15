@@ -3,22 +3,19 @@ package mod.akrivus.amalgam.client.render.layers;
 import mod.akrivus.amalgam.client.render.RenderAquaAuraQuartz;
 import mod.akrivus.amalgam.gem.EntityAquaAuraQuartz;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 
 public class LayerAura implements LayerRenderer<EntityAquaAuraQuartz> {
-	private final RenderAquaAuraQuartz gemRenderer;
-	private final ModelBase gemModel;
-	public LayerAura(RenderAquaAuraQuartz gemRenderer) {
-		this.gemRenderer = gemRenderer;
-		this.gemModel = gemRenderer.getMainModel();
+	private final RenderAquaAuraQuartz renderer;
+	public LayerAura(RenderAquaAuraQuartz renderer) {
+		this.renderer = renderer;
 	}
 	@Override
 	public void doRenderLayer(EntityAquaAuraQuartz gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		float mult = gem.ticksExisted + partialTicks;
-		this.gemRenderer.bindTexture(new ResourceLocation("textures/misc/enchanted_item_glint.png"));
+		this.renderer.bindTexture(new ResourceLocation("textures/misc/enchanted_item_glint.png"));
         Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
         GlStateManager.enableBlend();
         GlStateManager.depthFunc(514);
@@ -34,7 +31,7 @@ public class LayerAura implements LayerRenderer<EntityAquaAuraQuartz> {
             GlStateManager.rotate(30.0F - i * 60.0F, 0.0F, 0.0F, 1.0F);
             GlStateManager.translate(0.0F, mult * (0.001F + (i) * 0.003F) * 20.0F, 0.0F);
             GlStateManager.matrixMode(5888);
-            this.gemModel.render(gem, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+            this.renderer.getMainModel().render(gem, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
             GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         }
         GlStateManager.matrixMode(5890);
