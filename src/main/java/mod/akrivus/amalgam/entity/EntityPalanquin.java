@@ -14,8 +14,10 @@ import net.minecraft.entity.IJumpingMount;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -116,6 +118,15 @@ public class EntityPalanquin extends EntityMachine implements IJumpingMount {
 				}
 			}
 		}
+	}
+	@Override
+	public void onDeath(DamageSource cause) {
+		if (!this.world.isRemote) {
+			this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.STAINED_GLASS), 20, 15 - this.getVeilColor()), 0);
+			this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.CONCRETE), 18, 15 - this.getBodyColor()), 0);
+			this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.WOOL), 1, 15 - this.getHighlightColor()), 0);
+		}
+		super.onDeath(cause);
 	}
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
