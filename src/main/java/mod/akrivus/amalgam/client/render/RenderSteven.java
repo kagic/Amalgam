@@ -3,7 +3,7 @@ package mod.akrivus.amalgam.client.render;
 import mod.akrivus.amalgam.client.model.ModelSteven;
 import mod.akrivus.amalgam.client.render.layers.LayerCheeseburgerBackpack;
 import mod.akrivus.amalgam.client.render.layers.LayerStevenItem;
-import mod.akrivus.amalgam.gem.EntitySteven;
+import mod.akrivus.amalgam.human.EntitySteven;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.layers.LayerArrow;

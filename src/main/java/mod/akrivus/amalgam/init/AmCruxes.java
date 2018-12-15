@@ -11,7 +11,7 @@ import mod.akrivus.amalgam.gem.EntityMelanite;
 import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.amalgam.gem.EntityPyrite;
-import mod.akrivus.amalgam.gem.EntityWatermelonTourmaline;
+import mod.akrivus.amalgam.gem.EntityTourmaline;
 import mod.akrivus.kagic.entity.gem.EntityAquamarine;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
 import mod.akrivus.kagic.init.ModEntities;
@@ -47,12 +47,12 @@ public class AmCruxes {
 			ModEntities.registerWithOreDictionary(EntityCitrine.CITRINE_YIELDS, "Quartz");
 		}
 		if (AmConfigs.enableWatermelonTourmaline) {
-			ModEntities.registerOreDictValue(EntityWatermelonTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.33, "stoneGranite");
-			ModEntities.registerOreDictValue(EntityWatermelonTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.66, "stoneGranitePolished");
-			ModEntities.registerOreDictValue(EntityWatermelonTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.66, "sandstone");
-			ModEntities.registerOreDictValue(EntityWatermelonTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.33, "stoneLimestone");
-			ModEntities.registerOreDictValue(EntityWatermelonTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.44, "stoneLimestonePolished");
-			EntityWatermelonTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS.put(Blocks.MELON_BLOCK.getDefaultState(), 2.99);
+			ModEntities.registerOreDictValue(EntityTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.33, "stoneGranite");
+			ModEntities.registerOreDictValue(EntityTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.66, "stoneGranitePolished");
+			ModEntities.registerOreDictValue(EntityTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.66, "sandstone");
+			ModEntities.registerOreDictValue(EntityTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.33, "stoneLimestone");
+			ModEntities.registerOreDictValue(EntityTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS, 0.44, "stoneLimestonePolished");
+			EntityTourmaline.WATERMELON_TOURMALINE_QUARTZ_YIELDS.put(Blocks.MELON_BLOCK.getDefaultState(), 2.99);
 			ModEntities.registerWithOreDictionary(EntityCitrine.CITRINE_YIELDS, "Tourmaline");
 		}
 		if (AmConfigs.enableMelanite) {

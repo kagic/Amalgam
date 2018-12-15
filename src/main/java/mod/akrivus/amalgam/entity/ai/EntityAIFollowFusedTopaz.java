@@ -1,4 +1,4 @@
-package mod.akrivus.amalgam.gem.ai;
+package mod.akrivus.amalgam.entity.ai;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ public class EntityAIFollowFusedTopaz extends EntityAIBase {
 	private EntityTopaz gem;
     private final double followSpeed;
     private float oldWaterCost;
-    public EntityAIFollowFusedTopaz(EntityLiving followerIn, double followSpeedIn) {
-        this.follower = followerIn;
+    public EntityAIFollowFusedTopaz(EntityLiving follower, double followSpeedIn) {
+        this.follower = follower;
         this.followSpeed = followSpeedIn;
         this.setMutexBits(3);
     }

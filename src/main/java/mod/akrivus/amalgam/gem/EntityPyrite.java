@@ -5,10 +5,9 @@ import java.util.HashMap;
 
 import com.google.common.base.Predicate;
 
-import mod.akrivus.amalgam.gem.ai.EntityAICrossFuse;
-import mod.akrivus.amalgam.gem.ai.EntityAIFireballAttack;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowLeaderGem;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
+import mod.akrivus.amalgam.gem.tweaks.EntityAICrossFuse;
 import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.EntityGem;
@@ -23,8 +22,10 @@ import mod.akrivus.kagic.entity.gem.GemPlacements;
 import mod.heimrarnadalr.kagic.util.Colors;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
@@ -36,10 +37,13 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntitySmallFireball;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -97,7 +101,7 @@ public class EntityPyrite extends EntityGem implements IAnimals {
 
 		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
-		this.tasks.addTask(1, new EntityAIFireballAttack(this));
+		this.tasks.addTask(1, new EntityPyrite.AIFireballAttack(this));
         this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
 		this.tasks.addTask(2, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
 			@Override
@@ -313,5 +317,68 @@ public class EntityPyrite extends EntityGem implements IAnimals {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return AmSounds.PYRITE_DEATH;
+	}
+	public static class AIFireballAttack extends EntityAIBase {
+	    private final EntityPyrite pyrite;
+	    private int attackStep;
+	    private int attackTime;
+	    public AIFireballAttack(EntityPyrite pyrite) {
+	        this.pyrite = pyrite;
+	        this.setMutexBits(3);
+	    }
+	    @Override
+		public boolean shouldExecute() {
+	        EntityLivingBase entitylivingbase = this.pyrite.getAttackTarget();
+	        return entitylivingbase != null && entitylivingbase.isEntityAlive();
+	    }
+	    @Override
+		public void startExecuting() {
+	        this.attackStep = 0;
+	    }
+	    @Override
+		public void updateTask() {
+	        EntityLivingBase entity = this.pyrite.getAttackTarget();
+	        double distance = this.pyrite.getDistanceSq(entity);
+	        if (distance < 4) {
+	        	this.pyrite.attackEntityAsMob(entity);
+	            this.attackTime = 10;
+	        }
+	        else if (distance < 256) {
+	            double dX = entity.posX - this.pyrite.posX;
+	            double dY = entity.getEntityBoundingBox().minY + entity.height / 2.0F - (this.pyrite.posY + this.pyrite.height / 2.0F);
+	            double dZ = entity.posZ - this.pyrite.posZ;
+	            if (this.attackTime <= 0) {
+	                ++this.attackStep;
+	                if (this.attackStep == 1) {
+	                    this.attackTime = 10;
+	                }
+	                else if (this.attackStep <= 4) {
+	                    this.attackTime = 5;
+	                }
+	                else {
+	                    this.attackTime = 20;
+	                    this.attackStep = 0;
+	                }
+	                if (this.attackStep > 1) {
+	                    float dS = MathHelper.sqrt(MathHelper.sqrt(distance)) * 0.5F;
+	                    if (this.pyrite.isDefective()) {
+		                    this.pyrite.createFireworks();
+	                    }
+	                    else {
+		                    this.pyrite.world.playSound(null, this.pyrite.getPosition(), SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+		                    for (int i = 0; i < 1; ++i) {
+		                    	EntitySmallFireball fireball = new EntitySmallFireball(this.pyrite.world, this.pyrite, dX + this.pyrite.getRNG().nextGaussian() * dS, dY, dZ + this.pyrite.getRNG().nextGaussian() * dS);
+		                        fireball.posY = this.pyrite.posY + this.pyrite.height / 2.0F;
+		                        this.pyrite.world.spawnEntity(fireball);
+		                    }
+	                    }
+	                }
+	            }
+	            this.pyrite.getLookHelper().setLookPositionWithEntity(entity, 10.0F, 10.0F);
+	        }
+	        this.pyrite.getMoveHelper().setMoveTo(entity.posX, entity.posY, entity.posZ, Math.min(this.pyrite.getDistance(entity) / 48, 1.0D));
+	        super.updateTask();
+	        --this.attackTime;
+	    }
 	}
 }

@@ -1,7 +1,8 @@
-package mod.akrivus.amalgam.gem.ai;
+package mod.akrivus.amalgam.gem.tweaks;
 
 import java.util.List;
 
+import mod.akrivus.amalgam.gem.ai.EntityAIMoveGemToBlock;
 import mod.akrivus.kagic.entity.gem.EntityLapisLazuli;
 import mod.akrivus.kagic.entity.gem.EntityPeridot;
 import net.minecraft.block.state.IBlockState;
@@ -10,11 +11,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EntityAIFestiveBurnStuff extends EntityAIMoveGemToBlock {
+public class EntityAIPeriPartyBurnStuff extends EntityAIMoveGemToBlock {
 	private final EntityPeridot gem;
 	private final World world;
 	private int delay = 0;
-	public EntityAIFestiveBurnStuff(EntityPeridot gem, double speed) {
+	public EntityAIPeriPartyBurnStuff(EntityPeridot gem, double speed) {
 		super(gem, speed, 16);
 		this.gem = gem;
 		this.world = gem.world;

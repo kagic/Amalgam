@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import com.google.common.base.Predicate;
 
-import mod.akrivus.amalgam.gem.ai.EntityAITourmalineBlowAttack;
 import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.EntityGem;
@@ -18,10 +17,14 @@ import mod.akrivus.kagic.entity.ai.EntityAIStay;
 import mod.akrivus.kagic.entity.gem.GemCuts;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
 import mod.heimrarnadalr.kagic.util.Colors;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
@@ -39,33 +42,28 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
-public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
+public class EntityTourmaline extends EntityGem implements IAnimals {
 	public static final HashMap<IBlockState, Double> WATERMELON_TOURMALINE_QUARTZ_YIELDS = new HashMap<IBlockState, Double>();
 	public static final double WATERMELON_TOURMALINE_QUARTZ_DEFECTIVITY_MULTIPLIER = 2;
 	public static final double WATERMELON_TOURMALINE_QUARTZ_DEPTH_THRESHOLD = 72;
 	public static final HashMap<Integer, ResourceLocation> WATERMELON_TOURMALINE_QUARTZ_HAIR_STYLES = new HashMap<Integer, ResourceLocation>();
 	private static final DataParameter<Integer> LOWER_COLOR = EntityDataManager.<Integer>createKey(EntityCitrine.class, DataSerializers.VARINT);
-	
 	public static final int LOWER_SKIN_COLOR_BEGIN = 0xFFC9E2; 
 	public static final int LOWER_SKIN_COLOR_END = 0xD9A3FF;
-	
 	public static final int SKIN_COLOR_BEGIN = 0x45E79F; 
 	public static final int SKIN_COLOR_END = 0x45AE97;
-	
 	public static final int HAIR_COLOR_BEGIN = 0xA0FFD6;
 	public static final int HAIR_COLOR_END = 0x537066; 
-	
 	private static final int NUM_HAIRSTYLES = 5;
-	
-	public EntityWatermelonTourmaline(World worldIn) {
+	public EntityTourmaline(World worldIn) {
 		super(worldIn);
 		this.setSize(0.9F, 2.3F);
 		this.nativeColor = 3;
-		
-		//Define valid gem cuts and placements
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.FOREHEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_EYE);
@@ -83,10 +81,8 @@ public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_THIGH);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_KNEE);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_KNEE);
-		
-		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
-        this.tasks.addTask(1, new EntityAITourmalineBlowAttack(this, 2, 8, 12));
+        this.tasks.addTask(1, new EntityTourmaline.AITourmalineBlowAttack(this, 2, 8, 12));
         this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
         this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
         this.tasks.addTask(3, new EntityAIFollowDiamond(this, 1.0D));
@@ -164,14 +160,14 @@ public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
 	@Override
 	public int generateSkinColor() {
 		ArrayList<Integer> skinColors = new ArrayList<Integer>();
-		skinColors.add(EntityWatermelonTourmaline.SKIN_COLOR_BEGIN);
-		skinColors.add(EntityWatermelonTourmaline.SKIN_COLOR_END);
+		skinColors.add(EntityTourmaline.SKIN_COLOR_BEGIN);
+		skinColors.add(EntityTourmaline.SKIN_COLOR_END);
 		return Colors.arbiLerp(skinColors);
 	}
 	public int generateDefectiveColor() {
 		ArrayList<Integer> skinColors = new ArrayList<Integer>();
-		skinColors.add(EntityWatermelonTourmaline.LOWER_SKIN_COLOR_BEGIN);
-		skinColors.add(EntityWatermelonTourmaline.LOWER_SKIN_COLOR_END);
+		skinColors.add(EntityTourmaline.LOWER_SKIN_COLOR_BEGIN);
+		skinColors.add(EntityTourmaline.LOWER_SKIN_COLOR_END);
 		return Colors.arbiLerp(skinColors);
 	}
 	public int getLowerColor() {
@@ -179,13 +175,13 @@ public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
 	}
 	@Override
 	protected int generateHairStyle() {
-		return this.rand.nextInt(EntityWatermelonTourmaline.NUM_HAIRSTYLES);
+		return this.rand.nextInt(EntityTourmaline.NUM_HAIRSTYLES);
 	}
 	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
-		hairColors.add(EntityWatermelonTourmaline.HAIR_COLOR_BEGIN);
-		hairColors.add(EntityWatermelonTourmaline.HAIR_COLOR_END);
+		hairColors.add(EntityTourmaline.HAIR_COLOR_BEGIN);
+		hairColors.add(EntityTourmaline.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
 
@@ -211,6 +207,55 @@ public class EntityWatermelonTourmaline extends EntityGem implements IAnimals {
 			return true;
 		default:
 			return false;
+		}
+	}
+	public static class AITourmalineBlowAttack extends EntityAIBase {
+		private final EntityTourmaline tourmaline;
+		private final double blowStrength;
+		private final double distance;
+		private final double areaAffected;
+		public AITourmalineBlowAttack(EntityTourmaline tourmaline, double blowStrength, double distance, double areaAffected) {
+			this.tourmaline = tourmaline;
+			this.blowStrength = blowStrength;
+			this.distance = distance;
+			this.areaAffected = areaAffected;
+		}
+		@Override
+		public boolean shouldExecute() {
+			EntityLivingBase target = this.tourmaline.getAttackTarget();
+			return target != null && this.tourmaline.getDistance(target) <= this.distance;
+		}
+		@Override
+		public void updateTask() {
+			EntityLivingBase target = this.tourmaline.getAttackTarget();
+			if (target != null && this.tourmaline.canEntityBeSeen(target)) {
+				this.tourmaline.faceEntity(target, 10F, 10F);
+				Vec3d direction = target.getPositionVector().subtract(this.tourmaline.getPositionVector());
+				Vec3d blowVector = direction.normalize().scale(this.blowStrength);
+				BlockPos center = this.tourmaline.getPosition();
+				for (int step = 0; step < (int)(areaAffected); ++step) {
+					center = center.add(blowVector.x, blowVector.y, blowVector.z);
+					for (int x = -Math.max(2, step / 2); x < Math.max(2, step / 2); ++x) {
+						for (int y = 0; y < Math.max(2, step); ++y) {
+							for (int z = -Math.max(2, step / 2); z < Math.max(2, step / 2); ++z) {
+								BlockPos newp = center.add(x, y, z);
+								IBlockState state = this.tourmaline.world.getBlockState(newp);
+								if (this.tourmaline.world.getGameRules().getBoolean("mobGriefing") && this.tourmaline.world.rand.nextInt(3) == 0
+									&& state.getBlock().getExplosionResistance(this.tourmaline.world, newp, null, null) < 16
+									&& state.getMaterial() != Material.ROCK) {
+									this.tourmaline.world.destroyBlock(newp, true);
+								}
+							}
+						}
+					}
+				}
+				for (Entity entity : target.world.getEntitiesInAABBexcluding(this.tourmaline, target.getEntityBoundingBox().grow(areaAffected), null)) {
+					if (this.tourmaline.canEntityBeSeen(entity)) {
+						entity.addVelocity(blowVector.x, blowVector.y + this.tourmaline.world.rand.nextFloat() + 0.1F, blowVector.z);
+						entity.attackEntityFrom(DamageSource.FLY_INTO_WALL, 12.0F);
+					}
+				}
+			}
 		}
 	}
 }

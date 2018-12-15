@@ -2,8 +2,6 @@ package mod.akrivus.amalgam.gem;
 
 import java.util.ArrayList;
 
-import mod.akrivus.amalgam.gem.ai.EntityAIAttackFusedTopaz;
-import mod.akrivus.amalgam.gem.ai.EntityAIFusedTopazTarget;
 import mod.akrivus.kagic.entity.EntityFusionGem;
 import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.entity.ai.EntityAICommandGems;
@@ -18,10 +16,12 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
+import net.minecraft.entity.ai.EntityAITarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.IAnimals;
@@ -34,6 +34,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.Path;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundEvent;
@@ -59,7 +60,7 @@ public class EntityFusedTopaz extends EntityFusionGem implements IAnimals {
 		this.setSize(1.8F, 4.6F);
 		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
-		this.tasks.addTask(1, new EntityAIAttackFusedTopaz(this, 1.0D));
+		this.tasks.addTask(1, new EntityFusedTopaz.AIAttackFusedTopaz(this, 1.0D));
         this.tasks.addTask(3, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
         this.tasks.addTask(4, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(5, new EntityAIFollowDiamond(this, 1.0D));
@@ -70,7 +71,7 @@ public class EntityFusedTopaz extends EntityFusionGem implements IAnimals {
         this.tasks.addTask(8, new EntityAILookIdle(this));
         
         // Apply targetting.
-        this.targetTasks.addTask(1, new EntityAIFusedTopazTarget(this));
+        this.targetTasks.addTask(1, new EntityFusedTopaz.AIFusedTopazTarget(this));
         this.targetTasks.addTask(2, new EntityAIDiamondHurtByTarget(this));
         this.targetTasks.addTask(3, new EntityAIDiamondHurtTarget(this));
         this.targetTasks.addTask(4, new EntityAIHurtByTarget(this, false, new Class[0]));
@@ -310,5 +311,102 @@ public class EntityFusedTopaz extends EntityFusionGem implements IAnimals {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.TOPAZ_DEATH;
+	}
+	public static class AIAttackFusedTopaz extends EntityAIBase {
+		private final EntityFusedTopaz gem;
+		private double speedTowardsTarget;
+		private Path path;
+		public AIAttackFusedTopaz(EntityFusedTopaz topaz, double speed) {
+			this.gem = topaz;
+			this.speedTowardsTarget = speed;
+			this.setMutexBits(7);
+		}
+		
+		@Override
+		public boolean shouldExecute() {
+			EntityLivingBase target = this.gem.getAttackTarget();
+	        if (target == null) {
+	            return false;
+	        }
+	        else if (!target.isEntityAlive()) {
+	            return false;
+	        }
+	        else if (this.gem.getHeldEntities().contains(target)) {
+	        	return false;
+	        }
+	        else {
+	            this.path = this.gem.getNavigator().getPathToEntityLiving(target);
+	            if (this.path != null) {
+	                return true;
+	            }
+	            else {
+	                return this.gem.getDistanceSq(target.posX, target.getEntityBoundingBox().minY, target.posZ) < 8;
+	            }
+	        }
+		}
+		
+		@Override
+		public boolean shouldContinueExecuting() {
+			EntityLivingBase target = this.gem.getAttackTarget();
+	        if (target == null) {
+	            return false;
+	        }
+	        else if (!target.isEntityAlive()) {
+	            return false;
+	        }
+	        else if (this.gem.getHeldEntities().contains(target)) {
+	        	return false;
+	        }
+	        return true;
+		}
+		
+		@Override
+		public void startExecuting() {
+			this.gem.getNavigator().setPath(this.path, this.speedTowardsTarget);
+		}
+		
+		@Override
+		public void updateTask() {
+			EntityLivingBase target = this.gem.getAttackTarget();
+			if (target != null) {
+				double distance = this.gem.getDistanceSq(target.posX, target.getEntityBoundingBox().minY, target.posZ);
+				boolean flag = this.gem.getEntitySenses().canSee(target);
+				if (distance < (9 * this.gem.width) && flag && !this.gem.isDefective()) {
+					boolean caught = this.gem.addHeldEntity(target);
+					if (caught) {
+						try {
+							// This should prevent the other gems from killing the captive.
+							target.getAttackingEntity().setLastAttackedEntity(this.gem);
+						} catch (NullPointerException e) {
+							// Okay, so apparently either I can't access this,
+							// or the gem was never attacked???
+						}
+						target.setHealth(target.getMaxHealth());
+					}
+				}
+			}
+		}
+	}
+	public static class AIFusedTopazTarget extends EntityAITarget {
+	    private final EntityFusedTopaz gem;
+	    public AIFusedTopazTarget(EntityFusedTopaz topaz) {
+	        super(topaz, false);
+	        this.gem = topaz;
+	        this.setMutexBits(1);
+	    }
+	    @Override
+		public boolean shouldExecute() {
+	        if (this.gem.getAttackTarget() != null && !this.gem.getHeldEntities().isEmpty()) {
+	            return true;
+	        }
+	        return false;
+	    }
+	    @Override
+		public void startExecuting() {
+	        if (this.gem.getHeldEntities().contains(this.gem.getAttackTarget())) {
+	        	this.gem.setAttackTarget(null);
+	        }
+	        super.startExecuting();
+	    }
 	}
 }

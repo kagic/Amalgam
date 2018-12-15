@@ -1,7 +1,7 @@
 package mod.akrivus.amalgam.client.render.layers;
 
 import mod.akrivus.amalgam.client.render.RenderSteven;
-import mod.akrivus.amalgam.gem.EntitySteven;
+import mod.akrivus.amalgam.human.EntitySteven;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;

@@ -1,14 +1,17 @@
 package mod.akrivus.amalgam.entity;
 
-import mod.akrivus.amalgam.gem.ai.EntityAIEatShards;
-import mod.akrivus.amalgam.gem.ai.EntityAIFindInjectionPoint;
-import mod.akrivus.amalgam.gem.ai.EntityAIFollowControllingPlayer;
+import java.util.List;
+
+import mod.akrivus.amalgam.entity.ai.EntityAIMachineFollowPlayer;
+import mod.akrivus.amalgam.gem.ai.EntityAIMoveGemToBlock;
+import mod.akrivus.kagic.init.ModBlocks;
 import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.init.ModSounds;
 import mod.akrivus.kagic.items.ItemActiveGemBase;
 import net.minecraft.block.Block;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +25,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
@@ -35,9 +39,9 @@ public class EntityInjector extends EntityMachine {
 		super(world);
 		this.setSize(0.9F, 4.6F);
 		this.setCanPickUpLoot(true);
-		this.tasks.addTask(1, new EntityAIFollowControllingPlayer(this, 0.6D));
-		this.tasks.addTask(2, new EntityAIEatShards(this, 0.6D));
-		this.tasks.addTask(3, new EntityAIFindInjectionPoint(this, 0.6D));
+		this.tasks.addTask(1, new EntityAIMachineFollowPlayer(this, 0.6D));
+		this.tasks.addTask(2, new EntityInjector.AIEatShards(this, 0.6D));
+		this.tasks.addTask(3, new EntityInjector.AIFindInjectionPoint(this, 0.6D));
         this.tasks.addTask(6, new EntityAILookIdle(this));
 		this.dataManager.register(COLOR, world.rand.nextInt(16));
 		this.dataManager.register(LEVEL, 0);
@@ -165,5 +169,207 @@ public class EntityInjector extends EntityMachine {
 	}
 	public int getLevel() {
 		return this.dataManager.get(LEVEL);
+	}
+	public static class AIEatShards extends EntityAIBase {
+		private final EntityInjector entity;
+		private final double movementSpeed;
+		private EntityItem item;
+		public AIEatShards(EntityInjector entity, double movementSpeed) {
+			this.entity = entity;
+			this.movementSpeed = movementSpeed;
+			this.setMutexBits(3);
+		}
+		@Override
+		public boolean shouldExecute() {
+			List<EntityItem> list = this.entity.world.<EntityItem>getEntitiesWithinAABB(EntityItem.class, this.entity.getEntityBoundingBox().grow(8.0D, 8.0D, 8.0D));
+			double maxDistance = Double.MAX_VALUE;
+			for (EntityItem item : list) {
+				double newDistance = this.entity.getDistanceSq(item);
+				if (newDistance <= maxDistance && this.entity.canEatItem(item.getItem().getItem()) && this.entity.canEntityBeSeen(item) && !item.isDead) {
+					maxDistance = newDistance;
+					this.item = item;
+				}
+			}
+			return this.item != null && !this.item.isDead && this.entity.canPickUpLoot();
+		}
+		@Override
+		public boolean shouldContinueExecuting() {
+			return this.item != null 
+					&& !this.item.isDead 
+					&& this.entity.canEntityBeSeen(this.item) 
+					&& !this.entity.getNavigator().noPath();
+		}
+		@Override
+		public void startExecuting() {
+			this.entity.getLookHelper().setLookPositionWithEntity(this.item, 30.0F, 30.0F);
+		}
+		@Override
+		public void resetTask() {
+			this.entity.getNavigator().clearPath();
+			this.item = null;
+		}
+		@Override
+		public void updateTask() {
+			if (this.entity.getDistanceSq(this.item) > 1.0F) {
+			   	this.entity.getNavigator().tryMoveToEntityLiving(this.item, this.movementSpeed);
+			}
+		}
+	}
+	public static class AIFindInjectionPoint extends EntityAIMoveGemToBlock {
+		private final EntityInjector injector;
+		private int delay = 0;
+		public AIFindInjectionPoint(EntityInjector injector, double speed) {
+			super(injector, speed, 16);
+			this.injector = injector;
+		}
+		@Override
+		public boolean shouldExecute() {
+			if (this.injector.getPlayerBeingFollowed() == null && this.injector.getLevel() > 0 && this.injector.numberOfFails < 27) {
+				if (this.delay > 100 + this.injector.getRNG().nextInt(100)) {
+					if (super.shouldExecute()) {
+						this.runDelay = 0;
+						this.delay = 0;
+						return true;
+					}
+					else {
+						++this.injector.numberOfFails;
+						return false;
+					}
+				}
+				else {
+					++this.delay;
+				}
+			}
+			return false;
+		}
+		@Override
+		public boolean shouldContinueExecuting() {
+			return super.shouldContinueExecuting() && !this.injector.getNavigator().noPath();
+		}
+		@Override
+		public void startExecuting() {
+			super.startExecuting();
+		}
+		@Override
+		public void resetTask() {
+			super.resetTask();
+		}
+		@Override
+		public void updateTask() {
+			super.updateTask();
+			this.injector.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, this.destinationBlock.getY() + 1, this.destinationBlock.getZ() + 0.5D, 10.0F, this.injector.getVerticalFaceSpeed());
+			if (this.getIsAboveDestination()) {
+				this.injector.world.playSound(null, this.injector.getPosition(), ModSounds.BLOCK_INJECTOR_FIRE, SoundCategory.NEUTRAL, 1000.0F, 1.0F);
+				this.injector.world.setBlockState(new BlockPos(this.destinationBlock.getX(), this.getRelativeY(this.injector.world, this.destinationBlock), this.destinationBlock.getZ()), ModBlocks.GEM_SEED.getDefaultState());
+				this.injector.setLevel(this.injector.getLevel() - 1);
+			}
+			else {
+				this.injector.playSound(SoundEvents.BLOCK_IRON_DOOR_OPEN, 1.0F, 1.0F);
+			}
+		}
+		@Override
+		protected boolean shouldMoveTo(World world, BlockPos pos) {
+			return this.getRelativeY(world, pos) > 0;
+		}
+		public int getRelativeY(World world, BlockPos pos) {
+			if (!world.isAirBlock(pos)) {
+				int maxalt = pos.getY() - 4;
+				for (int y = Math.max(maxalt - 48, 5); y < maxalt; ++y) {
+					BlockPos check = new BlockPos(pos.getX(), y, pos.getZ());
+					if (world.getBlockState(check).getBlock() == ModBlocks.GEM_SEED) {
+						y += 4;
+						if (y > maxalt) {
+							return -1;
+						}
+					}
+					else {
+						for (int j = -4; j <= 4; ++j) {
+							for (int x = -1; x <= 1; ++x) {
+								for (int z = -1; z <= 1; ++z) {
+									if (world.getBlockState(check.add(x, j, z)).getBlock() == ModBlocks.GEM_SEED) {
+										return -1;
+									}
+								}
+							}
+						}
+						boolean failed = false;
+						if (!failed) {
+							for (int x = -1; x <= 1; ++x) {
+								Block block = world.getBlockState(check.add(x, 0, 0)).getBlock();
+								if (block == ModBlocks.GEM_SEED || block == Blocks.AIR) {
+									failed = true;
+									break;
+								}
+							}
+							for (int j = -1; j <= 1; ++j) {
+								Block block = world.getBlockState(check.add(0, j, 0)).getBlock();
+								if (block == ModBlocks.GEM_SEED || block == Blocks.AIR) {
+									failed = true;
+									break;
+								}
+							}
+							for (int z = -1; z <= 1; ++z) {
+								Block block = world.getBlockState(check.add(0, 0, z)).getBlock();
+								if (block == ModBlocks.GEM_SEED || block == Blocks.AIR) {
+									failed = true;
+									break;
+								}
+							}
+							if (failed) {
+								continue;
+							}
+						}
+						boolean aired = false;
+						if (!aired) {
+							for (int i = 2; i <= 6; ++i) {
+								if (world.isAirBlock(check.add(-i, 0, 0)) || world.isAirBlock(check.add( i, 0, 0))) {
+									boolean canSeeUp = true;
+									for (int j = 0; j <= 16; ++j) {
+										if (!world.isAirBlock(check.add(-i, j, 0)) || !world.isAirBlock(check.add( i, j, 0))) {
+											canSeeUp = false;
+										}
+										else if (!canSeeUp) {
+											canSeeUp = true;
+											break;
+										}
+									}
+									aired = canSeeUp;
+									if (aired) {
+										break;
+									}
+								}
+							}
+						}
+						if (!aired) {
+							for (int i = 2; i <= 6; ++i) {
+								if (world.isAirBlock(check.add(0, 0, -i)) || world.isAirBlock(check.add(0, 0,  i))) {
+									boolean canSeeUp = true;
+									for (int j = 0; j <= 16; ++j) {
+										if (!world.isAirBlock(check.add(0, j, -i)) || !world.isAirBlock(check.add(0, j,  i))) {
+											canSeeUp = false;
+										}
+										else if (!canSeeUp) {
+											canSeeUp = true;
+											break;
+										}
+									}
+									aired = canSeeUp;
+									if (aired) {
+										break;
+									}
+								}
+							}
+						}
+						if (!aired) {
+							failed = true;
+						}
+						if (!failed) {
+							return y;
+						}
+					}
+				}
+			}
+			return -1;
+		}
 	}
 }

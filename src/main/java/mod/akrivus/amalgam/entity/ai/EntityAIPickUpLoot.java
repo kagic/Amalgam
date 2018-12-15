@@ -1,4 +1,4 @@
-package mod.akrivus.amalgam.gem.ai;
+package mod.akrivus.amalgam.entity.ai;
 
 import java.util.List;
 
@@ -6,13 +6,13 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.item.EntityItem;
 
-public class EntityAIPickUpItemsIndiscriminately extends EntityAIBase {
+public class EntityAIPickUpLoot extends EntityAIBase {
 	private final EntityCreature entity;
 	private final double movementSpeed;
 	private EntityItem item;
-	public EntityAIPickUpItemsIndiscriminately(EntityCreature entityIn, double movementSpeedIn) {
-		this.entity = entityIn;
-		this.movementSpeed = movementSpeedIn;
+	public EntityAIPickUpLoot(EntityCreature entity, double movementSpeed) {
+		this.entity = entity;
+		this.movementSpeed = movementSpeed;
 		this.setMutexBits(3);
 	}
 	@Override

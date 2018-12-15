@@ -1,4 +1,4 @@
-package mod.akrivus.amalgam.gem.ai;
+package mod.akrivus.amalgam.entity.ai;
 
 import java.util.List;
 
@@ -15,13 +15,12 @@ public class EntityAIProtectVillagers extends EntityAITarget {
 		this.entity = entity;
 		this.setMutexBits(1);
 	}
-
 	@Override
 	public boolean shouldExecute() {
 		List<EntityVillager> list = this.entity.world.<EntityVillager>getEntitiesWithinAABB(EntityVillager.class, this.entity.getEntityBoundingBox().grow(24.0F, 24.0F, 24.0F));
 		double distance = Double.MAX_VALUE;
 		for (EntityVillager villager : list) {
-			if (this.checkInitiator() && this.checkTarget(villager)) {
+			if (this.entity.getHealth() > 0 && !this.entity.isDead && villager != null && villager.getRevengeTarget() != null && villager.getRevengeTarget() != this.entity && !villager.getRevengeTarget().isDead) {
 				double newDistance = this.entity.getDistanceSq(villager);
 				if (newDistance <= distance) {
 					distance = newDistance;
@@ -29,23 +28,14 @@ public class EntityAIProtectVillagers extends EntityAITarget {
 				}
 			}
 		}
-		if (this.checkTarget(this.villager)) {
+		if (this.villager != null && this.villager.getRevengeTarget() != null && this.villager.getRevengeTarget() != this.entity && !this.villager.getRevengeTarget().isDead) {
 			return true;
 		}
 		return false;
 	}
-
 	@Override
 	public void startExecuting() {
 		this.taskOwner.setAttackTarget(this.villager.getRevengeTarget());
 		super.startExecuting();
-	}
-	
-	private boolean checkInitiator() {
-		return this.entity.getHealth() > 0 && !this.entity.isDead;
-	}
-
-	private boolean checkTarget(EntityVillager villager) {
-		return villager != null && villager.getRevengeTarget() != null && villager.getRevengeTarget() != this.entity && !villager.getRevengeTarget().isDead;
 	}
 }

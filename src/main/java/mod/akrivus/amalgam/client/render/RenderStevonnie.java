@@ -3,7 +3,7 @@ package mod.akrivus.amalgam.client.render;
 import mod.akrivus.amalgam.client.render.layers.LayerStevonnieClothing;
 import mod.akrivus.amalgam.client.render.layers.LayerStevonnieHair;
 import mod.akrivus.amalgam.client.render.layers.LayerStevonnieItem;
-import mod.akrivus.amalgam.gem.EntityStevonnie;
+import mod.akrivus.amalgam.human.EntityStevonnie;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.RenderLiving;

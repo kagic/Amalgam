@@ -1,6 +1,6 @@
 package mod.akrivus.amalgam.client.render.layers;
 
-import mod.akrivus.amalgam.gem.EntityConnie;
+import mod.akrivus.amalgam.human.EntityConnie;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLivingBase;

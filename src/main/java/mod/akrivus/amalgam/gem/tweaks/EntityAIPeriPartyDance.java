@@ -1,12 +1,12 @@
-package mod.akrivus.amalgam.gem.ai;
+package mod.akrivus.amalgam.gem.tweaks;
 
 import mod.akrivus.kagic.entity.gem.EntityPeridot;
 import net.minecraft.entity.ai.EntityAIBase;
 
-public class EntityAIFestiveDance extends EntityAIBase {
+public class EntityAIPeriPartyDance extends EntityAIBase {
 	private final EntityPeridot gem;
 	private int delay = 0;
-	public EntityAIFestiveDance(EntityPeridot gem) {
+	public EntityAIPeriPartyDance(EntityPeridot gem) {
 		this.gem = gem;
 	}
 	@Override

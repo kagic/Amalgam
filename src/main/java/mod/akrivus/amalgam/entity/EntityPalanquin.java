@@ -2,7 +2,7 @@ package mod.akrivus.amalgam.entity;
 
 import java.util.List;
 
-import mod.akrivus.amalgam.gem.ai.EntityAIFollowControllingPlayer;
+import mod.akrivus.amalgam.entity.ai.EntityAIMachineFollowPlayer;
 import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.init.ModSounds;
 import net.minecraft.block.Block;
@@ -40,7 +40,7 @@ public class EntityPalanquin extends EntityMachine implements IJumpingMount {
 		super(world);
 		this.setSize(3.0F, 7.0F);
 		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(1, new EntityAIFollowControllingPlayer(this, 0.6D));
+		this.tasks.addTask(1, new EntityAIMachineFollowPlayer(this, 0.6D));
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(20.0D);

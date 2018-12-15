@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.google.common.base.Predicate;
 
-import mod.akrivus.amalgam.gem.ai.EntityAICrossFuse;
+import mod.akrivus.amalgam.gem.tweaks.EntityAICrossFuse;
 import mod.akrivus.kagic.entity.EntityFusionGem;
 import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.entity.ai.EntityAICommandGems;

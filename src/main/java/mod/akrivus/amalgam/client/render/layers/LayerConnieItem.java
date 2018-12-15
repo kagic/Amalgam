@@ -1,7 +1,7 @@
 package mod.akrivus.amalgam.client.render.layers;
 
 import mod.akrivus.amalgam.client.render.RenderConnie;
-import mod.akrivus.amalgam.gem.EntityConnie;
+import mod.akrivus.amalgam.human.EntityConnie;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,11 +15,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerConnieItem implements LayerRenderer<EntityConnie> {
 	protected final RenderConnie livingEntityRenderer;
-	
 	public LayerConnieItem(RenderConnie renderPearl) {
 		this.livingEntityRenderer = renderPearl;
 	}
-
 	@Override
 	public void doRenderLayer(EntityConnie entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		boolean flag = entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT;
@@ -31,7 +29,6 @@ public class LayerConnieItem implements LayerRenderer<EntityConnie> {
 		this.renderBackItem(entitylivingbaseIn, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND);
 		GlStateManager.popMatrix();
 	}
-	
 	private void renderHeldItem(EntityConnie entity, ItemStack stack, ItemCameraTransforms.TransformType camera, EnumHandSide handSide) {
 		if (!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
@@ -47,7 +44,6 @@ public class LayerConnieItem implements LayerRenderer<EntityConnie> {
 			GlStateManager.popMatrix();
 		}
 	}
-	
 	private void renderBackItem(EntityConnie entity, ItemCameraTransforms.TransformType camera) {
 		if (!entity.getBackStack().isEmpty()) {
 			GlStateManager.pushMatrix();
@@ -59,11 +55,9 @@ public class LayerConnieItem implements LayerRenderer<EntityConnie> {
 			GlStateManager.popMatrix();
 		}
 	}
-	
 	protected void setSide(EnumHandSide side) {
 		((ModelBiped) this.livingEntityRenderer.getMainModel()).postRenderArm(0.04F, side);
 	}
-	
 	@Override
 	public boolean shouldCombineTextures() {
 		return false;

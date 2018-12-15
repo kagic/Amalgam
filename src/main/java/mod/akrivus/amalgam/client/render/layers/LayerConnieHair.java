@@ -1,6 +1,6 @@
 package mod.akrivus.amalgam.client.render.layers;
 
-import mod.akrivus.amalgam.gem.EntityConnie;
+import mod.akrivus.amalgam.human.EntityConnie;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
@@ -10,12 +10,10 @@ import net.minecraft.util.ResourceLocation;
 public class LayerConnieHair implements LayerRenderer<EntityConnie> {
 	private final RenderLivingBase<?> gemRenderer;
 	private final ModelBase gemModel;
-	
 	public LayerConnieHair(RenderLivingBase<?> gemRenderer) {
 		this.gemRenderer = gemRenderer;
 		this.gemModel = gemRenderer.getMainModel();
 	}
-	
 	@Override
 	public void doRenderLayer(EntityConnie gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		if (!gem.isInvisible()) {
@@ -26,11 +24,9 @@ public class LayerConnieHair implements LayerRenderer<EntityConnie> {
 			GlStateManager.disableBlend();
 		}
 	}
-	
 	public ResourceLocation getTexture(EntityConnie gem) {
 		return new ResourceLocation("amalgam:textures/entities/connie/hair_" + gem.getHairstyle() + ".png");
 	}
-	
 	@Override
 	public boolean shouldCombineTextures() {
 		return false;

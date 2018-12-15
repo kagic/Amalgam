@@ -1,7 +1,7 @@
 package mod.akrivus.amalgam.client.render;
 
 import mod.akrivus.amalgam.client.render.layers.LayerLowerHalf;
-import mod.akrivus.amalgam.gem.EntityWatermelonTourmaline;
+import mod.akrivus.amalgam.gem.EntityTourmaline;
 import mod.akrivus.kagic.client.model.ModelQuartz;
 import mod.akrivus.kagic.client.render.RenderGemBase;
 import mod.akrivus.kagic.client.render.layers.LayerBirthdayHat;
@@ -20,8 +20,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.util.ResourceLocation;
 
-public class RenderWatermelonTourmaline extends RenderGemBase<EntityWatermelonTourmaline> {
-	public RenderWatermelonTourmaline() {
+public class RenderTourmaline extends RenderGemBase<EntityTourmaline> {
+	public RenderTourmaline() {
         super(Minecraft.getMinecraft().getRenderManager(), new ModelQuartz(), 0.5F);
 		this.addLayer(new LayerQuartzItem(this));
         this.addLayer(new LayerSkin(this));
@@ -49,7 +49,7 @@ public class RenderWatermelonTourmaline extends RenderGemBase<EntityWatermelonTo
 		this.addLayer(armor);
 	}
 	@Override
-	protected ResourceLocation getEntityTexture(EntityWatermelonTourmaline entity) {
+	protected ResourceLocation getEntityTexture(EntityTourmaline entity) {
 		return new ResourceLocation("amalgam:textures/entities/watermelon_tourmaline/watermelon_tourmaline.png");
 	}
 }

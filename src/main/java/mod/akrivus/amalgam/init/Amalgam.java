@@ -50,7 +50,7 @@ public class Amalgam {
     @EventHandler
     public void init(FMLInitializationEvent event) {
     	AmEvents.register();
-    	AmGems.register();
+    	AmEntities.register();
     }
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {

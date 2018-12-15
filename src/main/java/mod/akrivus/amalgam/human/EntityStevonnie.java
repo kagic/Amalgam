@@ -1,10 +1,10 @@
-package mod.akrivus.amalgam.gem;
+package mod.akrivus.amalgam.human;
 
 import java.util.List;
 
 import com.google.common.base.Predicate;
 
-import mod.akrivus.amalgam.gem.ai.EntityAIProtectVillagers;
+import mod.akrivus.amalgam.entity.ai.EntityAIProtectVillagers;
 import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowGem;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowPlayer;

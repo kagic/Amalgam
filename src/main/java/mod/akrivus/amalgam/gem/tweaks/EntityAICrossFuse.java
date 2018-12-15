@@ -1,4 +1,4 @@
-package mod.akrivus.amalgam.gem.ai;
+package mod.akrivus.amalgam.gem.tweaks;
 
 import java.util.List;
 

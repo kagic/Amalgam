@@ -1,16 +1,16 @@
-package mod.akrivus.amalgam.gem.ai;
+package mod.akrivus.amalgam.entity.ai;
 
 import mod.akrivus.amalgam.entity.EntityMachine;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathNodeType;
 
-public class EntityAIFollowControllingPlayer extends EntityAIBase {
+public class EntityAIMachineFollowPlayer extends EntityAIBase {
 	private final EntityMachine machine;
 	private EntityPlayer player;
 	private final double followSpeed;
 	private float oldWaterCost;
-	public EntityAIFollowControllingPlayer(EntityMachine entity, double followSpeed) {
+	public EntityAIMachineFollowPlayer(EntityMachine entity, double followSpeed) {
 		this.machine = entity;
 		this.followSpeed = followSpeed;
 		this.setMutexBits(3);

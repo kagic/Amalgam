@@ -1,7 +1,7 @@
 package mod.akrivus.amalgam.client.render.layers;
 
 import mod.akrivus.amalgam.client.render.RenderStevonnie;
-import mod.akrivus.amalgam.gem.EntityStevonnie;
+import mod.akrivus.amalgam.human.EntityStevonnie;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,11 +15,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerStevonnieItem implements LayerRenderer<EntityStevonnie> {
 	protected final RenderStevonnie livingEntityRenderer;
-	
 	public LayerStevonnieItem(RenderStevonnie render) {
 		this.livingEntityRenderer = render;
 	}
-
 	@Override
 	public void doRenderLayer(EntityStevonnie entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		boolean flag = entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT;
@@ -31,7 +29,6 @@ public class LayerStevonnieItem implements LayerRenderer<EntityStevonnie> {
 		this.renderBackItem(entitylivingbaseIn, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND);
 		GlStateManager.popMatrix();
 	}
-	
 	private void renderHeldItem(EntityStevonnie entity, ItemStack stack, ItemCameraTransforms.TransformType camera, EnumHandSide handSide) {
 		if (!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
@@ -47,7 +44,6 @@ public class LayerStevonnieItem implements LayerRenderer<EntityStevonnie> {
 			GlStateManager.popMatrix();
 		}
 	}
-	
 	private void renderBackItem(EntityStevonnie entity, ItemCameraTransforms.TransformType camera) {
 		if (!entity.getBackStack().isEmpty()) {
 			GlStateManager.pushMatrix();
@@ -59,11 +55,9 @@ public class LayerStevonnieItem implements LayerRenderer<EntityStevonnie> {
 			GlStateManager.popMatrix();
 		}
 	}
-	
 	protected void setSide(EnumHandSide side) {
 		((ModelBiped) this.livingEntityRenderer.getMainModel()).postRenderArm(0.04F, side);
 	}
-	
 	@Override
 	public boolean shouldCombineTextures() {
 		return false;

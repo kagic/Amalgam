@@ -14,17 +14,17 @@ import mod.akrivus.amalgam.entity.EntityPalanquin;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.amalgam.gem.EntityFusedRuby;
 import mod.akrivus.amalgam.gem.EntityFusedTopaz;
-import mod.akrivus.amalgam.gem.EntitySteven;
 import mod.akrivus.amalgam.gem.ai.EntityAIBubbleItems;
 import mod.akrivus.amalgam.gem.ai.EntityAICallForBackup;
-import mod.akrivus.amalgam.gem.ai.EntityAICrossFuse;
-import mod.akrivus.amalgam.gem.ai.EntityAIFestiveBurnStuff;
-import mod.akrivus.amalgam.gem.ai.EntityAIFestiveDance;
-import mod.akrivus.amalgam.gem.ai.EntityAIFestiveFireworks;
-import mod.akrivus.amalgam.gem.ai.EntityAIFixAnvils;
-import mod.akrivus.amalgam.gem.ai.EntityAIFixInjectors;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowLeaderGem;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
+import mod.akrivus.amalgam.gem.tweaks.EntityAICrossFuse;
+import mod.akrivus.amalgam.gem.tweaks.EntityAIFixAnvils;
+import mod.akrivus.amalgam.gem.tweaks.EntityAIFixInjectors;
+import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriPartyBurnStuff;
+import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriPartyDance;
+import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriPartyFireworks;
+import mod.akrivus.amalgam.human.EntitySteven;
 import mod.akrivus.amalgam.items.ItemGemShard;
 import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowTopaz;
@@ -201,9 +201,9 @@ public class AmEvents {
 			}
 			if (gem instanceof EntityPeridot) {
 				gem.tasks.addTask(4, new EntityAIFixInjectors((EntityPeridot)(gem), 0.6D));
-				gem.tasks.addTask(6, new EntityAIFestiveBurnStuff((EntityPeridot)(gem), 0.6D));
-				gem.tasks.addTask(6, new EntityAIFestiveDance((EntityPeridot)(gem)));
-				gem.tasks.addTask(6, new EntityAIFestiveFireworks((EntityPeridot)(gem)));
+				gem.tasks.addTask(6, new EntityAIPeriPartyBurnStuff((EntityPeridot)(gem), 0.6D));
+				gem.tasks.addTask(6, new EntityAIPeriPartyDance((EntityPeridot)(gem)));
+				gem.tasks.addTask(6, new EntityAIPeriPartyFireworks((EntityPeridot)(gem)));
 			}
 			if (gem instanceof EntityBismuth) {
 				gem.tasks.addTask(4, new EntityAIFixAnvils((EntityBismuth)(gem), 0.6D));

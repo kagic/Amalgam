@@ -1,6 +1,6 @@
 package mod.akrivus.amalgam.client.render.layers;
 
-import mod.akrivus.amalgam.gem.EntitySteven;
+import mod.akrivus.amalgam.human.EntitySteven;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLivingBase;

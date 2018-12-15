@@ -8,7 +8,6 @@ import mod.akrivus.amalgam.entity.EntitySpitball;
 import mod.akrivus.amalgam.gem.EntityAquaAuraQuartz;
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.amalgam.gem.EntityCitrine;
-import mod.akrivus.amalgam.gem.EntityConnie;
 import mod.akrivus.amalgam.gem.EntityEmerald;
 import mod.akrivus.amalgam.gem.EntityEnderPearl;
 import mod.akrivus.amalgam.gem.EntityFusedPyrite;
@@ -18,9 +17,10 @@ import mod.akrivus.amalgam.gem.EntityMelanite;
 import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.amalgam.gem.EntityPyrite;
-import mod.akrivus.amalgam.gem.EntitySteven;
-import mod.akrivus.amalgam.gem.EntityStevonnie;
-import mod.akrivus.amalgam.gem.EntityWatermelonTourmaline;
+import mod.akrivus.amalgam.gem.EntityTourmaline;
+import mod.akrivus.amalgam.human.EntityConnie;
+import mod.akrivus.amalgam.human.EntitySteven;
+import mod.akrivus.amalgam.human.EntityStevonnie;
 import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.init.ModEntities;
 import net.minecraft.client.renderer.entity.Render;
@@ -31,7 +31,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class AmGems {
+public class AmEntities {
 	private static int currentID = 0;
 	public static void register() {
 		ModEntities.registerExternalGem("amalgam", "citrine", EntityCitrine.class, "mod/akrivus/amalgam/client/render/RenderCitrine", 0xECF404, 0xEBFD64, false);
@@ -42,7 +42,7 @@ public class AmGems {
 		ModEntities.registerExternalGem("amalgam", "nephrite", EntityNephrite.class, "mod/akrivus/amalgam/client/render/RenderNephrite", 0x428F33, 0x0E0D09, false);
 		ModEntities.registerExternalGem("amalgam", "emerald", EntityEmerald.class, "mod/akrivus/amalgam/client/render/RenderEmerald", 0x2AC861, 0xB2F731, false);
 		ModEntities.registerExternalGem("amalgam", "aqua_aura_quartz", EntityAquaAuraQuartz.class, "mod/akrivus/amalgam/client/render/RenderAquaAuraQuartz", 0x179FC4, 0xBB85D9, false);
-		ModEntities.registerExternalGem("amalgam", "watermelon_tourmaline", EntityWatermelonTourmaline.class, "mod/akrivus/amalgam/client/render/RenderWatermelonTourmaline", 0x45E79F, 0xFFC9E2, false);
+		ModEntities.registerExternalGem("amalgam", "watermelon_tourmaline", EntityTourmaline.class, "mod/akrivus/amalgam/client/render/RenderTourmaline", 0x45E79F, 0xFFC9E2, false);
 		ModEntities.registerExternalGem("amalgam", "melanite", EntityMelanite.class, "mod/akrivus/amalgam/client/render/RenderMelanite", 0x343434, 0x2B2F34, false);
 		
 		registerFusion("fused_topaz", EntityFusedTopaz.class);

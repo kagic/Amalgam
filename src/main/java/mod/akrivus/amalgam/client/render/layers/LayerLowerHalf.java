@@ -1,27 +1,27 @@
 package mod.akrivus.amalgam.client.render.layers;
 
-import mod.akrivus.amalgam.client.render.RenderWatermelonTourmaline;
-import mod.akrivus.amalgam.gem.EntityWatermelonTourmaline;
+import mod.akrivus.amalgam.client.render.RenderTourmaline;
+import mod.akrivus.amalgam.gem.EntityTourmaline;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 
-public class LayerLowerHalf implements LayerRenderer<EntityWatermelonTourmaline> {
-	private final RenderWatermelonTourmaline gemRenderer;
+public class LayerLowerHalf implements LayerRenderer<EntityTourmaline> {
+	private final RenderTourmaline gemRenderer;
 	private final ModelBase gemModel;
 	private float offset;
 	private String name;
 	
-	public LayerLowerHalf(RenderWatermelonTourmaline gemRenderer) {
+	public LayerLowerHalf(RenderTourmaline gemRenderer) {
 		this(gemRenderer, 0F);
 	}
 
-	public LayerLowerHalf(RenderWatermelonTourmaline gemRenderer, float offset) {
+	public LayerLowerHalf(RenderTourmaline gemRenderer, float offset) {
 		this(gemRenderer, offset, null);
 	}
 	
-	public LayerLowerHalf(RenderWatermelonTourmaline gemRenderer, float offset, String name) {
+	public LayerLowerHalf(RenderTourmaline gemRenderer, float offset, String name) {
 		this.gemRenderer = gemRenderer;
 		this.gemModel = gemRenderer.getMainModel();
 		this.offset = offset;
@@ -29,7 +29,7 @@ public class LayerLowerHalf implements LayerRenderer<EntityWatermelonTourmaline>
 	}
 
 	@Override
-	public void doRenderLayer(EntityWatermelonTourmaline gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+	public void doRenderLayer(EntityTourmaline gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.gemRenderer.bindTexture(this.getTexture(gem));
 		int skin = gem.getLowerColor();
 		float r = ((skin & 16711680) >> 16) / 255f;
@@ -41,7 +41,7 @@ public class LayerLowerHalf implements LayerRenderer<EntityWatermelonTourmaline>
 		GlStateManager.disableBlend();
 	}
 
-	public ResourceLocation getTexture(EntityWatermelonTourmaline gem) {
+	public ResourceLocation getTexture(EntityTourmaline gem) {
 		return new ResourceLocation("amalgam:textures/entities/watermelon_tourmaline/half.png");
 	}
 	

@@ -1,4 +1,4 @@
-package mod.akrivus.amalgam.gem.ai;
+package mod.akrivus.amalgam.gem.tweaks;
 
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
 import mod.akrivus.kagic.entity.gem.EntityTopaz;

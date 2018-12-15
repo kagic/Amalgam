@@ -6,16 +6,19 @@ import java.util.Iterator;
 
 import com.google.common.base.Predicate;
 
-import mod.akrivus.amalgam.gem.ai.EntityAIEatBlocks;
+import mod.akrivus.amalgam.gem.ai.EntityAIMoveGemToBlock;
 import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.amalgam.init.AmSounds;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowDiamond;
 import mod.akrivus.kagic.entity.ai.EntityAIStay;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
+import mod.akrivus.kagic.init.ModBlocks;
 import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.init.ModSounds;
 import mod.akrivus.kagic.util.ShatterDamage;
 import mod.heimrarnadalr.kagic.util.Colors;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.INpc;
@@ -27,6 +30,7 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
@@ -37,8 +41,10 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.DyeUtils;
@@ -83,7 +89,7 @@ public class EntityNacre extends EntityPearl implements INpc {
 			}
         }, 6.0F, 1.0D, 1.2D));
 		this.tasks.addTask(2, new EntityAIFollowDiamond(this, 1.0D));
-		this.tasks.addTask(2, new EntityAIEatBlocks(this, 0.9D));
+		this.tasks.addTask(2, new EntityNacre.AIEatBlocks(this, 0.9D));
 		this.dataManager.register(CRACKED, false);
 		this.dataManager.register(COLOR_1, this.rand.nextInt(16));
 		this.dataManager.register(COLOR_2, this.rand.nextInt(16));
@@ -452,5 +458,90 @@ public class EntityNacre extends EntityPearl implements INpc {
 	@Override
 	protected SoundEvent getWeirdSound() {
 		return AmSounds.NACRE_SNEEZE;
+	}
+	public static class AIEatBlocks extends EntityAIMoveGemToBlock {
+		private final EntityNacre gem;
+		private final World world;
+		private int delay = 0;
+		public AIEatBlocks(EntityNacre gem, double speed) {
+			super(gem, speed, 8);
+			this.gem = gem;
+			this.world = gem.world;
+		}
+		@Override
+		public boolean shouldExecute() {
+			if (this.gem.isTamed() && this.gem.getFoodLevel() < this.gem.getMaxExpected()) {
+				if (this.gem.world.getCurrentMoonPhaseFactor() == 1.0) {
+					if (this.delay > 5 + this.gem.getRNG().nextInt(5)) {
+						this.runDelay = 0;
+						this.delay = 0;
+						return super.shouldExecute();
+					}
+					else {
+						++this.delay;
+					}
+				}
+			}
+			return false;
+		}
+		@Override
+		public boolean shouldContinueExecuting() {
+			return super.shouldContinueExecuting() && this.gem.world.getCurrentMoonPhaseFactor() == 1.0 && !this.gem.getNavigator().noPath() && this.gem.getFoodLevel() < this.gem.getMaxExpected();
+		}
+		@Override
+		public void startExecuting() {
+			super.startExecuting();
+		}
+		@Override
+		public void resetTask() {
+			super.resetTask();
+		}
+		@Override
+		public void updateTask() {
+			super.updateTask();
+			this.gem.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, this.destinationBlock.getY() + 1, this.destinationBlock.getZ() + 0.5D, 10.0F, this.gem.getVerticalFaceSpeed());
+			if (this.gem.getDistanceSq(this.destinationBlock) < 14) {
+	            boolean eaten = this.world.destroyBlock(this.destinationBlock, false);
+	            if (eaten) {
+	            	this.world.playSound(null, this.gem.getPosition(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.NEUTRAL, 1.0F, this.gem.getSoundPitch());
+	            	if (this.world.getBlockState(this.destinationBlock) == Blocks.COAL_BLOCK) {
+	            		this.gem.addFood(128);
+	            	}
+	            	else {
+	            		this.gem.addFood(1);
+	            	}
+	            }
+			}
+		}
+		@Override
+		protected boolean shouldMoveTo(World world, BlockPos pos) {
+			if (!world.isAirBlock(pos)) {
+				IBlockState state = world.getBlockState(pos);
+				Block block = state.getBlock();
+				if (block == Blocks.COAL_BLOCK || block == Blocks.COAL_ORE
+				 || block == Blocks.END_STONE || block == Blocks.NETHERRACK
+				 || state.getMaterial() == Material.GOURD || state.getMaterial() == Material.CAKE
+				 || state.getMaterial() == Material.VINE || state.getMaterial() == Material.CLAY
+				 || state.getMaterial() == Material.GROUND || state.getMaterial() == Material.GRASS
+				 || state.getMaterial() == Material.SNOW || state.getMaterial() == Material.LEAVES
+				 || state.getMaterial() == Material.PLANTS || state.getMaterial() == Material.SAND
+				 || state.getMaterial() == ModBlocks.DRAINED) {
+					return this.hasAir(pos);
+				}
+			}
+			return false;
+		}
+		protected boolean hasAir(BlockPos pos) {
+			for (int x = -1; x < 1; ++x) {
+				for (int y = -1; y < 1; ++y) {
+					for (int z = -1; z < 1; ++z) {
+						if (this.world.isAirBlock(pos.add(x, y, z))) {
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		}
 	}
 }

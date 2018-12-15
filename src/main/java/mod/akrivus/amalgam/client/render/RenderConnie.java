@@ -5,7 +5,7 @@ import mod.akrivus.amalgam.client.render.layers.LayerConnieBackpack;
 import mod.akrivus.amalgam.client.render.layers.LayerConnieClothing;
 import mod.akrivus.amalgam.client.render.layers.LayerConnieHair;
 import mod.akrivus.amalgam.client.render.layers.LayerConnieItem;
-import mod.akrivus.amalgam.gem.EntityConnie;
+import mod.akrivus.amalgam.human.EntityConnie;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.layers.LayerArrow;
