@@ -3,20 +3,23 @@
 		"item": "amalgam:wailing_stone"
 	},
 	"pattern": [
-		" g ",
-		"sns",
-		"sss"
+		" p ",
+		"bnb",
+		"ggg"
 	],
 	"type": "minecraft:crafting_shaped",
 	"key": {
-		"s": {
+		"p": {
+			"item": "minecraft:light_weighted_pressure_plate"
+		},
+		"b": {
 			"item": "minecraft:nether_brick"
 		},
 		"n": {
 			"item": "minecraft:noteblock"
 		},
 		"g": {
-			"item": "minecraft:light_weighted_pressure_plate"
+			"item": "minecraft:gold_ingot"
 		}
 	}
 }
