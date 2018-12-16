@@ -47,8 +47,8 @@ public class ModelNacre extends ModelGem {
 		this.bipedLeftLeg.setRotationPoint(0F, 12F, 0F);
 	}
     @Override
-	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+	public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		super.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		this.bipedHead.render(scale);
 		this.bipedHeadwear.render(scale);
 		this.bipedShell.render(scale);
@@ -63,8 +63,8 @@ public class ModelNacre extends ModelGem {
 		this.bipedLeftLeg.render(scale);
 	}
     @Override
-	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
-		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity) {
+		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entity);
 		super.copyModelAngles(this.bipedHead, this.bipedShell);
 		super.copyModelAngles(this.bipedBody, this.bipedSkirt);
 		super.copyModelAngles(this.bipedHead, this.bipedNose);

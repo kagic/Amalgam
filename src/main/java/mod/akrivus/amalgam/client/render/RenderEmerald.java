@@ -11,6 +11,7 @@ import mod.akrivus.kagic.client.render.layers.LayerInsignia;
 import mod.akrivus.kagic.client.render.layers.LayerSantaHat;
 import mod.akrivus.kagic.client.render.layers.LayerSkin;
 import mod.akrivus.kagic.client.render.layers.LayerUniform;
+import mod.akrivus.kagic.client.render.layers.LayerVisor;
 import mod.akrivus.kagic.client.render.layers.LayerWitchHat;
 import mod.akrivus.kagic.init.KAGIC;
 import net.minecraft.client.Minecraft;
@@ -23,6 +24,7 @@ public class RenderEmerald extends RenderGemBase<EntityEmerald> {
 		this.addLayer(new LayerEmeraldItem(this));
 		this.addLayer(new LayerSkin(this));
 		this.addLayer(new LayerHair(this));
+		this.addLayer(new LayerVisor(this));
 		this.addLayer(new LayerUniform(this));
 		this.addLayer(new LayerInsignia(this));
 		this.addLayer(new LayerGemPlacement(this));
@@ -37,7 +39,7 @@ public class RenderEmerald extends RenderGemBase<EntityEmerald> {
 		}
 	}
 	@Override
-	protected void preRenderCallback(EntityEmerald gem, float partialTickTime) {
+	protected void preRenderCallback(EntityEmerald gem, float partialTicks) {
 		if (gem.isDefective()) {
 			GlStateManager.scale(0.8F, 0.8F, 0.8F);
 		}
