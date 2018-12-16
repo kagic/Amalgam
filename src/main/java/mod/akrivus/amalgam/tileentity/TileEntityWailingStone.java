@@ -23,11 +23,24 @@ public class TileEntityWailingStone extends TileEntity implements ITickable {
 		++this.ticksExisted;
 		if (this.isWailing() && !this.world.isRemote) {
 			if (this.ticksExisted % 6 == 0) {
-				this.world.playSound(null, this.pos, AmSounds.WAILING_STONE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+				float volume = 0;
+				if (this.world.isAirBlock(this.pos.north())) {
+					volume += 0.25F;
+				}
+				if (this.world.isAirBlock(this.pos.south())) {
+					volume += 0.25F;
+				}
+				if (this.world.isAirBlock(this.pos.east())) {
+					volume += 0.25F;
+				}
+				if (this.world.isAirBlock(this.pos.west())) {
+					volume += 0.25F;
+				}
+				this.world.playSound(null, this.pos, AmSounds.WAILING_STONE, SoundCategory.BLOCKS, volume, 1.0F);
 				List<EntityLivingBase> entities = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(this.pos).grow(8.0D));
 				for (EntityLivingBase entity : entities) {
 					if (entity instanceof EntityPlayer) {
-						if (entity.getDistanceSq(this.pos) < 8) {
+						if (entity.getDistanceSq(this.pos) < 8 * volume) {
 							entity.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 100));
 						}
 					}
@@ -50,7 +63,7 @@ public class TileEntityWailingStone extends TileEntity implements ITickable {
 		this.wailing = compound.getBoolean("wailing");
 	}
 	public boolean isWailing() {
-		return this.wailing || this.world.isBlockPowered(this.pos);
+		return (this.wailing || this.world.isBlockPowered(this.pos)) && this.world.isAirBlock(this.pos.up());
 	}
 	public void setWailing(boolean wailing) {
 		this.wailing = wailing;

@@ -263,7 +263,7 @@ public class AmEvents {
 			if (e.getItemInput().getItem() instanceof ItemGem) {
 				ItemGem gem = (ItemGem)(e.getItemInput().getItem());
 				if (gem.isCracked) {
-					if (e.getIngredientInput().getItem() instanceof ItemPickaxe) {
+					if (e.getIngredientInput().getItem().getToolClasses(e.getIngredientInput()).contains("pickaxe")) {
 						ItemStack stack = e.getIngredientInput().copy();
 						stack.damageItem(1, e.getEntityPlayer());
 						boolean added = e.getEntityPlayer().addItemStackToInventory(stack);
