@@ -19,6 +19,11 @@
             { "name": "amalgam:send" }
         ]
     },
+    "wailing_stone": {
+    	"sounds": [
+    		{ "name": "amalgam:wailing_stone" }
+    	]
+    },
 	"entities.pyrite.hurt": {
         "sounds": [
             { "name": "amalgam:entities/pyrite/hurt1" },

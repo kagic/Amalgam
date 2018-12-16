@@ -1,11 +1,9 @@
 {
-  "result": {
-    "item": "kagic:active_gem_shard"
-  },
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "amalgam:drain_lily"
-    }
-  ]
+	"result": {
+    	"item": "kagic:active_gem_shard"
+	}, 
+	"type": "minecraft:crafting_shapeless",
+	"ingredients": [{
+   		"item": "amalgam:drain_lily"
+ 	}]
 }

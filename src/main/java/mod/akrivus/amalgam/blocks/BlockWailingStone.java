@@ -1,11 +1,8 @@
 package mod.akrivus.amalgam.blocks;
 
-import mod.akrivus.kagic.blocks.BlockInjector;
+import mod.akrivus.amalgam.tileentity.TileEntityWailingStone;
 import mod.akrivus.kagic.init.ModBlocks;
 import mod.akrivus.kagic.init.ModCreativeTabs;
-import mod.akrivus.kagic.tileentity.TileEntityIncubator;
-import mod.akrivus.kagic.util.injector.Injector;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.MapColor;
@@ -16,7 +13,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
@@ -25,6 +21,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -54,9 +51,9 @@ public class BlockWailingStone extends BlockContainer {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		TileEntity container = world.getTileEntity(pos);
-		if (container != null && container instanceof TileEntityIncubator) {
-			TileEntityIncubator incubator = (TileEntityIncubator) container;
-			playerIn.displayGUIChest(incubator);
+		if (container != null && container instanceof TileEntityWailingStone) {
+			TileEntityWailingStone wailingStone = (TileEntityWailingStone) container;
+			wailingStone.toggleActivate();
 		}
 		return true;
 	}
@@ -146,4 +143,12 @@ public class BlockWailingStone extends BlockContainer {
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.9375D, 0.8125D);
+    }
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.9375D, 0.8125D);
+    }
 }

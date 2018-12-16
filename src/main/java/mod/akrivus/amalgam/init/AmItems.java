@@ -87,7 +87,7 @@ public class AmItems {
 		ModItems.registerExternalItem(STEVEN_GEM, "amalgam", event);
 		ModItems.registerExternalItem(CONNIE_BRACELET, "amalgam", event);
 		
-		for (ItemBlock item : AmBlocks.ITEMS) {
+		for (Item item : AmBlocks.ITEMS) {
 			ModItems.registerExternalItem(item, "amalgam", event);
 		}
 	}

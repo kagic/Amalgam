@@ -1,0 +1,22 @@
+{
+	"result": {
+		"item": "amalgam:wailing_stone"
+	},
+	"pattern": [
+		" s ",
+		"sns",
+		"sgs"
+	],
+	"type": "minecraft:crafting_shaped",
+	"key": {
+		"s": {
+			"item": "minecraft:nether_bricks"
+		},
+		"n": {
+			"item": "minecraft:noteblock"
+		},
+		"g": {
+			"item": "minecraft:gold_block"
+		}
+	}
+}

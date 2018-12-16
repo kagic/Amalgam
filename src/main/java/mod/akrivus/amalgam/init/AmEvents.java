@@ -18,6 +18,7 @@ import mod.akrivus.amalgam.gem.ai.EntityAIBubbleItems;
 import mod.akrivus.amalgam.gem.ai.EntityAICallForBackup;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowLeaderGem;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
+import mod.akrivus.amalgam.gem.ai.EntityAIStayWithinRadius;
 import mod.akrivus.amalgam.gem.tweaks.EntityAICrossFuse;
 import mod.akrivus.amalgam.gem.tweaks.EntityAIFixAnvils;
 import mod.akrivus.amalgam.gem.tweaks.EntityAIFixInjectors;
@@ -172,6 +173,7 @@ public class AmEvents {
 		}
 		if (e.getEntity() instanceof EntityGem) {
 			EntityGem gem = (EntityGem)(e.getEntity());
+			gem.tasks.addTask(1, new EntityAIStayWithinRadius(gem, 0.8D));
 			if (e.getEntity() instanceof EntityAmethyst || e.getEntity() instanceof EntityJasper
 			 || e.getEntity() instanceof EntityRoseQuartz || e.getEntity() instanceof EntityRuby
 			 || e.getEntity() instanceof EntityTopaz) {

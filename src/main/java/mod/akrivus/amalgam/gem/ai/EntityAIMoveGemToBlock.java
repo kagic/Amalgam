@@ -5,8 +5,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public abstract class EntityAIMoveGemToBlock extends EntityAIBase
-{
+public abstract class EntityAIMoveGemToBlock extends EntityAIBase {
     private final EntityCreature creature;
     private final double movementSpeed;
     protected int runDelay;
@@ -16,7 +15,6 @@ public abstract class EntityAIMoveGemToBlock extends EntityAIBase
     protected BlockPos destinationBlock = BlockPos.ORIGIN;
     private boolean isAboveDestination;
     private final int searchLength;
-
     public EntityAIMoveGemToBlock(EntityCreature creature, double speedIn, int length) {
         this.creature = creature;
         this.movementSpeed = speedIn;
