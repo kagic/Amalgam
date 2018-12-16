@@ -38,6 +38,8 @@ public class BlockWailingStone extends BlockFalling implements ITileEntityProvid
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public BlockWailingStone() {
 		super(Material.ROCK);
+		this.setHarvestLevel("pickaxe", 0);
+		this.setHardness(2);
 		this.setUnlocalizedName("wailing_stone");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
