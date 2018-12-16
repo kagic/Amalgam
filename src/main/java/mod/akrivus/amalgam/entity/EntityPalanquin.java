@@ -192,7 +192,7 @@ public class EntityPalanquin extends EntityMachine implements IJumpingMount {
                     float cos = MathHelper.cos(this.rotationYaw * 0.017453292F);
                     this.motionX += (double)(-0.4F * sin * this.jumpPower * 1.5F);
                     this.motionZ += (double)(0.4F * cos * this.jumpPower * 1.5F);
-                    this.playSound(SoundEvents.BLOCK_IRON_DOOR_OPEN, 0.4F, 1.0F);
+                    this.playSound(SoundEvents.BLOCK_ANVIL_LAND, 0.4F, 1.0F);
                 }
                 this.jumpPower = 0.0F;
             }
@@ -261,11 +261,11 @@ public class EntityPalanquin extends EntityMachine implements IJumpingMount {
     }
 	@Override
 	protected void playStepSound(BlockPos pos, Block block) {
-		this.playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0F, 1.0F);
+		this.playSound(SoundEvents.BLOCK_ANVIL_LAND, 1.0F, 1.0F);
 	}
 	@Override
 	public SoundEvent getHurtSound(DamageSource cause) {
-		return SoundEvents.BLOCK_IRON_DOOR_CLOSE;
+		return SoundEvents.BLOCK_ANVIL_PLACE;
 	}
 	@Override
 	public SoundEvent getDeathSound() {

@@ -21,6 +21,7 @@ import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
 import mod.akrivus.amalgam.gem.tweaks.EntityAICrossFuse;
 import mod.akrivus.amalgam.gem.tweaks.EntityAIFixAnvils;
 import mod.akrivus.amalgam.gem.tweaks.EntityAIFixInjectors;
+import mod.akrivus.amalgam.gem.tweaks.EntityAIFixPalanquins;
 import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriPartyBurnStuff;
 import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriPartyDance;
 import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriPartyFireworks;
@@ -206,6 +207,7 @@ public class AmEvents {
 				gem.tasks.addTask(6, new EntityAIPeriPartyFireworks((EntityPeridot)(gem)));
 			}
 			if (gem instanceof EntityBismuth) {
+				gem.tasks.addTask(4, new EntityAIFixPalanquins((EntityBismuth)(gem), 0.6D));
 				gem.tasks.addTask(4, new EntityAIFixAnvils((EntityBismuth)(gem), 0.6D));
 			}
 			if (gem instanceof EntityRuby) {

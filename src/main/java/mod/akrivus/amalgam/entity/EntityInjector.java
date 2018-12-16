@@ -148,11 +148,11 @@ public class EntityInjector extends EntityMachine {
 	}
 	@Override
 	protected void playStepSound(BlockPos pos, Block block) {
-		this.playSound(SoundEvents.ENTITY_IRONGOLEM_STEP, 1.0F, 1.0F);
+		this.playSound(SoundEvents.BLOCK_ANVIL_LAND, 1.0F, 1.0F);
 	}
 	@Override
 	public SoundEvent getHurtSound(DamageSource cause) {
-		return SoundEvents.BLOCK_IRON_DOOR_CLOSE;
+		return SoundEvents.BLOCK_ANVIL_PLACE;
 	}
 	@Override
 	public SoundEvent getDeathSound() {

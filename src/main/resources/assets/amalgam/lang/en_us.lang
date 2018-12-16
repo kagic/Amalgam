@@ -28,8 +28,6 @@ entity.aqua_aura_quartz.name=Aqua Aura Quartz
 entity.wtourmaline.name=Watermelon Tourmaline
 entity.melanite.name=Melanite
 
-entity.akrimarine.name=Aquamarine
-
 entity.steven.name=Steven
 entity.connie.name=Connie
 entity.stevonnie.name=Stevonnie
@@ -44,6 +42,7 @@ entity.fused_ruby.name=Ruby
 entity.fused_pyrite.name=Pyrite
 
 tile.drain_lily.name=Drain Lily
+tile.wailing_stone.name=Wailing Stone
 
 item.gem_shard_0.name=White Gem Shard
 item.gem_shard_1.name=Orange Gem Shard
@@ -117,6 +116,7 @@ command.amalgam.cheeseburger_backpack.name=Cheeseburger Backpack
 command.amalgam.connie_backpack.name=Connie's Backpack
 
 amalgam.config.title=Welcome to Amalgam!
+amalgam.general.replaceinjectors=Replace injectors?
 amalgam.general.addnewcruxes=Add crux blocks?
 amalgam.general.addemptycruxes=Add unused crux blocks?
 amalgam.general.removepearlcruxes=Remove Pearl cruxes?
