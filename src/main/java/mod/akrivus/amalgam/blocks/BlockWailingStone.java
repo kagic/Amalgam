@@ -3,8 +3,9 @@ package mod.akrivus.amalgam.blocks;
 import mod.akrivus.amalgam.tileentity.TileEntityWailingStone;
 import mod.akrivus.kagic.init.ModBlocks;
 import mod.akrivus.kagic.init.ModCreativeTabs;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -12,6 +13,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -28,10 +30,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockWailingStone extends BlockContainer {
+public class BlockWailingStone extends BlockFalling implements ITileEntityProvider {
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public BlockWailingStone() {
-		super(Material.ROCK, MapColor.GOLD);
+		super(new Material(MapColor.GOLD) {
+			@Override
+			public boolean isToolNotRequired() {
+				return false;
+			}
+		});
 		this.setUnlocalizedName("wailing_stone");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
@@ -57,6 +64,10 @@ public class BlockWailingStone extends BlockContainer {
 		}
 		return true;
 	}
+	@Override
+	protected void onStartFalling(EntityFallingBlock block) {
+		block.setHurtEntities(true);
+    }
 	
 	/*********************************************************
 	 * Methods related to block states and direction.		*

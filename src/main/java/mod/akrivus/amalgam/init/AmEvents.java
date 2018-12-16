@@ -23,12 +23,14 @@ import mod.akrivus.amalgam.gem.tweaks.EntityAICrossFuse;
 import mod.akrivus.amalgam.gem.tweaks.EntityAIFixAnvils;
 import mod.akrivus.amalgam.gem.tweaks.EntityAIFixInjectors;
 import mod.akrivus.amalgam.gem.tweaks.EntityAIFixPalanquins;
+import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriAlignGems;
 import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriPartyBurnStuff;
 import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriPartyDance;
 import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriPartyFireworks;
 import mod.akrivus.amalgam.human.EntitySteven;
 import mod.akrivus.amalgam.items.ItemGemShard;
 import mod.akrivus.kagic.entity.EntityGem;
+import mod.akrivus.kagic.entity.ai.EntityAIAlignGems;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowTopaz;
 import mod.akrivus.kagic.entity.ai.EntityAIProtectionFuse;
 import mod.akrivus.kagic.entity.ai.EntityAIRubyFuse;
@@ -203,6 +205,14 @@ public class AmEvents {
 				}
 			}
 			if (gem instanceof EntityPeridot) {
+				Iterator<EntityAITaskEntry> tasks = gem.tasks.taskEntries.iterator();
+				while (tasks.hasNext()) {
+					EntityAIBase ai = tasks.next().action;
+					if (ai instanceof EntityAIAlignGems) {
+						tasks.remove();
+					}
+				}
+				gem.tasks.addTask(4, new EntityAIPeriAlignGems((EntityPeridot)(gem), 0.9D));
 				gem.tasks.addTask(4, new EntityAIFixInjectors((EntityPeridot)(gem), 0.6D));
 				gem.tasks.addTask(6, new EntityAIPeriPartyBurnStuff((EntityPeridot)(gem), 0.6D));
 				gem.tasks.addTask(6, new EntityAIPeriPartyDance((EntityPeridot)(gem)));
