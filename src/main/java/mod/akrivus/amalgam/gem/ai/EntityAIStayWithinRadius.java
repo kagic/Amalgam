@@ -38,7 +38,7 @@ public class EntityAIStayWithinRadius extends EntityAIBase {
 			if (this.destination != null) {
 				if (min < 65535 && min > 256) {
 					int x = this.gem.world.rand.nextInt(24) - 12; int z = this.gem.world.rand.nextInt(24) - 12;
-					this.destination = this.gem.world.getTopSolidOrLiquidBlock(this.destination.add(x, 0, z));
+					this.destination = this.destination.add(x, 0, z);
 					return true;
 				}
 			}
@@ -66,7 +66,7 @@ public class EntityAIStayWithinRadius extends EntityAIBase {
 					if (this.gem.getPosition().getZ() > this.destination.getZ()) { z = -8; }
 					else if (this.gem.getPosition().getZ() == this.destination.getZ()) { z = 0; }
 					else { z = 8; }
-					this.step = this.gem.world.getTopSolidOrLiquidBlock(this.gem.getPosition().add(x, 0, z));
+					this.step = this.gem.getPosition().add(x, 0, z);
 				}
 				else {
 					this.gem.getNavigator().tryMoveToXYZ(this.step.getX(), this.step.getY(), this.step.getZ(), this.movementSpeed);

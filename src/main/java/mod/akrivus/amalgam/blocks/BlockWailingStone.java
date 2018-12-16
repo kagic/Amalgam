@@ -1,5 +1,7 @@
 package mod.akrivus.amalgam.blocks;
 
+import java.util.Random;
+
 import mod.akrivus.amalgam.tileentity.TileEntityWailingStone;
 import mod.akrivus.kagic.init.ModBlocks;
 import mod.akrivus.kagic.init.ModCreativeTabs;
@@ -16,6 +18,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
@@ -34,12 +37,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BlockWailingStone extends BlockFalling implements ITileEntityProvider {
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public BlockWailingStone() {
-		super(new Material(MapColor.GOLD) {
-			@Override
-			public boolean isToolNotRequired() {
-				return false;
-			}
-		});
+		super(Material.ROCK);
 		this.setUnlocalizedName("wailing_stone");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
@@ -68,6 +66,14 @@ public class BlockWailingStone extends BlockFalling implements ITileEntityProvid
 	@Override
 	protected void onStartFalling(EntityFallingBlock block) {
 		block.setHurtEntities(true);
+    }
+	@Override
+	public Item getItemDropped(IBlockState state, Random random, int fortune){
+		return Item.getItemFromBlock(this);
+	}
+	@Override
+    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+        return MapColor.GOLD;
     }
 	
 	/*********************************************************
