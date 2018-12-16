@@ -46,11 +46,13 @@ public class Amalgam {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
     	AmWorldGen.register();
+    	AmRecipes.register();
     }
     @EventHandler
     public void init(FMLInitializationEvent event) {
-    	AmEvents.register();
     	AmEntities.register();
+    	AmEvents.register();
+    	AmTileEntities.register();
     }
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
