@@ -105,13 +105,5 @@ public class Amalgam {
 		public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
 			AmSounds.register(event);
 		}
-		@SubscribeEvent
-		public static void changeConfigs(ConfigChangedEvent.OnConfigChangedEvent event) {
-			if (AmConfigs.replaceInjectors) {
-				if (event.getModID().equals(Amalgam.MODID)) {
-					ConfigManager.sync(Amalgam.MODID, Config.Type.INSTANCE);
-				}
-			}
-		}
 	}
 }
