@@ -298,7 +298,7 @@
 			{ "name": "amalgam:entities/stevonnie/hurt3" }
 		]
 	},
-	"entities.stevonnie.protect": {
+	"entities.stevonnie.death": {
 		"sounds": [
 			{ "name": "amalgam:entities/stevonnie/death1" }
 		]

@@ -1,12 +1,5 @@
 {
     "parent": "block/cross",
-	"display": {
-        "gui": {
-            "rotation": [ 0, 0, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 1, 1, 1 ]
-        }
-    },
     "textures": {
         "particle": "amalgam:blocks/drain_lily",
         "cross": "amalgam:blocks/drain_lily"

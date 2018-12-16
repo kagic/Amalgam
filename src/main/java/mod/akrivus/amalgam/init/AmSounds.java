@@ -66,13 +66,13 @@ public class AmSounds {
 	public static final SoundEvent PRIME_AQUA_AURA_QUARTZ_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.aqua_aura_quartz.prime.death"));
 	public static final SoundEvent PRIME_AQUA_AURA_QUARTZ_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.aqua_aura_quartz.prime.obey"));
 
-	public static final SoundEvent TOURMALINE_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.tourmaline.hurt"));
-	public static final SoundEvent TOURMALINE_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.tourmaline.death"));
-	public static final SoundEvent TOURMALINE_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.tourmaline.obey"));
+	public static final SoundEvent TOURMALINE_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.wtourmaline.hurt"));
+	public static final SoundEvent TOURMALINE_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.wtourmaline.death"));
+	public static final SoundEvent TOURMALINE_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.wtourmaline.obey"));
 
-	public static final SoundEvent CITRINE_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.CITRINE.hurt"));
-	public static final SoundEvent CITRINE_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.CITRINE.death"));
-	public static final SoundEvent CITRINE_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.CITRINE.obey"));
+	public static final SoundEvent CITRINE_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.citrine.hurt"));
+	public static final SoundEvent CITRINE_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.citrine.death"));
+	public static final SoundEvent CITRINE_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.citrine.obey"));
 
 	
 	public static void register(RegistryEvent.Register<SoundEvent> event) {
@@ -137,9 +137,9 @@ public class AmSounds {
 		registerSound(PRIME_AQUA_AURA_QUARTZ_DEATH, new ResourceLocation("amalgam:entities.aqua_aura_quartz.prime.death"), event);
 		registerSound(PRIME_AQUA_AURA_QUARTZ_OBEY, new ResourceLocation("amalgam:entities.aqua_aura_quartz.prime.obey"), event);
 	
-		registerSound(TOURMALINE_HURT, new ResourceLocation("amalgam:entities.tourmaline.hurt"), event);
-		registerSound(TOURMALINE_DEATH, new ResourceLocation("amalgam:entities.tourmaline.death"), event);
-		registerSound(TOURMALINE_OBEY, new ResourceLocation("amalgam:entities.tourmaline.obey"), event);
+		registerSound(TOURMALINE_HURT, new ResourceLocation("amalgam:entities.wtourmaline.hurt"), event);
+		registerSound(TOURMALINE_DEATH, new ResourceLocation("amalgam:entities.wtourmaline.death"), event);
+		registerSound(TOURMALINE_OBEY, new ResourceLocation("amalgam:entities.wtourmaline.obey"), event);
 		
 		registerSound(CITRINE_HURT, new ResourceLocation("amalgam:entities.citrine.hurt"), event);
 		registerSound(CITRINE_DEATH, new ResourceLocation("amalgam:entities.citrine.death"), event);
