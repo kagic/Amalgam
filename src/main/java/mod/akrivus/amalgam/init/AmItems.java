@@ -1,12 +1,12 @@
 package mod.akrivus.amalgam.init;
 
 import mod.akrivus.amalgam.items.ItemConnieBracelet;
+import mod.akrivus.amalgam.items.ItemDebugStaff;
 import mod.akrivus.amalgam.items.ItemGemShard;
 import mod.akrivus.amalgam.items.ItemStevenStone;
 import mod.akrivus.kagic.init.ModItems;
 import mod.akrivus.kagic.items.ItemGem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
 
 public class AmItems {
@@ -36,6 +36,7 @@ public class AmItems {
 	
 	public static final ItemStevenStone STEVEN_GEM = new ItemStevenStone();
 	public static final ItemConnieBracelet CONNIE_BRACELET = new ItemConnieBracelet();
+	public static final ItemDebugStaff DEBUG_STAFF = new ItemDebugStaff();
 	
 	public static final ItemGemShard WHITE_GEM_SHARD = new ItemGemShard(0);
 	public static final ItemGemShard ORANGE_GEM_SHARD = new ItemGemShard(1);
@@ -86,6 +87,7 @@ public class AmItems {
 		
 		ModItems.registerExternalItem(STEVEN_GEM, "amalgam", event);
 		ModItems.registerExternalItem(CONNIE_BRACELET, "amalgam", event);
+		ModItems.registerExternalItem(DEBUG_STAFF, "amalgam", event);
 		
 		for (Item item : AmBlocks.ITEMS) {
 			ModItems.registerExternalItem(item, "amalgam", event);
