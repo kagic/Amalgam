@@ -65,7 +65,6 @@ public class EntityTourmaline extends EntityGem implements IAnimals {
 		this.setSize(0.9F, 1.6F);
 		this.isSoldier = true;
 		this.nativeColor = 3;
-		this.setCutPlacement(GemCuts.FACETED, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.FOREHEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_EYE);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_EYE);
