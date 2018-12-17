@@ -130,7 +130,7 @@ public class EntityPalanquin extends EntityMachine implements IJumpingMount {
 	}
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if ((source.getTrueSource() != null && !this.isRidingOrBeingRiddenBy(source.getTrueSource())) || source == DamageSource.CRAMMING || source == DamageSource.OUT_OF_WORLD) {
+		if ((source.getTrueSource() != null && !this.isRidingOrBeingRiddenBy(source.getTrueSource()))) {
 			return super.attackEntityFrom(source, amount);
 		}
 		return false;

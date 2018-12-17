@@ -112,13 +112,6 @@ public class EntityInjector extends EntityMachine {
 		super.onDeath(cause);
 	}
 	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (source.getTrueSource() != null || source == DamageSource.CRAMMING || source == DamageSource.OUT_OF_WORLD) {
-			return super.attackEntityFrom(source, amount);
-		}
-		return false;
-	}
-	@Override
 	protected void updateEquipmentIfNeeded(EntityItem entity) {
 		ItemStack stack = entity.getItem();
 		if (this.canEatItem(stack.getItem())) {
@@ -157,6 +150,13 @@ public class EntityInjector extends EntityMachine {
 	@Override
 	public SoundEvent getDeathSound() {
 		return ModSounds.BLOCK_INJECTOR_OPEN;
+	}
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+		if (source.getTrueSource() != null || source == DamageSource.CRAMMING || source == DamageSource.OUT_OF_WORLD || source == DamageSource.DROWN || source == DamageSource.MAGIC || source == DamageSource.WITHER) {
+			return super.attackEntityFrom(source, amount);
+		}
+		return false;
 	}
 	public void setColor(int color) {
 		this.dataManager.set(COLOR, color);
