@@ -15,6 +15,8 @@ public class AmConfigs {
 	public static boolean replaceInjectors = true;
 	@Config.Name("Enable palanquins:")
 	public static boolean enablePalanquins = true;
+	@Config.Name("Enable wailing stones:")
+	public static boolean enableWailingStones = true;
 	@Config.Name("Enable bubbling:")
 	public static boolean enableBubbling = true;
 	@Config.Name("Enable bubbling without gems:")
