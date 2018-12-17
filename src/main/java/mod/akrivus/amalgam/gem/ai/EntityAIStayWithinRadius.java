@@ -22,8 +22,9 @@ public class EntityAIStayWithinRadius extends EntityAIBase {
 	public boolean shouldExecute() {
 		if (this.gem.getNavigator().noPath() && (this.gem.isSitting() || !this.gem.isTamed())) {
 			double min = Double.MAX_VALUE;
-			List<TileEntity> tileEntities = this.gem.world.tickableTileEntities;
-			for (TileEntity te : tileEntities) {
+			List<TileEntity> tileentities = this.gem.world.tickableTileEntities;
+			for (int i = 0; i < tileentities.size(); ++i) {
+				TileEntity te = tileentities.get(i);
 				if (te instanceof TileEntityWailingStone) {
 					TileEntityWailingStone stone = (TileEntityWailingStone)(te);
 					if (stone.isWailing()) {

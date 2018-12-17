@@ -10,6 +10,9 @@ public class AmTileEntities {
 		registerTileEntity(TileEntityWailingStone.class, new ResourceLocation("amalgam:wailing_stone"));
 	}
 	public static void registerTileEntity(Class<? extends TileEntity> tileentity, ResourceLocation location) {
-		GameRegistry.registerTileEntity(tileentity, location);
+		try { GameRegistry.registerTileEntity(tileentity, location); }
+		catch (NoSuchMethodError e) {
+			GameRegistry.registerTileEntity(tileentity, location.toString());
+		}
 	}
 }
