@@ -247,8 +247,8 @@ public class EntityNephrite extends EntityGem implements IAnimals {
 	    }
 	    @Override
 		public boolean shouldExecute() {
-	        EntityLivingBase entitylivingbase = this.nephrite.getAttackTarget();
-	        return entitylivingbase != null && entitylivingbase.isEntityAlive();
+	        EntityLivingBase entity = this.nephrite.getAttackTarget();
+	        return entity != null && entity.isEntityAlive();
 	    }
 	    @Override
 		public void startExecuting() {
@@ -257,41 +257,43 @@ public class EntityNephrite extends EntityGem implements IAnimals {
 	    @Override
 		public void updateTask() {
 	        EntityLivingBase entity = this.nephrite.getAttackTarget();
-	        double distance = this.nephrite.getDistanceSq(entity);
-	        if (distance < 4) {
-	        	this.nephrite.attackEntityAsMob(entity);
-	            this.attackTime = 10;
+	        if (entity != null) {
+		        double distance = this.nephrite.getDistanceSq(entity);
+		        if (distance < 4) {
+		        	this.nephrite.attackEntityAsMob(entity);
+		            this.attackTime = 10;
+		        }
+		        else if (distance < 256) {
+		            double dX = entity.posX - this.nephrite.posX;
+		            double dY = entity.getEntityBoundingBox().minY + entity.height / 2.0F - (this.nephrite.posY + this.nephrite.height / 2.0F);
+		            double dZ = entity.posZ - this.nephrite.posZ;
+		            if (this.attackTime <= 0) {
+		                ++this.attackStep;
+		                if (this.attackStep == 1) {
+		                    this.attackTime = 10;
+		                }
+		                else if (this.attackStep <= 4) {
+		                    this.attackTime = 5;
+		                }
+		                else {
+		                    this.attackTime = 20;
+		                    this.attackStep = 0;
+		                }
+		                if (this.attackStep > 1) {
+		                    this.nephrite.world.playSound(null, this.nephrite.getPosition(), SoundEvents.ENTITY_LLAMA_SPIT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+		                    for (int i = 0; i < 1; ++i) {
+		                    	EntitySpitball spitball = new EntitySpitball(this.nephrite.world, this.nephrite, dX, dY, dZ);
+		                    	spitball.posY = this.nephrite.posY + this.nephrite.height / 2.0F + 0.5D;
+		                        this.nephrite.world.spawnEntity(spitball);
+		                    }
+		                }
+		            }
+		            this.nephrite.getLookHelper().setLookPositionWithEntity(entity, 10.0F, 10.0F);
+		        }
+		        this.nephrite.getMoveHelper().setMoveTo(entity.posX, entity.posY, entity.posZ, Math.min(this.nephrite.getDistance(entity) / 64, 1.0D));
+		        super.updateTask();
+		        --this.attackTime;
 	        }
-	        else if (distance < 256) {
-	            double dX = entity.posX - this.nephrite.posX;
-	            double dY = entity.getEntityBoundingBox().minY + entity.height / 2.0F - (this.nephrite.posY + this.nephrite.height / 2.0F);
-	            double dZ = entity.posZ - this.nephrite.posZ;
-	            if (this.attackTime <= 0) {
-	                ++this.attackStep;
-	                if (this.attackStep == 1) {
-	                    this.attackTime = 10;
-	                }
-	                else if (this.attackStep <= 4) {
-	                    this.attackTime = 5;
-	                }
-	                else {
-	                    this.attackTime = 20;
-	                    this.attackStep = 0;
-	                }
-	                if (this.attackStep > 1) {
-	                    this.nephrite.world.playSound(null, this.nephrite.getPosition(), SoundEvents.ENTITY_LLAMA_SPIT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-	                    for (int i = 0; i < 1; ++i) {
-	                    	EntitySpitball spitball = new EntitySpitball(this.nephrite.world, this.nephrite, dX, dY, dZ);
-	                    	spitball.posY = this.nephrite.posY + this.nephrite.height / 2.0F + 0.5D;
-	                        this.nephrite.world.spawnEntity(spitball);
-	                    }
-	                }
-	            }
-	            this.nephrite.getLookHelper().setLookPositionWithEntity(entity, 10.0F, 10.0F);
-	        }
-	        this.nephrite.getMoveHelper().setMoveTo(entity.posX, entity.posY, entity.posZ, Math.min(this.nephrite.getDistance(entity) / 64, 1.0D));
-	        super.updateTask();
-	        --this.attackTime;
 	    }
 	}
 	public class AISpitOnBlocks extends EntityAIMoveGemToBlock {

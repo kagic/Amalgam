@@ -3,9 +3,7 @@ package mod.akrivus.amalgam.client.model;
 import mod.akrivus.kagic.client.model.ModelGem;
 import mod.akrivus.kagic.init.KAGIC;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
 
 public class ModelEmerald extends ModelGem {
 	private ModelRenderer bipedLeftShoulder;
@@ -23,11 +21,11 @@ public class ModelEmerald extends ModelGem {
 		}
 		
         this.bipedHeadwear = new ModelRenderer(this, 0, 50);
-        this.bipedHeadwear.addBox(-4F, -15F, -4F, 10, 4, 2);
+        this.bipedHeadwear.addBox(-5F, -15F, -4F, 10, 4, 2);
         this.bipedHeadwear.setRotationPoint(0F, 0F, 0F);
         
         this.bipedHair = new ModelRenderer(this, 24, 44);
-        this.bipedHair.addBox(-17F, -18F, 0F, 12, 12, 8);
+        this.bipedHair.addBox(-18.5F, -18F, 0F, 12, 12, 8);
         this.bipedHair.setRotationPoint(0F, 0F, -3F);
         
         this.bipedBody = new ModelRenderer(this, 24, 0);
