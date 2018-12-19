@@ -47,6 +47,7 @@ import mod.akrivus.kagic.entity.gem.EntityRuby;
 import mod.akrivus.kagic.entity.gem.EntitySapphire;
 import mod.akrivus.kagic.entity.gem.EntityTopaz;
 import mod.akrivus.kagic.entity.gem.EntityZircon;
+import mod.akrivus.kagic.entity.gem.GemCuts;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
 import mod.akrivus.kagic.entity.gem.fusion.EntityGarnet;
 import mod.akrivus.kagic.entity.gem.fusion.EntityMalachite;
@@ -176,6 +177,9 @@ public class AmEvents {
 		if (e.getEntity() instanceof EntityGem) {
 			EntityGem gem = (EntityGem)(e.getEntity());
 			gem.tasks.addTask(1, new EntityAIStayWithinRadius(gem, 0.8D));
+			if (gem.getGemCut() == GemCuts.CABOCHON) {
+				gem.setSpecificName(gem.getSpecificName().replace("Cut", "Cabochon"));
+			}
 			if (e.getEntity() instanceof EntityAmethyst || e.getEntity() instanceof EntityJasper
 			 || e.getEntity() instanceof EntityRoseQuartz || e.getEntity() instanceof EntityRuby
 			 || e.getEntity() instanceof EntityTopaz) {
