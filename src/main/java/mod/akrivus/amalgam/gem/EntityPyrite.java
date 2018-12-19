@@ -134,9 +134,9 @@ public class EntityPyrite extends EntityGem implements IAnimals {
         }));
         
         // Apply entity attributes.
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
         this.droppedGemItem = AmItems.PYRITE_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_PYRITE_GEM;
 	}

@@ -1,6 +1,5 @@
 package mod.akrivus.amalgam.init;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -11,49 +10,10 @@ import mod.akrivus.amalgam.entity.EntityBubble;
 import mod.akrivus.amalgam.entity.EntityGemShard;
 import mod.akrivus.amalgam.entity.EntityInjector;
 import mod.akrivus.amalgam.entity.EntityPalanquin;
-import mod.akrivus.amalgam.gem.EntityBabyPearl;
-import mod.akrivus.amalgam.gem.EntityFusedRuby;
-import mod.akrivus.amalgam.gem.EntityFusedTopaz;
-import mod.akrivus.amalgam.gem.ai.EntityAIBubbleItems;
-import mod.akrivus.amalgam.gem.ai.EntityAICallForBackup;
-import mod.akrivus.amalgam.gem.ai.EntityAIFollowLeaderGem;
-import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
-import mod.akrivus.amalgam.gem.ai.EntityAIStayWithinRadius;
-import mod.akrivus.amalgam.gem.tweaks.EntityAICrossFuse;
-import mod.akrivus.amalgam.gem.tweaks.EntityAIFixAnvils;
-import mod.akrivus.amalgam.gem.tweaks.EntityAIFixInjectors;
-import mod.akrivus.amalgam.gem.tweaks.EntityAIFixPalanquins;
-import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriAlignGems;
-import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriPartyBurnStuff;
-import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriPartyDance;
-import mod.akrivus.amalgam.gem.tweaks.EntityAIPeriPartyFireworks;
 import mod.akrivus.amalgam.human.EntitySteven;
 import mod.akrivus.amalgam.items.ItemGemShard;
 import mod.akrivus.kagic.entity.EntityGem;
-import mod.akrivus.kagic.entity.ai.EntityAIAlignGems;
 import mod.akrivus.kagic.entity.ai.EntityAIFollowTopaz;
-import mod.akrivus.kagic.entity.ai.EntityAIProtectionFuse;
-import mod.akrivus.kagic.entity.ai.EntityAIRubyFuse;
-import mod.akrivus.kagic.entity.ai.EntityAITopazFuse;
-import mod.akrivus.kagic.entity.gem.EntityAmethyst;
-import mod.akrivus.kagic.entity.gem.EntityBismuth;
-import mod.akrivus.kagic.entity.gem.EntityHessonite;
-import mod.akrivus.kagic.entity.gem.EntityJasper;
-import mod.akrivus.kagic.entity.gem.EntityLapisLazuli;
-import mod.akrivus.kagic.entity.gem.EntityPearl;
-import mod.akrivus.kagic.entity.gem.EntityPeridot;
-import mod.akrivus.kagic.entity.gem.EntityRoseQuartz;
-import mod.akrivus.kagic.entity.gem.EntityRuby;
-import mod.akrivus.kagic.entity.gem.EntitySapphire;
-import mod.akrivus.kagic.entity.gem.EntityTopaz;
-import mod.akrivus.kagic.entity.gem.EntityZircon;
-import mod.akrivus.kagic.entity.gem.GemCuts;
-import mod.akrivus.kagic.entity.gem.GemPlacements;
-import mod.akrivus.kagic.entity.gem.fusion.EntityGarnet;
-import mod.akrivus.kagic.entity.gem.fusion.EntityMalachite;
-import mod.akrivus.kagic.entity.gem.fusion.EntityOpal;
-import mod.akrivus.kagic.entity.gem.fusion.EntityRainbowQuartz;
-import mod.akrivus.kagic.entity.gem.fusion.EntityRhodonite;
 import mod.akrivus.kagic.event.DrainBlockEvent;
 import mod.akrivus.kagic.event.TimeGlassEvent;
 import mod.akrivus.kagic.init.ModItems;
@@ -65,9 +25,7 @@ import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityMob;
@@ -176,77 +134,10 @@ public class AmEvents {
 		}
 		if (e.getEntity() instanceof EntityGem) {
 			EntityGem gem = (EntityGem)(e.getEntity());
-			gem.tasks.addTask(1, new EntityAIStayWithinRadius(gem, 0.8D));
-			if (gem.getGemCut() == GemCuts.CABOCHON) {
-				gem.setSpecificName(gem.getSpecificName().replace("Cut", "Cabochon"));
-			}
-			if (e.getEntity() instanceof EntityAmethyst || e.getEntity() instanceof EntityJasper
-			 || e.getEntity() instanceof EntityRoseQuartz || e.getEntity() instanceof EntityRuby
-			 || e.getEntity() instanceof EntityTopaz) {
-				Iterator<EntityAITaskEntry> tasks = gem.tasks.taskEntries.iterator();
-				while (tasks.hasNext()) {
-					EntityAIBase ai = tasks.next().action;
-					if (ai instanceof EntityAIProtectionFuse || ai instanceof EntityAITopazFuse || ai instanceof EntityAIRubyFuse) {
-						tasks.remove();
-					}
-				}
-				if (gem instanceof EntityAmethyst) {
-					gem.tasks.addTask(3, new EntityAICrossFuse<EntityPearl, EntityOpal>(gem, EntityPearl.class, EntityOpal.class, 16));
-				}
-				else if (gem instanceof EntityJasper) {
-					gem.tasks.addTask(3, new EntityAICrossFuse<EntityLapisLazuli, EntityMalachite>(gem, EntityLapisLazuli.class, EntityMalachite.class, 16));
-				}
-				else if (gem instanceof EntityRoseQuartz) {
-					gem.tasks.addTask(3, new EntityAICrossFuse<EntityPearl, EntityRainbowQuartz>(gem, EntityPearl.class, EntityRainbowQuartz.class, 16));
-				}
-				else if (gem instanceof EntityRuby) {
-					gem.tasks.addTask(3, new EntityAICrossFuse<EntityPearl, EntityRhodonite>(gem, EntityPearl.class, EntityRhodonite.class, 16));
-					gem.tasks.addTask(3, new EntityAICrossFuse<EntitySapphire, EntityGarnet>(gem, EntitySapphire.class, EntityGarnet.class, 16));
-					gem.tasks.addTask(3, new EntityAICrossFuse<EntityRuby, EntityFusedRuby>(gem, EntityRuby.class, EntityFusedRuby.class, 16));
-				}
-				else if (gem instanceof EntityTopaz) {
-					gem.tasks.addTask(3, new EntityAICrossFuse<EntityTopaz, EntityFusedTopaz>(gem, EntityTopaz.class, EntityFusedTopaz.class, 16));
-				}
-			}
-			if (gem instanceof EntityPeridot) {
-				Iterator<EntityAITaskEntry> tasks = gem.tasks.taskEntries.iterator();
-				while (tasks.hasNext()) {
-					EntityAIBase ai = tasks.next().action;
-					if (ai instanceof EntityAIAlignGems) {
-						tasks.remove();
-					}
-				}
-				gem.tasks.addTask(4, new EntityAIPeriAlignGems((EntityPeridot)(gem), 0.9D));
-				gem.tasks.addTask(4, new EntityAIFixInjectors((EntityPeridot)(gem), 0.6D));
-				gem.tasks.addTask(6, new EntityAIPeriPartyBurnStuff((EntityPeridot)(gem), 0.6D));
-				gem.tasks.addTask(6, new EntityAIPeriPartyDance((EntityPeridot)(gem)));
-				gem.tasks.addTask(6, new EntityAIPeriPartyFireworks((EntityPeridot)(gem)));
-			}
-			if (gem instanceof EntityBismuth) {
-				gem.tasks.addTask(4, new EntityAIFixPalanquins((EntityBismuth)(gem), 0.6D));
-				gem.tasks.addTask(4, new EntityAIFixAnvils((EntityBismuth)(gem), 0.6D));
-			}
-			if (gem instanceof EntityRuby) {
-				if (AmConfigs.socializeRubies) {
-					EntityRuby ruby = (EntityRuby)(gem);
-					ruby.tasks.addTask(4, new EntityAIFollowLeaderGem(ruby, 0.8D, GemPlacements.NOSE, EntityJasper.class));
-					ruby.tasks.addTask(4, new EntityAIFollowLeaderGem(ruby, 0.8D, GemPlacements.CHEST, EntityRuby.class));
-					ruby.tasks.addTask(4, new EntityAIFollowOtherGem(ruby, 0.8D, EntityBabyPearl.class));
-					ruby.targetTasks.addTask(2, new EntityAICallForBackup(ruby, EntityRuby.class));
-				}
-			}
-			if (gem instanceof EntityHessonite) {
-				EntityHessonite hessonite = (EntityHessonite)(gem);
-				hessonite.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityGem>(hessonite, EntityGem.class, 10, true, false, new Predicate<EntityGem>() {
-		            @Override
-					public boolean apply(EntityGem input) {
-		                return input != null && (input.isDefective() || input.isTraitor());
-		            }
-		        }));
-			}
-			if (gem instanceof EntityZircon) {
-				gem.tasks.addTask(1, new EntityAIBubbleItems(gem, 0.6D));
-			}
+			AmTweaks.Gem.applyWailingStoneTweaks(gem);
+			AmTweaks.Gem.applyRenameTweaks(gem);
+			AmTweaks.Gem.applyFusionTweaks(gem);
+			AmTweaks.Gem.applyGemTweaks(gem);
 		}
 	}
 	@SubscribeEvent

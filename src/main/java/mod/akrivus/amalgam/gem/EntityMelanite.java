@@ -67,11 +67,11 @@ public class EntityMelanite extends EntityGem implements IAnimals {
         this.setSize(0.9F, 2.3F);
         this.isSoldier = true;
         this.canTalk = true;
-        this.setCutPlacement(GemCuts.PILLOW, GemPlacements.BACK_OF_HEAD);
-        this.setCutPlacement(GemCuts.PILLOW, GemPlacements.RIGHT_EYE);
-        this.setCutPlacement(GemCuts.PILLOW, GemPlacements.BACK);
-        this.setCutPlacement(GemCuts.PILLOW, GemPlacements.CHEST);
-        this.setCutPlacement(GemCuts.PILLOW, GemPlacements.BELLY);
+        this.setCutPlacement(GemCuts.CABOCHON, GemPlacements.BACK_OF_HEAD);
+        this.setCutPlacement(GemCuts.CABOCHON, GemPlacements.RIGHT_EYE);
+        this.setCutPlacement(GemCuts.CABOCHON, GemPlacements.BACK);
+        this.setCutPlacement(GemCuts.CABOCHON, GemPlacements.CHEST);
+        this.setCutPlacement(GemCuts.CABOCHON, GemPlacements.BELLY);
         this.stayAI = new EntityAIStay(this);
         this.tasks.addTask(1, new EntityAIFollowDiamond(this, 1.0D));
         this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));

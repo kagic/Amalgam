@@ -98,9 +98,9 @@ public class EntityEmerald extends EntityGem implements IAnimals {
         }));
         
         // Apply entity attributes.
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(150.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(14.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(20.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
         
         this.droppedGemItem = AmItems.EMERALD_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_EMERALD_GEM;

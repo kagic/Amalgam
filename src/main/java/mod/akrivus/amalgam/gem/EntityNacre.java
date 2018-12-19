@@ -97,7 +97,6 @@ public class EntityNacre extends EntityPearl implements INpc {
 		this.dataManager.register(COLOR_4, this.rand.nextInt(16));
 		this.dataManager.register(STRESS, 0);
 		this.dataManager.register(FOOD, 0);
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
 		this.setHairColor(this.generateHairColor());
 		this.droppedGemItem = AmItems.NACRE_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_NACRE_GEM;

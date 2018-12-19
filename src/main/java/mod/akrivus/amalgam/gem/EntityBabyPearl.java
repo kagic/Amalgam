@@ -38,7 +38,7 @@ public class EntityBabyPearl extends EntityPearl implements INpc {
 	@Override
 	public void onDeath(DamageSource cause) {
 		if (this.isDefective()) {
-			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
+			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
 		}
 		super.onDeath(cause);
 	}

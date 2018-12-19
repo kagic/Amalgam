@@ -113,9 +113,9 @@ public class EntityNephrite extends EntityGem implements IAnimals {
             	return false;
             }
         }));
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(120.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.6D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
         this.droppedGemItem = AmItems.NEPHRITE_GEM;
 		this.droppedCrackedGemItem = AmItems.CRACKED_NEPHRITE_GEM;
 		this.setDefective(this.rand.nextInt(40) == 0);
