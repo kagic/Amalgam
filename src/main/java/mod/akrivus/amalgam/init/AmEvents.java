@@ -266,7 +266,7 @@ public class AmEvents {
 									}
 								}
 							}
-							if (AmConfigs.enableBubblingNoGem || gem != null) {
+							if (gem != null) {
 								EntityBubble bubble = new EntityBubble(e.getWorld());
 								bubble.setColor(gem == null ? e.getWorld().rand.nextInt(0xFFFFFF) : gem.getGemColor());
 								bubble.setItem(item.getItem());

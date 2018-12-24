@@ -24,6 +24,11 @@
     		{ "name": "amalgam:wailing_stone" }
     	]
     },
+    "destabilizer": {
+    	"sounds": [
+    		{ "name": "amalgam:destabilizer" }
+    	]
+    },
 	"entities.pyrite.hurt": {
         "sounds": [
             { "name": "amalgam:entities/pyrite/hurt1" },

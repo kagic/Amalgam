@@ -44,6 +44,23 @@ entity.fused_pyrite.name=Pyrite
 tile.drain_lily.name=Drain Lily
 tile.wailing_stone.name=Wailing Stone
 
+item.destabilizer_0.name=White Gem Destabilizer
+item.destabilizer_1.name=Orange Gem Destabilizer
+item.destabilizer_2.name=Magenta Gem Destabilizer
+item.destabilizer_3.name=Light Blue Gem Destabilizer
+item.destabilizer_4.name=Yellow Gem Destabilizer
+item.destabilizer_5.name=Lime Gem Destabilizer
+item.destabilizer_6.name=Pink Gem Destabilizer
+item.destabilizer_7.name=Gray Gem Destabilizer
+item.destabilizer_8.name=Light Gray Gem Destabilizer
+item.destabilizer_9.name=Cyan Gem Destabilizer
+item.destabilizer_10.name=Purple Gem Destabilizer
+item.destabilizer_11.name=Blue Gem Destabilizer
+item.destabilizer_12.name=Brown Gem Destabilizer
+item.destabilizer_13.name=Green Gem Destabilizer
+item.destabilizer_14.name=Red Gem Destabilizer
+item.destabilizer_15.name=Black Gem Destabilizer
+
 item.gem_shard_0.name=White Gem Shard
 item.gem_shard_1.name=Orange Gem Shard
 item.gem_shard_2.name=Magenta Gem Shard

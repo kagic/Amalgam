@@ -16,9 +16,6 @@ public class ModelEmerald extends ModelGem {
 		this.bipedHead = new ModelRenderer(this, 28, 14);
 		this.bipedHead.addBox(-4F, -15F, -4F, 8, 8, 8);
         this.bipedHead.setRotationPoint(0F, 0F, 0F);
-		if (KAGIC.isHalloween() || KAGIC.isBirthday() || KAGIC.isChristmas()) {
-			this.bipedHead.addChild(this.witchHat);
-		}
 		
         this.bipedHeadwear = new ModelRenderer(this, 0, 50);
         this.bipedHeadwear.addBox(-5F, -15F, -4F, 10, 4, 2);
@@ -27,6 +24,9 @@ public class ModelEmerald extends ModelGem {
         this.bipedHair = new ModelRenderer(this, 24, 44);
         this.bipedHair.addBox(-18.5F, -18F, 0F, 12, 12, 8);
         this.bipedHair.setRotationPoint(0F, 0F, -3F);
+		if (KAGIC.isHalloween() || KAGIC.isBirthday() || KAGIC.isChristmas()) {
+			this.bipedHair.addChild(this.witchHat);
+		}
         
         this.bipedBody = new ModelRenderer(this, 24, 0);
         this.bipedBody.addBox(-8F, -8F, -3.5F, 7, 7, 7);

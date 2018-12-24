@@ -7,7 +7,6 @@ import mod.akrivus.kagic.entity.EntityGem;
 import mod.akrivus.kagic.entity.gem.EntityPearl;
 import mod.akrivus.kagic.entity.gem.GemPlacements;
 import net.minecraft.entity.INpc;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,13 +33,6 @@ public class EntityBabyPearl extends EntityPearl implements INpc {
 		this.tasks.addTask(3, new EntityAITempt(this, 0.9D, Items.SUGAR, false));
 		this.tasks.addTask(4, new EntityAIPanic(this, 0.9D));
 		this.targetTasks.addTask(2, new EntityAICallForBackup(this, EntityGem.class));
-	}
-	@Override
-	public void onDeath(DamageSource cause) {
-		if (this.isDefective()) {
-			this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
-		}
-		super.onDeath(cause);
 	}
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {

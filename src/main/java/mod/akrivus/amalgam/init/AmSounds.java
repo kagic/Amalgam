@@ -13,6 +13,8 @@ public class AmSounds {
 	
 	public static final SoundEvent WAILING_STONE = new SoundEvent(new ResourceLocation("amalgam:wailing_stone"));
 	
+	public static final SoundEvent DESTABILIZER = new SoundEvent(new ResourceLocation("amalgam:destabilizer"));
+	
 	public static final SoundEvent PYRITE_HURT = new SoundEvent(new ResourceLocation("amalgam:entities.pyrite.hurt"));
 	public static final SoundEvent PYRITE_OBEY = new SoundEvent(new ResourceLocation("amalgam:entities.pyrite.obey"));
 	public static final SoundEvent PYRITE_DEATH = new SoundEvent(new ResourceLocation("amalgam:entities.pyrite.death"));
@@ -83,6 +85,8 @@ public class AmSounds {
 		registerSound(BUBBLE_SEND, new ResourceLocation("amalgam:bubble.send"), event);
 		
 		registerSound(WAILING_STONE, new ResourceLocation("amalgam:wailing_stone"), event);
+		
+		registerSound(DESTABILIZER, new ResourceLocation("amalgam:destabilizer"), event);
 		
 		registerSound(PYRITE_HURT, new ResourceLocation("amalgam:entities.pyrite.hurt"), event);
 		registerSound(PYRITE_OBEY, new ResourceLocation("amalgam:entities.pyrite.obey"), event);

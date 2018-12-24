@@ -1,0 +1,22 @@
+{
+	"result": {
+		"item": "amalgam:destabilizer_0"
+	},
+	"pattern": [
+		"  g",
+		" p ",
+		"s  "
+	],
+	"type": "minecraft:crafting_shaped",
+	"key": {
+		"g": {
+			"item": "amalgam:gem_shard_0"
+		},
+		"p": {
+			"item": "minecraft:glowstone_dust"
+		},
+		"s": {
+			"item": "minecraft:stick"
+		}
+	}
+}
