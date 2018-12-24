@@ -2,8 +2,8 @@ package mod.akrivus.amalgam.blocks;
 
 import java.util.Random;
 
+import mod.akrivus.amalgam.init.AmBlocks;
 import mod.akrivus.amalgam.tileentity.TileEntityWailingStone;
-import mod.akrivus.kagic.init.ModBlocks;
 import mod.akrivus.kagic.init.ModCreativeTabs;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockHorizontal;
@@ -74,7 +74,7 @@ public class BlockWailingStone extends BlockFalling implements ITileEntityProvid
 		return Item.getItemFromBlock(this);
 	}
 	@Override
-    public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+    public MapColor getMapColor(IBlockState state, IBlockAccess world, BlockPos pos) {
         return MapColor.GOLD;
     }
 	
@@ -105,8 +105,8 @@ public class BlockWailingStone extends BlockFalling implements ITileEntityProvid
 	}
 	public static void setState(boolean active, World world, BlockPos pos) {
 		IBlockState state = world.getBlockState(pos);
-		world.setBlockState(pos, ModBlocks.INCUBATOR.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
-		world.setBlockState(pos, ModBlocks.INCUBATOR.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
+		world.setBlockState(pos, AmBlocks.WAILING_STONE.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
+		world.setBlockState(pos, AmBlocks.WAILING_STONE.getDefaultState().withProperty(FACING, state.getValue(FACING)), 3);
 	}
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
