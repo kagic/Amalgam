@@ -144,6 +144,7 @@ public class EntityPyrite extends EntityGem implements IAnimals {
 	public void whenDefective() {
     	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+        this.setCustomNameTag("Fool's Gold");
         this.setSize(0.7F, 0.9F);
         this.stepHeight = 0.5F;
     }
