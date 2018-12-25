@@ -5,6 +5,7 @@ import java.util.Random;
 import mod.akrivus.amalgam.init.AmBlocks;
 import mod.akrivus.kagic.init.ModCreativeTabs;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -16,15 +17,17 @@ import net.minecraft.world.World;
 public class BlockCarbonite extends Block {
 	public boolean powered;
 	public BlockCarbonite(boolean powered, int color) {
-		super(Material.CIRCUITS, MapColor.getBlockColor(EnumDyeColor.byDyeDamage(color)));
+		super(Material.ROCK, MapColor.getBlockColor(EnumDyeColor.byDyeDamage(color)));
 		this.setUnlocalizedName("carbonite_" + color + "_" + (powered ? "on" : "off"));
         this.powered = powered;
         if (this.powered) {
         	this.setBlockUnbreakable();
+        	this.setResistance(6000000);
         	this.setLightLevel(2);
         }
         else {
         	this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
+        	this.setResistance(30);
         	this.setHardness(2);
         }
 	}
@@ -49,6 +52,10 @@ public class BlockCarbonite extends Block {
 			world.setBlockState(pos, this.getNormalVariety().getDefaultState());
 		}
     }
+	@Override
+	public EnumPushReaction getMobilityFlag(IBlockState state) {
+		return EnumPushReaction.BLOCK;
+	}
     @Override
 	public Item getItemDropped(IBlockState state, Random random, int fortune){
 		return Item.getItemFromBlock(this);
