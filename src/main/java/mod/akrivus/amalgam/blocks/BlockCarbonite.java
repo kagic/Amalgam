@@ -1,6 +1,5 @@
 package mod.akrivus.amalgam.blocks;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import mod.akrivus.amalgam.init.AmBlocks;
@@ -8,88 +7,152 @@ import mod.akrivus.kagic.init.ModCreativeTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyInteger;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockCarbonite extends Block {
-	public static final ArrayList<BlockCarbonite> POWERED_BLOCKS = new ArrayList<BlockCarbonite>();
-	public static final ArrayList<BlockCarbonite> NORMAL_BLOCKS = new ArrayList<BlockCarbonite>();
-	public static final PropertyInteger COLOR = PropertyInteger.create("color", 0, 15);
 	public boolean powered;
-	public BlockCarbonite(boolean powered) {
-		super(Material.ROCK);
-		this.setRegistryName("carbonite_when_" + (powered ? "on" : "off"));
-        this.setDefaultState(this.blockState.getBaseState().withProperty(COLOR, 0));
+	public BlockCarbonite(boolean powered, int color) {
+		super(Material.CIRCUITS, MapColor.getBlockColor(EnumDyeColor.byDyeDamage(color)));
+		this.setUnlocalizedName("carbonite_" + color + "_" + (powered ? "on" : "off"));
         this.powered = powered;
         if (this.powered) {
         	this.setBlockUnbreakable();
-        	this.setLightLevel(4);
+        	this.setLightLevel(2);
         }
         else {
         	this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
-        	this.setHardness(4);
+        	this.setHardness(2);
         }
 	}
 	@Override
-	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
-		if (world instanceof World) {
-			World this_world = (World)(world);
-			if (this_world.isBlockPowered(pos) && !this.powered) {
-				this_world.setBlockState(pos, AmBlocks.CARBONITE_WHEN_ON.getDefaultState().withProperty(COLOR, this_world.getBlockState(pos).getValue(COLOR)));
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
+		super.neighborChanged(state, world, pos, block, fromPos);
+		IBlockState from = world.getBlockState(fromPos);
+		boolean powered = world.isBlockPowered(pos);
+		if (from.getBlock() instanceof BlockCarbonite) {
+			BlockCarbonite carbonite = (BlockCarbonite)(from.getBlock());
+			if (carbonite.powered) {
+				powered = true;
 			}
-			else if (this.powered) {
-				this_world.setBlockState(pos, AmBlocks.CARBONITE_WHEN_OFF.getDefaultState().withProperty(COLOR, this_world.getBlockState(pos).getValue(COLOR)));
+			else if (powered) {
+				world.setBlockState(fromPos, carbonite.getPoweredVariety().getDefaultState());
 			}
 		}
-    }
-	@Override
-	public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-		if (this.powered) {
-	        if (side == EnumFacing.NORTH || side == EnumFacing.SOUTH || side == EnumFacing.EAST || side == EnumFacing.WEST) {
-	        	return 1;
-	        }
+		if (!this.powered && powered) {
+			world.setBlockState(pos, this.getPoweredVariety().getDefaultState());
 		}
-        return 0;
-    }
-	@Override
-    public int getStrongPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-		if (this.powered) {
-	        if (side == EnumFacing.NORTH || side == EnumFacing.SOUTH || side == EnumFacing.EAST || side == EnumFacing.WEST) {
-	        	return 1;
-	        }
+		if (!powered && this.powered) {
+			world.setBlockState(pos, this.getNormalVariety().getDefaultState());
 		}
-        return 0;
     }
-    @Override
-    public boolean canProvidePower(IBlockState state) {
-        return true;
-    }
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(COLOR, meta);
-	}
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return state.getValue(COLOR);
-	}
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] { COLOR });
-	}
     @Override
 	public Item getItemDropped(IBlockState state, Random random, int fortune){
 		return Item.getItemFromBlock(this);
 	}
-	@Override
-    public MapColor getMapColor(IBlockState state, IBlockAccess world, BlockPos pos) {
-        return MapColor.getBlockColor(EnumDyeColor.byDyeDamage(state.getValue(COLOR)));
+    public BlockCarbonite getPoweredVariety() {
+    	if (this == AmBlocks.WHITE_CARBONITE_OFF) {
+    		return AmBlocks.WHITE_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.ORANGE_CARBONITE_OFF) {
+    		return AmBlocks.ORANGE_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.MAGENTA_CARBONITE_OFF) {
+    		return AmBlocks.MAGENTA_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.LIGHT_BLUE_CARBONITE_OFF) {
+    		return AmBlocks.LIGHT_BLUE_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.YELLOW_CARBONITE_OFF) {
+    		return AmBlocks.YELLOW_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.LIME_CARBONITE_OFF) {
+    		return AmBlocks.LIME_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.PINK_CARBONITE_OFF) {
+    		return AmBlocks.PINK_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.GRAY_CARBONITE_OFF) {
+    		return AmBlocks.GRAY_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.SILVER_CARBONITE_OFF) {
+    		return AmBlocks.SILVER_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.CYAN_CARBONITE_OFF) {
+    		return AmBlocks.CYAN_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.PURPLE_CARBONITE_OFF) {
+    		return AmBlocks.PURPLE_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.BLUE_CARBONITE_OFF) {
+    		return AmBlocks.BLUE_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.BROWN_CARBONITE_OFF) {
+    		return AmBlocks.BROWN_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.GREEN_CARBONITE_OFF) {
+    		return AmBlocks.GREEN_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.RED_CARBONITE_OFF) {
+    		return AmBlocks.RED_CARBONITE_ON;
+    	}
+    	if (this == AmBlocks.BLACK_CARBONITE_OFF) {
+    		return AmBlocks.BLACK_CARBONITE_ON;
+    	}
+    	return AmBlocks.WHITE_CARBONITE_ON;
+    }
+    public BlockCarbonite getNormalVariety() {
+    	if (this == AmBlocks.WHITE_CARBONITE_ON) {
+    		return AmBlocks.WHITE_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.ORANGE_CARBONITE_ON) {
+    		return AmBlocks.ORANGE_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.MAGENTA_CARBONITE_ON) {
+    		return AmBlocks.MAGENTA_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.LIGHT_BLUE_CARBONITE_ON) {
+    		return AmBlocks.LIGHT_BLUE_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.YELLOW_CARBONITE_ON) {
+    		return AmBlocks.YELLOW_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.LIME_CARBONITE_ON) {
+    		return AmBlocks.LIME_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.PINK_CARBONITE_ON) {
+    		return AmBlocks.PINK_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.GRAY_CARBONITE_ON) {
+    		return AmBlocks.GRAY_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.SILVER_CARBONITE_ON) {
+    		return AmBlocks.SILVER_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.CYAN_CARBONITE_ON) {
+    		return AmBlocks.CYAN_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.PURPLE_CARBONITE_ON) {
+    		return AmBlocks.PURPLE_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.BLUE_CARBONITE_ON) {
+    		return AmBlocks.BLUE_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.BROWN_CARBONITE_ON) {
+    		return AmBlocks.BROWN_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.GREEN_CARBONITE_ON) {
+    		return AmBlocks.GREEN_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.RED_CARBONITE_ON) {
+    		return AmBlocks.RED_CARBONITE_OFF;
+    	}
+    	if (this == AmBlocks.BLACK_CARBONITE_ON) {
+    		return AmBlocks.BLACK_CARBONITE_OFF;
+    	}
+    	return AmBlocks.WHITE_CARBONITE_OFF;
     }
 }
