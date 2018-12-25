@@ -1,0 +1,30 @@
+{
+	"result": {
+		"item": "amalgam:carbonite_4_off",
+    	"count": 4
+	},
+	"pattern": [
+		"crc",
+		"rgr",
+		"crc"
+	],
+	"type": "minecraft:crafting_shaped",
+	"key": {
+		"g": {
+			"item": "amalgam:gem_shard_4"
+		},
+		"r": {
+			"item": "minecraft:redstone"
+		},
+    	"c": [
+    		{
+				"item": "minecraft:coal",
+				"data": 0
+			},
+			{
+				"item": "minecraft:coal",
+				"data": 1
+			}
+		]
+	}
+}

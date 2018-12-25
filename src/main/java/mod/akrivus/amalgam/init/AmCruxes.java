@@ -95,8 +95,8 @@ public class AmCruxes {
 			EntityNacre.NACRE_YIELDS.put(Blocks.MAGENTA_GLAZED_TERRACOTTA.getDefaultState(), 5.99);
 			EntityNacre.NACRE_YIELDS.put(Blocks.PINK_GLAZED_TERRACOTTA.getDefaultState(), 5.99);
 			EntityNacre.NACRE_YIELDS.put(Blocks.PURPLE_GLAZED_TERRACOTTA.getDefaultState(), 5.99);
-			EntityNacre.NACRE_YIELDS.put(Blocks.COAL_ORE.getDefaultState(), 0.55);
-			EntityNacre.NACRE_YIELDS.put(Blocks.WATER.getDefaultState(), 0.45);
+			EntityNacre.NACRE_YIELDS.put(Blocks.COAL_ORE.getDefaultState(), 0.35);
+			EntityNacre.NACRE_YIELDS.put(Blocks.WATER.getDefaultState(), 0.35);
 			EntityNacre.NACRE_YIELDS.put(Blocks.CLAY.getDefaultState(), 0.35);
 			EntityNacre.NACRE_YIELDS.put(Blocks.LOG.getDefaultState(), 0.09);
 			EntityNacre.NACRE_YIELDS.put(Blocks.LOG2.getDefaultState(), 0.09);
