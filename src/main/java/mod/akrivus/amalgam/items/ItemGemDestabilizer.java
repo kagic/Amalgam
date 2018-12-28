@@ -13,8 +13,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -25,9 +25,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemGemDestabilizer extends Item {
+public class ItemGemDestabilizer extends ItemSword {
 	public int color;
 	public ItemGemDestabilizer(int index) {
+		super(ToolMaterial.GOLD);
 		this.setUnlocalizedName("destabilizer_" + index);
 		this.setMaxStackSize(1);
 		this.setMaxDamage(24);
