@@ -18,11 +18,11 @@ import mod.akrivus.kagic.init.ModSounds;
 import mod.akrivus.kagic.util.ShatterDamage;
 import mod.heimrarnadalr.kagic.util.Colors;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCrops;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.INpc;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
@@ -517,15 +517,14 @@ public class EntityNacre extends EntityPearl implements INpc {
 			if (!world.isAirBlock(pos)) {
 				IBlockState state = world.getBlockState(pos);
 				Block block = state.getBlock();
-				if (block == Blocks.COAL_BLOCK || block == Blocks.COAL_ORE
-				 || block == Blocks.END_STONE || block == Blocks.NETHERRACK
+				if (block == Blocks.COAL_BLOCK || block == Blocks.COAL_ORE || block == Blocks.NETHERRACK
 				 || state.getMaterial() == Material.GOURD || state.getMaterial() == Material.CAKE
 				 || state.getMaterial() == Material.VINE || state.getMaterial() == Material.CLAY
 				 || state.getMaterial() == Material.GROUND || state.getMaterial() == Material.GRASS
 				 || state.getMaterial() == Material.SNOW || state.getMaterial() == Material.LEAVES
 				 || state.getMaterial() == Material.PLANTS || state.getMaterial() == Material.SAND
 				 || state.getMaterial() == ModBlocks.DRAINED) {
-					return this.hasAir(pos);
+					return this.hasAir(pos) && (block != Blocks.FARMLAND || !(block instanceof BlockCrops));
 				}
 			}
 			return false;
