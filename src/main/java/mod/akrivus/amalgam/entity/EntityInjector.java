@@ -108,6 +108,7 @@ public class EntityInjector extends EntityMachine {
 			this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.ANVIL)), 0);
 			this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.DISPENSER)), 0);
 			this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.HOPPER)), 0);
+			this.entityDropItem(new ItemStack(ModItems.ACTIVATED_GEM_BASE, this.getLevel()), 0);
 		}
 		super.onDeath(cause);
 	}
