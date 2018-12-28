@@ -68,9 +68,9 @@ public class EntityBubble extends EntityLiving {
 			}
 			if (!player.isSneaking()) {
 				if (AmConfigs.enableBubblingNoGem || gem != null) {
-					BlockPos location = player.getBedLocation();
+					BlockPos location = player.getBedLocation(player.dimension);
 					if (location == null) {
-						location = this.world.getSpawnPoint();
+						return false;
 					}
 					if (!this.dead) {
 						boolean generating = true;
