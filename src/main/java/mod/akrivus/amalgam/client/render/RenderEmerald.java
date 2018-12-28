@@ -28,15 +28,6 @@ public class RenderEmerald extends RenderGemBase<EntityEmerald> {
 		this.addLayer(new LayerUniform(this));
 		this.addLayer(new LayerInsignia(this));
 		this.addLayer(new LayerGemPlacement(this));
-		if (KAGIC.isBirthday()) {
-			this.addLayer(new LayerBirthdayHat(this));
-		}
-		else if (KAGIC.isHalloween()) {
-			this.addLayer(new LayerWitchHat(this));
-		}
-		else if (KAGIC.isChristmas()) {
-			this.addLayer(new LayerSantaHat(this));
-		}
 	}
 	@Override
 	protected void preRenderCallback(EntityEmerald gem, float partialTicks) {

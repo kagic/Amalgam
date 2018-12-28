@@ -1,7 +1,7 @@
 {
 	"result": {
 		"item": "amalgam:carbonite_8_off",
-    	"count": 4
+    		"count": 4
 	},
 	"pattern": [
 		"crc",
@@ -16,8 +16,8 @@
 		"r": {
 			"item": "minecraft:redstone"
 		},
-    	"c": [
-    		{
+	    	"c": [
+	    		{
 				"item": "minecraft:coal",
 				"data": 0
 			},
