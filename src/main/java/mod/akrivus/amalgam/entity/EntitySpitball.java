@@ -114,9 +114,6 @@ public class EntitySpitball extends Entity {
 	            	}
            		}
             }
-           	else {
-            	this.makeAreaOfEffectCloud(new BlockPos(result.hitVec));
-           	}
            	if (this.world.getGameRules().getBoolean("mobGriefing") && result != null) {
 	        	for (int x = -3; x < 3; ++x) {
 	        		for (int y = -3; y < 3; ++y) {
@@ -146,6 +143,7 @@ public class EntitySpitball extends Entity {
 	            	}
 	        	}
            	}
+        	this.makeAreaOfEffectCloud(new BlockPos(result.hitVec));
            	this.world.playSound(null, this.getPosition(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 			this.setDead();
         }
