@@ -92,11 +92,8 @@ public class EntityFusedTopaz extends EntityFusionGem implements IAnimals {
 			this.setUniformColor(gem.getUniformColor());
 		}
 		else {
-			if (this.getSpecial() + gem.getSpecial() == 0) {
-				this.setSpecial(0);
-			}
-			else if (this.getSpecial() + gem.getSpecial() == 2) {
-				this.setSpecial(1);
+			if (this.getSpecial() == gem.getSpecial()) {
+				this.setSpecial(gem.getSpecial());
 			}
 			else {
 				this.setSpecial(2);

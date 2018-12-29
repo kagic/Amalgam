@@ -32,25 +32,19 @@ public class BlockCarbonite extends Block {
         }
 	}
 	@Override
+	public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+		super.onBlockAdded(world, pos, state);
+		this.activate(world, pos, null);
+    }
+	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		super.neighborChanged(state, world, pos, block, fromPos);
-		IBlockState from = world.getBlockState(fromPos);
-		boolean powered = world.isBlockPowered(pos);
-		if (from.getBlock() instanceof BlockCarbonite) {
-			BlockCarbonite carbonite = (BlockCarbonite)(from.getBlock());
-			if (carbonite.powered) {
-				powered = true;
-			}
-			else if (powered) {
-				world.setBlockState(fromPos, carbonite.getPoweredVariety().getDefaultState());
-			}
-		}
-		if (!this.powered && powered) {
-			world.setBlockState(pos, this.getPoweredVariety().getDefaultState());
-		}
-		if (!powered && this.powered) {
-			world.setBlockState(pos, this.getNormalVariety().getDefaultState());
-		}
+		this.activate(world, pos, fromPos);
+    }
+	@Override
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
+		super.updateTick(world, pos, state, rand);
+		this.activate(world, pos, null);
     }
 	@Override
 	public EnumPushReaction getMobilityFlag(IBlockState state) {
@@ -161,5 +155,26 @@ public class BlockCarbonite extends Block {
     		return AmBlocks.BLACK_CARBONITE_OFF;
     	}
     	return AmBlocks.WHITE_CARBONITE_OFF;
+    }
+    private void activate(World world, BlockPos pos, BlockPos fromPos) {
+		boolean powered = world.isBlockPowered(pos);
+		if (fromPos != null) {
+	    	IBlockState from = world.getBlockState(fromPos);
+			if (from.getBlock() instanceof BlockCarbonite) {
+				BlockCarbonite carbonite = (BlockCarbonite)(from.getBlock());
+				if (carbonite.powered) {
+					powered = true;
+				}
+				else if (powered) {
+					world.setBlockState(fromPos, carbonite.getPoweredVariety().getDefaultState());
+				}
+			}
+		}
+		if (!this.powered && powered) {
+			world.setBlockState(pos, this.getPoweredVariety().getDefaultState());
+		}
+		if (!powered && this.powered) {
+			world.setBlockState(pos, this.getNormalVariety().getDefaultState());
+		}
     }
 }

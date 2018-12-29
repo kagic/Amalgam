@@ -524,7 +524,7 @@ public class EntityNacre extends EntityPearl implements INpc {
 				 || state.getMaterial() == Material.SNOW || state.getMaterial() == Material.LEAVES
 				 || state.getMaterial() == Material.PLANTS || state.getMaterial() == Material.SAND
 				 || state.getMaterial() == ModBlocks.DRAINED) {
-					return this.hasAir(pos) && (block != Blocks.FARMLAND || !(block instanceof BlockCrops));
+					return this.hasAir(pos) && (block != Blocks.FARMLAND && !(block instanceof BlockCrops));
 				}
 			}
 			return false;

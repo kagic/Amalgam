@@ -87,6 +87,7 @@ public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimal
         this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
 		this.tasks.addTask(3, new EntityAIFollowLeaderGem(this, 0.8D, GemPlacements.CHEST, EntityAquaAuraQuartz.class));
 		this.tasks.addTask(3, new EntityAIFollowOtherGem(this, 0.8D, EntityEmerald.class));
+		this.tasks.addTask(3, new EntityAIFollowOtherGem(this, 0.8D, EntityNacre.class));
         this.tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(5, new EntityAIStandGuard(this, 0.6D));
         

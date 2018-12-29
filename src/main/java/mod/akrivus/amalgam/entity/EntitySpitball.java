@@ -2,6 +2,7 @@ package mod.akrivus.amalgam.entity;
 
 import mod.akrivus.amalgam.gem.EntityNephrite;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCrops;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -127,16 +128,18 @@ public class EntitySpitball extends Entity {
 		        				}
 		                		IBlockState state = this.world.getBlockState(newp);
 		                		Block block = state.getBlock();
-		                		Material mat = state.getMaterial();
-		                		if (mat == Material.LAVA && this.world.isAirBlock(newp.up())) {
-		                			this.world.setBlockState(newp, Blocks.OBSIDIAN.getDefaultState());
-		                		}
-		                		else if (block == Blocks.MAGMA) {
-		                			this.world.setBlockState(newp, Blocks.GLOWSTONE.getDefaultState());
-		                		}
-		                		else if (block == Blocks.WEB || mat == Material.CACTUS || mat == Material.FIRE
-		                			|| mat == Material.LEAVES || mat == Material.PLANTS || mat == Material.VINE) {
-		                			this.world.destroyBlock(newp, true);
+		                		if ((block != Blocks.FARMLAND && !(block instanceof BlockCrops))) {
+			                		Material mat = state.getMaterial();
+			                		if (mat == Material.LAVA && this.world.isAirBlock(newp.up())) {
+			                			this.world.setBlockState(newp, Blocks.OBSIDIAN.getDefaultState());
+			                		}
+			                		else if (block == Blocks.MAGMA) {
+			                			this.world.setBlockState(newp, Blocks.GLOWSTONE.getDefaultState());
+			                		}
+			                		else if (block == Blocks.WEB || mat == Material.CACTUS || mat == Material.FIRE
+			                			|| mat == Material.LEAVES || mat == Material.PLANTS || mat == Material.VINE) {
+			                			this.world.destroyBlock(newp, true);
+			                		}
 		                		}
 	        				}
 	                	}
