@@ -61,7 +61,7 @@ public class ItemGemDestabilizer extends ItemSword {
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
         stack.damageItem(1, attacker);
         if (target instanceof EntityGem) {
-        	target.world.playSound(null, target.getPosition(), AmSounds.DESTABILIZER, SoundCategory.HOSTILE, 1.0F, 1.0F);
+        	//target.world.playSound(null, target.getPosition(), AmSounds.DESTABILIZER, SoundCategory.HOSTILE, 1.0F, 1.0F);
         	target.attackEntityFrom(new PoofDamage(), target.getMaxHealth());
         }
         return true;
