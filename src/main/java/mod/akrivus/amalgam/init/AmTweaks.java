@@ -6,8 +6,10 @@ import java.util.UUID;
 import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
+import mod.akrivus.amalgam.gem.EntityFusedPyrite;
 import mod.akrivus.amalgam.gem.EntityFusedRuby;
 import mod.akrivus.amalgam.gem.EntityFusedTopaz;
+import mod.akrivus.amalgam.gem.EntityPyrite;
 import mod.akrivus.amalgam.gem.ai.EntityAIBubbleItems;
 import mod.akrivus.amalgam.gem.ai.EntityAICallForBackup;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowLeaderGem;
@@ -199,8 +201,11 @@ public class AmTweaks {
 		protected static void tweak(EntityRuby gem) {
 			if (AmConfigs.socializeRubies) {
 				gem.tasks.addTask(4, new EntityAIFollowLeaderGem(gem, 0.8D, GemPlacements.NOSE, EntityJasper.class));
+				gem.tasks.addTask(4, new EntityAIFollowLeaderGem(gem, 0.8D, GemPlacements.CHEST, EntityPyrite.class));
 				gem.tasks.addTask(4, new EntityAIFollowLeaderGem(gem, 0.8D, GemPlacements.CHEST, EntityRuby.class));
 				gem.tasks.addTask(4, new EntityAIFollowOtherGem(gem, 0.8D, EntityBabyPearl.class));
+				gem.tasks.addTask(4, new EntityAIFollowOtherGem(gem, 0.8D, EntityFusedRuby.class));
+				gem.tasks.addTask(4, new EntityAIFollowOtherGem(gem, 0.8D, EntityFusedPyrite.class));
 				gem.targetTasks.addTask(2, new EntityAICallForBackup(gem, EntityRuby.class));
 			}
 			apply(gem);
