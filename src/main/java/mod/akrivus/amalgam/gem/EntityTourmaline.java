@@ -48,11 +48,13 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityTourmaline extends EntityGem implements IAnimals {
-	public static final HashMap<IBlockState, Double> TOURMALINE_YIELDS = new HashMap<IBlockState, Double>();
-	public static final double TOURMALINE_DEFECTIVITY_MULTIPLIER = 2;
-	public static final double TOURMALINE_DEPTH_THRESHOLD = 72;
-	public static final HashMap<Integer, ResourceLocation> TOURMALINE_HAIR_STYLES = new HashMap<Integer, ResourceLocation>();
+	public static final HashMap<IBlockState, Double> WTOURMALINE_YIELDS = new HashMap<IBlockState, Double>();
+	public static final double WTOURMALINE_DEFECTIVITY_MULTIPLIER = 2;
+	public static final double WTOURMALINE_DEPTH_THRESHOLD = 72;
+	public static final HashMap<Integer, ResourceLocation> WTOURMALINE_HAIR_STYLES = new HashMap<Integer, ResourceLocation>();
+	
 	private static final DataParameter<Integer> LOWER_COLOR = EntityDataManager.<Integer>createKey(EntityCitrine.class, DataSerializers.VARINT);
+	
 	public static final int LOWER_SKIN_COLOR_BEGIN = 0xFFC9E2; 
 	public static final int LOWER_SKIN_COLOR_END = 0xD9A3FF;
 	public static final int SKIN_COLOR_BEGIN = 0x45E79F; 
@@ -60,6 +62,7 @@ public class EntityTourmaline extends EntityGem implements IAnimals {
 	public static final int HAIR_COLOR_BEGIN = 0xA0FFD6;
 	public static final int HAIR_COLOR_END = 0x537066; 
 	private static final int NUM_HAIRSTYLES = 1;
+	
 	public EntityTourmaline(World worldIn) {
 		super(worldIn);
 		this.setSize(0.9F, 1.6F);

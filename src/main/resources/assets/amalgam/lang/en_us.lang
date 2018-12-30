@@ -11,6 +11,7 @@ entity.kagic.emerald.name=Emerald
 entity.kagic.aqua_aura_quartz.name=Aqua Aura Quartz
 entity.kagic.wtourmaline.name=Watermelon Tourmaline
 entity.kagic.melanite.name=Melanite
+entity.kagic.melanite.name=Hessonite
 entity.kagic.steven.name=Steven
 entity.kagic.connie.name=Connie
 
@@ -27,6 +28,7 @@ entity.emerald.name=Emerald
 entity.aqua_aura_quartz.name=Aqua Aura Quartz
 entity.wtourmaline.name=Watermelon Tourmaline
 entity.melanite.name=Melanite
+entity.hessonite.name=Hessonite
 
 entity.steven.name=Steven
 entity.connie.name=Connie

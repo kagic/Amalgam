@@ -9,14 +9,14 @@ public class ModelTourmaline extends ModelGem {
     public ModelTourmaline() {
     	super(0.0F, 0.0F, 70, 64, false, -1F);
         this.bipedHead = new ModelRenderer(this, 0, 0);
-        this.bipedHead.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.bipedHead.setRotationPoint(0.0F, 4.0F, 0.0F);
         this.bipedHead.addBox(-4.0F, -1.0F, -4.0F, 8, 8, 8, 0.0F);
 		if (KAGIC.isHalloween() || KAGIC.isBirthday() || KAGIC.isChristmas()) {
 			this.bipedHead.addChild(this.witchHat);
 		}
 		
         this.bipedHeadwear = new ModelRenderer(this, 32, 0);
-        this.bipedHeadwear.setRotationPoint(0.0F, 0.0F, 0.0F);
+        this.bipedHeadwear.setRotationPoint(0.0F, 4.0F, 0.0F);
         this.bipedHeadwear.addBox(-4.5F, -1.1F, -4.5F, 9, 9, 9, 0.0F);
         
         this.bipedBody = new ModelRenderer(this, 0, 16);
