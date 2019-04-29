@@ -3,8 +3,8 @@
 	"defaults": {
 		"model": "minecraft:cube_column",
 		"textures": {
-			"side": "ke2:blocks/gray_decorative_carbonite_side",
-			"end": "ke2:blocks/gray_decorative_carbonite_top"
+			"side": "amalgam:blocks/gray_decorative_carbonite_side",
+			"end": "amalgam:blocks/gray_decorative_carbonite_top"
 		}
 	},
 	"variants": {

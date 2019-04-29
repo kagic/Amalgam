@@ -3,7 +3,7 @@
 	"defaults": {
 		"model": "minecraft:cube_all",
 		"textures": {
-			"all": "ke2:blocks/magenta_carbonite_on"
+			"all": "amalgam:blocks/magenta_carbonite_on"
 		}
 	},
 	"variants": {

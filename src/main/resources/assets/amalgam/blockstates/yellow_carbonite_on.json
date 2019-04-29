@@ -3,7 +3,7 @@
 	"defaults": {
 		"model": "minecraft:cube_all",
 		"textures": {
-			"all": "ke2:blocks/yellow_carbonite_on"
+			"all": "amalgam:blocks/yellow_carbonite_on"
 		}
 	},
 	"variants": {
