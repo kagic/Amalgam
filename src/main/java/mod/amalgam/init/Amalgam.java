@@ -130,7 +130,6 @@ public class Amalgam {
 		catch (IOException e) {
 		   e.printStackTrace();
 		}
-    	AmSkills.register();
     	AmCruxes.register();
     }
     @EventHandler
