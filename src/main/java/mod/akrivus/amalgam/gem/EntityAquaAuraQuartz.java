@@ -203,22 +203,6 @@ public class EntityAquaAuraQuartz extends EntityQuartzSoldier implements IAnimal
 	}
 	
 	/*********************************************************
-	 * Methods related to sound.                             *
-	 *********************************************************/
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return this.isPrimary() ? AmSounds.PRIME_AQUA_AURA_QUARTZ_HURT : AmSounds.AQUA_AURA_QUARTZ_HURT;
-	}
-	@Override
-	protected SoundEvent getObeySound() {
-		return this.isPrimary() ? AmSounds.PRIME_AQUA_AURA_QUARTZ_OBEY : AmSounds.AQUA_AURA_QUARTZ_OBEY;
-	}
-	@Override
-	protected SoundEvent getDeathSound() {
-		return this.isPrimary() ? AmSounds.PRIME_AQUA_AURA_QUARTZ_DEATH : AmSounds.AQUA_AURA_QUARTZ_DEATH;
-	}
-	
-	/*********************************************************
 	 * Methods related to rendering.                         *
 	 *********************************************************/
 	@Override

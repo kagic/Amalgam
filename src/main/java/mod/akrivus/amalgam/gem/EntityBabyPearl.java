@@ -204,32 +204,6 @@ public class EntityBabyPearl extends EntityPearl implements INpc {
 		return slots;
 	}
 	@Override
-	public int getTalkInterval() {
-		return 120;
-	}
-	protected SoundEvent getLivingSound() {
-		if (this.rand.nextInt(4) == 0) {
-			return AmSounds.BABY_PEARL_OBEY;
-		}
-		return AmSounds.BABY_PEARL_OH;
-	}
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return AmSounds.BABY_PEARL_OH;
-	}
-	@Override
-	protected SoundEvent getObeySound() {
-		return AmSounds.BABY_PEARL_OBEY;
-	}
-	@Override
-	protected SoundEvent getDeathSound() {
-		return AmSounds.BABY_PEARL_OH;
-	}
-	@Override
-	protected SoundEvent getWeirdSound() {
-		return AmSounds.BABY_PEARL_OH;
-	}
-	@Override
 	public int playNote(int tone, SoundEvent sound) {
 		// 2 = half note
 		// 7 = half rest

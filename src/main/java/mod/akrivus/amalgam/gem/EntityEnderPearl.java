@@ -120,27 +120,4 @@ public class EntityEnderPearl extends EntityPearl implements INpc {
         }
         return flag;
     }
-    @Override
-	public int playNote(int tone) {
-		return this.playNote(tone, AmSounds.ENDER_PEARL_SING);
-	}
-    @Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return AmSounds.ENDER_PEARL_HURT;
-	}
-	@Override
-	protected SoundEvent getObeySound() {
-		return AmSounds.ENDER_PEARL_OBEY;
-	}
-	@Override
-	protected SoundEvent getDeathSound() {
-		return AmSounds.ENDER_PEARL_DEATH;
-	}
-	@Override
-	protected SoundEvent getWeirdSound() {
-		return AmSounds.ENDER_PEARL_WEIRD;
-	}
-	protected SoundEvent getLivingSound() {
-		return AmSounds.ENDER_PEARL_WEIRD;
-	}
 }

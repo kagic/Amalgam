@@ -115,33 +115,6 @@ public class EntityEmerald extends EntityGem implements IAnimals {
     }
 	
 	/*********************************************************
-	 * Methods related to sound.                             *
-	 *********************************************************/
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return AmSounds.EMERALD_HURT;
-	}
-	@Override
-	protected SoundEvent getObeySound() {
-		return AmSounds.EMERALD_OBEY;
-	}
-	@Override
-	protected SoundEvent getDeathSound() {
-		return AmSounds.EMERALD_DEATH;
-	}
-	@Override
-	protected SoundEvent getAmbientSound() {
-		if (this.rand.nextInt(3) == 0) {
-			return AmSounds.EMERALD_LIVING;
-		} else {
-			return null;
-		}
-	}
-	public void playDenySound() {
-		this.playSound(AmSounds.EMERALD_DENY, this.getSoundVolume(), this.getSoundPitch());
-	}
-	
-	/*********************************************************
 	 * Methods related to rendering.                         *
 	 *********************************************************/
 	@Override

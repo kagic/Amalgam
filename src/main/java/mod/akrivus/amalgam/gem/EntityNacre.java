@@ -286,7 +286,6 @@ public class EntityNacre extends EntityPearl implements INpc {
 					this.totalExpected = 0;
 				}
 				if (this.world.getWorldTime() % (80 + this.rand.nextInt(80)) == 0) {
-					this.playSound(AmSounds.NACRE_SNEEZE, 5.0F, this.getSoundPitch());
 					if (this.totalExpected > 0) {
 						this.attackEntityFrom(new ShatterDamage(), 2.0F);
 						this.addStress(3);
@@ -441,22 +440,6 @@ public class EntityNacre extends EntityPearl implements INpc {
 			}
 			return this.rand.nextInt(64) + 64;
 		}
-	}
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return AmSounds.NACRE_HURT;
-	}
-	@Override
-	protected SoundEvent getObeySound() {
-		return AmSounds.NACRE_OBEY;
-	}
-	@Override
-	protected SoundEvent getDeathSound() {
-		return AmSounds.NACRE_DEATH;
-	}
-	@Override
-	protected SoundEvent getWeirdSound() {
-		return AmSounds.NACRE_SNEEZE;
 	}
 	public static class AIEatBlocks extends EntityAIMoveGemToBlock {
 		private final EntityNacre gem;

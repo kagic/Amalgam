@@ -220,22 +220,6 @@ public class EntityNephrite extends EntityGem implements IAnimals {
 			this.setHairStyle(0);
 		}
 	}
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return AmSounds.NEPHRITE_INJURE;
-	}
-	@Override
-	protected SoundEvent getObeySound() {
-		return AmSounds.NEPHRITE_OBEY;
-	}
-	@Override
-	protected SoundEvent getDeathSound() {
-		return AmSounds.NEPHRITE_INJURE;
-	}
-	@Override
-	protected SoundEvent getAmbientSound() {
-		return AmSounds.NEPHRITE_LIVING;
-	}
 	public static class AISpitballAttack extends EntityAIBase {
 	    private final EntityNephrite nephrite;
 	    private int attackStep;

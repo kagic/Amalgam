@@ -179,18 +179,6 @@ public class EntityFusedPyrite extends EntityFusionGem implements IAnimals {
 		}
 	}
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return AmSounds.PYRITE_HURT;
-	}
-	@Override
-	protected SoundEvent getObeySound() {
-		return AmSounds.PYRITE_OBEY;
-	}
-	@Override
-	protected SoundEvent getDeathSound() {
-		return AmSounds.PYRITE_DEATH;
-	}
-	@Override
 	public void setAdjustedSize() {
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80D * this.getFusionCount());
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4D * this.getFusionCount());

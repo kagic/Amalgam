@@ -132,22 +132,6 @@ public class EntityTourmaline extends EntityGem implements IAnimals {
     }
 	
 	/*********************************************************
-	 * Methods related to sound.                             *
-	 *********************************************************/
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return AmSounds.TOURMALINE_HURT;
-	}
-	@Override
-	protected SoundEvent getObeySound() {
-		return AmSounds.TOURMALINE_OBEY;
-	}
-	@Override
-	protected SoundEvent getDeathSound() {
-		return AmSounds.TOURMALINE_DEATH;
-	}
-	
-	/*********************************************************
 	 * Methods related to rendering.                         *
 	 *********************************************************/
 	@Override

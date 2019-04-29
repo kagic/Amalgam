@@ -312,18 +312,6 @@ public class EntityPyrite extends EntityGem implements IAnimals {
 		}
 		return false;
 	}
-	@Override
-	protected SoundEvent getHurtSound(DamageSource source) {
-		return AmSounds.PYRITE_HURT;
-	}
-	@Override
-	protected SoundEvent getObeySound() {
-		return AmSounds.PYRITE_OBEY;
-	}
-	@Override
-	protected SoundEvent getDeathSound() {
-		return AmSounds.PYRITE_DEATH;
-	}
 	public static class AIFireballAttack extends EntityAIBase {
 	    private final EntityPyrite pyrite;
 	    private int attackStep;
