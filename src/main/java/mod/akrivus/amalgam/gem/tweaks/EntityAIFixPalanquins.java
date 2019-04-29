@@ -3,8 +3,8 @@ package mod.akrivus.amalgam.gem.tweaks;
 import java.util.List;
 
 import mod.akrivus.amalgam.entity.EntityPalanquin;
-import mod.akrivus.kagic.entity.gem.EntityBismuth;
-import mod.akrivus.kagic.init.ModSounds;
+import mod.kagic.entity.gem.EntityBismuth;
+import mod.kagic.init.ModSounds;
 import net.minecraft.entity.ai.EntityAIBase;
 
 public class EntityAIFixPalanquins extends EntityAIBase {

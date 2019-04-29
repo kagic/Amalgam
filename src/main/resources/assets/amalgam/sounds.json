@@ -1,9 +1,4 @@
 {
-	"records.love_like_you": {
-        "sounds": [
-            { "name": "amalgam:records/love_like_you", "stream": true }
-        ]
-    },
     "bubble.bubble": {
         "sounds": [
             { "name": "amalgam:bubble" }

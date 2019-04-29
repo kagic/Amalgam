@@ -2,7 +2,7 @@ package mod.akrivus.amalgam.items;
 
 import java.util.ArrayList;
 
-import mod.akrivus.kagic.init.ModCreativeTabs;
+import mod.kagic.init.ModCreativeTabs;
 import net.minecraft.item.Item;
 
 public class ItemGemShard extends Item {

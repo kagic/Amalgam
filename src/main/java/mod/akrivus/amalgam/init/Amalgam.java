@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 import mod.akrivus.amalgam.command.CommandGetCrux;
 import mod.akrivus.amalgam.proxies.CommonProxy;
-import mod.akrivus.kagic.init.ModConfigs;
-import mod.akrivus.kagic.util.injector.Injector;
+import mod.kagic.init.ModConfigs;
+import mod.kagic.util.injector.Injector;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;

@@ -2,7 +2,7 @@ package mod.akrivus.amalgam.gem.ai;
 
 import java.util.List;
 
-import mod.akrivus.kagic.entity.EntityGem;
+import mod.kagic.entity.EntityGem;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.pathfinding.PathNodeType;
 

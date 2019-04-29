@@ -1,6 +1,6 @@
 package mod.akrivus.amalgam.gem.tweaks;
 
-import mod.akrivus.kagic.entity.gem.EntityPeridot;
+import mod.kagic.entity.gem.EntityPeridot;
 import net.minecraft.entity.ai.EntityAIBase;
 
 public class EntityAIPeriPartyDance extends EntityAIBase {

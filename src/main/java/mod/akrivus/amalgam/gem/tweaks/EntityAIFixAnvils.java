@@ -1,7 +1,7 @@
 package mod.akrivus.amalgam.gem.tweaks;
 
 import mod.akrivus.amalgam.gem.ai.EntityAIMoveGemToBlock;
-import mod.akrivus.kagic.entity.gem.EntityBismuth;
+import mod.kagic.entity.gem.EntityBismuth;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAnvil;
 import net.minecraft.block.state.IBlockState;

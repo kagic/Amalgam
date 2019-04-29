@@ -7,10 +7,10 @@ import java.util.Map;
 import java.util.SortedMap;
 
 import mod.akrivus.amalgam.gem.EntityEnderPearl;
-import mod.akrivus.kagic.skills.Speak;
-import mod.akrivus.kagic.tileentity.TileEntityWarpPadCore;
-import mod.heimrarnadalr.kagic.worlddata.WarpPadDataEntry;
-import mod.heimrarnadalr.kagic.worlddata.WorldDataWarpPad;
+import mod.kagic.skills.Speak;
+import mod.kagic.tileentity.TileEntityWarpPadCore;
+import mod.kagic.worlddata.WarpPadDataEntry;
+import mod.kagic.worlddata.WorldDataWarpPad;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;

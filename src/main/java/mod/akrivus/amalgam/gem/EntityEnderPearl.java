@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import mod.akrivus.amalgam.init.AmItems;
 import mod.akrivus.amalgam.init.AmSounds;
-import mod.akrivus.kagic.entity.gem.EntityPearl;
+import mod.kagic.entity.gem.EntityPearl;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;

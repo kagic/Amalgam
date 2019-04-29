@@ -1,7 +1,7 @@
 package mod.akrivus.amalgam.client.render.layers;
 
 import mod.akrivus.amalgam.gem.EntityMelanite;
-import mod.akrivus.kagic.client.model.ModelGem;
+import mod.kagic.client.model.ModelGem;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;

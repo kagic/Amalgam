@@ -4,13 +4,12 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import mod.akrivus.amalgam.init.AmSounds;
-import mod.akrivus.kagic.init.ModCreativeTabs;
-import mod.akrivus.kagic.init.ModRecord;
+import mod.kagic.init.ModCreativeTabs;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -23,9 +22,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemConnieBracelet extends ModRecord {
+public class ItemConnieBracelet extends Item {
 	public ItemConnieBracelet() {
-		super("connie_bracelet", AmSounds.RECORD_LOVE_LIKE_YOU, false);
+		this.setUnlocalizedName("connie_bracelet");
+		this.setMaxStackSize(1);
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 	}
 	@Override

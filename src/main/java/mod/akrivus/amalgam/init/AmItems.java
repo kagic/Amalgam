@@ -5,8 +5,8 @@ import mod.akrivus.amalgam.items.ItemDebugStaff;
 import mod.akrivus.amalgam.items.ItemGemDestabilizer;
 import mod.akrivus.amalgam.items.ItemGemShard;
 import mod.akrivus.amalgam.items.ItemStevenStone;
-import mod.akrivus.kagic.init.ModItems;
-import mod.akrivus.kagic.items.ItemGem;
+import mod.kagic.init.ModItems;
+import mod.kagic.items.ItemGem;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 
@@ -39,7 +39,6 @@ public class AmItems {
 	public static final ItemConnieBracelet CONNIE_BRACELET = new ItemConnieBracelet();
 	public static final ItemDebugStaff DEBUG_STAFF = new ItemDebugStaff();
 	
-
 	public static final ItemGemDestabilizer WHITE_GEM_DESTABILIZER = new ItemGemDestabilizer(0);
 	public static final ItemGemDestabilizer ORANGE_GEM_DESTABILIZER = new ItemGemDestabilizer(1);
 	public static final ItemGemDestabilizer MAGENTA_GEM_DESTABILIZER = new ItemGemDestabilizer(2);

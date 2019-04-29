@@ -2,16 +2,16 @@ package mod.akrivus.amalgam.gem;
 
 import java.util.ArrayList;
 
-import mod.akrivus.kagic.entity.EntityFusionGem;
-import mod.akrivus.kagic.entity.EntityGem;
-import mod.akrivus.kagic.entity.ai.EntityAICommandGems;
-import mod.akrivus.kagic.entity.ai.EntityAIDiamondHurtByTarget;
-import mod.akrivus.kagic.entity.ai.EntityAIDiamondHurtTarget;
-import mod.akrivus.kagic.entity.ai.EntityAIFollowDiamond;
-import mod.akrivus.kagic.entity.ai.EntityAISitStill;
-import mod.akrivus.kagic.entity.ai.EntityAIStay;
-import mod.akrivus.kagic.init.ModItems;
-import mod.akrivus.kagic.init.ModSounds;
+import mod.kagic.entity.EntityFusionGem;
+import mod.kagic.entity.EntityGem;
+import mod.kagic.entity.ai.EntityAICommandGems;
+import mod.kagic.entity.ai.EntityAIDiamondHurtByTarget;
+import mod.kagic.entity.ai.EntityAIDiamondHurtTarget;
+import mod.kagic.entity.ai.EntityAIFollowDiamond;
+import mod.kagic.entity.ai.EntityAISitStill;
+import mod.kagic.entity.ai.EntityAIStay;
+import mod.kagic.init.ModItems;
+import mod.kagic.init.ModSounds;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

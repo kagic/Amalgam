@@ -1,17 +1,17 @@
 package mod.akrivus.amalgam.client.render;
 
 import mod.akrivus.amalgam.gem.EntityEnderPearl;
-import mod.akrivus.kagic.client.model.ModelPearl;
-import mod.akrivus.kagic.client.render.RenderGemBase;
-import mod.akrivus.kagic.client.render.layers.LayerBirthdayHat;
-import mod.akrivus.kagic.client.render.layers.LayerDiamondGlow;
-import mod.akrivus.kagic.client.render.layers.LayerGemPlacement;
-import mod.akrivus.kagic.client.render.layers.LayerPearlDress;
-import mod.akrivus.kagic.client.render.layers.LayerPearlHair;
-import mod.akrivus.kagic.client.render.layers.LayerPearlItem;
-import mod.akrivus.kagic.client.render.layers.LayerSantaHat;
-import mod.akrivus.kagic.client.render.layers.LayerWitchHat;
-import mod.akrivus.kagic.init.KAGIC;
+import mod.kagic.client.model.ModelPearl;
+import mod.kagic.client.render.RenderGemBase;
+import mod.kagic.client.render.layers.LayerBirthdayHat;
+import mod.kagic.client.render.layers.LayerDiamondGlow;
+import mod.kagic.client.render.layers.LayerGemPlacement;
+import mod.kagic.client.render.layers.LayerPearlDress;
+import mod.kagic.client.render.layers.LayerPearlHair;
+import mod.kagic.client.render.layers.LayerPearlItem;
+import mod.kagic.client.render.layers.LayerSantaHat;
+import mod.kagic.client.render.layers.LayerWitchHat;
+import mod.kagic.init.KAGIC;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 

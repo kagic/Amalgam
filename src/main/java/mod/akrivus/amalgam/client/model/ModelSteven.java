@@ -1,8 +1,8 @@
 package mod.akrivus.amalgam.client.model;
 
-import mod.akrivus.kagic.client.model.ModelGem;
-import mod.akrivus.kagic.entity.EntityGem;
-import mod.akrivus.kagic.init.KAGIC;
+import mod.kagic.client.model.ModelGem;
+import mod.kagic.entity.EntityGem;
+import mod.kagic.init.KAGIC;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

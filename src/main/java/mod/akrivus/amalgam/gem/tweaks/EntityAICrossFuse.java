@@ -2,8 +2,8 @@ package mod.akrivus.amalgam.gem.tweaks;
 
 import java.util.List;
 
-import mod.akrivus.kagic.entity.EntityFusionGem;
-import mod.akrivus.kagic.entity.EntityGem;
+import mod.kagic.entity.EntityFusionGem;
+import mod.kagic.entity.EntityGem;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.world.World;

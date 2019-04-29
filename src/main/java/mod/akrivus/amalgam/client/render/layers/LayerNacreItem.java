@@ -1,7 +1,7 @@
 package mod.akrivus.amalgam.client.render.layers;
 
 import mod.akrivus.amalgam.gem.EntityNacre;
-import mod.akrivus.kagic.client.render.RenderGemBase;
+import mod.kagic.client.render.RenderGemBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;

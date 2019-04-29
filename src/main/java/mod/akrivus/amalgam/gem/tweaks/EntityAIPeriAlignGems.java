@@ -2,8 +2,8 @@ package mod.akrivus.amalgam.gem.tweaks;
 
 import java.util.List;
 
-import mod.akrivus.kagic.entity.EntityGem;
-import mod.akrivus.kagic.entity.gem.EntityPeridot;
+import mod.kagic.entity.EntityGem;
+import mod.kagic.entity.gem.EntityPeridot;
 import net.minecraft.entity.ai.EntityAIBase;
 
 public class EntityAIPeriAlignGems extends EntityAIBase {

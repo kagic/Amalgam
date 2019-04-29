@@ -3,7 +3,7 @@ package mod.akrivus.amalgam.blocks;
 import java.util.Random;
 
 import mod.akrivus.amalgam.init.AmBlocks;
-import mod.akrivus.kagic.init.ModCreativeTabs;
+import mod.kagic.init.ModCreativeTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.MapColor;

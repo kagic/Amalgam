@@ -9,7 +9,7 @@ import mod.akrivus.amalgam.gem.EntityNacre;
 import mod.akrivus.amalgam.gem.EntityNephrite;
 import mod.akrivus.amalgam.gem.EntityPyrite;
 import mod.akrivus.amalgam.gem.EntityTourmaline;
-import mod.akrivus.kagic.init.ModEntities;
+import mod.kagic.init.ModEntities;
 import net.minecraft.init.Blocks;
 
 public class AmCruxes {

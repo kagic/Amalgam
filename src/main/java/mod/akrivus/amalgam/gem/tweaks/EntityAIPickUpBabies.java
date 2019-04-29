@@ -1,7 +1,7 @@
 package mod.akrivus.amalgam.gem.tweaks;
 
 import mod.akrivus.amalgam.gem.EntityBabyPearl;
-import mod.akrivus.kagic.entity.gem.EntityTopaz;
+import mod.kagic.entity.gem.EntityTopaz;
 import net.minecraft.entity.ai.EntityAITarget;
 import net.minecraft.util.math.AxisAlignedBB;
 

@@ -3,8 +3,8 @@ package mod.akrivus.amalgam.gem.tweaks;
 import java.util.List;
 
 import mod.akrivus.amalgam.gem.ai.EntityAIMoveGemToBlock;
-import mod.akrivus.kagic.entity.gem.EntityLapisLazuli;
-import mod.akrivus.kagic.entity.gem.EntityPeridot;
+import mod.kagic.entity.gem.EntityLapisLazuli;
+import mod.kagic.entity.gem.EntityPeridot;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;

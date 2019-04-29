@@ -1,8 +1,8 @@
 package mod.akrivus.amalgam.items;
 
 import mod.akrivus.amalgam.init.AmItems;
-import mod.akrivus.kagic.entity.EntityGem;
-import mod.akrivus.kagic.init.ModCreativeTabs;
+import mod.kagic.entity.EntityGem;
+import mod.kagic.init.ModCreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

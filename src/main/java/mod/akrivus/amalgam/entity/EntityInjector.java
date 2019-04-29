@@ -4,10 +4,10 @@ import java.util.List;
 
 import mod.akrivus.amalgam.entity.ai.EntityAIMachineFollowPlayer;
 import mod.akrivus.amalgam.gem.ai.EntityAIMoveGemToBlock;
-import mod.akrivus.kagic.init.ModBlocks;
-import mod.akrivus.kagic.init.ModItems;
-import mod.akrivus.kagic.init.ModSounds;
-import mod.akrivus.kagic.items.ItemActiveGemBase;
+import mod.kagic.init.ModBlocks;
+import mod.kagic.init.ModItems;
+import mod.kagic.init.ModSounds;
+import mod.kagic.items.ItemActiveGemBase;
 import net.minecraft.block.Block;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;

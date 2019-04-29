@@ -1,6 +1,6 @@
 package mod.akrivus.amalgam.gem.ai;
 
-import mod.akrivus.kagic.entity.EntityGem;
+import mod.kagic.entity.EntityGem;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAITarget;
 import net.minecraft.util.math.AxisAlignedBB;

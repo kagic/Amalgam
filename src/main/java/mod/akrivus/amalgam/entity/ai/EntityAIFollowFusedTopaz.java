@@ -2,7 +2,7 @@ package mod.akrivus.amalgam.entity.ai;
 
 import java.util.List;
 
-import mod.akrivus.kagic.entity.gem.EntityTopaz;
+import mod.kagic.entity.gem.EntityTopaz;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.pathfinding.PathNodeType;

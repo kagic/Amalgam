@@ -4,8 +4,8 @@ import java.util.List;
 
 import mod.akrivus.amalgam.init.AmConfigs;
 import mod.akrivus.amalgam.init.AmSounds;
-import mod.akrivus.kagic.entity.EntityGem;
-import mod.akrivus.kagic.items.ItemGem;
+import mod.kagic.entity.EntityGem;
+import mod.kagic.items.ItemGem;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;

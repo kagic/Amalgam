@@ -3,8 +3,8 @@ package mod.akrivus.amalgam.entity;
 import java.util.List;
 
 import mod.akrivus.amalgam.entity.ai.EntityAIMachineFollowPlayer;
-import mod.akrivus.kagic.init.ModItems;
-import mod.akrivus.kagic.init.ModSounds;
+import mod.kagic.init.ModItems;
+import mod.kagic.init.ModSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.entity.Entity;

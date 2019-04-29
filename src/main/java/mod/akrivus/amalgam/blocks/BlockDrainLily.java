@@ -2,8 +2,8 @@ package mod.akrivus.amalgam.blocks;
 
 import java.util.Random;
 
-import mod.akrivus.kagic.init.ModCreativeTabs;
-import mod.akrivus.kagic.util.injector.InjectorResult;
+import mod.kagic.init.ModCreativeTabs;
+import mod.kagic.util.injector.InjectorResult;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;

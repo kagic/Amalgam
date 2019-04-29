@@ -6,8 +6,8 @@ import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.entity.ai.EntityAIProtectVillagers;
 import mod.akrivus.amalgam.init.AmSounds;
-import mod.akrivus.kagic.entity.ai.EntityAIFollowGem;
-import mod.akrivus.kagic.entity.ai.EntityAIFollowPlayer;
+import mod.kagic.entity.ai.EntityAIFollowGem;
+import mod.kagic.entity.ai.EntityAIFollowPlayer;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;

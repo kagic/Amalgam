@@ -4,7 +4,7 @@ import java.util.Random;
 
 import mod.akrivus.amalgam.init.AmBlocks;
 import mod.akrivus.amalgam.tileentity.TileEntityWailingStone;
-import mod.akrivus.kagic.init.ModCreativeTabs;
+import mod.kagic.init.ModCreativeTabs;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.ITileEntityProvider;
