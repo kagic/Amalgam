@@ -3,7 +3,6 @@ package mod.akrivus.amalgam.gem;
 import java.util.HashMap;
 
 import mod.akrivus.amalgam.init.AmItems;
-import mod.akrivus.amalgam.init.AmSounds;
 import mod.kagic.entity.gem.EntityPearl;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -15,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;

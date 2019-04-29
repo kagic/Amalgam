@@ -9,7 +9,6 @@ import mod.akrivus.amalgam.gem.ai.EntityAIFollowLeaderGem;
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
 import mod.akrivus.amalgam.gem.tweaks.EntityAICrossFuse;
 import mod.akrivus.amalgam.init.AmItems;
-import mod.akrivus.amalgam.init.AmSounds;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAICommandGems;
 import mod.kagic.entity.ai.EntityAIDiamondHurtByTarget;
@@ -42,10 +41,8 @@ import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 

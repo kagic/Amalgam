@@ -8,7 +8,6 @@ import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
 import mod.akrivus.amalgam.init.AmItems;
-import mod.akrivus.amalgam.init.AmSounds;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAIStandGuard;
 import mod.kagic.entity.gem.EntityAmethyst;
@@ -36,7 +35,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DifficultyInstance;

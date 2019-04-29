@@ -6,7 +6,6 @@ import java.util.HashMap;
 import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.init.AmItems;
-import mod.akrivus.amalgam.init.AmSounds;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAICommandGems;
 import mod.kagic.entity.ai.EntityAIDiamondHurtByTarget;
@@ -41,7 +40,6 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;

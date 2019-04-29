@@ -6,7 +6,6 @@ import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.gem.ai.EntityAIFollowOtherGem;
 import mod.akrivus.amalgam.gem.tweaks.EntityAICrossFuse;
-import mod.akrivus.amalgam.init.AmSounds;
 import mod.kagic.entity.EntityFusionGem;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAICommandGems;
@@ -36,9 +35,7 @@ import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 

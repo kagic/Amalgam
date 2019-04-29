@@ -6,7 +6,6 @@ import java.util.HashMap;
 import com.google.common.base.Predicate;
 
 import mod.akrivus.amalgam.init.AmItems;
-import mod.akrivus.amalgam.init.AmSounds;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAICommandGems;
 import mod.kagic.entity.ai.EntityAIDiamondHurtByTarget;
@@ -29,9 +28,7 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 public class EntityEmerald extends EntityGem implements IAnimals {

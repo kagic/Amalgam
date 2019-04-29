@@ -22,7 +22,6 @@ import mod.akrivus.amalgam.human.EntityConnie;
 import mod.akrivus.amalgam.human.EntitySteven;
 import mod.akrivus.amalgam.human.EntityStevonnie;
 import mod.kagic.entity.EntityGem;
-import mod.kagic.entity.gem.EntityHessonite;
 import mod.kagic.init.ModEntities;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
